@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>吃货丫-java api</title>
+<style type="text/css">
+body{
+	margin: 0px;
+	padding: 0px;
+}
+
+h1{
+	position:fixed;
+	width:88%;
+	text-align:left;
+	margin-left:6%;
+	height:40px;
+	margin-top:10px;
+}
+
+h3{
+	position:fixed;
+	width:88%;
+	text-align:left;
+	margin-left:6%;
+	height:20px;
+	margin-top:80px;
+}
+
+.tab1{
+	margin-top:160px;
+	position:fixed;
+	width:88%;
+	margin-left: 6%;
+	font-variant: normal;
+}
+.tab1 th{
+	background-color: #1196EE;
+	color:#FFFFFF;
+	margin:0;
+	padding:0;
+	width:22%;
+}
+.tab1 td{
+	background-color: #CFFCFC;
+	margin:0;
+	padding:0;
+	text-align: center;
+}
+
+.tab2{
+	margin-top:280px;
+	position:fixed;
+	width:88%;
+	margin-left: 6%;
+	font-variant: normal;
+}
+.tab2 th{
+	background-color: #1196EE;
+	color:#FFFFFF;
+	margin:0;
+	padding:0;
+}
+.tab2 td{
+	background-color: #CFFCFC;
+	margin:0;
+	padding:0;
+	text-align: center;
+}
+
+</style>
+</head>
+<body>
+
+	<h1>吃货丫-java版后端API说明</h1>
+	
+	<h3>代码路径</h3>
+	
+	<table border="0" cellpadding="0" cellspacing="0" class="tab1">
+		<tr>
+			<th>环境</th>
+			<th>框架</th>
+			<th>开发工具</th>
+			<th>数据库</th>
+		</tr>
+		<tr>
+			<td>jdk1.8  tomcat8.0</td>
+			<td>springmvc spring3</td>
+			<td>eclipse 可自选</td>
+			<td>mysql</td>
+		</tr>
+	</table>
+	
+	<table border="0" cellpadding="0" cellspacing="0" class="tab2">
+		<tr>
+			<th width="20%">包名称</th>
+			<th width="20%">包路径</th>
+			<th width="48%">备注</th>
+		</tr>
+		<tr>
+			<td>控制器</td>
+			<td>com.controller</td>
+			<td>控制转发请求。命名规则:xxxController.java</td>
+		</tr>
+		<tr>
+			<td>过滤器</td>
+			<td>com.filter</td>
+			<td>过滤请求。命名规则:xxxFilter.java</td>
+		</tr>
+		<tr>
+			<td>数据映射层</td>
+			<td>com.mapper</td>
+			<td>数据映射的dao层，命名规则xxxMapper.java;数据映射的xml,命名规则xxxMapper.xml</td>
+		</tr>
+		<tr>
+			<td>实体类</td>
+			<td>com.pojo</td>
+			<td>入参实体。命名规则xxxPojoIn.java;出参实体。命名规则xxxPojoOut.java</td>
+		</tr>
+		<tr>
+			<td>服务层接口</td>
+			<td>com.service</td>
+			<td>调用dao层的服务层接口类。命名规则:xxxService.java</td>
+		</tr>
+		<tr>
+			<td>服务层接口实现类</td>
+			<td>com.service.impl</td>
+			<td>调用dao层的服务层接口的实现类。命名规则:xxxServiceImpl.java</td>
+		</tr>
+		<tr>
+			<td>通用工具类</td>
+			<td>com.tools</td>
+			<td>暂无</td>
+		</tr>
+	</table>
+	
+	<br>
+</body>
+</html>
