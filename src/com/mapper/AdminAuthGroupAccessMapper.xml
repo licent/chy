@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.AdminAuthGroupAccessMapper">
+  <resultMap id="BaseResultMap" type="com.pojo.out.AdminAuthGroupAccess">
+    <result column="uid" jdbcType="INTEGER" property="uid" />
+    <result column="group_id" jdbcType="INTEGER" property="groupId" />
+  </resultMap>
+  <insert id="insert" parameterType="com.pojo.out.AdminAuthGroupAccess">
+    insert into admin_auth_group_access (uid, group_id)
+    values (#{uid,jdbcType=INTEGER}, #{groupId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pojo.out.AdminAuthGroupAccess">
+    insert into admin_auth_group_access
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uid != null">
+        uid,
+      </if>
+      <if test="groupId != null">
+        group_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uid != null">
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="groupId != null">
+        #{groupId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

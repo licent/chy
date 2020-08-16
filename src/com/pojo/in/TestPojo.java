@@ -1,4 +1,4 @@
-package com.pojo;
+package com.pojo.in;
 
 public class TestPojo {
 

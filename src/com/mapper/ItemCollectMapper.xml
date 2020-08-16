@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.ItemCollectMapper">
+  <resultMap id="BaseResultMap" type="com.pojo.out.ItemCollect">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="admin_id" jdbcType="INTEGER" property="adminId" />
+    <result column="item_id" jdbcType="INTEGER" property="itemId" />
+    <result column="cu_date" jdbcType="VARCHAR" property="cuDate" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="item_outer_id" jdbcType="VARCHAR" property="itemOuterId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, admin_id, item_id, cu_date, status, item_outer_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_item_collect
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_item_collect
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.pojo.out.ItemCollect">
+    insert into t_item_collect (id, admin_id, item_id, 
+      cu_date, status, item_outer_id
+      )
+    values (#{id,jdbcType=INTEGER}, #{adminId,jdbcType=INTEGER}, #{itemId,jdbcType=INTEGER}, 
+      #{cuDate,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{itemOuterId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.pojo.out.ItemCollect">
+    insert into t_item_collect
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="adminId != null">
+        admin_id,
+      </if>
+      <if test="itemId != null">
+        item_id,
+      </if>
+      <if test="cuDate != null">
+        cu_date,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="itemOuterId != null">
+        item_outer_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="adminId != null">
+        #{adminId,jdbcType=INTEGER},
+      </if>
+      <if test="itemId != null">
+        #{itemId,jdbcType=INTEGER},
+      </if>
+      <if test="cuDate != null">
+        #{cuDate,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="itemOuterId != null">
+        #{itemOuterId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pojo.out.ItemCollect">
+    update t_item_collect
+    <set>
+      <if test="adminId != null">
+        admin_id = #{adminId,jdbcType=INTEGER},
+      </if>
+      <if test="itemId != null">
+        item_id = #{itemId,jdbcType=INTEGER},
+      </if>
+      <if test="cuDate != null">
+        cu_date = #{cuDate,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="itemOuterId != null">
+        item_outer_id = #{itemOuterId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pojo.out.ItemCollect">
+    update t_item_collect
+    set admin_id = #{adminId,jdbcType=INTEGER},
+      item_id = #{itemId,jdbcType=INTEGER},
+      cu_date = #{cuDate,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      item_outer_id = #{itemOuterId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

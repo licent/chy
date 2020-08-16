@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.ItemSkuMapper">
+  <resultMap id="BaseResultMap" type="com.pojo.out.ItemSku">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="item_id" jdbcType="INTEGER" property="itemId" />
+    <result column="itemscode" jdbcType="VARCHAR" property="itemscode" />
+    <result column="skuimage" jdbcType="VARCHAR" property="skuimage" />
+    <result column="skuspec" jdbcType="VARCHAR" property="skuspec" />
+    <result column="color" jdbcType="VARCHAR" property="color" />
+    <result column="size" jdbcType="VARCHAR" property="size" />
+    <result column="skusku" jdbcType="VARCHAR" property="skusku" />
+    <result column="price" jdbcType="REAL" property="price" />
+    <result column="onlineprice" jdbcType="REAL" property="onlineprice" />
+    <result column="skupurchaseprice" jdbcType="REAL" property="skupurchaseprice" />
+    <result column="skupreferentialprice" jdbcType="REAL" property="skupreferentialprice" />
+    <result column="skufactory" jdbcType="VARCHAR" property="skufactory" />
+    <result column="skucomponent1" jdbcType="VARCHAR" property="skucomponent1" />
+    <result column="skucomponent2" jdbcType="VARCHAR" property="skucomponent2" />
+    <result column="skucomponent3" jdbcType="VARCHAR" property="skucomponent3" />
+    <result column="identification" jdbcType="VARCHAR" property="identification" />
+    <result column="standard" jdbcType="VARCHAR" property="standard" />
+    <result column="washing" jdbcType="VARCHAR" property="washing" />
+    <result column="instruction" jdbcType="VARCHAR" property="instruction" />
+    <result column="sku_id" jdbcType="INTEGER" property="skuId" />
+    <result column="item_out_id" jdbcType="VARCHAR" property="itemOutId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, item_id, itemscode, skuimage, skuspec, color, size, skusku, price, onlineprice, 
+    skupurchaseprice, skupreferentialprice, skufactory, skucomponent1, skucomponent2, 
+    skucomponent3, identification, standard, washing, instruction, sku_id, item_out_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_item_sku
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_item_sku
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.pojo.out.ItemSku">
+    insert into t_item_sku (id, item_id, itemscode, 
+      skuimage, skuspec, color, 
+      size, skusku, price, onlineprice, 
+      skupurchaseprice, skupreferentialprice, skufactory, 
+      skucomponent1, skucomponent2, skucomponent3, 
+      identification, standard, washing, 
+      instruction, sku_id, item_out_id
+      )
+    values (#{id,jdbcType=INTEGER}, #{itemId,jdbcType=INTEGER}, #{itemscode,jdbcType=VARCHAR}, 
+      #{skuimage,jdbcType=VARCHAR}, #{skuspec,jdbcType=VARCHAR}, #{color,jdbcType=VARCHAR}, 
+      #{size,jdbcType=VARCHAR}, #{skusku,jdbcType=VARCHAR}, #{price,jdbcType=REAL}, #{onlineprice,jdbcType=REAL}, 
+      #{skupurchaseprice,jdbcType=REAL}, #{skupreferentialprice,jdbcType=REAL}, #{skufactory,jdbcType=VARCHAR}, 
+      #{skucomponent1,jdbcType=VARCHAR}, #{skucomponent2,jdbcType=VARCHAR}, #{skucomponent3,jdbcType=VARCHAR}, 
+      #{identification,jdbcType=VARCHAR}, #{standard,jdbcType=VARCHAR}, #{washing,jdbcType=VARCHAR}, 
+      #{instruction,jdbcType=VARCHAR}, #{skuId,jdbcType=INTEGER}, #{itemOutId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.pojo.out.ItemSku">
+    insert into t_item_sku
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="itemId != null">
+        item_id,
+      </if>
+      <if test="itemscode != null">
+        itemscode,
+      </if>
+      <if test="skuimage != null">
+        skuimage,
+      </if>
+      <if test="skuspec != null">
+        skuspec,
+      </if>
+      <if test="color != null">
+        color,
+      </if>
+      <if test="size != null">
+        size,
+      </if>
+      <if test="skusku != null">
+        skusku,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="onlineprice != null">
+        onlineprice,
+      </if>
+      <if test="skupurchaseprice != null">
+        skupurchaseprice,
+      </if>
+      <if test="skupreferentialprice != null">
+        skupreferentialprice,
+      </if>
+      <if test="skufactory != null">
+        skufactory,
+      </if>
+      <if test="skucomponent1 != null">
+        skucomponent1,
+      </if>
+      <if test="skucomponent2 != null">
+        skucomponent2,
+      </if>
+      <if test="skucomponent3 != null">
+        skucomponent3,
+      </if>
+      <if test="identification != null">
+        identification,
+      </if>
+      <if test="standard != null">
+        standard,
+      </if>
+      <if test="washing != null">
+        washing,
+      </if>
+      <if test="instruction != null">
+        instruction,
+      </if>
+      <if test="skuId != null">
+        sku_id,
+      </if>
+      <if test="itemOutId != null">
+        item_out_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="itemId != null">
+        #{itemId,jdbcType=INTEGER},
+      </if>
+      <if test="itemscode != null">
+        #{itemscode,jdbcType=VARCHAR},
+      </if>
+      <if test="skuimage != null">
+        #{skuimage,jdbcType=VARCHAR},
+      </if>
+      <if test="skuspec != null">
+        #{skuspec,jdbcType=VARCHAR},
+      </if>
+      <if test="color != null">
+        #{color,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null">
+        #{size,jdbcType=VARCHAR},
+      </if>
+      <if test="skusku != null">
+        #{skusku,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=REAL},
+      </if>
+      <if test="onlineprice != null">
+        #{onlineprice,jdbcType=REAL},
+      </if>
+      <if test="skupurchaseprice != null">
+        #{skupurchaseprice,jdbcType=REAL},
+      </if>
+      <if test="skupreferentialprice != null">
+        #{skupreferentialprice,jdbcType=REAL},
+      </if>
+      <if test="skufactory != null">
+        #{skufactory,jdbcType=VARCHAR},
+      </if>
+      <if test="skucomponent1 != null">
+        #{skucomponent1,jdbcType=VARCHAR},
+      </if>
+      <if test="skucomponent2 != null">
+        #{skucomponent2,jdbcType=VARCHAR},
+      </if>
+      <if test="skucomponent3 != null">
+        #{skucomponent3,jdbcType=VARCHAR},
+      </if>
+      <if test="identification != null">
+        #{identification,jdbcType=VARCHAR},
+      </if>
+      <if test="standard != null">
+        #{standard,jdbcType=VARCHAR},
+      </if>
+      <if test="washing != null">
+        #{washing,jdbcType=VARCHAR},
+      </if>
+      <if test="instruction != null">
+        #{instruction,jdbcType=VARCHAR},
+      </if>
+      <if test="skuId != null">
+        #{skuId,jdbcType=INTEGER},
+      </if>
+      <if test="itemOutId != null">
+        #{itemOutId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pojo.out.ItemSku">
+    update t_item_sku
+    <set>
+      <if test="itemId != null">
+        item_id = #{itemId,jdbcType=INTEGER},
+      </if>
+      <if test="itemscode != null">
+        itemscode = #{itemscode,jdbcType=VARCHAR},
+      </if>
+      <if test="skuimage != null">
+        skuimage = #{skuimage,jdbcType=VARCHAR},
+      </if>
+      <if test="skuspec != null">
+        skuspec = #{skuspec,jdbcType=VARCHAR},
+      </if>
+      <if test="color != null">
+        color = #{color,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null">
+        size = #{size,jdbcType=VARCHAR},
+      </if>
+      <if test="skusku != null">
+        skusku = #{skusku,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=REAL},
+      </if>
+      <if test="onlineprice != null">
+        onlineprice = #{onlineprice,jdbcType=REAL},
+      </if>
+      <if test="skupurchaseprice != null">
+        skupurchaseprice = #{skupurchaseprice,jdbcType=REAL},
+      </if>
+      <if test="skupreferentialprice != null">
+        skupreferentialprice = #{skupreferentialprice,jdbcType=REAL},
+      </if>
+      <if test="skufactory != null">
+        skufactory = #{skufactory,jdbcType=VARCHAR},
+      </if>
+      <if test="skucomponent1 != null">
+        skucomponent1 = #{skucomponent1,jdbcType=VARCHAR},
+      </if>
+      <if test="skucomponent2 != null">
+        skucomponent2 = #{skucomponent2,jdbcType=VARCHAR},
+      </if>
+      <if test="skucomponent3 != null">
+        skucomponent3 = #{skucomponent3,jdbcType=VARCHAR},
+      </if>
+      <if test="identification != null">
+        identification = #{identification,jdbcType=VARCHAR},
+      </if>
+      <if test="standard != null">
+        standard = #{standard,jdbcType=VARCHAR},
+      </if>
+      <if test="washing != null">
+        washing = #{washing,jdbcType=VARCHAR},
+      </if>
+      <if test="instruction != null">
+        instruction = #{instruction,jdbcType=VARCHAR},
+      </if>
+      <if test="skuId != null">
+        sku_id = #{skuId,jdbcType=INTEGER},
+      </if>
+      <if test="itemOutId != null">
+        item_out_id = #{itemOutId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pojo.out.ItemSku">
+    update t_item_sku
+    set item_id = #{itemId,jdbcType=INTEGER},
+      itemscode = #{itemscode,jdbcType=VARCHAR},
+      skuimage = #{skuimage,jdbcType=VARCHAR},
+      skuspec = #{skuspec,jdbcType=VARCHAR},
+      color = #{color,jdbcType=VARCHAR},
+      size = #{size,jdbcType=VARCHAR},
+      skusku = #{skusku,jdbcType=VARCHAR},
+      price = #{price,jdbcType=REAL},
+      onlineprice = #{onlineprice,jdbcType=REAL},
+      skupurchaseprice = #{skupurchaseprice,jdbcType=REAL},
+      skupreferentialprice = #{skupreferentialprice,jdbcType=REAL},
+      skufactory = #{skufactory,jdbcType=VARCHAR},
+      skucomponent1 = #{skucomponent1,jdbcType=VARCHAR},
+      skucomponent2 = #{skucomponent2,jdbcType=VARCHAR},
+      skucomponent3 = #{skucomponent3,jdbcType=VARCHAR},
+      identification = #{identification,jdbcType=VARCHAR},
+      standard = #{standard,jdbcType=VARCHAR},
+      washing = #{washing,jdbcType=VARCHAR},
+      instruction = #{instruction,jdbcType=VARCHAR},
+      sku_id = #{skuId,jdbcType=INTEGER},
+      item_out_id = #{itemOutId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

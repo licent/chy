@@ -4,78 +4,81 @@
 <meta charset="UTF-8">
 <title>吃货丫-java api</title>
 <style type="text/css">
-body{
+body {
 	margin: 0px;
 	padding: 0px;
 }
 
-h1{
-	position:fixed;
-	width:88%;
-	text-align:left;
-	margin-left:6%;
-	height:40px;
-	margin-top:10px;
+h1 {
+	position: fixed;
+	width: 88%;
+	text-align: left;
+	margin-left: 6%;
+	height: 40px;
+	margin-top: 10px;
 }
 
-h3{
-	position:fixed;
-	width:88%;
-	text-align:left;
-	margin-left:6%;
-	height:20px;
-	margin-top:80px;
+h3 {
+	position: fixed;
+	width: 88%;
+	text-align: left;
+	margin-left: 6%;
+	height: 20px;
+	margin-top: 80px;
 }
 
-.tab1{
-	margin-top:160px;
-	position:fixed;
-	width:88%;
+.tab1 {
+	margin-top: 160px;
+	position: fixed;
+	width: 88%;
 	margin-left: 6%;
 	font-variant: normal;
 }
-.tab1 th{
+
+.tab1 th {
 	background-color: #1196EE;
-	color:#FFFFFF;
-	margin:0;
-	padding:0;
-	width:22%;
+	color: #FFFFFF;
+	margin: 0;
+	padding: 0;
+	width: 22%;
 }
-.tab1 td{
+
+.tab1 td {
 	background-color: #CFFCFC;
-	margin:0;
-	padding:0;
+	margin: 0;
+	padding: 0;
 	text-align: center;
 }
 
-.tab2{
-	margin-top:280px;
-	position:fixed;
-	width:88%;
+.tab2 {
+	margin-top: 280px;
+	position: fixed;
+	width: 88%;
 	margin-left: 6%;
 	font-variant: normal;
 }
-.tab2 th{
+
+.tab2 th {
 	background-color: #1196EE;
-	color:#FFFFFF;
-	margin:0;
-	padding:0;
-}
-.tab2 td{
-	background-color: #CFFCFC;
-	margin:0;
-	padding:0;
-	text-align: center;
+	color: #FFFFFF;
+	margin: 0;
+	padding: 0;
 }
 
+.tab2 td {
+	background-color: #CFFCFC;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+}
 </style>
 </head>
 <body>
 
 	<h1>吃货丫-java版后端API说明</h1>
-	
+
 	<h3>代码存放位置:https://github.com/licent/chy.git</h3>
-	
+
 	<table border="0" cellpadding="0" cellspacing="0" class="tab1">
 		<tr>
 			<th>环境</th>
@@ -84,13 +87,13 @@ h3{
 			<th>数据库</th>
 		</tr>
 		<tr>
-			<td>jdk1.8  tomcat8.0</td>
+			<td>jdk1.8 tomcat8.0</td>
 			<td>springmvc spring3</td>
 			<td>eclipse 可自选</td>
 			<td>mysql</td>
 		</tr>
 	</table>
-	
+
 	<table border="0" cellpadding="0" cellspacing="0" class="tab2">
 		<tr>
 			<th width="20%">包名称</th>
@@ -108,14 +111,24 @@ h3{
 			<td>过滤请求。命名规则:xxxFilter.java</td>
 		</tr>
 		<tr>
+			<td>mybatis映射生成代码工具</td>
+			<td>com.generator</td>
+			<td>暂无</td>
+		</tr>
+		<tr>
 			<td>数据映射层</td>
 			<td>com.mapper</td>
 			<td>数据映射的dao层，命名规则xxxMapper.java;数据映射的xml,命名规则xxxMapper.xml</td>
 		</tr>
 		<tr>
-			<td>实体类</td>
-			<td>com.pojo</td>
-			<td>入参实体。命名规则xxxPojoIn.java;出参实体。命名规则xxxPojoOut.java</td>
+			<td>实体类-入参</td>
+			<td>com.pojo.in</td>
+			<td>命名规则:xxxParams.java</td>
+		</tr>
+		<tr>
+			<td>实体类-出参</td>
+			<td>com.pojo.out</td>
+			<td>暂无</td>
 		</tr>
 		<tr>
 			<td>服务层接口</td>
@@ -133,7 +146,7 @@ h3{
 			<td>暂无</td>
 		</tr>
 	</table>
-	
+
 	<br>
 </body>
 </html>
