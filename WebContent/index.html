@@ -71,6 +71,28 @@ h3 {
 	padding: 0;
 	text-align: center;
 }
+
+.tab3 {
+	margin-top: 580px;
+	position: fixed;
+	width: 88%;
+	margin-left: 6%;
+	font-variant: normal;
+}
+
+.tab3 th {
+	background-color: #1196EE;
+	color: #FFFFFF;
+	margin: 0;
+	padding: 0;
+}
+
+.tab3 td {
+	background-color: #CFFCFC;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+}
 </style>
 </head>
 <body>
@@ -144,6 +166,35 @@ h3 {
 			<td>通用工具类</td>
 			<td>com.tools</td>
 			<td>暂无</td>
+		</tr>
+	</table>
+
+
+	<table border="0" cellpadding="0" cellspacing="0" class="tab3">
+		<tr>
+			<th width="20%">更新日期</th>
+			<th width="20%">事项</th>
+			<th width="48%">说明</th>
+		</tr>
+		<tr>
+			<td>2020-08-16</td>
+			<td>基础类生成</td>
+			<td>com.mapper下所有dao层接口和xml映射文件生成</td>
+		</tr>
+		<tr>
+			<td>2020-08-16</td>
+			<td>基础类生成</td>
+			<td>com.pojo.out下所有出参实体封装自动生成</td>
+		</tr>
+		<tr>
+			<td>2020-08-16</td>
+			<td>控制器测试-com.controller.HomeController.java</td>
+			<td>http://localhost/initHomePage.do</td>
+		</tr>
+		<tr>
+			<td>2020-08-16</td>
+			<td>控制器访问数据库测试-com.controller.UserController.java</td>
+			<td>id是数据库user表用户id，根据id查询对应数据.http://localhost/getUserInfoById.do?id=2</td>
 		</tr>
 	</table>
 
