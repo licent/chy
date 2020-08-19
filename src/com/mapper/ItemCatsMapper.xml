@@ -13,6 +13,13 @@
   <sql id="Base_Column_List">
     id, cid, parent_cid, name, is_parent, list_order, img
   </sql>
+  
+  <select id="selectAll" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_item_cats
+  </select>
+  
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

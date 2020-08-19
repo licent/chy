@@ -1,17 +1,18 @@
 package com.controller;
 
+import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.fastjson.JSON;
+import com.pojo.out.ItemCats;
+import com.service.ItemCatsService;
 import com.tools.ResponseCode;
 import com.tools.ResponseInfo;
-
-import net.sf.json.processors.JsonBeanProcessor;
 
 /**
  * @author Taylor.O
@@ -21,15 +22,18 @@ import net.sf.json.processors.JsonBeanProcessor;
 
 @Controller
 public class HomeController {
+	@Autowired
+	ItemCatsService itemCatsService;
+
 	/**
-	 * 首页数据初始化
-	 * */
-	@RequestMapping("/initHomePage")
+	 * 商品分类查询
+	 */
+	@RequestMapping("/manage/item_cats/find")
 	@ResponseBody
-	public String initHomePage(@RequestParam Map<String,String> params) {
-		ResponseInfo<String> info =new ResponseInfo<String>();
+	public String itemCatsFind(@RequestParam Map<String, String> params) {
+		ResponseInfo<List<ItemCats>> info = new ResponseInfo<List<ItemCats>>();
 		try {
-			System.out.println(params.toString());
+			info.setData(itemCatsService.getAllItemCatsInfo());
 			info.setCode(ResponseCode.SUCC);
 			return info.toJsonString();
 		} catch (Exception e) {
@@ -38,4 +42,5 @@ public class HomeController {
 			return info.toJsonString();
 		}
 	}
+	
 }

@@ -1,5 +1,7 @@
 package com.mapper;
 
+import java.util.List;
+
 import com.pojo.out.ItemCats;
 
 public interface ItemCatsMapper {
@@ -14,4 +16,6 @@ public interface ItemCatsMapper {
     int updateByPrimaryKeySelective(ItemCats record);
 
     int updateByPrimaryKey(ItemCats record);
+    
+    List<ItemCats> selectAll();
 }
