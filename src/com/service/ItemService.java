@@ -22,4 +22,8 @@ public interface ItemService {
 	int updateByPrimaryKey(Item record);
 
 	List<Item> selectAllByParams(Map<String, Object> params);
+
+	List<Item> selectInfoLikeKey(Map<String, Object> params);
+
+	List<Item> getItemListByParams(Map<String, Object> params);
 }

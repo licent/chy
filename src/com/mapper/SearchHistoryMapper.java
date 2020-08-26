@@ -1,17 +1,23 @@
 package com.mapper;
 
+import java.util.List;
+import java.util.Map;
+
 import com.pojo.out.SearchHistory;
 
 public interface SearchHistoryMapper {
-    int deleteByPrimaryKey(Integer id);
+	int deleteByPrimaryKey(Integer id);
 
-    int insert(SearchHistory record);
+	int insert(SearchHistory record);
 
-    int insertSelective(SearchHistory record);
+	int insertSelective(SearchHistory record);
 
-    SearchHistory selectByPrimaryKey(Integer id);
+	SearchHistory selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(SearchHistory record);
+	int updateByPrimaryKeySelective(SearchHistory record);
 
-    int updateByPrimaryKey(SearchHistory record);
+	int updateByPrimaryKey(SearchHistory record);
+
+	List<SearchHistory> selectByParams(Map<String, Object> params);
+	
 }

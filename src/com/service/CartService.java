@@ -1,10 +1,10 @@
-package com.mapper;
+package com.service;
 
 import java.util.Map;
 
 import com.pojo.out.Cart;
 
-public interface CartMapper {
+public interface CartService {
 	int deleteByPrimaryKey(Integer id);
 
 	int insert(Cart record);

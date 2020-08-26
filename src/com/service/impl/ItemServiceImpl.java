@@ -61,4 +61,14 @@ public class ItemServiceImpl implements ItemService {
 		return itemMapper.selectAllByParams(params);
 	}
 
+	@Override
+	public List<Item> selectInfoLikeKey(Map<String, Object> params) {
+		return itemMapper.selectInfoLikeKey(params);
+	}
+
+	@Override
+	public List<Item> getItemListByParams(Map<String, Object> params) {
+		return itemMapper.getItemListByParams(params);
+	}
+
 }
