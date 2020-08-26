@@ -60,6 +60,18 @@
   <sql id="Blob_Column_List">
     ft, details
   </sql>
+  
+  <select id="selectAllByParams" parameterType="java.util.Map" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    from t_item
+    <where>
+		<if test="isParent != null">
+			and is_parent = #{id,jdbcType=INTEGER},
+		</if>
+	</where>
+  </select>
+  
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
     select 
     <include refid="Base_Column_List" />

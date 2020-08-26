@@ -1,124 +1,145 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mapper.ItemCatsMapper">
-  <resultMap id="BaseResultMap" type="com.pojo.out.ItemCats">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="cid" jdbcType="INTEGER" property="cid" />
-    <result column="parent_cid" jdbcType="INTEGER" property="parentCid" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="is_parent" jdbcType="TINYINT" property="isParent" />
-    <result column="list_order" jdbcType="INTEGER" property="listOrder" />
-    <result column="img" jdbcType="VARCHAR" property="img" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, cid, parent_cid, name, is_parent, list_order, img
-  </sql>
-  
-  <select id="selectAll" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from t_item_cats
-  </select>
-  
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from t_item_cats
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from t_item_cats
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.pojo.out.ItemCats">
-    insert into t_item_cats (id, cid, parent_cid, 
-      name, is_parent, list_order, 
-      img)
-    values (#{id,jdbcType=INTEGER}, #{cid,jdbcType=INTEGER}, #{parentCid,jdbcType=INTEGER}, 
-      #{name,jdbcType=VARCHAR}, #{isParent,jdbcType=TINYINT}, #{listOrder,jdbcType=INTEGER}, 
-      #{img,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.pojo.out.ItemCats">
-    insert into t_item_cats
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="cid != null">
-        cid,
-      </if>
-      <if test="parentCid != null">
-        parent_cid,
-      </if>
-      <if test="name != null">
-        name,
-      </if>
-      <if test="isParent != null">
-        is_parent,
-      </if>
-      <if test="listOrder != null">
-        list_order,
-      </if>
-      <if test="img != null">
-        img,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="cid != null">
-        #{cid,jdbcType=INTEGER},
-      </if>
-      <if test="parentCid != null">
-        #{parentCid,jdbcType=INTEGER},
-      </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="isParent != null">
-        #{isParent,jdbcType=TINYINT},
-      </if>
-      <if test="listOrder != null">
-        #{listOrder,jdbcType=INTEGER},
-      </if>
-      <if test="img != null">
-        #{img,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.pojo.out.ItemCats">
-    update t_item_cats
-    <set>
-      <if test="cid != null">
-        cid = #{cid,jdbcType=INTEGER},
-      </if>
-      <if test="parentCid != null">
-        parent_cid = #{parentCid,jdbcType=INTEGER},
-      </if>
-      <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="isParent != null">
-        is_parent = #{isParent,jdbcType=TINYINT},
-      </if>
-      <if test="listOrder != null">
-        list_order = #{listOrder,jdbcType=INTEGER},
-      </if>
-      <if test="img != null">
-        img = #{img,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.pojo.out.ItemCats">
-    update t_item_cats
-    set cid = #{cid,jdbcType=INTEGER},
-      parent_cid = #{parentCid,jdbcType=INTEGER},
-      name = #{name,jdbcType=VARCHAR},
-      is_parent = #{isParent,jdbcType=TINYINT},
-      list_order = #{listOrder,jdbcType=INTEGER},
-      img = #{img,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+	<resultMap id="BaseResultMap" type="com.pojo.out.ItemCats">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="cid" jdbcType="INTEGER" property="cid" />
+		<result column="parent_cid" jdbcType="INTEGER"
+			property="parentCid" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="is_parent" jdbcType="TINYINT"
+			property="isParent" />
+		<result column="list_order" jdbcType="INTEGER"
+			property="listOrder" />
+		<result column="img" jdbcType="VARCHAR" property="img" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, cid, parent_cid, name, is_parent, list_order, img
+	</sql>
+
+	<select id="selectAllByParams" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_item_cats
+		<where>
+			<if test="isParent != null">
+				and is_parent = #{isParent,jdbcType=INTEGER}
+			</if>
+		</where>
+		order by list_order asc
+	</select>
+
+	<select id="selectByPrimaryKey"
+		parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_item_cats
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey"
+		parameterType="java.lang.Integer">
+		delete from t_item_cats
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.pojo.out.ItemCats">
+		insert into t_item_cats (id,
+		cid, parent_cid,
+		name, is_parent, list_order,
+		img)
+		values
+		(#{id,jdbcType=INTEGER}, #{cid,jdbcType=INTEGER},
+		#{parentCid,jdbcType=INTEGER},
+		#{name,jdbcType=VARCHAR},
+		#{isParent,jdbcType=TINYINT}, #{listOrder,jdbcType=INTEGER},
+		#{img,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.pojo.out.ItemCats">
+		insert into t_item_cats
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="cid != null">
+				cid,
+			</if>
+			<if test="parentCid != null">
+				parent_cid,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="isParent != null">
+				is_parent,
+			</if>
+			<if test="listOrder != null">
+				list_order,
+			</if>
+			<if test="img != null">
+				img,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="cid != null">
+				#{cid,jdbcType=INTEGER},
+			</if>
+			<if test="parentCid != null">
+				#{parentCid,jdbcType=INTEGER},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="isParent != null">
+				#{isParent,jdbcType=TINYINT},
+			</if>
+			<if test="listOrder != null">
+				#{listOrder,jdbcType=INTEGER},
+			</if>
+			<if test="img != null">
+				#{img,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.pojo.out.ItemCats">
+		update t_item_cats
+		<set>
+			<if test="cid != null">
+				cid = #{cid,jdbcType=INTEGER},
+			</if>
+			<if test="parentCid != null">
+				parent_cid = #{parentCid,jdbcType=INTEGER},
+			</if>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="isParent != null">
+				is_parent = #{isParent,jdbcType=TINYINT},
+			</if>
+			<if test="listOrder != null">
+				list_order = #{listOrder,jdbcType=INTEGER},
+			</if>
+			<if test="img != null">
+				img = #{img,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.pojo.out.ItemCats">
+		update t_item_cats
+		set cid = #{cid,jdbcType=INTEGER},
+		parent_cid = #{parentCid,jdbcType=INTEGER},
+		name =
+		#{name,jdbcType=VARCHAR},
+		is_parent = #{isParent,jdbcType=TINYINT},
+		list_order = #{listOrder,jdbcType=INTEGER},
+		img =
+		#{img,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
 </mapper>

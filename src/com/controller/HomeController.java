@@ -30,10 +30,10 @@ public class HomeController {
 	 */
 	@RequestMapping("/manage/item_cats/find")
 	@ResponseBody
-	public String itemCatsFind(@RequestParam Map<String, String> params) {
+	public String ItemCatsList(@RequestParam Map<String, Object> params) {
 		ResponseInfo<List<ItemCats>> info = new ResponseInfo<List<ItemCats>>();
 		try {
-			info.setData(itemCatsService.getAllItemCatsInfo());
+			info.setData(itemCatsService.getAllItemCatsInfoByParams(params));
 			info.setCode(ResponseCode.SUCC);
 			return info.toJsonString();
 		} catch (Exception e) {
@@ -42,5 +42,40 @@ public class HomeController {
 			return info.toJsonString();
 		}
 	}
-	
+
+	/**
+	 * 粉丝数量
+	 */
+	@RequestMapping("/manage/user_address/count_fensi")
+	@ResponseBody
+	public String FansInfo(@RequestParam Map<String, String> params) {
+		ResponseInfo<List<ItemCats>> info = new ResponseInfo<List<ItemCats>>();
+		try {
+
+			info.setCode(ResponseCode.SUCC);
+			return info.toJsonString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			info.setCode(ResponseCode.EXCEPTION);
+			return info.toJsonString();
+		}
+	}
+
+	/**
+	 * 活跃指数
+	 */
+	@RequestMapping("/manage/order/count_money_by_ztd")
+	@ResponseBody
+	public String saleVolume(@RequestParam Map<String, String> params) {
+		ResponseInfo<List<ItemCats>> info = new ResponseInfo<List<ItemCats>>();
+		try {
+
+			info.setCode(ResponseCode.SUCC);
+			return info.toJsonString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			info.setCode(ResponseCode.EXCEPTION);
+			return info.toJsonString();
+		}
+	}
 }
