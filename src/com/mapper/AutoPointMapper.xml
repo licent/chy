@@ -21,6 +21,27 @@
     id, ztd, address, phone, code, abnormal, user_id, business_or_not, close_start_time, 
     is_close, close_end_time, is_open, status, parent_user_id
   </sql>
+  <select id="selectFansById" parameterType="java.util.Map" resultType="java.lang.Long">
+    SELECT
+		IFNULL(count(1), 0) AS fans
+	FROM
+		t_auto_point ap
+	INNER JOIN t_user_address ua ON ap.id = ua.ztd_id
+	WHERE
+		ap.id = #{ztd_id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectSaleVolumeById" parameterType="java.util.Map" resultType="java.lang.Double">
+    SELECT
+		IFNULL(sum(o.total_money), 0) AS saleVolume
+	FROM
+		t_auto_point ap
+	INNER JOIN t_order o ON ap.id = o.ztd_id
+	WHERE
+		o.`status` > 0
+	AND ap.id = 4
+  </select>
+  
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

@@ -1,10 +1,11 @@
-package com.mapper;
+package com.service;
 
 import java.util.Map;
 
 import com.pojo.out.AutoPoint;
 
-public interface AutoPointMapper {
+public interface AutoPointService {
+	
 	int deleteByPrimaryKey(Integer id);
 
 	int insert(AutoPoint record);
@@ -16,7 +17,7 @@ public interface AutoPointMapper {
 	int updateByPrimaryKeySelective(AutoPoint record);
 
 	int updateByPrimaryKey(AutoPoint record);
-
+	
 	double selectSaleVolumeById(Map<String, Object> params);
 
 	long selectFansById(Map<String, Object> params);
