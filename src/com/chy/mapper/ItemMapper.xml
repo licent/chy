@@ -210,9 +210,40 @@
 		yushuo_time, limits,
 		tag, renqi,ishot
 	</sql>
+	
 	<sql id="Blob_Column_List">
 		ft, details
 	</sql>
+	
+	<select id="selectCartItemByParams" parameterType="java.util.Map" resultMap="ResultMapWithBLOBs">
+		SELECT
+			i.*
+		FROM
+			t_item AS i
+		INNER JOIN t_cart AS c ON i.id = c.item_id
+		<where>
+			<if test="userId != null">
+				AND c.user_id =#{userId}
+			</if>
+			<if test="id != null">
+				AND c.id = #{id}
+			</if>
+		</where>
+	</select>
+	
+	<select id="selectHotItemByParams" parameterType="java.util.Map"
+		resultMap="ResultMapWithBLOBs">
+		SELECT
+			i.`name`,i.id
+		FROM
+			t_item AS i
+		LEFT JOIN t_item_cats AS ic ON i.cid = ic.cid
+		<where>
+			<if test="ishot != null">
+				and i.ishot = #{ishot,jdbcType=INTEGER}
+			</if>
+		</where>
+	</select>
 
 	<select id="selectAllByParams" parameterType="java.util.Map"
 		resultMap="ResultMapWithBLOBs">
@@ -222,26 +253,14 @@
 			t_item AS i
 		LEFT JOIN t_item_cats AS ic ON i.cid = ic.cid
 		<where>
-			<if test="ishot != null">
-				and i.ishot = #{ishot,jdbcType=INTEGER}
-			</if>
-			<if test="ishot != null">
+			<if test="cid != null">
 				and i.cid = #{cid,jdbcType=INTEGER}
 			</if>
-			<if test="ishot != null">
+			<if test="parentCid != null">
 				and ic.parent_cid = #{parentCid,jdbcType=INTEGER}
 			</if>
-		</where>
-	</select>
-
-	<select id="selectInfoLikeKey" parameterType="java.util.Map"
-		resultMap="ResultMapWithBLOBs">
-		select
-		<include refid="Base_Column_List" />
-		from t_item
-		<where>
 			<if test="key != null">
-				and (`name` like CONCAT('%',#{key},'%') or id=#{itemCatsId})</if>
+				and i.`name` like CONCAT('%',#{key},'%')</if>
 		</where>
 	</select>
 

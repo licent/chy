@@ -89,8 +89,7 @@ public class Tools {
 		}
 		try {
 			BeanInfo beanInfo = Introspector.getBeanInfo(bean.getClass());
-			PropertyDescriptor[] propertyDescriptors = beanInfo
-					.getPropertyDescriptors();
+			PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
 			for (PropertyDescriptor property : propertyDescriptors) {
 				String key = property.getName();
 				if (!key.equals("class")) {
@@ -108,15 +107,13 @@ public class Tools {
 	/**
 	 * bean转map
 	 */
-	public static Map<String, Object> beanToMap2(Map<String, Object> map,
-			Object bean) {
+	public static Map<String, Object> beanToMap2(Map<String, Object> map, Object bean) {
 		if (bean == null) {
 			return map;
 		}
 		try {
 			BeanInfo beanInfo = Introspector.getBeanInfo(bean.getClass());
-			PropertyDescriptor[] propertyDescriptors = beanInfo
-					.getPropertyDescriptors();
+			PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
 			for (PropertyDescriptor property : propertyDescriptors) {
 				String key = property.getName();
 				if (!key.equals("class")) {
@@ -198,8 +195,7 @@ public class Tools {
 		tmp.ensureCapacity(src.length() * 6);
 		for (i = 0; i < src.length(); i++) {
 			j = src.charAt(i);
-			if (Character.isDigit(j) || Character.isLowerCase(j)
-					|| Character.isUpperCase(j))
+			if (Character.isDigit(j) || Character.isLowerCase(j) || Character.isUpperCase(j))
 				tmp.append(j);
 			else if (j < 256) {
 				tmp.append("%");
@@ -223,13 +219,11 @@ public class Tools {
 			pos = src.indexOf("%", lastPos);
 			if (pos == lastPos) {
 				if (src.charAt(pos + 1) == 'u') {
-					ch = (char) Integer.parseInt(
-							src.substring(pos + 2, pos + 6), 16);
+					ch = (char) Integer.parseInt(src.substring(pos + 2, pos + 6), 16);
 					tmp.append(ch);
 					lastPos = pos + 6;
 				} else {
-					ch = (char) Integer.parseInt(
-							src.substring(pos + 1, pos + 3), 16);
+					ch = (char) Integer.parseInt(src.substring(pos + 1, pos + 3), 16);
 					tmp.append(ch);
 					lastPos = pos + 3;
 				}
@@ -250,7 +244,7 @@ public class Tools {
 	 * 取1-i范围内的随机整数
 	 */
 	public static long randomNumber(long i) {
-		return  (long)(1 + Math.random() * (i - 1 + 1));
+		return (long) (1 + Math.random() * (i - 1 + 1));
 	}
-	
+
 }

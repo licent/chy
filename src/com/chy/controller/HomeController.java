@@ -100,23 +100,4 @@ public class HomeController {
 		}
 	}
 
-	/**
-	 * 获取商品列表
-	 */
-	@RequestMapping("/manage/item/getItemListByParams")
-	@ResponseBody
-	public String getItemListByParams(@RequestParam Map<String, Object> params) {
-		ResponseInfo<List<Item>> info = new ResponseInfo<List<Item>>();
-		try {
-			// itemTagId
-			info.setData(itemService.getItemListByParams(params));
-			info.setCode(ResponseCode.SUCC);
-			return info.toJsonString();
-		} catch (Exception e) {
-			e.printStackTrace();
-			info.setCode(ResponseCode.EXCEPTION);
-			return info.toJsonString();
-		}
-	}
-
 }

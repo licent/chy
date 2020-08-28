@@ -32,6 +32,15 @@
 		delete from t_cart
 		where id = #{id,jdbcType=INTEGER}
 	</delete>
+
+	<delete id="deleteByParams" parameterType="java.util.Map">
+		delete from t_cart
+		where id = #{id,jdbcType=INTEGER}
+		and item_id=
+		#{itemId,jdbcType=INTEGER}
+		and user_id= #{userId,jdbcType=INTEGER}
+	</delete>
+
 	<insert id="insert" parameterType="com.chy.pojo.out.Cart">
 		insert into t_cart (id,
 		item_id, user_id,
@@ -41,7 +50,8 @@
 		#{userId,jdbcType=VARCHAR},
 		#{num,jdbcType=INTEGER})
 	</insert>
-	<insert id="insertSelective" parameterType="com.chy.pojo.out.Cart">
+	<insert id="insertSelective"
+		parameterType="com.chy.pojo.out.Cart">
 		insert into t_cart
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null">

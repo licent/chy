@@ -54,4 +54,9 @@ public class CartServiceImpl implements CartService {
 		return cartMapper.selectCountByParams(params);
 	}
 
+	@Override
+	public long deleteByParams(Map<String, Object> params) {
+		return cartMapper.deleteByParams(params);
+	}
+
 }

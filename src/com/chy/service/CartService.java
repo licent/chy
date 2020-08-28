@@ -18,4 +18,6 @@ public interface CartService {
 	int updateByPrimaryKey(Cart record);
 
 	long selectCountByParams(Map<String, Object> params);
+
+	long deleteByParams(Map<String, Object> params);
 }

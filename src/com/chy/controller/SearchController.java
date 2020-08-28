@@ -56,7 +56,7 @@ public class SearchController {
 		ResponseInfo<List<Item>> info = new ResponseInfo<List<Item>>();
 		try {
 			// ishot=1
-			info.setData(itemService.selectAllByParams(params));
+			info.setData(itemService.selectHotItemByParams(params));
 			info.setCode(ResponseCode.SUCC);
 			return info.toJsonString();
 		} catch (Exception e) {
@@ -67,15 +67,17 @@ public class SearchController {
 	}
 
 	/**
-	 * 模糊查询商品
+	 * 模糊查询商品 & 根据二级标签查询商品 & 根据一级标签查询商品
 	 */
 	@RequestMapping("/manage/search/getItem")
 	@ResponseBody
 	public String getItem(@RequestParam Map<String, Object> params) {
 		ResponseInfo<List<Item>> info = new ResponseInfo<List<Item>>();
 		try {
-			// key
-			info.setData(itemService.selectInfoLikeKey(params));
+			// key关键字
+			// cid分类标签Id
+			// parentCid分类标签父标签id
+			info.setData(itemService.selectAllByParams(params));
 			info.setCode(ResponseCode.SUCC);
 			return info.toJsonString();
 		} catch (Exception e) {

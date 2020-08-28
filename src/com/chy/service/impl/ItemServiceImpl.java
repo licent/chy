@@ -62,13 +62,18 @@ public class ItemServiceImpl implements ItemService {
 	}
 
 	@Override
-	public List<Item> selectInfoLikeKey(Map<String, Object> params) {
-		return itemMapper.selectInfoLikeKey(params);
+	public List<Item> selectHotItemByParams(Map<String, Object> params) {
+		return itemMapper.selectHotItemByParams(params);
 	}
 
 	@Override
 	public List<Item> getItemListByParams(Map<String, Object> params) {
 		return itemMapper.getItemListByParams(params);
+	}
+
+	@Override
+	public List<Item> selectCartItemByParams(Map<String, Object> params) {
+		return itemMapper.selectCartItemByParams(params);
 	}
 
 }
