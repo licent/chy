@@ -26,8 +26,8 @@
 			<if test="isParent != null">
 				and is_parent = #{isParent,jdbcType=INTEGER}
 			</if>
-			<if test="isParent != null">
-				and parent_id = #{parentId,jdbcType=INTEGER}
+			<if test="parentId != null">
+				and parent_cid = #{parentId,jdbcType=INTEGER}
 			</if>
 		</where>
 		order by list_order asc
