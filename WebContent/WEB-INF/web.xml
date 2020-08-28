@@ -6,7 +6,7 @@
   </welcome-file-list>
   <filter>
 		<filter-name>LoginFilter</filter-name>
-		<filter-class>com.filter.LoginFilter</filter-class>
+		<filter-class>com.chy.filter.LoginFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>LoginFilter</filter-name>

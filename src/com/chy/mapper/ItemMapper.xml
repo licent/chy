@@ -1,0 +1,879 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chy.mapper.ItemMapper">
+	<resultMap id="BaseResultMap" type="com.chy.pojo.out.Item">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="created" jdbcType="VARCHAR" property="created" />
+		<result column="modified" jdbcType="VARCHAR"
+			property="modified" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="pic_url" jdbcType="VARCHAR" property="picUrl" />
+		<result column="status" jdbcType="VARCHAR" property="status" />
+		<result column="business_code" jdbcType="VARCHAR"
+			property="businessCode" />
+		<result column="supplier_id" jdbcType="INTEGER"
+			property="supplierId" />
+		<result column="price" jdbcType="REAL" property="price" />
+		<result column="card_price" jdbcType="REAL"
+			property="cardPrice" />
+		<result column="tsc" jdbcType="VARCHAR" property="tsc" />
+		<result column="outer_id" jdbcType="VARCHAR" property="outerId" />
+		<result column="store_id" jdbcType="INTEGER" property="storeId" />
+		<result column="purchase_price" jdbcType="REAL"
+			property="purchasePrice" />
+		<result column="binds" jdbcType="VARCHAR" property="binds" />
+		<result column="sale_props" jdbcType="VARCHAR"
+			property="saleProps" />
+		<result column="vertical_market" jdbcType="TINYINT"
+			property="verticalMarket" />
+		<result column="customer_props" jdbcType="VARCHAR"
+			property="customerProps" />
+		<result column="property_alias" jdbcType="VARCHAR"
+			property="propertyAlias" />
+		<result column="product_id" jdbcType="INTEGER"
+			property="productId" />
+		<result column="cid" jdbcType="INTEGER" property="cid" />
+		<result column="cat_name" jdbcType="VARCHAR" property="catName" />
+		<result column="props" jdbcType="VARCHAR" property="props" />
+		<result column="props_str" jdbcType="VARCHAR"
+			property="propsStr" />
+		<result column="binds_str" jdbcType="VARCHAR"
+			property="bindsStr" />
+		<result column="sale_props_str" jdbcType="VARCHAR"
+			property="salePropsStr" />
+		<result column="sell_pt" jdbcType="VARCHAR" property="sellPt" />
+		<result column="item_tag_id" jdbcType="INTEGER"
+			property="itemTagId" />
+		<result column="updateer" jdbcType="VARCHAR"
+			property="updateer" />
+		<result column="list_time" jdbcType="TIMESTAMP"
+			property="listTime" />
+		<result column="discount_price" jdbcType="REAL"
+			property="discountPrice" />
+		<result column="title" jdbcType="VARCHAR" property="title" />
+		<result column="sales_volume" jdbcType="INTEGER"
+			property="salesVolume" />
+		<result column="refund_volume" jdbcType="INTEGER"
+			property="refundVolume" />
+		<result column="state" jdbcType="TINYINT" property="state" />
+		<result column="have_sku" jdbcType="TINYINT" property="haveSku" />
+		<result column="have_this" jdbcType="TINYINT"
+			property="haveThis" />
+		<result column="get_time" jdbcType="VARCHAR" property="getTime" />
+		<result column="yushuo_time" jdbcType="VARCHAR"
+			property="yushuoTime" />
+		<result column="limits" jdbcType="INTEGER" property="limits" />
+		<result column="tag" jdbcType="INTEGER" property="tag" />
+		<result column="renqi" jdbcType="INTEGER" property="renqi" />
+		<result column="ishot" jdbcType="INTEGER" property="ishot" />
+	</resultMap>
+	<resultMap extends="BaseResultMap" id="ResultMapWithBLOBs"
+		type="com.chy.pojo.out.ItemWithBLOBs">
+		<result column="ft" jdbcType="LONGVARCHAR" property="ft" />
+		<result column="details" jdbcType="LONGVARCHAR"
+			property="details" />
+	</resultMap>
+
+	<resultMap type="com.chy.pojo.out.Item" id="itemMain">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="created" jdbcType="VARCHAR" property="created" />
+		<result column="modified" jdbcType="VARCHAR"
+			property="modified" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="pic_url" jdbcType="VARCHAR" property="picUrl" />
+		<result column="status" jdbcType="VARCHAR" property="status" />
+		<result column="business_code" jdbcType="VARCHAR"
+			property="businessCode" />
+		<result column="supplier_id" jdbcType="INTEGER"
+			property="supplierId" />
+		<result column="price" jdbcType="REAL" property="price" />
+		<result column="card_price" jdbcType="REAL"
+			property="cardPrice" />
+		<result column="tsc" jdbcType="VARCHAR" property="tsc" />
+		<result column="outer_id" jdbcType="VARCHAR" property="outerId" />
+		<result column="store_id" jdbcType="INTEGER" property="storeId" />
+		<result column="purchase_price" jdbcType="REAL"
+			property="purchasePrice" />
+		<result column="binds" jdbcType="VARCHAR" property="binds" />
+		<result column="sale_props" jdbcType="VARCHAR"
+			property="saleProps" />
+		<result column="vertical_market" jdbcType="TINYINT"
+			property="verticalMarket" />
+		<result column="customer_props" jdbcType="VARCHAR"
+			property="customerProps" />
+		<result column="property_alias" jdbcType="VARCHAR"
+			property="propertyAlias" />
+		<result column="product_id" jdbcType="INTEGER"
+			property="productId" />
+		<result column="cid" jdbcType="INTEGER" property="cid" />
+		<result column="cat_name" jdbcType="VARCHAR" property="catName" />
+		<result column="props" jdbcType="VARCHAR" property="props" />
+		<result column="props_str" jdbcType="VARCHAR"
+			property="propsStr" />
+		<result column="binds_str" jdbcType="VARCHAR"
+			property="bindsStr" />
+		<result column="sale_props_str" jdbcType="VARCHAR"
+			property="salePropsStr" />
+		<result column="sell_pt" jdbcType="VARCHAR" property="sellPt" />
+		<result column="item_tag_id" jdbcType="INTEGER"
+			property="itemTagId" />
+		<result column="updateer" jdbcType="VARCHAR"
+			property="updateer" />
+		<result column="list_time" jdbcType="TIMESTAMP"
+			property="listTime" />
+		<result column="discount_price" jdbcType="REAL"
+			property="discountPrice" />
+		<result column="title" jdbcType="VARCHAR" property="title" />
+		<result column="sales_volume" jdbcType="INTEGER"
+			property="salesVolume" />
+		<result column="refund_volume" jdbcType="INTEGER"
+			property="refundVolume" />
+		<result column="state" jdbcType="TINYINT" property="state" />
+		<result column="have_sku" jdbcType="TINYINT" property="haveSku" />
+		<result column="have_this" jdbcType="TINYINT"
+			property="haveThis" />
+		<result column="get_time" jdbcType="VARCHAR" property="getTime" />
+		<result column="yushuo_time" jdbcType="VARCHAR"
+			property="yushuoTime" />
+		<result column="limits" jdbcType="INTEGER" property="limits" />
+		<result column="tag" jdbcType="INTEGER" property="tag" />
+		<result column="renqi" jdbcType="INTEGER" property="renqi" />
+		<result column="ishot" jdbcType="INTEGER" property="ishot" />
+		<collection property="userList" select="getUserList"
+			column="id">
+
+		</collection>
+	</resultMap>
+
+	<select id="getItemListByParams" parameterType="java.util.Map" resultMap="itemMain">
+		SELECT
+			i.*
+		FROM
+			t_item AS i
+		LEFT JOIN t_item_tag AS it ON i.item_tag_id = it.id
+		where  i.`status`='onsale' 
+		<if test="itemTagId != null">
+			and i.item_tag_id=#{itemTagId}
+		</if>
+	</select>
+
+	<select id="getUserList" resultType="com.chy.pojo.out.User">
+		SELECT
+			al.*
+		FROM
+			(
+				SELECT
+					a.*,
+				IF (
+					@itemId = a.item_id,
+					@rank := @rank + 1,
+					@rank := 1
+				) AS rank,
+				@itemId := a.item_id,
+				@rank,
+				@itemId
+			FROM
+				(
+					SELECT DISTINCT
+						oi.item_id,
+						u.*
+					FROM
+						t_order AS o
+					INNER JOIN t_order_item AS oi ON o.id = oi.order_id
+					INNER JOIN t_user AS u ON o.user_id = u.id
+					WHERE
+						o.`status` IN (1, 2) and oi.item_id=#{id}
+					ORDER BY
+						oi.item_id DESC
+				) a,
+				(SELECT @rank := 1, @itemId := '') b
+			 
+			) al
+		WHERE
+			al.rank <![CDATA[<]]> 4
+	</select>
+
+	<sql id="Base_Column_List">
+		id, created, modified, name, pic_url, status,
+		business_code, supplier_id,
+		price,
+		card_price, tsc, outer_id, store_id,
+		purchase_price, binds, sale_props,
+		vertical_market,
+		customer_props,
+		property_alias, product_id, cid, cat_name, props, props_str,
+		binds_str,
+		sale_props_str, sell_pt, item_tag_id, updateer, list_time,
+		discount_price, title,
+		sales_volume, refund_volume, state, have_sku,
+		have_this, get_time,
+		yushuo_time, limits,
+		tag, renqi,ishot
+	</sql>
+	<sql id="Blob_Column_List">
+		ft, details
+	</sql>
+
+	<select id="selectAllByParams" parameterType="java.util.Map"
+		resultMap="ResultMapWithBLOBs">
+		SELECT
+			i.*
+		FROM
+			t_item AS i
+		LEFT JOIN t_item_cats AS ic ON i.cid = ic.cid
+		<where>
+			<if test="ishot != null">
+				and i.ishot = #{ishot,jdbcType=INTEGER}
+			</if>
+			<if test="ishot != null">
+				and i.cid = #{cid,jdbcType=INTEGER}
+			</if>
+			<if test="ishot != null">
+				and ic.parent_cid = #{parentCid,jdbcType=INTEGER}
+			</if>
+		</where>
+	</select>
+
+	<select id="selectInfoLikeKey" parameterType="java.util.Map"
+		resultMap="ResultMapWithBLOBs">
+		select
+		<include refid="Base_Column_List" />
+		from t_item
+		<where>
+			<if test="key != null">
+				and (`name` like CONCAT('%',#{key},'%') or id=#{itemCatsId})</if>
+		</where>
+	</select>
+
+	<select id="selectByPrimaryKey"
+		parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from t_item
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey"
+		parameterType="java.lang.Integer">
+		delete from t_item
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.chy.pojo.out.ItemWithBLOBs">
+		insert into t_item (id,
+		created, modified,
+		name, pic_url, status,
+		business_code, supplier_id,
+		price,
+		card_price, tsc, outer_id,
+		store_id, purchase_price, binds,
+		sale_props, vertical_market, customer_props,
+		property_alias,
+		product_id, cid,
+		cat_name, props, props_str,
+		binds_str, sale_props_str,
+		sell_pt,
+		item_tag_id, updateer, list_time,
+		discount_price, title,
+		sales_volume,
+		refund_volume, state, have_sku,
+		have_this, get_time,
+		yushuo_time,
+		limits, tag, renqi,ishot
+		ft, details)
+		values
+		(#{id,jdbcType=INTEGER}, #{created,jdbcType=VARCHAR},
+		#{modified,jdbcType=VARCHAR},
+		#{name,jdbcType=VARCHAR},
+		#{picUrl,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR},
+		#{businessCode,jdbcType=VARCHAR}, #{supplierId,jdbcType=INTEGER},
+		#{price,jdbcType=REAL},
+		#{cardPrice,jdbcType=REAL},
+		#{tsc,jdbcType=VARCHAR}, #{outerId,jdbcType=VARCHAR},
+		#{storeId,jdbcType=INTEGER}, #{purchasePrice,jdbcType=REAL},
+		#{binds,jdbcType=VARCHAR},
+		#{saleProps,jdbcType=VARCHAR},
+		#{verticalMarket,jdbcType=TINYINT},
+		#{customerProps,jdbcType=VARCHAR},
+		#{propertyAlias,jdbcType=VARCHAR}, #{productId,jdbcType=INTEGER},
+		#{cid,jdbcType=INTEGER},
+		#{catName,jdbcType=VARCHAR},
+		#{props,jdbcType=VARCHAR},
+		#{propsStr,jdbcType=VARCHAR},
+		#{bindsStr,jdbcType=VARCHAR}, #{salePropsStr,jdbcType=VARCHAR},
+		#{sellPt,jdbcType=VARCHAR},
+		#{itemTagId,jdbcType=INTEGER},
+		#{updateer,jdbcType=VARCHAR},
+		#{listTime,jdbcType=TIMESTAMP},
+		#{discountPrice,jdbcType=REAL}, #{title,jdbcType=VARCHAR},
+		#{salesVolume,jdbcType=INTEGER},
+		#{refundVolume,jdbcType=INTEGER},
+		#{state,jdbcType=TINYINT},
+		#{haveSku,jdbcType=TINYINT},
+		#{haveThis,jdbcType=TINYINT}, #{getTime,jdbcType=VARCHAR},
+		#{yushuoTime,jdbcType=VARCHAR},
+		#{limits,jdbcType=INTEGER},
+		#{tag,jdbcType=INTEGER},
+		#{renqi,jdbcType=INTEGER},
+		#{ishot,jdbcType=INTEGER},
+		#{ft,jdbcType=LONGVARCHAR},
+		#{details,jdbcType=LONGVARCHAR})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.chy.pojo.out.ItemWithBLOBs">
+		insert into t_item
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="created != null">
+				created,
+			</if>
+			<if test="modified != null">
+				modified,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="picUrl != null">
+				pic_url,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="businessCode != null">
+				business_code,
+			</if>
+			<if test="supplierId != null">
+				supplier_id,
+			</if>
+			<if test="price != null">
+				price,
+			</if>
+			<if test="cardPrice != null">
+				card_price,
+			</if>
+			<if test="tsc != null">
+				tsc,
+			</if>
+			<if test="outerId != null">
+				outer_id,
+			</if>
+			<if test="storeId != null">
+				store_id,
+			</if>
+			<if test="purchasePrice != null">
+				purchase_price,
+			</if>
+			<if test="binds != null">
+				binds,
+			</if>
+			<if test="saleProps != null">
+				sale_props,
+			</if>
+			<if test="verticalMarket != null">
+				vertical_market,
+			</if>
+			<if test="customerProps != null">
+				customer_props,
+			</if>
+			<if test="propertyAlias != null">
+				property_alias,
+			</if>
+			<if test="productId != null">
+				product_id,
+			</if>
+			<if test="cid != null">
+				cid,
+			</if>
+			<if test="catName != null">
+				cat_name,
+			</if>
+			<if test="props != null">
+				props,
+			</if>
+			<if test="propsStr != null">
+				props_str,
+			</if>
+			<if test="bindsStr != null">
+				binds_str,
+			</if>
+			<if test="salePropsStr != null">
+				sale_props_str,
+			</if>
+			<if test="sellPt != null">
+				sell_pt,
+			</if>
+			<if test="itemTagId != null">
+				item_tag_id,
+			</if>
+			<if test="updateer != null">
+				updateer,
+			</if>
+			<if test="listTime != null">
+				list_time,
+			</if>
+			<if test="discountPrice != null">
+				discount_price,
+			</if>
+			<if test="title != null">
+				title,
+			</if>
+			<if test="salesVolume != null">
+				sales_volume,
+			</if>
+			<if test="refundVolume != null">
+				refund_volume,
+			</if>
+			<if test="state != null">
+				state,
+			</if>
+			<if test="haveSku != null">
+				have_sku,
+			</if>
+			<if test="haveThis != null">
+				have_this,
+			</if>
+			<if test="getTime != null">
+				get_time,
+			</if>
+			<if test="yushuoTime != null">
+				yushuo_time,
+			</if>
+			<if test="limits != null">
+				limits,
+			</if>
+			<if test="tag != null">
+				tag,
+			</if>
+			<if test="renqi != null">
+				renqi,
+			</if>
+			<if test="ishot != null">
+				ishot,
+			</if>
+			<if test="ft != null">
+				ft,
+			</if>
+			<if test="details != null">
+				details,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="created != null">
+				#{created,jdbcType=VARCHAR},
+			</if>
+			<if test="modified != null">
+				#{modified,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="picUrl != null">
+				#{picUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=VARCHAR},
+			</if>
+			<if test="businessCode != null">
+				#{businessCode,jdbcType=VARCHAR},
+			</if>
+			<if test="supplierId != null">
+				#{supplierId,jdbcType=INTEGER},
+			</if>
+			<if test="price != null">
+				#{price,jdbcType=REAL},
+			</if>
+			<if test="cardPrice != null">
+				#{cardPrice,jdbcType=REAL},
+			</if>
+			<if test="tsc != null">
+				#{tsc,jdbcType=VARCHAR},
+			</if>
+			<if test="outerId != null">
+				#{outerId,jdbcType=VARCHAR},
+			</if>
+			<if test="storeId != null">
+				#{storeId,jdbcType=INTEGER},
+			</if>
+			<if test="purchasePrice != null">
+				#{purchasePrice,jdbcType=REAL},
+			</if>
+			<if test="binds != null">
+				#{binds,jdbcType=VARCHAR},
+			</if>
+			<if test="saleProps != null">
+				#{saleProps,jdbcType=VARCHAR},
+			</if>
+			<if test="verticalMarket != null">
+				#{verticalMarket,jdbcType=TINYINT},
+			</if>
+			<if test="customerProps != null">
+				#{customerProps,jdbcType=VARCHAR},
+			</if>
+			<if test="propertyAlias != null">
+				#{propertyAlias,jdbcType=VARCHAR},
+			</if>
+			<if test="productId != null">
+				#{productId,jdbcType=INTEGER},
+			</if>
+			<if test="cid != null">
+				#{cid,jdbcType=INTEGER},
+			</if>
+			<if test="catName != null">
+				#{catName,jdbcType=VARCHAR},
+			</if>
+			<if test="props != null">
+				#{props,jdbcType=VARCHAR},
+			</if>
+			<if test="propsStr != null">
+				#{propsStr,jdbcType=VARCHAR},
+			</if>
+			<if test="bindsStr != null">
+				#{bindsStr,jdbcType=VARCHAR},
+			</if>
+			<if test="salePropsStr != null">
+				#{salePropsStr,jdbcType=VARCHAR},
+			</if>
+			<if test="sellPt != null">
+				#{sellPt,jdbcType=VARCHAR},
+			</if>
+			<if test="itemTagId != null">
+				#{itemTagId,jdbcType=INTEGER},
+			</if>
+			<if test="updateer != null">
+				#{updateer,jdbcType=VARCHAR},
+			</if>
+			<if test="listTime != null">
+				#{listTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="discountPrice != null">
+				#{discountPrice,jdbcType=REAL},
+			</if>
+			<if test="title != null">
+				#{title,jdbcType=VARCHAR},
+			</if>
+			<if test="salesVolume != null">
+				#{salesVolume,jdbcType=INTEGER},
+			</if>
+			<if test="refundVolume != null">
+				#{refundVolume,jdbcType=INTEGER},
+			</if>
+			<if test="state != null">
+				#{state,jdbcType=TINYINT},
+			</if>
+			<if test="haveSku != null">
+				#{haveSku,jdbcType=TINYINT},
+			</if>
+			<if test="haveThis != null">
+				#{haveThis,jdbcType=TINYINT},
+			</if>
+			<if test="getTime != null">
+				#{getTime,jdbcType=VARCHAR},
+			</if>
+			<if test="yushuoTime != null">
+				#{yushuoTime,jdbcType=VARCHAR},
+			</if>
+			<if test="limits != null">
+				#{limits,jdbcType=INTEGER},
+			</if>
+			<if test="tag != null">
+				#{tag,jdbcType=INTEGER},
+			</if>
+			<if test="renqi != null">
+				#{renqi,jdbcType=INTEGER},
+			</if>
+			<if test="ishot != null">
+				#{ishot,jdbcType=INTEGER},
+			</if>
+			<if test="ft != null">
+				#{ft,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="details != null">
+				#{details,jdbcType=LONGVARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.chy.pojo.out.ItemWithBLOBs">
+		update t_item
+		<set>
+			<if test="created != null">
+				created = #{created,jdbcType=VARCHAR},
+			</if>
+			<if test="modified != null">
+				modified = #{modified,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="picUrl != null">
+				pic_url = #{picUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=VARCHAR},
+			</if>
+			<if test="businessCode != null">
+				business_code = #{businessCode,jdbcType=VARCHAR},
+			</if>
+			<if test="supplierId != null">
+				supplier_id = #{supplierId,jdbcType=INTEGER},
+			</if>
+			<if test="price != null">
+				price = #{price,jdbcType=REAL},
+			</if>
+			<if test="cardPrice != null">
+				card_price = #{cardPrice,jdbcType=REAL},
+			</if>
+			<if test="tsc != null">
+				tsc = #{tsc,jdbcType=VARCHAR},
+			</if>
+			<if test="outerId != null">
+				outer_id = #{outerId,jdbcType=VARCHAR},
+			</if>
+			<if test="storeId != null">
+				store_id = #{storeId,jdbcType=INTEGER},
+			</if>
+			<if test="purchasePrice != null">
+				purchase_price = #{purchasePrice,jdbcType=REAL},
+			</if>
+			<if test="binds != null">
+				binds = #{binds,jdbcType=VARCHAR},
+			</if>
+			<if test="saleProps != null">
+				sale_props = #{saleProps,jdbcType=VARCHAR},
+			</if>
+			<if test="verticalMarket != null">
+				vertical_market = #{verticalMarket,jdbcType=TINYINT},
+			</if>
+			<if test="customerProps != null">
+				customer_props = #{customerProps,jdbcType=VARCHAR},
+			</if>
+			<if test="propertyAlias != null">
+				property_alias = #{propertyAlias,jdbcType=VARCHAR},
+			</if>
+			<if test="productId != null">
+				product_id = #{productId,jdbcType=INTEGER},
+			</if>
+			<if test="cid != null">
+				cid = #{cid,jdbcType=INTEGER},
+			</if>
+			<if test="catName != null">
+				cat_name = #{catName,jdbcType=VARCHAR},
+			</if>
+			<if test="props != null">
+				props = #{props,jdbcType=VARCHAR},
+			</if>
+			<if test="propsStr != null">
+				props_str = #{propsStr,jdbcType=VARCHAR},
+			</if>
+			<if test="bindsStr != null">
+				binds_str = #{bindsStr,jdbcType=VARCHAR},
+			</if>
+			<if test="salePropsStr != null">
+				sale_props_str = #{salePropsStr,jdbcType=VARCHAR},
+			</if>
+			<if test="sellPt != null">
+				sell_pt = #{sellPt,jdbcType=VARCHAR},
+			</if>
+			<if test="itemTagId != null">
+				item_tag_id = #{itemTagId,jdbcType=INTEGER},
+			</if>
+			<if test="updateer != null">
+				updateer = #{updateer,jdbcType=VARCHAR},
+			</if>
+			<if test="listTime != null">
+				list_time = #{listTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="discountPrice != null">
+				discount_price = #{discountPrice,jdbcType=REAL},
+			</if>
+			<if test="title != null">
+				title = #{title,jdbcType=VARCHAR},
+			</if>
+			<if test="salesVolume != null">
+				sales_volume = #{salesVolume,jdbcType=INTEGER},
+			</if>
+			<if test="refundVolume != null">
+				refund_volume = #{refundVolume,jdbcType=INTEGER},
+			</if>
+			<if test="state != null">
+				state = #{state,jdbcType=TINYINT},
+			</if>
+			<if test="haveSku != null">
+				have_sku = #{haveSku,jdbcType=TINYINT},
+			</if>
+			<if test="haveThis != null">
+				have_this = #{haveThis,jdbcType=TINYINT},
+			</if>
+			<if test="getTime != null">
+				get_time = #{getTime,jdbcType=VARCHAR},
+			</if>
+			<if test="yushuoTime != null">
+				yushuo_time = #{yushuoTime,jdbcType=VARCHAR},
+			</if>
+			<if test="limits != null">
+				limits = #{limits,jdbcType=INTEGER},
+			</if>
+			<if test="tag != null">
+				tag = #{tag,jdbcType=INTEGER},
+			</if>
+			<if test="renqi != null">
+				renqi = #{renqi,jdbcType=INTEGER},
+			</if>
+			<if test="ishot != null">
+				ishot = #{ishot,jdbcType=INTEGER},
+			</if>
+			<if test="ft != null">
+				ft = #{ft,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="details != null">
+				details = #{details,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKeyWithBLOBs"
+		parameterType="com.chy.pojo.out.ItemWithBLOBs">
+		update t_item
+		set created = #{created,jdbcType=VARCHAR},
+		modified = #{modified,jdbcType=VARCHAR},
+		name =
+		#{name,jdbcType=VARCHAR},
+		pic_url = #{picUrl,jdbcType=VARCHAR},
+		status =
+		#{status,jdbcType=VARCHAR},
+		business_code =
+		#{businessCode,jdbcType=VARCHAR},
+		supplier_id =
+		#{supplierId,jdbcType=INTEGER},
+		price = #{price,jdbcType=REAL},
+		card_price = #{cardPrice,jdbcType=REAL},
+		tsc = #{tsc,jdbcType=VARCHAR},
+		outer_id = #{outerId,jdbcType=VARCHAR},
+		store_id =
+		#{storeId,jdbcType=INTEGER},
+		purchase_price =
+		#{purchasePrice,jdbcType=REAL},
+		binds = #{binds,jdbcType=VARCHAR},
+		sale_props = #{saleProps,jdbcType=VARCHAR},
+		vertical_market =
+		#{verticalMarket,jdbcType=TINYINT},
+		customer_props =
+		#{customerProps,jdbcType=VARCHAR},
+		property_alias =
+		#{propertyAlias,jdbcType=VARCHAR},
+		product_id =
+		#{productId,jdbcType=INTEGER},
+		cid = #{cid,jdbcType=INTEGER},
+		cat_name =
+		#{catName,jdbcType=VARCHAR},
+		props = #{props,jdbcType=VARCHAR},
+		props_str = #{propsStr,jdbcType=VARCHAR},
+		binds_str =
+		#{bindsStr,jdbcType=VARCHAR},
+		sale_props_str =
+		#{salePropsStr,jdbcType=VARCHAR},
+		sell_pt = #{sellPt,jdbcType=VARCHAR},
+		item_tag_id = #{itemTagId,jdbcType=INTEGER},
+		updateer =
+		#{updateer,jdbcType=VARCHAR},
+		list_time =
+		#{listTime,jdbcType=TIMESTAMP},
+		discount_price =
+		#{discountPrice,jdbcType=REAL},
+		title = #{title,jdbcType=VARCHAR},
+		sales_volume = #{salesVolume,jdbcType=INTEGER},
+		refund_volume =
+		#{refundVolume,jdbcType=INTEGER},
+		state = #{state,jdbcType=TINYINT},
+		have_sku = #{haveSku,jdbcType=TINYINT},
+		have_this =
+		#{haveThis,jdbcType=TINYINT},
+		get_time = #{getTime,jdbcType=VARCHAR},
+		yushuo_time = #{yushuoTime,jdbcType=VARCHAR},
+		limits =
+		#{limits,jdbcType=INTEGER},
+		tag = #{tag,jdbcType=INTEGER},
+		renqi =
+		#{renqi,jdbcType=INTEGER},
+		ishot=#{ishot,jdbcType=INTEGER},
+		ft =
+		#{ft,jdbcType=LONGVARCHAR},
+		details =
+		#{details,jdbcType=LONGVARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.chy.pojo.out.Item">
+		update t_item
+		set created = #{created,jdbcType=VARCHAR},
+		modified = #{modified,jdbcType=VARCHAR},
+		name =
+		#{name,jdbcType=VARCHAR},
+		pic_url = #{picUrl,jdbcType=VARCHAR},
+		status =
+		#{status,jdbcType=VARCHAR},
+		business_code =
+		#{businessCode,jdbcType=VARCHAR},
+		supplier_id =
+		#{supplierId,jdbcType=INTEGER},
+		price = #{price,jdbcType=REAL},
+		card_price = #{cardPrice,jdbcType=REAL},
+		tsc = #{tsc,jdbcType=VARCHAR},
+		outer_id = #{outerId,jdbcType=VARCHAR},
+		store_id =
+		#{storeId,jdbcType=INTEGER},
+		purchase_price =
+		#{purchasePrice,jdbcType=REAL},
+		binds = #{binds,jdbcType=VARCHAR},
+		sale_props = #{saleProps,jdbcType=VARCHAR},
+		vertical_market =
+		#{verticalMarket,jdbcType=TINYINT},
+		customer_props =
+		#{customerProps,jdbcType=VARCHAR},
+		property_alias =
+		#{propertyAlias,jdbcType=VARCHAR},
+		product_id =
+		#{productId,jdbcType=INTEGER},
+		cid = #{cid,jdbcType=INTEGER},
+		cat_name =
+		#{catName,jdbcType=VARCHAR},
+		props = #{props,jdbcType=VARCHAR},
+		props_str = #{propsStr,jdbcType=VARCHAR},
+		binds_str =
+		#{bindsStr,jdbcType=VARCHAR},
+		sale_props_str =
+		#{salePropsStr,jdbcType=VARCHAR},
+		sell_pt = #{sellPt,jdbcType=VARCHAR},
+		item_tag_id = #{itemTagId,jdbcType=INTEGER},
+		updateer =
+		#{updateer,jdbcType=VARCHAR},
+		list_time =
+		#{listTime,jdbcType=TIMESTAMP},
+		discount_price =
+		#{discountPrice,jdbcType=REAL},
+		title = #{title,jdbcType=VARCHAR},
+		sales_volume = #{salesVolume,jdbcType=INTEGER},
+		refund_volume =
+		#{refundVolume,jdbcType=INTEGER},
+		state = #{state,jdbcType=TINYINT},
+		have_sku = #{haveSku,jdbcType=TINYINT},
+		have_this =
+		#{haveThis,jdbcType=TINYINT},
+		get_time = #{getTime,jdbcType=VARCHAR},
+		yushuo_time = #{yushuoTime,jdbcType=VARCHAR},
+		limits =
+		#{limits,jdbcType=INTEGER},
+		tag = #{tag,jdbcType=INTEGER},
+		renqi =
+		#{renqi,jdbcType=INTEGER},
+		ishot =
+		#{ishot,jdbcType=INTEGER}
+		where id =
+		#{id,jdbcType=INTEGER}
+	</update>
+</mapper>

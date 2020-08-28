@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chy.mapper.ImportMapper">
+  <resultMap id="BaseResultMap" type="com.chy.pojo.out.Import">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="model" jdbcType="VARCHAR" property="model" />
+    <result column="file_path" jdbcType="VARCHAR" property="filePath" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="line" jdbcType="INTEGER" property="line" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.chy.pojo.out.Import">
+    <result column="fields" jdbcType="LONGVARCHAR" property="fields" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, model, file_path, name, line, type
+  </sql>
+  <sql id="Blob_Column_List">
+    fields
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_import
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_import
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.chy.pojo.out.Import">
+    insert into t_import (id, model, file_path, 
+      name, line, type, fields
+      )
+    values (#{id,jdbcType=INTEGER}, #{model,jdbcType=VARCHAR}, #{filePath,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{line,jdbcType=INTEGER}, #{type,jdbcType=TINYINT}, #{fields,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.chy.pojo.out.Import">
+    insert into t_import
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="model != null">
+        model,
+      </if>
+      <if test="filePath != null">
+        file_path,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="line != null">
+        line,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="fields != null">
+        fields,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="model != null">
+        #{model,jdbcType=VARCHAR},
+      </if>
+      <if test="filePath != null">
+        #{filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="line != null">
+        #{line,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=TINYINT},
+      </if>
+      <if test="fields != null">
+        #{fields,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chy.pojo.out.Import">
+    update t_import
+    <set>
+      <if test="model != null">
+        model = #{model,jdbcType=VARCHAR},
+      </if>
+      <if test="filePath != null">
+        file_path = #{filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="line != null">
+        line = #{line,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="fields != null">
+        fields = #{fields,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.chy.pojo.out.Import">
+    update t_import
+    set model = #{model,jdbcType=VARCHAR},
+      file_path = #{filePath,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      line = #{line,jdbcType=INTEGER},
+      type = #{type,jdbcType=TINYINT},
+      fields = #{fields,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chy.pojo.out.Import">
+    update t_import
+    set model = #{model,jdbcType=VARCHAR},
+      file_path = #{filePath,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      line = #{line,jdbcType=INTEGER},
+      type = #{type,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chy.mapper.ItemChangeMapper">
+  <resultMap id="BaseResultMap" type="com.chy.pojo.out.ItemChange">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="item_id_arr" jdbcType="VARCHAR" property="itemIdArr" />
+    <result column="ft" jdbcType="VARCHAR" property="ft" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="status" jdbcType="BIT" property="status" />
+    <result column="done_time" jdbcType="VARCHAR" property="doneTime" />
+    <result column="admin_id" jdbcType="INTEGER" property="adminId" />
+    <result column="aactory_id" jdbcType="INTEGER" property="aactoryId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, item_id_arr, ft, content, user_id, status, done_time, admin_id, aactory_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_item_change
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_item_change
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.chy.pojo.out.ItemChange">
+    insert into t_item_change (id, item_id_arr, ft, 
+      content, user_id, status, 
+      done_time, admin_id, aactory_id
+      )
+    values (#{id,jdbcType=INTEGER}, #{itemIdArr,jdbcType=VARCHAR}, #{ft,jdbcType=VARCHAR}, 
+      #{content,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, #{status,jdbcType=BIT}, 
+      #{doneTime,jdbcType=VARCHAR}, #{adminId,jdbcType=INTEGER}, #{aactoryId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.chy.pojo.out.ItemChange">
+    insert into t_item_change
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="itemIdArr != null">
+        item_id_arr,
+      </if>
+      <if test="ft != null">
+        ft,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="doneTime != null">
+        done_time,
+      </if>
+      <if test="adminId != null">
+        admin_id,
+      </if>
+      <if test="aactoryId != null">
+        aactory_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="itemIdArr != null">
+        #{itemIdArr,jdbcType=VARCHAR},
+      </if>
+      <if test="ft != null">
+        #{ft,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=BIT},
+      </if>
+      <if test="doneTime != null">
+        #{doneTime,jdbcType=VARCHAR},
+      </if>
+      <if test="adminId != null">
+        #{adminId,jdbcType=INTEGER},
+      </if>
+      <if test="aactoryId != null">
+        #{aactoryId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chy.pojo.out.ItemChange">
+    update t_item_change
+    <set>
+      <if test="itemIdArr != null">
+        item_id_arr = #{itemIdArr,jdbcType=VARCHAR},
+      </if>
+      <if test="ft != null">
+        ft = #{ft,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=BIT},
+      </if>
+      <if test="doneTime != null">
+        done_time = #{doneTime,jdbcType=VARCHAR},
+      </if>
+      <if test="adminId != null">
+        admin_id = #{adminId,jdbcType=INTEGER},
+      </if>
+      <if test="aactoryId != null">
+        aactory_id = #{aactoryId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chy.pojo.out.ItemChange">
+    update t_item_change
+    set item_id_arr = #{itemIdArr,jdbcType=VARCHAR},
+      ft = #{ft,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
+      status = #{status,jdbcType=BIT},
+      done_time = #{doneTime,jdbcType=VARCHAR},
+      admin_id = #{adminId,jdbcType=INTEGER},
+      aactory_id = #{aactoryId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

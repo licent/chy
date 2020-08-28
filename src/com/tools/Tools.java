@@ -15,8 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.alibaba.fastjson.JSON;
 
-import net.sf.json.processors.JsonBeanProcessor;
-
 /**
  * 常用工具类封装
  * 

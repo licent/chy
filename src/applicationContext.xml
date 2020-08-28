@@ -38,7 +38,7 @@
 		<!-- <property name="configLocation" value="classpath:resource/mybatis.xml"></property> -->
 		<property name="mapperLocations">
 			<list>
-				<value>classpath:com/mapper/*Mapper.xml</value>
+				<value>classpath:com/chy/mapper/*Mapper.xml</value>
 			</list>
 		</property>
 	</bean>
@@ -48,7 +48,7 @@
 		<constructor-arg index="0" ref="sqlSessionFactory" />
 	</bean>
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.mapper" />
+		<property name="basePackage" value="com.chy.mapper" />
 		<property name="sqlSessionTemplateBeanName"
 			value="sqlSessionFactoryTemplate" />
 	</bean>

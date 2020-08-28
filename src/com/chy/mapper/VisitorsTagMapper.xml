@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chy.mapper.VisitorsTagMapper">
+  <resultMap id="BaseResultMap" type="com.chy.pojo.out.VisitorsTag">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="store_id" jdbcType="INTEGER" property="storeId" />
+    <result column="tactics" jdbcType="VARCHAR" property="tactics" />
+    <result column="bg_color" jdbcType="VARCHAR" property="bgColor" />
+    <result column="font_color" jdbcType="VARCHAR" property="fontColor" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, store_id, tactics, bg_color, font_color, type
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_visitors_tag
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_visitors_tag
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.chy.pojo.out.VisitorsTag">
+    insert into t_visitors_tag (id, name, store_id, 
+      tactics, bg_color, font_color, 
+      type)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{storeId,jdbcType=INTEGER}, 
+      #{tactics,jdbcType=VARCHAR}, #{bgColor,jdbcType=VARCHAR}, #{fontColor,jdbcType=VARCHAR}, 
+      #{type,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.chy.pojo.out.VisitorsTag">
+    insert into t_visitors_tag
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="storeId != null">
+        store_id,
+      </if>
+      <if test="tactics != null">
+        tactics,
+      </if>
+      <if test="bgColor != null">
+        bg_color,
+      </if>
+      <if test="fontColor != null">
+        font_color,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="storeId != null">
+        #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="tactics != null">
+        #{tactics,jdbcType=VARCHAR},
+      </if>
+      <if test="bgColor != null">
+        #{bgColor,jdbcType=VARCHAR},
+      </if>
+      <if test="fontColor != null">
+        #{fontColor,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chy.pojo.out.VisitorsTag">
+    update t_visitors_tag
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="storeId != null">
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="tactics != null">
+        tactics = #{tactics,jdbcType=VARCHAR},
+      </if>
+      <if test="bgColor != null">
+        bg_color = #{bgColor,jdbcType=VARCHAR},
+      </if>
+      <if test="fontColor != null">
+        font_color = #{fontColor,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chy.pojo.out.VisitorsTag">
+    update t_visitors_tag
+    set name = #{name,jdbcType=VARCHAR},
+      store_id = #{storeId,jdbcType=INTEGER},
+      tactics = #{tactics,jdbcType=VARCHAR},
+      bg_color = #{bgColor,jdbcType=VARCHAR},
+      font_color = #{fontColor,jdbcType=VARCHAR},
+      type = #{type,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
