@@ -35,10 +35,9 @@
 
 	<delete id="deleteByParams" parameterType="java.util.Map">
 		delete from t_cart
-		where id = #{id,jdbcType=INTEGER}
-		and item_id=
-		#{itemId,jdbcType=INTEGER}
-		and user_id= #{userId,jdbcType=INTEGER}
+		where item_id in (${itemIdList,jdbcType=INTEGER})
+		and user_id=
+		#{userId,jdbcType=INTEGER}
 	</delete>
 
 	<insert id="insert" parameterType="com.chy.pojo.out.Cart">
@@ -98,6 +97,17 @@
 		</set>
 		where id = #{id,jdbcType=INTEGER}
 	</update>
+
+	<update id="updateNumByParams" parameterType="java.util.Map">
+		update t_cart
+		<set>
+			<if test="num != null">
+				num = #{num,jdbcType=INTEGER},
+			</if>
+		</set>
+		where user_id = #{userId,jdbcType=VARCHAR} and  item_id = #{itemId,jdbcType=INTEGER}
+	</update>
+
 	<update id="updateByPrimaryKey"
 		parameterType="com.chy.pojo.out.Cart">
 		update t_cart

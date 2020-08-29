@@ -17,16 +17,58 @@
     <result column="is_bouns" jdbcType="BIT" property="isBouns" />
     <result column="is_sign_for" jdbcType="BIT" property="isSignFor" />
   </resultMap>
+  <resultMap id="BaseResultMapEx" type="com.chy.pojo.out.Order">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="order_code" jdbcType="VARCHAR" property="orderCode" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="total_money" jdbcType="REAL" property="totalMoney" />
+    <result column="create_time" jdbcType="VARCHAR" property="createTime" />
+    <result column="thd" jdbcType="VARCHAR" property="thd" />
+    <result column="thr" jdbcType="VARCHAR" property="thr" />
+    <result column="th_time" jdbcType="VARCHAR" property="thTime" />
+    <result column="th_phone" jdbcType="VARCHAR" property="thPhone" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="ztd_id" jdbcType="INTEGER" property="ztdId" />
+    <result column="end_time" jdbcType="VARCHAR" property="endTime" />
+    <result column="is_bouns" jdbcType="BIT" property="isBouns" />
+    <result column="is_sign_for" jdbcType="BIT" property="isSignFor" />
+    <collection property="itemList" select="selectListByParamsEx"
+			column="id">
+
+		</collection>
+  </resultMap>
   <sql id="Base_Column_List">
     id, order_code, status, total_money, create_time, thd, thr, th_time, th_phone, user_id, 
     ztd_id, end_time, is_bouns, is_sign_for
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMapEx">
     select 
     <include refid="Base_Column_List" />
     from t_order
     where id = #{id,jdbcType=INTEGER}
   </select>
+  
+  <select id="selectListByParams" parameterType="java.util.Map" resultMap="BaseResultMapEx">
+  	SELECT
+			o.*
+		FROM
+			t_order AS o
+		where  o.user_id=#{userId}
+		<if test="status != null">
+       		and o.status = status
+      </if>
+  </select>
+  
+  <select id="selectListByParamsEx" parameterType="java.util.Map" resultType="com.chy.pojo.out.Item">
+  	SELECT
+		i.*
+	FROM
+		t_item AS i
+	INNER JOIN t_order_item AS oi ON i.id = oi.item_id
+	WHERE
+		oi.order_id = #{id}
+  </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from t_order
     where id = #{id,jdbcType=INTEGER}

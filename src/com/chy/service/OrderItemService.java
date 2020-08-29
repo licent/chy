@@ -1,11 +1,11 @@
-package com.chy.mapper;
+package com.chy.service;
 
 import java.util.List;
 import java.util.Map;
 
 import com.chy.pojo.out.OrderItem;
 
-public interface OrderItemMapper {
+public interface OrderItemService {
 	int deleteByPrimaryKey(Integer id);
 
 	int insert(OrderItem record);

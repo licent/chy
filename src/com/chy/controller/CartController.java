@@ -79,14 +79,12 @@ public class CartController {
 	@RequestMapping("/manage/cart/updateCartItemByParams")
 	@ResponseBody
 	public String updateCartItemByParams(@RequestParam Map<String, Object> params) {
-		ResponseInfo<Integer> info = new ResponseInfo<Integer>();
+		ResponseInfo<Long> info = new ResponseInfo<Long>();
 		try {
-			// 购物车id
+			// 用户userId
+			// 商品id
 			// 商品数量num
-			Cart cart = new Cart();
-			cart.setId((Integer) params.get("id"));
-			cart.setNum((Integer) params.get("num"));
-			info.setData(cartService.updateByPrimaryKeySelective(cart));
+			info.setData(cartService.updateNumByParams(params));
 			info.setCode(ResponseCode.SUCC);
 			return info.toJsonString();
 		} catch (Exception e) {
@@ -104,7 +102,6 @@ public class CartController {
 	public String deleteCartItemByParams(@RequestParam Map<String, Object> params) {
 		ResponseInfo<Long> info = new ResponseInfo<Long>();
 		try {
-			// 购物车id
 			// 用户userId
 			// 商品itemId
 			info.setData(cartService.deleteByParams(params));

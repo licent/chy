@@ -26,6 +26,28 @@
     values (#{id,jdbcType=INTEGER}, #{itemId,jdbcType=VARCHAR}, #{orderId,jdbcType=VARCHAR}, 
       #{num,jdbcType=INTEGER})
   </insert>
+  <update id="updateByParams" parameterType="java.util.Map">
+  	update t_order_item
+  	set num=#{num}
+  	<where>
+  		<if test="itemId != null">
+	        and item_id=#{itemId}
+	    </if>
+	    <if test="orderId != null">
+	        and order_id=#{orderId}
+	    </if>
+  	</where>
+  </update>
+  <insert id="insertBatch" parameterType="java.util.List">
+  	insert into t_order_item
+        (item_id,order_id,num)
+        values
+        <foreach collection="list" item="t" index="index" separator=",">
+            (
+            #{t.itemId,t.orderId,t.num}
+            )
+        </foreach>
+  </insert>
   <insert id="insertSelective" parameterType="com.chy.pojo.out.OrderItem">
     insert into t_order_item
     <trim prefix="(" suffix=")" suffixOverrides=",">

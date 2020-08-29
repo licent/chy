@@ -59,4 +59,9 @@ public class CartServiceImpl implements CartService {
 		return cartMapper.deleteByParams(params);
 	}
 
+	@Override
+	public long updateNumByParams(Map<String, Object> params) {
+		return cartMapper.updateNumByParams(params);
+	}
+
 }

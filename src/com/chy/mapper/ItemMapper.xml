@@ -150,10 +150,9 @@
 			i.*
 		FROM
 			t_item AS i
-		LEFT JOIN t_item_tag AS it ON i.item_tag_id = it.id
 		where  i.`status`='onsale' 
-		<if test="itemTagId != null">
-			and i.item_tag_id=#{itemTagId}
+		<if test="tag != null">
+			and i.tag=#{tag}
 		</if>
 	</select>
 
@@ -225,8 +224,8 @@
 			<if test="userId != null">
 				AND c.user_id =#{userId}
 			</if>
-			<if test="id != null">
-				AND c.id = #{id}
+			<if test="itemId != null">
+				AND i.itemId = #{itemId}
 			</if>
 		</where>
 	</select>

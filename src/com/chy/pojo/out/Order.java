@@ -1,5 +1,7 @@
 package com.chy.pojo.out;
 
+import java.util.List;
+
 public class Order {
     private Integer id;
 
@@ -28,6 +30,8 @@ public class Order {
     private Boolean isBouns;
 
     private Boolean isSignFor;
+    
+    private List<Item> itemList;
 
     public Integer getId() {
         return id;
@@ -140,4 +144,13 @@ public class Order {
     public void setIsSignFor(Boolean isSignFor) {
         this.isSignFor = isSignFor;
     }
+
+	public List<Item> getItemList() {
+		return itemList;
+	}
+
+	public void setItemList(List<Item> itemList) {
+		this.itemList = itemList;
+	}
+    
 }

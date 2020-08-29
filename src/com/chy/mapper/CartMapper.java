@@ -18,6 +18,8 @@ public interface CartMapper {
 	int updateByPrimaryKey(Cart record);
 
 	long selectCountByParams(Map<String, Object> params);
-	
+
 	long deleteByParams(Map<String, Object> params);
+
+	long updateNumByParams(Map<String, Object> params);
 }
