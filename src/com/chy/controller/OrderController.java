@@ -32,7 +32,7 @@ public class OrderController {
 
 	@Autowired
 	OrderService orderService;
-	
+
 	@Autowired
 	OrderItemService orderItemService;
 
@@ -58,7 +58,7 @@ public class OrderController {
 			 */
 			List<OrderItem> orderItemList = new ArrayList<OrderItem>();
 			JSONArray ja = JSONArray.parseArray(Tools.ObjectToJsonString(params.get("orderItemList")));
-			orderItemList=JSONObject.parseArray(ja.toJSONString(), OrderItem.class);
+			orderItemList = JSONObject.parseArray(ja.toJSONString(), OrderItem.class);
 
 			info.setData(orderService.creatOrder(order, orderItemList, Tools.ObjectToString(params.get("itemList"))));
 			info.setCode(ResponseCode.SUCC);
@@ -69,7 +69,7 @@ public class OrderController {
 			return info.toJsonString();
 		}
 	}
-	
+
 	/**
 	 * 修改订单状态
 	 */
@@ -78,10 +78,10 @@ public class OrderController {
 	public String updateOrder(@RequestParam Map<String, Object> params) {
 		ResponseInfo<Integer> info = new ResponseInfo<Integer>();
 		try {
-			Order order =new Order();
-			order.setId((Integer)params.get("orderId"));
-			order.setStatus((Byte)params.get("status"));
-			
+			Order order = new Order();
+			order.setId((Integer) params.get("orderId"));
+			order.setStatus((Byte) params.get("status"));
+
 			info.setData(orderService.updateByPrimaryKeySelective(order));
 			info.setCode(ResponseCode.SUCC);
 			return info.toJsonString();
@@ -91,8 +91,7 @@ public class OrderController {
 			return info.toJsonString();
 		}
 	}
-	
-	
+
 	/**
 	 * 修改订单商品数量
 	 */
@@ -101,9 +100,9 @@ public class OrderController {
 	public String updateOrderItemNum(@RequestParam Map<String, Object> params) {
 		ResponseInfo<Integer> info = new ResponseInfo<Integer>();
 		try {
-			//orderId
-			//itemId
-			//num
+			// orderId
+			// itemId
+			// num
 			info.setData(orderItemService.updateByParams(params));
 			info.setCode(ResponseCode.SUCC);
 			return info.toJsonString();
@@ -113,9 +112,24 @@ public class OrderController {
 			return info.toJsonString();
 		}
 	}
-	
+
 	/**
-	 * 查询订单 
-	 * */
+	 * 查询订单
+	 */
+	@RequestMapping("/manage/order/orderList")
+	@ResponseBody
+	public String orderList(@RequestParam Map<String, Object> params) {
+		ResponseInfo<List<Order>> info = new ResponseInfo<List<Order>>();
+		try {
+			// userId 或 status 或 orderId
+			info.setData(orderService.selectListByParams(params));
+			info.setCode(ResponseCode.SUCC);
+			return info.toJsonString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			info.setCode(ResponseCode.EXCEPTION);
+			return info.toJsonString();
+		}
+	}
 
 }
