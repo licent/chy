@@ -1,5 +1,8 @@
 package com.chy.service.impl;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +24,41 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User selectByPrimaryKey(Integer id) {
 		return userMapper.selectByPrimaryKey(id);
+	}
+
+	@Override
+	public int deleteByPrimaryKey(Integer id) {
+		return userMapper.deleteByPrimaryKey(id);
+	}
+
+	@Override
+	public int insert(User record) {
+		return userMapper.insert(record);
+	}
+
+	@Override
+	public int insertSelective(User record) {
+		return userMapper.insertSelective(record);
+	}
+
+	@Override
+	public int updateByPrimaryKeySelective(User record) {
+		return userMapper.updateByPrimaryKeySelective(record);
+	}
+
+	@Override
+	public int updateByPrimaryKey(User record) {
+		return userMapper.updateByPrimaryKey(record);
+	}
+
+	@Override
+	public List<User> selectListByParams(Map<String, Object> params) {
+		return userMapper.selectListByParams(params);
+	}
+
+	@Override
+	public int updateInfoByParams(Map<String, Object> params) {
+		return userMapper.updateInfoByParams(params);
 	}
 
 }

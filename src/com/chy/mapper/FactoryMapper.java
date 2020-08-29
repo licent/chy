@@ -1,9 +1,6 @@
 package com.chy.mapper;
 
-import org.springframework.stereotype.Component;
-
 import com.chy.pojo.out.Factory;
-@Component
 public interface FactoryMapper {
     int deleteByPrimaryKey(Integer id);
 

@@ -28,6 +28,19 @@
     from t_user
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="selectListByParams" parameterType="java.util.Map" resultMap="BaseResultMap">
+  	select  
+  		<include refid="Base_Column_List" /> 
+  	from t_user
+  	<where>
+  		<if test="phone != null">
+	       and phone=#{phone}
+	    </if>
+	    <if test="openId != null">
+	       and open_id=#{openId}
+	    </if>
+  	</where>
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from t_user
     where id = #{id,jdbcType=INTEGER}
@@ -143,6 +156,45 @@
       </if>
     </trim>
   </insert>
+  
+  <update id="updateInfoByParams" parameterType="java.util.Map">
+	update t_user
+	<set>
+		  <if test="name != null">
+	        name = #{name,jdbcType=VARCHAR},
+	      </if>
+	      <if test="phone != null">
+	        phone = #{phone,jdbcType=VARCHAR},
+	      </if>
+	      <if test="money != null">
+	        money = #{money,jdbcType=DECIMAL},
+	      </if>
+	      <if test="parentId != null">
+	        parent_id = #{parentId,jdbcType=INTEGER},
+	      </if>
+	      <if test="img != null">
+	        img = #{img,jdbcType=VARCHAR},
+	      </if>
+	      <if test="idCardImg != null">
+	        id_card_img = #{idCardImg,jdbcType=VARCHAR},
+	      </if>
+	      <if test="zipai != null">
+	        zipai = #{zipai,jdbcType=VARCHAR},
+	      </if>
+	      <if test="idCardNo != null">
+	        id_card_no = #{idCardNo,jdbcType=VARCHAR},
+	      </if>
+	</set> 
+	<where>
+		  <if test="openId != null">
+	        and open_id = #{openId,jdbcType=VARCHAR}
+	      </if>
+	      <if test="id != null">
+	        and id = #{id,jdbcType=INTEGER}
+	      </if>
+	</where>
+  </update>
+  
   <update id="updateByPrimaryKeySelective" parameterType="com.chy.pojo.out.User">
     update t_user
     <set>

@@ -9,11 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSONObject;
 import com.chy.pojo.out.Item;
-import com.chy.pojo.out.ItemCats;
+import com.chy.pojo.out.ItemWithBLOBs;
 import com.chy.service.ItemService;
+import com.tools.IDMaker;
 import com.tools.ResponseCode;
 import com.tools.ResponseInfo;
+import com.tools.Tools;
 
 /**
  * @author Taylor.O
@@ -24,6 +27,27 @@ public class ProductController {
 
 	@Autowired
 	ItemService itemService;
+
+	/**
+	 * 新增商品列表
+	 */
+	@RequestMapping("/admin/item/createItem")
+	@ResponseBody
+	public String createItem(@RequestParam Map<String, Object> params) {
+		ResponseInfo<Integer> info = new ResponseInfo<Integer>();
+		try {
+			ItemWithBLOBs i = JSONObject.parseObject(Tools.ObjectToJsonString(params), ItemWithBLOBs.class);
+			i.setCode(IDMaker.createItemCode());
+			// itemTagId
+			info.setData(itemService.insertSelective(i));
+			info.setCode(ResponseCode.SUCC);
+			return info.toJsonString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			info.setCode(ResponseCode.EXCEPTION);
+			return info.toJsonString();
+		}
+	}
 
 	/**
 	 * 获取商品列表

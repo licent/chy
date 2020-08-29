@@ -62,7 +62,7 @@ public class CartController {
 	public String getCartInfo(@RequestParam Map<String, Object> params) {
 		ResponseInfo<List<Item>> info = new ResponseInfo<List<Item>>();
 		try {
-			// 用户userId 购物车id
+			// 用户userId 商品itemId
 			info.setData(itemService.selectCartItemByParams(params));
 			info.setCode(ResponseCode.SUCC);
 			return info.toJsonString();

@@ -7,6 +7,7 @@
 		<result column="modified" jdbcType="VARCHAR"
 			property="modified" />
 		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="code" jdbcType="VARCHAR" property="code" />
 		<result column="pic_url" jdbcType="VARCHAR" property="picUrl" />
 		<result column="status" jdbcType="VARCHAR" property="status" />
 		<result column="business_code" jdbcType="VARCHAR"
@@ -80,6 +81,7 @@
 		<result column="modified" jdbcType="VARCHAR"
 			property="modified" />
 		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="code" jdbcType="VARCHAR" property="code" />
 		<result column="pic_url" jdbcType="VARCHAR" property="picUrl" />
 		<result column="status" jdbcType="VARCHAR" property="status" />
 		<result column="business_code" jdbcType="VARCHAR"
@@ -193,7 +195,7 @@
 	</select>
 
 	<sql id="Base_Column_List">
-		id, created, modified, name, pic_url, status,
+		id, created, modified, name,code, pic_url, status,
 		business_code, supplier_id,
 		price,
 		card_price, tsc, outer_id, store_id,
@@ -216,7 +218,7 @@
 	
 	<select id="selectCartItemByParams" parameterType="java.util.Map" resultMap="ResultMapWithBLOBs">
 		SELECT
-			i.*
+			i.*,c.num
 		FROM
 			t_item AS i
 		INNER JOIN t_cart AS c ON i.id = c.item_id
@@ -280,7 +282,7 @@
 	<insert id="insert" parameterType="com.chy.pojo.out.ItemWithBLOBs">
 		insert into t_item (id,
 		created, modified,
-		name, pic_url, status,
+		name,code, pic_url, status,
 		business_code, supplier_id,
 		price,
 		card_price, tsc, outer_id,
@@ -303,6 +305,7 @@
 		(#{id,jdbcType=INTEGER}, #{created,jdbcType=VARCHAR},
 		#{modified,jdbcType=VARCHAR},
 		#{name,jdbcType=VARCHAR},
+		#{code,jdbcType=VARCHAR},
 		#{picUrl,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR},
 		#{businessCode,jdbcType=VARCHAR}, #{supplierId,jdbcType=INTEGER},
 		#{price,jdbcType=REAL},
@@ -352,6 +355,9 @@
 			</if>
 			<if test="name != null">
 				name,
+			</if>
+			<if test="code != null">
+				code,
 			</if>
 			<if test="picUrl != null">
 				pic_url,
@@ -489,6 +495,9 @@
 			</if>
 			<if test="name != null">
 				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="code != null">
+				#{code,jdbcType=VARCHAR},
 			</if>
 			<if test="picUrl != null">
 				#{picUrl,jdbcType=VARCHAR},
@@ -628,6 +637,9 @@
 			<if test="name != null">
 				name = #{name,jdbcType=VARCHAR},
 			</if>
+			<if test="code != null">
+				code = #{code,jdbcType=VARCHAR},
+			</if>
 			<if test="picUrl != null">
 				pic_url = #{picUrl,jdbcType=VARCHAR},
 			</if>
@@ -761,6 +773,8 @@
 		modified = #{modified,jdbcType=VARCHAR},
 		name =
 		#{name,jdbcType=VARCHAR},
+		code =
+		#{code,jdbcType=VARCHAR},
 		pic_url = #{picUrl,jdbcType=VARCHAR},
 		status =
 		#{status,jdbcType=VARCHAR},
@@ -832,6 +846,8 @@
 		modified = #{modified,jdbcType=VARCHAR},
 		name =
 		#{name,jdbcType=VARCHAR},
+		code =
+		#{code,jdbcType=VARCHAR},
 		pic_url = #{picUrl,jdbcType=VARCHAR},
 		status =
 		#{status,jdbcType=VARCHAR},

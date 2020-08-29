@@ -24,4 +24,34 @@ public class SearchHistoryServiceImpl implements SearchHistoryService {
 		return searchHistoryMapper.selectByParams(params);
 	}
 
+	@Override
+	public int deleteByPrimaryKey(Integer id) {
+		return searchHistoryMapper.deleteByPrimaryKey(id);
+	}
+
+	@Override
+	public int insert(SearchHistory record) {
+		return searchHistoryMapper.insert(record);
+	}
+
+	@Override
+	public int insertSelective(SearchHistory record) {
+		return searchHistoryMapper.insertSelective(record);
+	}
+
+	@Override
+	public SearchHistory selectByPrimaryKey(Integer id) {
+		return searchHistoryMapper.selectByPrimaryKey(id);
+	}
+
+	@Override
+	public int updateByPrimaryKeySelective(SearchHistory record) {
+		return searchHistoryMapper.updateByPrimaryKeySelective(record);
+	}
+
+	@Override
+	public int updateByPrimaryKey(SearchHistory record) {
+		return searchHistoryMapper.updateByPrimaryKey(record);
+	}
+
 }

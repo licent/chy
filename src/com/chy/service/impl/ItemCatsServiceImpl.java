@@ -21,4 +21,39 @@ public class ItemCatsServiceImpl implements ItemCatsService {
 		return itemCatsMapper.selectAllByParams(params);
 	}
 
+	@Override
+	public int deleteByPrimaryKey(Integer id) {
+		return itemCatsMapper.deleteByPrimaryKey(id);
+	}
+
+	@Override
+	public int insert(ItemCats record) {
+		return itemCatsMapper.insert(record);
+	}
+
+	@Override
+	public int insertSelective(ItemCats record) {
+		return itemCatsMapper.insertSelective(record);
+	}
+
+	@Override
+	public ItemCats selectByPrimaryKey(Integer id) {
+		return itemCatsMapper.selectByPrimaryKey(id);
+	}
+
+	@Override
+	public int updateByPrimaryKeySelective(ItemCats record) {
+		return itemCatsMapper.updateByPrimaryKeySelective(record);
+	}
+
+	@Override
+	public int updateByPrimaryKey(ItemCats record) {
+		return itemCatsMapper.updateByPrimaryKey(record);
+	}
+
+	@Override
+	public List<ItemCats> selectAllByParams(Map<String, Object> params) {
+		return itemCatsMapper.selectAllByParams(params);
+	}
+
 }

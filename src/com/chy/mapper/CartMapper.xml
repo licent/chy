@@ -35,9 +35,7 @@
 
 	<delete id="deleteByParams" parameterType="java.util.Map">
 		delete from t_cart
-		where item_id in (${itemIdList,jdbcType=INTEGER})
-		and user_id=
-		#{userId,jdbcType=INTEGER}
+		where user_id= #{userId,jdbcType=INTEGER} and item_id in (${itemIdList})
 	</delete>
 
 	<insert id="insert" parameterType="com.chy.pojo.out.Cart">

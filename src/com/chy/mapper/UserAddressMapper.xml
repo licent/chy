@@ -18,6 +18,18 @@
     from t_user_address
     where id = #{id,jdbcType=INTEGER}
   </select>
+  
+  <select id="selectListByParams" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_user_address
+    <where>
+    	<if test="id != null">
+    		and user_id = #{userId,jdbcType=INTEGER}
+    	</if>
+    </where>
+  </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from t_user_address
     where id = #{id,jdbcType=INTEGER}
@@ -30,6 +42,7 @@
       #{selected,jdbcType=TINYINT}, #{phone,jdbcType=VARCHAR}, #{ztdId,jdbcType=INTEGER}
       )
   </insert>
+	  
   <insert id="insertSelective" parameterType="com.chy.pojo.out.UserAddress">
     insert into t_user_address
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -73,6 +86,12 @@
       </if>
     </trim>
   </insert>
+  
+  <update id="updateByUserId" parameterType="java.util.Map">
+  	update t_user_address set selected=#{selected}
+  	where user_id=#{userId}
+  </update>
+  
   <update id="updateByPrimaryKeySelective" parameterType="com.chy.pojo.out.UserAddress">
     update t_user_address
     <set>

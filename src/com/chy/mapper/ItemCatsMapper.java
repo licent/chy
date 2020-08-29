@@ -3,10 +3,8 @@ package com.chy.mapper;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.stereotype.Component;
-
 import com.chy.pojo.out.ItemCats;
-@Component
+
 public interface ItemCatsMapper {
 	int deleteByPrimaryKey(Integer id);
 

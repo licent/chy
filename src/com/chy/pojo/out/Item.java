@@ -12,6 +12,8 @@ public class Item {
 
 	private String name;
 
+	private String code;
+
 	private String picUrl;
 
 	private String status;
@@ -92,6 +94,8 @@ public class Item {
 
 	private List<User> userList;
 
+	private Integer num;
+
 	public Integer getId() {
 		return id;
 	}
@@ -114,6 +118,14 @@ public class Item {
 
 	public void setModified(String modified) {
 		this.modified = modified == null ? null : modified.trim();
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 	public String getName() {
@@ -442,6 +454,14 @@ public class Item {
 
 	public void setUserList(List<User> userList) {
 		this.userList = userList;
+	}
+
+	public Integer getNum() {
+		return num;
+	}
+
+	public void setNum(Integer num) {
+		this.num = num;
 	}
 
 }

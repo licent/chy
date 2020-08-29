@@ -1,5 +1,8 @@
 package com.chy.mapper;
 
+import java.util.List;
+import java.util.Map;
+
 import com.chy.pojo.out.UserAddress;
 
 public interface UserAddressMapper {
@@ -14,4 +17,8 @@ public interface UserAddressMapper {
     int updateByPrimaryKeySelective(UserAddress record);
 
     int updateByPrimaryKey(UserAddress record);
+    
+    List<UserAddress> selectListByParams(Map<String,Object> params);
+    
+    int updateByUserId(Map<String,Object> pararms);
 }
