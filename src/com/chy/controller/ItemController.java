@@ -13,7 +13,9 @@ import com.alibaba.fastjson.JSONObject;
 import com.chy.pojo.in.ItemSalesEx;
 import com.chy.pojo.out.Item;
 import com.chy.pojo.out.ItemWithBLOBs;
+import com.chy.pojo.out.User;
 import com.chy.service.ItemService;
+import com.chy.service.UserService;
 import com.tools.IDMaker;
 import com.tools.ResponseCode;
 import com.tools.ResponseInfo;
@@ -28,6 +30,9 @@ public class ItemController {
 
 	@Autowired
 	ItemService itemService;
+
+	@Autowired
+	UserService userService;
 
 	/**
 	 * 新增商品列表
@@ -98,6 +103,25 @@ public class ItemController {
 		try {
 			// itemId
 			info.setData(itemService.selectItemBuysAndSales(params));
+			info.setCode(ResponseCode.SUCC);
+			return info.toJsonString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			info.setCode(ResponseCode.EXCEPTION);
+			return info.toJsonString();
+		}
+	}
+
+	/**
+	 * 查询某个产品最近的十个人下单人的购买记录
+	 */
+	@RequestMapping("/manage/item/getNearlyUserInfo")
+	@ResponseBody
+	public String getNearlyUserInfo(@RequestParam Map<String, Object> params) {
+		ResponseInfo<List<User>> info = new ResponseInfo<List<User>>();
+		try {
+			// itemId
+			info.setData(userService.selectNearlyCustomersListByItemId(params));
 			info.setCode(ResponseCode.SUCC);
 			return info.toJsonString();
 		} catch (Exception e) {

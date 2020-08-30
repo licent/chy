@@ -23,6 +23,8 @@ public interface UserService {
 	int updateByPrimaryKey(User record);
 
 	List<User> selectListByParams(Map<String, Object> params);
-	
+
 	int updateInfoByParams(Map<String, Object> params);
+
+	List<User> selectNearlyCustomersListByItemId(Map<String, Object> params);
 }

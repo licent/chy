@@ -29,6 +29,24 @@
     from t_user
     where id = #{id,jdbcType=INTEGER}
   </select>
+  
+  <select id="selectNearlyCustomersListByItemId" parameterType="java.util.Map" resultMap="BaseResultMap">
+	SELECT
+		u.`name`,
+		o.end_time,
+		u.img,
+		oi.num
+	FROM
+		t_user AS u
+	INNER JOIN t_order AS o ON o.user_id = u.id
+	INNER JOIN t_order_item AS oi ON oi.order_id = o.id
+	WHERE
+		oi.item_id = #{itemId}
+	ORDER BY
+		o.end_time DESC
+	LIMIT 0,10
+  </select>
+  
   <select id="selectListByParams" parameterType="java.util.Map" resultMap="BaseResultMap">
   	select  
   		<include refid="Base_Column_List" /> 

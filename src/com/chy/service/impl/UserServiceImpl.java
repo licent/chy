@@ -17,10 +17,10 @@ import com.chy.service.UserService;
  */
 @Service
 public class UserServiceImpl implements UserService {
-	
+
 	@Autowired
 	UserMapper userMapper;
-	
+
 	@Override
 	public User selectByPrimaryKey(Integer id) {
 		return userMapper.selectByPrimaryKey(id);
@@ -59,6 +59,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public int updateInfoByParams(Map<String, Object> params) {
 		return userMapper.updateInfoByParams(params);
+	}
+
+	@Override
+	public List<User> selectNearlyCustomersListByItemId(Map<String, Object> params) {
+		return userMapper.selectNearlyCustomersListByItemId(params);
 	}
 
 }
