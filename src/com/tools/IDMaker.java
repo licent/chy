@@ -30,4 +30,8 @@ public class IDMaker {
 	public static synchronized String createItemCode() {
 		return SP + new SimpleDateFormat("yyyyMMddhhmmssSSS").format(new Date());
 	}
+	
+	public static synchronized String createAutoPointCode(String prex) {
+		return prex.toUpperCase() + new SimpleDateFormat("yyyyMMddhhmmssSSS").format(new Date());
+	}
 }

@@ -37,6 +37,73 @@
 
 		</collection>
   </resultMap>
+  <resultMap id="ItemBaseResultMap" type="com.chy.pojo.out.Item">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="created" jdbcType="VARCHAR" property="created" />
+		<result column="modified" jdbcType="VARCHAR"
+			property="modified" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="code" jdbcType="VARCHAR" property="code" />
+		<result column="pic_url" jdbcType="VARCHAR" property="picUrl" />
+		<result column="status" jdbcType="VARCHAR" property="status" />
+		<result column="business_code" jdbcType="VARCHAR"
+			property="businessCode" />
+		<result column="supplier_id" jdbcType="INTEGER"
+			property="supplierId" />
+		<result column="price" jdbcType="REAL" property="price" />
+		<result column="card_price" jdbcType="REAL"
+			property="cardPrice" />
+		<result column="tsc" jdbcType="VARCHAR" property="tsc" />
+		<result column="outer_id" jdbcType="VARCHAR" property="outerId" />
+		<result column="store_id" jdbcType="INTEGER" property="storeId" />
+		<result column="purchase_price" jdbcType="REAL"
+			property="purchasePrice" />
+		<result column="binds" jdbcType="VARCHAR" property="binds" />
+		<result column="sale_props" jdbcType="VARCHAR"
+			property="saleProps" />
+		<result column="vertical_market" jdbcType="TINYINT"
+			property="verticalMarket" />
+		<result column="customer_props" jdbcType="VARCHAR"
+			property="customerProps" />
+		<result column="property_alias" jdbcType="VARCHAR"
+			property="propertyAlias" />
+		<result column="product_id" jdbcType="INTEGER"
+			property="productId" />
+		<result column="cid" jdbcType="INTEGER" property="cid" />
+		<result column="cat_name" jdbcType="VARCHAR" property="catName" />
+		<result column="props" jdbcType="VARCHAR" property="props" />
+		<result column="props_str" jdbcType="VARCHAR"
+			property="propsStr" />
+		<result column="binds_str" jdbcType="VARCHAR"
+			property="bindsStr" />
+		<result column="sale_props_str" jdbcType="VARCHAR"
+			property="salePropsStr" />
+		<result column="sell_pt" jdbcType="VARCHAR" property="sellPt" />
+		<result column="item_tag_id" jdbcType="INTEGER"
+			property="itemTagId" />
+		<result column="updateer" jdbcType="VARCHAR"
+			property="updateer" />
+		<result column="list_time" jdbcType="TIMESTAMP"
+			property="listTime" />
+		<result column="discount_price" jdbcType="REAL"
+			property="discountPrice" />
+		<result column="title" jdbcType="VARCHAR" property="title" />
+		<result column="sales_volume" jdbcType="INTEGER"
+			property="salesVolume" />
+		<result column="refund_volume" jdbcType="INTEGER"
+			property="refundVolume" />
+		<result column="state" jdbcType="TINYINT" property="state" />
+		<result column="have_sku" jdbcType="TINYINT" property="haveSku" />
+		<result column="have_this" jdbcType="TINYINT"
+			property="haveThis" />
+		<result column="get_time" jdbcType="VARCHAR" property="getTime" />
+		<result column="yushuo_time" jdbcType="VARCHAR"
+			property="yushuoTime" />
+		<result column="limits" jdbcType="INTEGER" property="limits" />
+		<result column="tag" jdbcType="INTEGER" property="tag" />
+		<result column="renqi" jdbcType="INTEGER" property="renqi" />
+		<result column="ishot" jdbcType="INTEGER" property="ishot" />
+	</resultMap>
   <sql id="Base_Column_List">
     id, order_code, status, total_money, create_time, thd, thr, th_time, th_phone, user_id, 
     ztd_id, end_time, is_bouns, is_sign_for
@@ -66,7 +133,7 @@
         </where>
   </select>
   
-  <select id="selectListByParamsEx" parameterType="java.util.Map" resultType="com.chy.pojo.out.Item">
+  <select id="selectListByParamsEx" parameterType="java.util.Map" resultMap="ItemBaseResultMap">
   	SELECT
 		i.*
 	FROM
@@ -87,7 +154,7 @@
       user_id, ztd_id, end_time, 
       is_bouns, is_sign_for)
     values (#{id,jdbcType=INTEGER}, #{orderCode,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, 
-      #{totalMoney,jdbcType=REAL}, #{createTime,jdbcType=VARCHAR}, #{thd,jdbcType=VARCHAR}, 
+      #{totalMoney,jdbcType=REAL}, sysdate(), #{thd,jdbcType=VARCHAR}, 
       #{thr,jdbcType=VARCHAR}, #{thTime,jdbcType=VARCHAR}, #{thPhone,jdbcType=VARCHAR}, 
       #{userId,jdbcType=VARCHAR}, #{ztdId,jdbcType=INTEGER}, #{endTime,jdbcType=VARCHAR}, 
       #{isBouns,jdbcType=BIT}, #{isSignFor,jdbcType=BIT})
@@ -151,8 +218,8 @@
       <if test="totalMoney != null">
         #{totalMoney,jdbcType=REAL},
       </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=VARCHAR},
+      <if test="true">
+        sysdate(),
       </if>
       <if test="thd != null">
         #{thd,jdbcType=VARCHAR},
@@ -216,8 +283,8 @@
       <if test="ztdId != null">
         ztd_id = #{ztdId,jdbcType=INTEGER},
       </if>
-      <if test="endTime != null">
-        end_time = #{endTime,jdbcType=VARCHAR},
+      <if test="true">
+        end_time = sysdate(),
       </if>
       <if test="isBouns != null">
         is_bouns = #{isBouns,jdbcType=BIT},
@@ -240,7 +307,7 @@
       th_phone = #{thPhone,jdbcType=VARCHAR},
       user_id = #{userId,jdbcType=VARCHAR},
       ztd_id = #{ztdId,jdbcType=INTEGER},
-      end_time = #{endTime,jdbcType=VARCHAR},
+      end_time = sysdate(),
       is_bouns = #{isBouns,jdbcType=BIT},
       is_sign_for = #{isSignFor,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}

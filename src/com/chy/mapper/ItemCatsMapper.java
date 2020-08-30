@@ -19,4 +19,5 @@ public interface ItemCatsMapper {
 	int updateByPrimaryKey(ItemCats record);
 
 	List<ItemCats> selectAllByParams(Map<String, Object> params);
+
 }

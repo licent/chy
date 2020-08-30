@@ -23,8 +23,10 @@
 		select
 		count(1)
 		from t_cart
-		where user_id =
-		#{userId,jdbcType=INTEGER}
+		where user_id = #{userId,jdbcType=INTEGER}
+			<if test="id != null">
+				item_id = #{ItemId,jdbcType=INTEGER}
+			</if>
 	</select>
 
 	<delete id="deleteByPrimaryKey"

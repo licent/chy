@@ -6,19 +6,22 @@ import java.util.Map;
 import com.chy.pojo.out.UserAddress;
 
 public interface UserAddressMapper {
-    int deleteByPrimaryKey(Integer id);
 
-    int insert(UserAddress record);
+	int deleteByPrimaryKey(Integer id);
 
-    int insertSelective(UserAddress record);
+	int insert(UserAddress record);
 
-    UserAddress selectByPrimaryKey(Integer id);
+	int insertSelective(UserAddress record);
 
-    int updateByPrimaryKeySelective(UserAddress record);
+	UserAddress selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKey(UserAddress record);
-    
-    List<UserAddress> selectListByParams(Map<String,Object> params);
-    
-    int updateByUserId(Map<String,Object> pararms);
+	int updateByPrimaryKeySelective(UserAddress record);
+
+	int updateByPrimaryKey(UserAddress record);
+
+	List<UserAddress> selectListByParams(Map<String, Object> params);
+
+	int updateByUserId(Map<String, Object> pararms);
+
+	int updateCurrentAddressByUserId(Map<String, Object> pararms);
 }

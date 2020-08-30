@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
+import com.chy.pojo.in.ItemSalesEx;
 import com.chy.pojo.out.Item;
 import com.chy.pojo.out.ItemWithBLOBs;
 import com.chy.service.ItemService;
@@ -23,7 +24,7 @@ import com.tools.Tools;
  * @产品控制器
  */
 @Controller
-public class ProductController {
+public class ItemController {
 
 	@Autowired
 	ItemService itemService;
@@ -73,11 +74,30 @@ public class ProductController {
 	 */
 	@RequestMapping("/manage/item/getById")
 	@ResponseBody
-	public String ProductById(@RequestParam Map<String, Object> params) {
+	public String getById(@RequestParam Map<String, Object> params) {
 		ResponseInfo<Item> info = new ResponseInfo<Item>();
 		try {
 			// itemId
 			info.setData(itemService.selectByPrimaryKey((Integer) params.get("itemId")));
+			info.setCode(ResponseCode.SUCC);
+			return info.toJsonString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			info.setCode(ResponseCode.EXCEPTION);
+			return info.toJsonString();
+		}
+	}
+
+	/**
+	 * 查询产品的总购买人数 和 总销量
+	 */
+	@RequestMapping("/manage/item/getItemBuysAndSales")
+	@ResponseBody
+	public String getItemBuysAndSales(@RequestParam Map<String, Object> params) {
+		ResponseInfo<ItemSalesEx> info = new ResponseInfo<ItemSalesEx>();
+		try {
+			// itemId
+			info.setData(itemService.selectItemBuysAndSales(params));
 			info.setCode(ResponseCode.SUCC);
 			return info.toJsonString();
 		} catch (Exception e) {

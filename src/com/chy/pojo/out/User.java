@@ -32,7 +32,7 @@ public class User {
     private String bsnsPwdSalt;
 
     private String addTimeStr;
-
+    
     public Integer getId() {
         return id;
     }
@@ -152,4 +152,5 @@ public class User {
     public void setAddTimeStr(String addTimeStr) {
         this.addTimeStr = addTimeStr == null ? null : addTimeStr.trim();
     }
+
 }

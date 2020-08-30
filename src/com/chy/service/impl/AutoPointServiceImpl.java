@@ -1,5 +1,6 @@
 package com.chy.service.impl;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +58,11 @@ public class AutoPointServiceImpl implements AutoPointService{
 	@Override
 	public long selectFansById(Map<String, Object> params) {
 		return autoPointMapper.selectFansById(params);
+	}
+
+	@Override
+	public List<AutoPoint> selectNearlyInfo(Map<String, Object> params) {
+		return autoPointMapper.selectNearlyInfo(params);
 	}
 
 }

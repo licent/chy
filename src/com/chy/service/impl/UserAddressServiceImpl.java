@@ -99,4 +99,9 @@ public class UserAddressServiceImpl implements UserAddressService {
 		}
 	}
 
+	@Override
+	public int updateCurrentAddressByUserId(Map<String, Object> pararms) {
+		return userAddressMapper.updateCurrentAddressByUserId(pararms);
+	}
+
 }

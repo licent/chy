@@ -9,8 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.chy.pojo.out.OrderGross;
+import com.chy.pojo.out.OrderGrossDalyrecords;
 import com.chy.pojo.out.User;
 import com.chy.pojo.out.UserAddress;
+import com.chy.service.OrderGrossDalyrecordsService;
+import com.chy.service.OrderGrossService;
 import com.chy.service.UserAddressService;
 import com.chy.service.UserService;
 import com.tools.ResponseCode;
@@ -30,6 +34,12 @@ public class UserController {
 
 	@Autowired
 	UserAddressService userAddressService;
+
+	@Autowired
+	OrderGrossService orderGrossService;
+
+	@Autowired
+	OrderGrossDalyrecordsService orderGrossDalyrecordsService;
 
 	/**
 	 * 新增用户
@@ -51,8 +61,8 @@ public class UserController {
 			record.setOpenId((String) params.get("openId"));
 			record.setParentId((Integer) params.get("parentId"));
 			record.setImg((String) params.get("img"));
-
 			info.setData(userService.insertSelective(record));
+
 			info.setCode(ResponseCode.SUCC);
 			return info.toJsonString();
 		} catch (Exception e) {
@@ -89,7 +99,12 @@ public class UserController {
 	public String queryUserList(@RequestParam Map<String, Object> params) {
 		ResponseInfo<List<User>> info = new ResponseInfo<List<User>>();
 		try {
-			// openId phone
+			// openId
+			// phone
+			// parentId
+			// fParentId
+			// ztdParentId
+
 			info.setData(userService.selectListByParams(params));
 			info.setCode(ResponseCode.SUCC);
 			return info.toJsonString();
@@ -194,6 +209,76 @@ public class UserController {
 		try {
 			// userId
 			info.setData(userAddressService.selectListByParams(params));
+			info.setCode(ResponseCode.SUCC);
+			return info.toJsonString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			info.setCode(ResponseCode.EXCEPTION);
+			return info.toJsonString();
+		}
+	}
+
+	/**
+	 * 查询当前用户毛利详情列表
+	 */
+	@RequestMapping("/manage/gross/getUserGrossInfoList")
+	@ResponseBody
+	public String getUserGrossInfoList(@RequestParam Map<String, Object> params) {
+		ResponseInfo<List<OrderGross>> info = new ResponseInfo<List<OrderGross>>();
+		try {
+			// userId
+			// type 1用户分红 2店长分红 3厂商分红
+			// begintime
+			// endtime
+			// 查询一天的结果 begintime和 endtime传同一个值 yyyy-mm-dd
+			info.setData(orderGrossService.selectUserGrossByParams(params));
+			info.setCode(ResponseCode.SUCC);
+			return info.toJsonString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			info.setCode(ResponseCode.EXCEPTION);
+			return info.toJsonString();
+		}
+	}
+
+	/**
+	 * 查询每日毛利产生列表
+	 */
+	@RequestMapping("/manage/gross/getUserGrossDalyInfoList")
+	@ResponseBody
+	public String getUserGrossDalyInfoList(@RequestParam Map<String, Object> params) {
+		ResponseInfo<List<OrderGrossDalyrecords>> info = new ResponseInfo<List<OrderGrossDalyrecords>>();
+		try {
+			// userId
+			// type 1消费者 2自提点 3厂商
+			// status 0未提现 1已提现
+			// begintime
+			// endtime
+			// 查询一天的结果 begintime和 endtime传同一个值 yyyy-mm-dd
+			info.setData(orderGrossDalyrecordsService.selectUserDalyGrossByParams(params));
+			info.setCode(ResponseCode.SUCC);
+			return info.toJsonString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			info.setCode(ResponseCode.EXCEPTION);
+			return info.toJsonString();
+		}
+	}
+
+	/**
+	 * 按照时间更改用户毛利信息
+	 */
+	@RequestMapping("/manage/gross/updateUserDalyGrossInfo")
+	@ResponseBody
+	public String updateUserDalyGrossInfo(@RequestParam Map<String, Object> params) {
+		ResponseInfo<Integer> info = new ResponseInfo<Integer>();
+		try {
+			// userId
+			// status
+			// begintime
+			// endtime
+			// 修改一天的结果 begintime和 endtime传同一个值 yyyy-mm-dd
+			info.setData(orderGrossDalyrecordsService.updateStatusByUserIdAndTime(params));
 			info.setCode(ResponseCode.SUCC);
 			return info.toJsonString();
 		} catch (Exception e) {

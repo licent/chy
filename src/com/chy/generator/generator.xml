@@ -2,32 +2,34 @@
 <!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
 	<!-- 数据库驱动包位置 -->
-	<classPathEntry location="D:\work\workspace\chy\WebContent/WEB-INF/lib/mysql-connector-java-5.0.8-bin.jar" /> 
+	<classPathEntry location="D:\work\workspace\chy\WebContent/WEB-INF/lib/mysql-connector-java-5.1.30.jar" /> 
 	<context id="mysqlTables" targetRuntime="MyBatis3">
 		<commentGenerator>
 			<property name="suppressAllComments" value="true" />
 		</commentGenerator>
 		<!-- 数据库链接URL、用户名、密码 -->
-		<jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://42.194.203.67:3306/chy?serverTimezone=GMT%2B8" userId="chy" password="123123">  
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://182.254.202.42:3306/chy?serverTimezone=GMT%2B8" userId="root" password="Chy2020chy"> 
 		</jdbcConnection>
 		<javaTypeResolver>
 			<property name="forceBigDecimals" value="false" />
 		</javaTypeResolver>
 		<!-- 生成模型的包名和位置 --> 
-		<javaModelGenerator targetPackage="com.pojo.out" targetProject="D:/work/workspace/chy/src">
+		<javaModelGenerator targetPackage="com.chy.pojo.out" targetProject="D:/work/workspace/chy/src">
 			<property name="enableSubPackages" value="true" />
 			<property name="trimStrings" value="true" />
 		</javaModelGenerator>
 		<!-- 生成的映射文件包名和位置 --> 
-		<sqlMapGenerator targetPackage="com.mapper" targetProject="D:/work/workspace/chy/src">
+		<sqlMapGenerator targetPackage="com.chy.mapper" targetProject="D:/work/workspace/chy/src">
 			<property name="enableSubPackages" value="true" />
 		</sqlMapGenerator>
 		<!-- 生成DAO的包名和位置 --> 
-		<javaClientGenerator type="XMLMAPPER" targetPackage="com.mapper" targetProject="D:/work/workspace/chy/src">
+		<javaClientGenerator type="XMLMAPPER" targetPackage="com.chy.mapper" targetProject="D:/work/workspace/chy/src">
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 		<!-- 要生成那些表(更改tableName和domainObjectName就可以) --><!-- 6 -->
-		<table tableName="admin_article" domainObjectName="AdminArticle" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
+		<table tableName="t_order_gross" domainObjectName="OrderGross" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
+		<table tableName="t_order_gross_dalyrecords" domainObjectName="OrderGrossDalyrecords" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
+		<!-- <table tableName="admin_article" domainObjectName="AdminArticle" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
 		<table tableName="admin_auth_group" domainObjectName="AdminAuthGroup" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
 		<table tableName="admin_auth_group_access" domainObjectName="AdminAuthGroupAccess" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
 		<table tableName="admin_auth_rule" domainObjectName="AdminAuthRule" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
@@ -67,5 +69,6 @@
 		<table tableName="t_visitors_tag" domainObjectName="VisitorsTag" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
 		<table tableName="t_withdrawal" domainObjectName="Withdrawal" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
 		<table tableName="tab" domainObjectName="Tab" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
+		 -->
 	</context>
 </generatorConfiguration>

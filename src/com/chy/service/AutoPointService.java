@@ -1,5 +1,6 @@
 package com.chy.service;
 
+import java.util.List;
 import java.util.Map;
 
 import com.chy.pojo.out.AutoPoint;
@@ -21,4 +22,6 @@ public interface AutoPointService {
 	double selectSaleVolumeById(Map<String, Object> params);
 
 	long selectFansById(Map<String, Object> params);
+	
+	List<AutoPoint> selectNearlyInfo(Map<String, Object> params);
 }

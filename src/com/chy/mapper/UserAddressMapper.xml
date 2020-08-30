@@ -92,6 +92,14 @@
   	where user_id=#{userId}
   </update>
   
+  <update id="updateCurrentAddressByUserId" parameterType="java.util.Map">
+  	UPDATE t_user_address
+		SET ztd_id = #{ztdId}
+	WHERE
+		user_id = #{userId}
+	AND selected = 1
+  </update>
+  
   <update id="updateByPrimaryKeySelective" parameterType="com.chy.pojo.out.UserAddress">
     update t_user_address
     <set>

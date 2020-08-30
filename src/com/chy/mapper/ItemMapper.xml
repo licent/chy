@@ -147,51 +147,80 @@
 		</collection>
 	</resultMap>
 
-	<select id="getItemListByParams" parameterType="java.util.Map" resultMap="itemMain">
+	<resultMap id="UserBaseResultMap"
+		type="com.chy.pojo.out.User">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="phone" jdbcType="VARCHAR" property="phone" />
+		<result column="open_id" jdbcType="VARCHAR" property="openId" />
+		<result column="money" jdbcType="DECIMAL" property="money" />
+		<result column="parent_id" jdbcType="INTEGER"
+			property="parentId" />
+		<result column="img" jdbcType="VARCHAR" property="img" />
+		<result column="id_card_img" jdbcType="VARCHAR"
+			property="idCardImg" />
+		<result column="zipai" jdbcType="VARCHAR" property="zipai" />
+		<result column="id_card_no" jdbcType="VARCHAR"
+			property="idCardNo" />
+		<result column="is_authentication" jdbcType="TINYINT"
+			property="isAuthentication" />
+		<result column="add_time" jdbcType="INTEGER" property="addTime" />
+		<result column="bsns_pwd" jdbcType="VARCHAR" property="bsnsPwd" />
+		<result column="bsns_pwd_salt" jdbcType="VARCHAR"
+			property="bsnsPwdSalt" />
+		<result column="add_time_str" jdbcType="VARCHAR"
+			property="addTimeStr" />
+	</resultMap>
+
+	<select id="getItemListByParams" parameterType="java.util.Map"
+		resultMap="itemMain">
 		SELECT
-			i.*
+		i.*
 		FROM
-			t_item AS i
-		where  i.`status`='onsale' 
+		t_item AS i
+		where i.`status`='onsale'
 		<if test="tag != null">
 			and i.tag=#{tag}
 		</if>
 	</select>
 
-	<select id="getUserList" resultType="com.chy.pojo.out.User">
+	<select id="getUserList" resultMap="UserBaseResultMap">
 		SELECT
-			al.*
+		al.*
 		FROM
-			(
-				SELECT
-					a.*,
-				IF (
-					@itemId = a.item_id,
-					@rank := @rank + 1,
-					@rank := 1
-				) AS rank,
-				@itemId := a.item_id,
-				@rank,
-				@itemId
-			FROM
-				(
-					SELECT DISTINCT
-						oi.item_id,
-						u.*
-					FROM
-						t_order AS o
-					INNER JOIN t_order_item AS oi ON o.id = oi.order_id
-					INNER JOIN t_user AS u ON o.user_id = u.id
-					WHERE
-						o.`status` IN (1, 2) and oi.item_id=#{id}
-					ORDER BY
-						oi.item_id DESC
-				) a,
-				(SELECT @rank := 1, @itemId := '') b
-			 
-			) al
+		(
+		SELECT
+		a.*,
+		IF (
+		@itemId = a.item_id,
+		@rank := @rank + 1,
+		@rank := 1
+		) AS rank,
+		@itemId := a.item_id,
+		@rank,
+		@itemId
+		FROM
+		(
+		SELECT
+		DISTINCT
+		oi.item_id,
+		u.*
+		FROM
+		t_order AS o
+		INNER JOIN t_order_item AS oi ON
+		o.id = oi.order_id
+		INNER JOIN t_user AS u ON o.user_id = u.id
 		WHERE
-			al.rank <![CDATA[<]]> 4
+		o.`status` IN (1, 2) and oi.item_id=#{id}
+		ORDER BY
+		oi.item_id DESC
+		) a,
+		(SELECT @rank := 1, @itemId := '') b
+
+		) al
+		WHERE
+		al.rank <![CDATA[<]]>
+		4
 	</select>
 
 	<sql id="Base_Column_List">
@@ -211,17 +240,19 @@
 		yushuo_time, limits,
 		tag, renqi,ishot
 	</sql>
-	
+
 	<sql id="Blob_Column_List">
 		ft, details
 	</sql>
-	
-	<select id="selectCartItemByParams" parameterType="java.util.Map" resultMap="ResultMapWithBLOBs">
+
+	<select id="selectCartItemByParams"
+		parameterType="java.util.Map" resultMap="ResultMapWithBLOBs">
 		SELECT
-			i.*,c.num
+		i.*,c.num
 		FROM
-			t_item AS i
-		INNER JOIN t_cart AS c ON i.id = c.item_id
+		t_item AS i
+		INNER JOIN t_cart AS c ON i.id =
+		c.item_id
 		<where>
 			<if test="userId != null">
 				AND c.user_id =#{userId}
@@ -231,14 +262,15 @@
 			</if>
 		</where>
 	</select>
-	
+
 	<select id="selectHotItemByParams" parameterType="java.util.Map"
 		resultMap="ResultMapWithBLOBs">
 		SELECT
-			i.`name`,i.id
+		i.`name`,i.id
 		FROM
-			t_item AS i
-		LEFT JOIN t_item_cats AS ic ON i.cid = ic.cid
+		t_item AS i
+		LEFT JOIN t_item_cats AS ic ON i.cid
+		= ic.cid
 		<where>
 			<if test="ishot != null">
 				and i.ishot = #{ishot,jdbcType=INTEGER}
@@ -246,12 +278,74 @@
 		</where>
 	</select>
 
+	<select id="selectItemGrossInfolistByOrderId"
+		parameterType="java.util.Map"
+		resultType="com.chy.pojo.in.OrderGrossEx">
+		SELECT
+		1 AS `type`,
+		u.parent_id AS userId,
+		o.id AS orderId,
+		i.id AS itemId,
+		oi.num AS num,
+		i.price AS money,
+		i.purchase_price AS
+		purchaseMoney
+		FROM
+		t_order AS o
+		INNER JOIN t_order_item AS oi ON o.id =
+		oi.order_id
+		INNER JOIN
+		t_item AS i ON oi.item_id = i.id
+		INNER JOIN t_user
+		AS u ON u.parent_id
+		= o.user_id
+		WHERE
+		o.id = #{orderId}
+		UNION
+		SELECT
+		2 AS
+		`type`,
+		f.parent_user_id,
+		o.id AS orderId,
+		i.id AS itemId,
+		oi.num AS num,
+		i.price AS money,
+		i.purchase_price AS purchaseMoney
+		FROM
+		t_order AS o
+		INNER JOIN t_order_item AS oi ON o.id = oi.order_id
+		INNER JOIN t_item
+		AS i ON oi.item_id = i.id
+		INNER JOIN t_factory AS f ON f.parent_user_id
+		= o.user_id
+		WHERE
+		o.id = #{orderId}
+		UNION
+		SELECT
+		3 AS `type`,
+		ap.parent_user_id,
+		o.id AS orderId,
+		i.id AS itemId,
+		oi.num AS num,
+		i.price AS money,
+		i.purchase_price AS purchaseMoney
+		FROM
+		t_order AS o
+		INNER JOIN t_order_item AS oi ON o.id = oi.order_id
+		INNER JOIN t_item
+		AS i ON oi.item_id = i.id
+		INNER JOIN t_auto_point AS ap ON
+		ap.parent_user_id = o.user_id
+		WHERE
+		o.id = #{orderId}
+	</select>
+
 	<select id="selectAllByParams" parameterType="java.util.Map"
 		resultMap="ResultMapWithBLOBs">
 		SELECT
-			i.*
+		i.*
 		FROM
-			t_item AS i
+		t_item AS i
 		LEFT JOIN t_item_cats AS ic ON i.cid = ic.cid
 		<where>
 			<if test="cid != null">
@@ -263,6 +357,40 @@
 			<if test="key != null">
 				and i.`name` like CONCAT('%',#{key},'%')</if>
 		</where>
+	</select>
+
+	<select id="selectItemBuysAndSales"
+		parameterType="java.util.Map" resultType="com.chy.pojo.in.ItemSalesEx">
+		SELECT
+			sum(IF(tab.t = 1, tab.val, 0)) AS totalSales,
+			sum(IF(tab.t = 2, tab.val, 0)) AS totalBuys
+		FROM
+			(
+				SELECT
+		
+				IF (
+					sum(oi.num) IS NULL,
+					0,
+					sum(oi.num)
+				) AS val,
+				1 AS t
+			FROM
+				t_order_item AS oi
+			INNER JOIN t_order AS o ON o.id = oi.order_id
+			WHERE
+				oi.item_id = #{itemId}
+			AND o.`status` IN (1, 2)
+			UNION
+				SELECT
+					count(DISTINCT o.user_id) AS val,
+					2 AS t
+				FROM
+					t_order_item AS oi
+				INNER JOIN t_order AS o ON o.id = oi.order_id
+				WHERE
+					oi.item_id = #{itemId}
+				AND o.`status` IN (1, 2)
+			) AS tab
 	</select>
 
 	<select id="selectByPrimaryKey"
@@ -279,59 +407,75 @@
 		delete from t_item
 		where id = #{id,jdbcType=INTEGER}
 	</delete>
-	<insert id="insert" parameterType="com.chy.pojo.out.ItemWithBLOBs">
+	<insert id="insert"
+		parameterType="com.chy.pojo.out.ItemWithBLOBs">
 		insert into t_item (id,
 		created, modified,
-		name,code, pic_url, status,
+		name,code,
+		pic_url, status,
 		business_code, supplier_id,
 		price,
-		card_price, tsc, outer_id,
+		card_price, tsc,
+		outer_id,
 		store_id, purchase_price, binds,
-		sale_props, vertical_market, customer_props,
+		sale_props, vertical_market,
+		customer_props,
 		property_alias,
 		product_id, cid,
-		cat_name, props, props_str,
+		cat_name, props,
+		props_str,
 		binds_str, sale_props_str,
 		sell_pt,
-		item_tag_id, updateer, list_time,
+		item_tag_id, updateer,
+		list_time,
 		discount_price, title,
 		sales_volume,
-		refund_volume, state, have_sku,
+		refund_volume, state,
+		have_sku,
 		have_this, get_time,
 		yushuo_time,
 		limits, tag, renqi,ishot
-		ft, details)
+		ft,
+		details)
 		values
 		(#{id,jdbcType=INTEGER}, #{created,jdbcType=VARCHAR},
 		#{modified,jdbcType=VARCHAR},
 		#{name,jdbcType=VARCHAR},
 		#{code,jdbcType=VARCHAR},
-		#{picUrl,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR},
-		#{businessCode,jdbcType=VARCHAR}, #{supplierId,jdbcType=INTEGER},
+		#{picUrl,jdbcType=VARCHAR},
+		#{status,jdbcType=VARCHAR},
+		#{businessCode,jdbcType=VARCHAR},
+		#{supplierId,jdbcType=INTEGER},
 		#{price,jdbcType=REAL},
 		#{cardPrice,jdbcType=REAL},
-		#{tsc,jdbcType=VARCHAR}, #{outerId,jdbcType=VARCHAR},
-		#{storeId,jdbcType=INTEGER}, #{purchasePrice,jdbcType=REAL},
+		#{tsc,jdbcType=VARCHAR},
+		#{outerId,jdbcType=VARCHAR},
+		#{storeId,jdbcType=INTEGER},
+		#{purchasePrice,jdbcType=REAL},
 		#{binds,jdbcType=VARCHAR},
 		#{saleProps,jdbcType=VARCHAR},
 		#{verticalMarket,jdbcType=TINYINT},
 		#{customerProps,jdbcType=VARCHAR},
-		#{propertyAlias,jdbcType=VARCHAR}, #{productId,jdbcType=INTEGER},
+		#{propertyAlias,jdbcType=VARCHAR},
+		#{productId,jdbcType=INTEGER},
 		#{cid,jdbcType=INTEGER},
 		#{catName,jdbcType=VARCHAR},
 		#{props,jdbcType=VARCHAR},
 		#{propsStr,jdbcType=VARCHAR},
-		#{bindsStr,jdbcType=VARCHAR}, #{salePropsStr,jdbcType=VARCHAR},
+		#{bindsStr,jdbcType=VARCHAR},
+		#{salePropsStr,jdbcType=VARCHAR},
 		#{sellPt,jdbcType=VARCHAR},
 		#{itemTagId,jdbcType=INTEGER},
 		#{updateer,jdbcType=VARCHAR},
 		#{listTime,jdbcType=TIMESTAMP},
-		#{discountPrice,jdbcType=REAL}, #{title,jdbcType=VARCHAR},
+		#{discountPrice,jdbcType=REAL},
+		#{title,jdbcType=VARCHAR},
 		#{salesVolume,jdbcType=INTEGER},
 		#{refundVolume,jdbcType=INTEGER},
 		#{state,jdbcType=TINYINT},
 		#{haveSku,jdbcType=TINYINT},
-		#{haveThis,jdbcType=TINYINT}, #{getTime,jdbcType=VARCHAR},
+		#{haveThis,jdbcType=TINYINT},
+		#{getTime,jdbcType=VARCHAR},
 		#{yushuoTime,jdbcType=VARCHAR},
 		#{limits,jdbcType=INTEGER},
 		#{tag,jdbcType=INTEGER},
@@ -775,7 +919,8 @@
 		#{name,jdbcType=VARCHAR},
 		code =
 		#{code,jdbcType=VARCHAR},
-		pic_url = #{picUrl,jdbcType=VARCHAR},
+		pic_url =
+		#{picUrl,jdbcType=VARCHAR},
 		status =
 		#{status,jdbcType=VARCHAR},
 		business_code =
@@ -848,7 +993,8 @@
 		#{name,jdbcType=VARCHAR},
 		code =
 		#{code,jdbcType=VARCHAR},
-		pic_url = #{picUrl,jdbcType=VARCHAR},
+		pic_url =
+		#{picUrl,jdbcType=VARCHAR},
 		status =
 		#{status,jdbcType=VARCHAR},
 		business_code =

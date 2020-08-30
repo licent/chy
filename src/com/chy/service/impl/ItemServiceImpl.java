@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.chy.mapper.ItemMapper;
+import com.chy.pojo.in.ItemSalesEx;
+import com.chy.pojo.in.OrderGrossEx;
 import com.chy.pojo.out.Item;
 import com.chy.pojo.out.ItemWithBLOBs;
 import com.chy.service.ItemService;
@@ -74,6 +76,16 @@ public class ItemServiceImpl implements ItemService {
 	@Override
 	public List<Item> selectCartItemByParams(Map<String, Object> params) {
 		return itemMapper.selectCartItemByParams(params);
+	}
+
+	@Override
+	public List<OrderGrossEx> selectItemGrossInfolistByOrderId(Map<String, Object> params) {
+		return itemMapper.selectItemGrossInfolistByOrderId(params);
+	}
+
+	@Override
+	public ItemSalesEx selectItemBuysAndSales(Map<String, Object> params) {
+		return itemMapper.selectItemBuysAndSales(params);
 	}
 
 }

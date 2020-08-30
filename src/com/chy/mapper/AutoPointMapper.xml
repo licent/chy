@@ -5,6 +5,8 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="ztd" jdbcType="VARCHAR" property="ztd" />
     <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="local_x" jdbcType="VARCHAR" property="localX" />
+    <result column="local_y" jdbcType="VARCHAR" property="localY" />
     <result column="phone" jdbcType="VARCHAR" property="phone" />
     <result column="code" jdbcType="VARCHAR" property="code" />
     <result column="abnormal" jdbcType="TINYINT" property="abnormal" />
@@ -18,7 +20,7 @@
     <result column="parent_user_id" jdbcType="INTEGER" property="parentUserId" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, ztd, address, phone, code, abnormal, user_id, business_or_not, close_start_time, 
+    id, ztd, address,local_x,local_y, phone, code, abnormal, user_id, business_or_not, close_start_time, 
     is_close, close_end_time, is_open, status, parent_user_id
   </sql>
   <select id="selectFansById" parameterType="java.util.Map" resultType="java.lang.Long">
@@ -42,6 +44,23 @@
 	AND ap.id = #{ztdId,jdbcType=INTEGER}
   </select>
   
+  <select id="selectNearlyInfo" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+	FROM
+		t_auto_point AS a
+	INNER JOIN (
+		SELECT
+			id,
+			abs(${localX} - local_x) + abs(${localY} - local_y) AS ssumXY
+		FROM
+			t_auto_point
+	) b ON a.id = b.id
+	ORDER BY
+		b.ssumXY ASC
+	LIMIT 0,3
+  </select>
+  
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -53,12 +72,12 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.chy.pojo.out.AutoPoint">
-    insert into t_auto_point (id, ztd, address, 
+    insert into t_auto_point (id, ztd, address,local_x,local_y, 
       phone, code, abnormal, 
       user_id, business_or_not, close_start_time, 
       is_close, close_end_time, is_open, 
       status, parent_user_id)
-    values (#{id,jdbcType=INTEGER}, #{ztd,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{ztd,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{localX,jdbcType=VARCHAR},#{localY,jdbcType=VARCHAR},
       #{phone,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{abnormal,jdbcType=TINYINT}, 
       #{userId,jdbcType=INTEGER}, #{businessOrNot,jdbcType=INTEGER}, #{closeStartTime,jdbcType=VARCHAR}, 
       #{isClose,jdbcType=BIT}, #{closeEndTime,jdbcType=VARCHAR}, #{isOpen,jdbcType=BIT}, 
@@ -75,6 +94,12 @@
       </if>
       <if test="address != null">
         address,
+      </if>
+      <if test="localX != null">
+        local_x,
+      </if>
+      <if test="localY != null">
+        local_y,
       </if>
       <if test="phone != null">
         phone,
@@ -120,6 +145,12 @@
       <if test="address != null">
         #{address,jdbcType=VARCHAR},
       </if>
+      <if test="localX != null">
+        #{localX,jdbcType=VARCHAR},
+      </if>
+      <if test="localY != null">
+        #{localY,jdbcType=VARCHAR},
+      </if>
       <if test="phone != null">
         #{phone,jdbcType=VARCHAR},
       </if>
@@ -164,6 +195,12 @@
       <if test="address != null">
         address = #{address,jdbcType=VARCHAR},
       </if>
+      <if test="localX != null">
+        local_x = #{localX,jdbcType=VARCHAR},
+      </if>
+      <if test="localY != null">
+        local_y = #{localY,jdbcType=VARCHAR},
+      </if>
       <if test="phone != null">
         phone = #{phone,jdbcType=VARCHAR},
       </if>
@@ -204,6 +241,8 @@
     update t_auto_point
     set ztd = #{ztd,jdbcType=VARCHAR},
       address = #{address,jdbcType=VARCHAR},
+      local_x = #{localX,jdbcType=VARCHAR},
+      local_y = #{localY,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
       code = #{code,jdbcType=VARCHAR},
       abnormal = #{abnormal,jdbcType=TINYINT},

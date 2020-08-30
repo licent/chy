@@ -15,7 +15,7 @@ import org.mybatis.generator.internal.DefaultShellCallback;
 
 public class GeneratorRun {
 	public static void main(String[] args) {
-		String genCfg = "D:\\work\\workspace\\chy\\src\\com\\generator\\generator.xml";
+		String genCfg = "D:\\work\\workspace\\chy\\src\\com\\chy\\generator\\generator.xml";
 		List<String> warnings = new ArrayList<String>();
 		boolean overwrite = true;
 		System.out.println(genCfg);

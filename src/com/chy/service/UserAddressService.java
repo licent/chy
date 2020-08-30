@@ -15,10 +15,12 @@ public interface UserAddressService {
 	UserAddress selectByPrimaryKey(Integer id);
 
 	int updateByPrimaryKeySelective(UserAddress record);
-	
+
 	int updateUserAddress(UserAddress record) throws Exception;
-	
+
 	int updateByPrimaryKey(UserAddress record);
 
 	List<UserAddress> selectListByParams(Map<String, Object> params);
+
+	int updateCurrentAddressByUserId(Map<String, Object> pararms);
 }
