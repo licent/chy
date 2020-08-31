@@ -64,6 +64,15 @@ public class ItemController {
 		ResponseInfo<List<Item>> info = new ResponseInfo<List<Item>>();
 		try {
 			// itemTagId
+			// userId
+			// pageNo
+			// pageSize
+			
+			int i=Tools.ObjectToInt(params.get("pageNo"));
+			int pageNo =Tools.ObjectToInt(params.get("pageNo"));
+			
+			params.put("startindex", (i-1)*pageNo);
+			
 			info.setData(itemService.getItemListByParams(params));
 			info.setCode(ResponseCode.SUCC);
 			return info.toJsonString();
@@ -83,7 +92,7 @@ public class ItemController {
 		ResponseInfo<Item> info = new ResponseInfo<Item>();
 		try {
 			// itemId
-			info.setData(itemService.selectByPrimaryKey((Integer) params.get("itemId")));
+			info.setData(itemService.selectByPrimaryKey(Tools.ObjectToInt(params.get("itemId"))));
 			info.setCode(ResponseCode.SUCC);
 			return info.toJsonString();
 		} catch (Exception e) {

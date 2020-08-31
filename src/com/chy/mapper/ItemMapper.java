@@ -30,8 +30,9 @@ public interface ItemMapper {
 	List<Item> getItemListByParams(Map<String, Object> params);
 
 	List<Item> selectCartItemByParams(Map<String, Object> params);
-	
+
 	List<OrderGrossEx> selectItemGrossInfolistByOrderId(Map<String, Object> params);
-	
+
 	ItemSalesEx selectItemBuysAndSales(Map<String, Object> params);
+
 }

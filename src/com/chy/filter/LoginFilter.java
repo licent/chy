@@ -16,13 +16,18 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.web.multipart.MultipartResolver;
 
+import com.chy.pojo.out.AdminUsers;
+
 /**
  * 过滤器 验证是否登陆，未登陆的任何请求跳转至登录页
  * 
  * @author Taylor.O
  */
 public class LoginFilter implements Filter {
-
+	
+	//小程序接口前缀
+	String interfaceHead;
+	
 	MultipartResolver multipartResolver;
 
 	private List<String> alow_list = new ArrayList<String>();
@@ -41,12 +46,11 @@ public class LoginFilter implements Filter {
 		try {
 			String url = req.getRequestURI();
 			// 如果没有登录.
-			//String requestURI = url.substring(url.indexOf("/"), url.length());
+			String requestURI = url.substring(url.indexOf("/"), url.length());
 			// 不需要登录的请求页面过滤
-			/*
-			 * if (!alow_list.contains(requestURI)) {
+			if (!alow_list.contains(requestURI) && !requestURI.startsWith(interfaceHead)) {
 				HttpSession session = req.getSession();
-				UserDto userDto = (UserDto) session
+				AdminUsers userDto = (AdminUsers) session
 						.getAttribute("USERSESSION");
 				if (session == null || userDto == null) {
 					res.sendRedirect(req.getContextPath() + "/login.html");
@@ -54,7 +58,6 @@ public class LoginFilter implements Filter {
 					return;
 				}
 			}
-			*/
 			chain.doFilter(req, res);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -65,12 +68,19 @@ public class LoginFilter implements Filter {
 
 	@Override
 	public void init(FilterConfig arg0) throws ServletException {
+		
+		//app接口
+		interfaceHead="/manage/";
+		
 		//接口
-		alow_list.add("/login.do");
-		alow_list.add("/unlogin.do");
+		alow_list.add("/admin/adminUserLogin.do");
+		alow_list.add("/admin/adminUserunlogin.do");
 		
 		//页面
 		alow_list.add("/login.html");
+		alow_list.add("/readme.html");
+		alow_list.add("/400.html");
+		alow_list.add("/500.html");
 	}
-
+	
 }

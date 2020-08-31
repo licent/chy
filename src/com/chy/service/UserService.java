@@ -27,4 +27,6 @@ public interface UserService {
 	int updateInfoByParams(Map<String, Object> params);
 
 	List<User> selectNearlyCustomersListByItemId(Map<String, Object> params);
+	
+	List<User> selectUserFansListByUserId(Map<String, Object> params);
 }

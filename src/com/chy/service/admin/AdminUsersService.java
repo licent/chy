@@ -1,11 +1,11 @@
-package com.chy.mapper;
+package com.chy.service.admin;
 
 import java.util.Map;
 
 import com.chy.pojo.out.AdminUsers;
 
-public interface AdminUsersMapper {
-    int deleteByPrimaryKey(Integer id);
+public interface AdminUsersService {
+	int deleteByPrimaryKey(Integer id);
 
     int insert(AdminUsers record);
 

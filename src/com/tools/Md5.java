@@ -58,9 +58,9 @@ public class Md5 {
 		return resultString;
 	}
 
-	// 12345->827ccb0eea8a706c4c34a16891f84e7b
+	// 123456->827ccb0eea8a706c4c34a16891f84e7b
 	// 88888->1c395a8dce135849bd73c6dba3b54809
 	public static void main(String[] args) {
-		System.out.print(GetMD5Code("55555"));
+		System.out.print(GetMD5Code("123456"));
 	}
 }

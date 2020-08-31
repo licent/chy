@@ -18,6 +18,12 @@
     id, username, password, avatar, email, email_code, phone, status, register_time, 
     last_login_ip, last_login_time
   </sql>
+  
+  <sql id="Base_Column_List_Ex">
+    id, username, avatar, email, email_code, phone, status, register_time, 
+    last_login_ip, last_login_time
+  </sql>
+  
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -28,6 +34,16 @@
     delete from admin_users
     where id = #{id,jdbcType=INTEGER}
   </delete>
+  
+  
+  <select id="selectByParamsForLogin" parameterType="java.util.Map" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List_Ex" />
+    from admin_users
+    where username = #{username,jdbcType=VARCHAR}
+    and `password` = #{password,jdbcType=VARCHAR}
+  </select>
+  
   <insert id="insert" parameterType="com.chy.pojo.out.AdminUsers">
     insert into admin_users (id, username, password, 
       avatar, email, email_code, 

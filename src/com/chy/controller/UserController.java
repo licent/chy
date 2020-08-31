@@ -170,7 +170,26 @@ public class UserController {
 			return info.toJsonString();
 		}
 	}
-
+	
+	/**
+	 * 用户粉丝查询
+	 * */
+	@RequestMapping("/manage/user/getUserFans")
+	@ResponseBody
+	public String getUserFans(@RequestParam Map<String, Object> params) {
+		ResponseInfo<List<User>> info = new ResponseInfo<List<User>>();
+		try {
+			// userId
+			info.setData(userService.selectUserFansListByUserId(params));
+			info.setCode(ResponseCode.SUCC);
+			return info.toJsonString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			info.setCode(ResponseCode.EXCEPTION);
+			return info.toJsonString();
+		}
+	}
+	
 	/**
 	 * 用户地址信息修改
 	 */

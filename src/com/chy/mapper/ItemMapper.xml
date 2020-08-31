@@ -175,15 +175,19 @@
 	<select id="getItemListByParams" parameterType="java.util.Map"
 		resultMap="itemMain">
 		SELECT
-		i.*
+			i.*, if(c.num is null ,0,c.num) as num
 		FROM
-		t_item AS i
-		where i.`status`='onsale'
-		<if test="tag != null">
-			and i.tag=#{tag}
-		</if>
+			t_item AS i
+		LEFT JOIN t_cart AS c ON c.item_id = i.id
+		AND c.user_id = #{userId}
+		WHERE
+			i.`status` = 'onsale'
+			<if test="tag != null">
+				and i.tag=#{itemTagId}
+			</if>
+		limit ${startindex},${pageSize}
 	</select>
-
+	
 	<select id="getUserList" resultMap="UserBaseResultMap">
 		SELECT
 		al.*
@@ -258,7 +262,7 @@
 				AND c.user_id =#{userId}
 			</if>
 			<if test="itemId != null">
-				AND i.itemId = #{itemId}
+				AND i.id = #{itemId}
 			</if>
 		</where>
 	</select>

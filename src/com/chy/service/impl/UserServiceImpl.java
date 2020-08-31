@@ -66,4 +66,9 @@ public class UserServiceImpl implements UserService {
 		return userMapper.selectNearlyCustomersListByItemId(params);
 	}
 
+	@Override
+	public List<User> selectUserFansListByUserId(Map<String, Object> params) {
+		return userMapper.selectUserFansListByUserId(params);
+	}
+
 }
