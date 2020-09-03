@@ -81,6 +81,7 @@ public class LoginFilter implements Filter {
 		alow_list.add("/readme.html");
 		alow_list.add("/400.html");
 		alow_list.add("/500.html");
+		
 	}
 	
 }

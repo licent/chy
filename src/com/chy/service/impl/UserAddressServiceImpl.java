@@ -78,30 +78,18 @@ public class UserAddressServiceImpl implements UserAddressService {
 	@Transactional
 	@Override
 	public int updateUserAddress(UserAddress record) throws Exception {
-
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("userId", record.getUserId());
-		params.put("selected", "0");
-		if (params.get("userId") == null) {
-			throw new Exception("修改用户地址参数错误");
-		}
-
-		int uu = userAddressMapper.updateByUserId(params);
-		if (uu > 0) {
-			record.setSelected(new Byte("1"));
-			if (userAddressMapper.updateByPrimaryKeySelective(record) > 0) {
-				return 1;
-			} else {
-				throw new Exception("修改用户地址信息失败");
-			}
-		} else {
-			throw new Exception("修改用户地址-更新已有地址选取状态错误");
-		}
+		//待优化
+		return 0;
 	}
 
 	@Override
 	public int updateCurrentAddressByUserId(Map<String, Object> pararms) {
 		return userAddressMapper.updateCurrentAddressByUserId(pararms);
+	}
+
+	@Override
+	public int updateByPrimaryKeySelectiveWithOutId(Map<String, Object> pararms) {
+		return userAddressMapper.updateByPrimaryKeySelectiveWithOutId(pararms);
 	}
 
 }

@@ -3,6 +3,7 @@
 <mapper namespace="com.chy.mapper.UserAddressMapper">
   <resultMap id="BaseResultMap" type="com.chy.pojo.out.UserAddress">
     <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="address" jdbcType="VARCHAR" property="address" />
     <result column="user_id" jdbcType="VARCHAR" property="userId" />
     <result column="selected" jdbcType="TINYINT" property="selected" />
@@ -10,7 +11,7 @@
     <result column="ztd_id" jdbcType="INTEGER" property="ztdId" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, address, user_id, selected, phone, ztd_id
+    id,name, address, user_id, selected, phone, ztd_id
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -24,10 +25,20 @@
     <include refid="Base_Column_List" />
     from t_user_address
     <where>
-    	<if test="id != null">
+    	<if test="userId != null">
     		and user_id = #{userId,jdbcType=INTEGER}
     	</if>
+    	<if test="tag ==1">
+	        and ztd_id is null
+	     </if>
+	     <if test="tag ==2">
+	        and address is null and phone is null and name is null
+	     </if>
+	     <if test="selected ==2">
+	        and selected=#{selected}
+	     </if>
     </where>
+    order by selected desc,id desc
   </select>
   
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
@@ -38,7 +49,7 @@
     insert into t_user_address (id, address, user_id, 
       selected, phone, ztd_id
       )
-    values (#{id,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},#{address,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, 
       #{selected,jdbcType=TINYINT}, #{phone,jdbcType=VARCHAR}, #{ztdId,jdbcType=INTEGER}
       )
   </insert>
@@ -48,6 +59,9 @@
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
+      </if>
+      <if test="name != null">
+        name,
       </if>
       <if test="address != null">
         address,
@@ -68,6 +82,9 @@
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
       </if>
       <if test="address != null">
         #{address,jdbcType=VARCHAR},
@@ -103,6 +120,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.chy.pojo.out.UserAddress">
     update t_user_address
     <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
       <if test="address != null">
         address = #{address,jdbcType=VARCHAR},
       </if>
@@ -121,9 +141,52 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <update id="updateByPrimaryKeySelectiveWithOutUserId" parameterType="com.chy.pojo.out.UserAddress">
+    update t_user_address
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="selected != null">
+        selected = #{selected,jdbcType=TINYINT},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="ztdId != null">
+        ztd_id = #{ztdId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <where>
+	     <if test="id ==1">
+	         and id != #{id,jdbcType=INTEGER} 
+	     </if>
+	     <if test="userId != null">
+	         and user_id = #{userId,jdbcType=VARCHAR}
+	     </if>
+	     <if test="tag ==1">
+	        and ztd_id is null
+	     </if>
+	     <if test="tag ==2">
+	        and address is null and phone is null and name is null
+	     </if>
+	     <if test="ztdId != null">
+	         and ztd_id = #{ztdId,jdbcType=VARCHAR}
+	     </if>
+     </where>
+  </update>
+  
   <update id="updateByPrimaryKey" parameterType="com.chy.pojo.out.UserAddress">
     update t_user_address
-    set address = #{address,jdbcType=VARCHAR},
+    set name = #{name,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
       user_id = #{userId,jdbcType=VARCHAR},
       selected = #{selected,jdbcType=TINYINT},
       phone = #{phone,jdbcType=VARCHAR},

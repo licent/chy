@@ -3,6 +3,7 @@ package com.chy.service;
 import java.util.List;
 import java.util.Map;
 
+import com.chy.pojo.in.UserEx;
 import com.chy.pojo.out.User;
 
 /**
@@ -29,4 +30,6 @@ public interface UserService {
 	List<User> selectNearlyCustomersListByItemId(Map<String, Object> params);
 	
 	List<User> selectUserFansListByUserId(Map<String, Object> params);
+	
+	UserEx selectUserRolesStatus(Map<String, Object> params);
 }

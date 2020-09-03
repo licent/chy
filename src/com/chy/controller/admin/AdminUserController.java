@@ -1,5 +1,8 @@
 package com.chy.controller.admin;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -61,7 +64,6 @@ public class AdminUserController {
 				return info.toJsonString();
 			}
 			
-			
 			request.getSession().setAttribute("USERSESSION", adminUsers);
 			info.setData(adminUsers);
 			info.setCode(ResponseCode.SUCC);
@@ -72,5 +74,86 @@ public class AdminUserController {
 			return info.toJsonString();
 		}
 	}
+	
+	
+	/**
+	 * 获取用户session信息
+	 */
+	@RequestMapping("/admin/getUserSession")
+	@ResponseBody
+	public String getUserSession(@RequestParam Map<String, Object> params,HttpServletRequest request) {
+		ResponseInfo<AdminUsers> info = new ResponseInfo<AdminUsers>();
+		try {
+			info.setData((AdminUsers)request.getSession().getAttribute("USERSESSION"));
+			info.setCode(ResponseCode.SUCC);
+			return info.toJsonString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			info.setCode(ResponseCode.EXCEPTION);
+			return info.toJsonString();
+		}
+	}
+	
+	/**
+	 * 用户注销
+	 * */
+	@RequestMapping("/admin/adminUserLoginOut")
+	@ResponseBody
+	public String adminUserLoginOut(@RequestParam Map<String, Object> params,HttpServletRequest request) {
+		ResponseInfo<AdminUsers> info = new ResponseInfo<AdminUsers>();
+		try {
+			request.getSession().removeAttribute("USERSESSION");
+			info.setCode(ResponseCode.SUCC);
+			return info.toJsonString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			info.setCode(ResponseCode.EXCEPTION);
+			return info.toJsonString();
+		}
+	}
+	
+	/**
+	 * 新增用户
+	 * */
+	@RequestMapping("/admin/insertUser")
+	@ResponseBody
+	public String insertUser(@RequestParam Map<String, Object> params,HttpServletRequest request) {
+		ResponseInfo<AdminUsers> info = new ResponseInfo<AdminUsers>();
+		try {
+			
+			AdminUsers adminUsers =new AdminUsers();
+			adminUsers.setEmail(Tools.ObjectToString(params.get("email")));
+			adminUsers.setUsername(Tools.ObjectToString(params.get("username")));
+			adminUsers.setPhone(Tools.ObjectToLong(params.get("phone")));
+			adminUsers.setPassword(Md5.GetMD5Code(Tools.ObjectToString(params.get("password"))));
+			
+			Map<String,Object> p=new HashMap<String,Object>();
+			p.put("phone",params.get("phone"));
+			List<AdminUsers> resultList1=adminUsersService.selectListByParams(p);
+			p=new HashMap<String,Object>();
+			p.put("username",params.get("username"));
+			List<AdminUsers> resultList2=adminUsersService.selectListByParams(p);
+			if((resultList1!=null && resultList1.size()>0) || (resultList2!=null && resultList2.size()>0)) {
+				info.setCode(ResponseCode.FAIL);
+				info.setMsg("该手机号码或用户名已经注册过用户");
+			}else {
+				adminUsers.setRegisterTime((int)(new Date()).getTime()/1000);
+				int r=adminUsersService.insertSelective(adminUsers);
+				if(r>0) {
+					info.setCode(ResponseCode.SUCC);
+					info.setMsg("新建用户成功");
+				}else {
+					info.setCode(ResponseCode.FAIL);
+					info.setMsg("新建用户失败");
+				}
+			}
+			return info.toJsonString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			info.setCode(ResponseCode.EXCEPTION);
+			return info.toJsonString();
+		}
+	}
+	
 	
 }

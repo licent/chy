@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.chy.mapper.UserMapper;
+import com.chy.pojo.in.UserEx;
 import com.chy.pojo.out.User;
 import com.chy.service.UserService;
 
@@ -69,6 +70,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<User> selectUserFansListByUserId(Map<String, Object> params) {
 		return userMapper.selectUserFansListByUserId(params);
+	}
+
+	@Override
+	public UserEx selectUserRolesStatus(Map<String, Object> params) {
+		return userMapper.selectUserRolesStatus(params);
 	}
 
 }

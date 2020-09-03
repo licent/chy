@@ -1,5 +1,6 @@
 package com.chy.mapper;
 
+import java.util.List;
 import java.util.Map;
 
 import com.chy.pojo.out.AdminUsers;
@@ -18,4 +19,6 @@ public interface AdminUsersMapper {
     int updateByPrimaryKey(AdminUsers record);
     
     AdminUsers selectByParamsForLogin(Map<String,Object> params);
+    
+    List<AdminUsers> selectListByParams(Map<String,Object> params);
 }

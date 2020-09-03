@@ -6,11 +6,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="renderer" content="webkit">
 <meta http-equiv="Cache-Control" content="no-siteapp" />
-<title>H+ 后台主题UI框架 - 主页</title>
+<title>吃货丫-后台信息管理系统</title>
 
-<meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
-<meta name="description"
-	content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
 
 <!--[if lt IE 8]>
     <meta http-equiv="refresh" content="0;ie.html" />
@@ -38,51 +35,31 @@
 							<span><img alt="image" class="img-circle"
 								src="img/profile_small.jpg" /></span> <a data-toggle="dropdown"
 								class="dropdown-toggle" href="#"> <span class="clear">
-									<span class="block m-t-xs"><strong class="font-bold">Beaut-zihan</strong></span>
-									<span class="text-muted text-xs block">超级管理员<b
+									<span class="block m-t-xs" id="username"><strong class="font-bold">加载中...</strong></span>
+									<span class="text-muted text-xs block" id="roles" style="display:none;">超级管理员<b
 										class="caret"></b></span>
 							</span>
 							</a>
 							<ul class="dropdown-menu animated fadeInRight m-t-xs">
-								<li><a class="J_menuItem" href="form_avatar.html">修改头像</a>
-								</li>
-								<li><a class="J_menuItem" href="profile.html">个人资料</a></li>
-								<li><a class="J_menuItem" href="contacts.html">联系我们</a></li>
-								<li><a class="J_menuItem" href="mailbox.html">信箱</a></li>
-								<li class="divider"></li>
-								<li><a href="login.html">安全退出</a></li>
+								<li><a href="#" id="loginout-btn">安全退出</a></li>
 							</ul>
 						</div>
 						<div class="logo-element">H+</div>
 					</li>
+
 					<li><a class="J_menuItem" href="main.html"><span
 							class="nav-label"><i class="fa fa-home"></i> 首页</span></a></li>
-					<li><a href="#"> <i class="fa fa fa-bar-chart-o"></i> <span
-							class="nav-label">统计图表</span> <span class="fa arrow"></span>
-					</a>
+					<li><a href="#"><i class="fa fa-table"></i> <span
+							class="nav-label">用户管理</span><span class="fa arrow"></span></a>
 						<ul class="nav nav-second-level">
-							<li><a class="J_menuItem" href="graph_echarts.html">百度ECharts</a>
-							</li>
-							<li><a class="J_menuItem" href="graph_flot.html">Flot</a></li>
-							<li><a class="J_menuItem" href="graph_morris.html">Morris.js</a>
-							</li>
-							<li><a class="J_menuItem" href="graph_rickshaw.html">Rickshaw</a>
-							</li>
-							<li><a class="J_menuItem" href="graph_peity.html">Peity</a>
-							</li>
-							<li><a class="J_menuItem" href="graph_sparkline.html">Sparkline</a>
-							</li>
-							<li><a class="J_menuItem" href="graph_metrics.html">图表组合</a>
-							</li>
+							<li><a class="J_menuItem" href="userAdd.html">用户新增</a></li>
+							<li><a class="J_menuItem" href="userList.html">用户列表</a></li>
 						</ul></li>
-
-					<li><a href="mailbox.html"><i class="fa fa-envelope"></i>
-							<span class="nav-label">信箱 </span><span
-							class="label label-warning pull-right">16</span></a>
+					<li><a href="#"><i class="fa fa-table"></i> <span
+							class="nav-label">商品管理</span><span class="fa arrow"></span></a>
 						<ul class="nav nav-second-level">
-							<li><a class="J_menuItem" href="mailbox.html">收件箱</a></li>
-							<li><a class="J_menuItem" href="mail_detail.html">查看邮件</a></li>
-							<li><a class="J_menuItem" href="mail_compose.html">写信</a></li>
+							<li><a class="J_menuItem" href="itemList.html">商品列表</a></li>
+							<li><a class="J_menuItem" href="itemAdd.html">商品新增</a></li>
 						</ul></li>
 					<li><a href="#"><i class="fa fa-edit"></i> <span
 							class="nav-label">表单</span><span class="fa arrow"></span></a>
@@ -224,20 +201,7 @@
 							<li><a class="J_menuItem" href="spinners.html">加载动画</a></li>
 							<li><a class="J_menuItem" href="widgets.html">小部件</a></li>
 						</ul></li>
-					<li><a href="#"><i class="fa fa-table"></i> <span
-							class="nav-label">表格</span><span class="fa arrow"></span></a>
-						<ul class="nav nav-second-level">
-							<li><a class="J_menuItem" href="table_basic.html">基本表格</a></li>
-							<li><a class="J_menuItem" href="table_data_tables.html">DataTables</a>
-							</li>
-							<li><a class="J_menuItem" href="table_jqgrid.html">jqGrid</a>
-							</li>
-							<li><a class="J_menuItem" href="table_foo_table.html">Foo
-									Tables</a></li>
-							<li><a class="J_menuItem" href="table_bootstrap.html">Bootstrap
-									Table <span class="label label-danger pull-right">推荐</span>
-							</a></li>
-						</ul></li>
+
 					<li><a href="#"><i class="fa fa-picture-o"></i> <span
 							class="nav-label">相册</span><span class="fa arrow"></span></a>
 						<ul class="nav nav-second-level">
@@ -654,6 +618,58 @@
 	<script src="js/hplus.min.js?v=4.0.0"></script>
 	<script type="text/javascript" src="js/contabs.min.js"></script>
 	<script src="js/plugins/pace/pace.min.js"></script>
+	
+	<script type="text/javascript">
+    	$(function(){
+    		
+    		initUserInfo();
+    		
+    		
+    		$("#loginout-btn").click(function(){
+    			$.ajax({
+                    type:"POST",
+                    url:"/admin/adminUserLoginOut.do",
+                    dataType:"json",
+                    data:{
+                    },
+                    success:function(data){
+                        if(data.code=='000'){
+                        	window.location.href="/login.html";
+                        }else{
+                            console.log(data.msg)
+                        }
+                    },
+                    error: function(jqXHR){
+                    	 window.location.href="/500.html";
+                    }
+                });
+    		});
+    		
+    	})
+    	
+    	
+    	function initUserInfo(){
+    		$.ajax({
+                type:"POST",
+                url:"/admin/getUserSession.do",
+                dataType:"json",
+                data:{
+                },
+                success:function(data){
+                    if(data.code=='000'){
+                    	console.log(data)
+                    	$("#username").html("<strong class='font-bold'>"+data.data.username+"</strong>");
+                    	$("#roles").show();
+                    }else{
+                        console.log(data.msg)
+                    }
+                },
+                error: function(jqXHR){
+                	 window.location.href="/500.html";
+                }
+            });
+    	}
+    </script>
 </body>
 
 </html>

@@ -1,5 +1,6 @@
 package com.chy.service.impl.admin;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +49,11 @@ public class AdminUsersServiceImpl implements AdminUsersService{
 	@Override
 	public AdminUsers selectByParamsForLogin(Map<String, Object> params) {
 		return adminUsersMapper.selectByParamsForLogin(params);
+	}
+
+	@Override
+	public List<AdminUsers> selectListByParams(Map<String, Object> params) {
+		return adminUsersMapper.selectListByParams(params);
 	}
 
 }

@@ -1,5 +1,6 @@
 package com.chy.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.chy.pojo.in.UserEx;
 import com.chy.pojo.out.OrderGross;
 import com.chy.pojo.out.OrderGrossDalyrecords;
 import com.chy.pojo.out.User;
@@ -160,9 +162,18 @@ public class UserController {
 			record.setAddress((String) params.get("address"));
 			record.setUserId((String) params.get("userId"));
 			record.setPhone((String) params.get("phone"));
-			record.setZtdId((Integer) params.get("ztdId"));
-			info.setData(userAddressService.createUserAddress(record));
-			info.setCode(ResponseCode.SUCC);
+			int r=userAddressService.createUserAddress(record);
+			if(r>0) {
+				Map<String,Object> p =new HashMap<String,Object>();
+				p.put("tag", 1);
+				p.put("userId", params.get("userId"));
+				params.put("selected", new Byte("0"));
+				r+=userAddressService.updateByPrimaryKeySelectiveWithOutId(p);
+				info.setData(r);
+				info.setCode(ResponseCode.SUCC);
+			}else {
+				info.setCode(ResponseCode.FAIL);
+			}
 			return info.toJsonString();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -180,6 +191,8 @@ public class UserController {
 		ResponseInfo<List<User>> info = new ResponseInfo<List<User>>();
 		try {
 			// userId
+			//fansId
+			//fansName
 			info.setData(userService.selectUserFansListByUserId(params));
 			info.setCode(ResponseCode.SUCC);
 			return info.toJsonString();
@@ -201,15 +214,23 @@ public class UserController {
 			// id
 			// address
 			// phone
-			// ztdId
 			UserAddress record = new UserAddress();
 			record.setId((Integer) params.get("addressId"));
 			record.setAddress((String) params.get("address"));
 			record.setUserId((String) params.get("userId"));
 			record.setPhone((String) params.get("phone"));
-			record.setZtdId((Integer) params.get("ztdId"));
-			info.setData(userAddressService.updateUserAddress(record));
-			info.setCode(ResponseCode.SUCC);
+			record.setSelected(new Byte("1"));
+			int r=userAddressService.updateByPrimaryKeySelective(record);
+			if(r>0) {
+				params.put("tag", 1);
+				params.put("selected", new Byte("0"));
+				r+=userAddressService.updateByPrimaryKeySelectiveWithOutId(params);
+				info.setData(r);
+				info.setCode(ResponseCode.SUCC);
+			}else {
+				info.setCode(ResponseCode.FAIL);
+			}
+			
 			return info.toJsonString();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -227,6 +248,8 @@ public class UserController {
 		ResponseInfo<List<UserAddress>> info = new ResponseInfo<List<UserAddress>>();
 		try {
 			// userId
+			//selected
+			params.put("tag",1);
 			info.setData(userAddressService.selectListByParams(params));
 			info.setCode(ResponseCode.SUCC);
 			return info.toJsonString();
@@ -298,6 +321,26 @@ public class UserController {
 			// endtime
 			// 修改一天的结果 begintime和 endtime传同一个值 yyyy-mm-dd
 			info.setData(orderGrossDalyrecordsService.updateStatusByUserIdAndTime(params));
+			info.setCode(ResponseCode.SUCC);
+			return info.toJsonString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			info.setCode(ResponseCode.EXCEPTION);
+			return info.toJsonString();
+		}
+	}
+	
+	
+	/**
+	 * 判断用户是否是厂商或店长
+	 */
+	@ResponseBody
+	@RequestMapping("/manage/gross/selectUserRolesStatus")
+	public String selectUserRolesStatus(@RequestParam Map<String, Object> params) {
+		ResponseInfo<UserEx> info = new ResponseInfo<UserEx>();
+		try {
+			// userId
+			info.setData(userService.selectUserRolesStatus(params));
 			info.setCode(ResponseCode.SUCC);
 			return info.toJsonString();
 		} catch (Exception e) {

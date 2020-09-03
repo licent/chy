@@ -12,6 +12,8 @@ public class UserAddress {
     private String phone;
 
     private Integer ztdId;
+    
+    private String name;
 
     public Integer getId() {
         return id;
@@ -60,4 +62,13 @@ public class UserAddress {
     public void setZtdId(Integer ztdId) {
         this.ztdId = ztdId;
     }
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+    
 }

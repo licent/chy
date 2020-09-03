@@ -24,4 +24,6 @@ public interface UserAddressMapper {
 	int updateByUserId(Map<String, Object> pararms);
 
 	int updateCurrentAddressByUserId(Map<String, Object> pararms);
+	
+	int updateByPrimaryKeySelectiveWithOutId(Map<String, Object> pararms);
 }
