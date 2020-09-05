@@ -1,5 +1,6 @@
 package com.chy.controller;
 
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSONObject;
 import com.chy.pojo.in.UserEx;
+import com.chy.pojo.out.AdminUsers;
 import com.chy.pojo.out.OrderGross;
 import com.chy.pojo.out.OrderGrossDalyrecords;
 import com.chy.pojo.out.User;
@@ -19,8 +22,11 @@ import com.chy.service.OrderGrossDalyrecordsService;
 import com.chy.service.OrderGrossService;
 import com.chy.service.UserAddressService;
 import com.chy.service.UserService;
+import com.tools.Base64Pass;
+import com.tools.MyHttpSender;
 import com.tools.ResponseCode;
 import com.tools.ResponseInfo;
+import com.tools.Tools;
 
 /**
  * @author Taylor.O
@@ -56,6 +62,14 @@ public class UserController {
 			// openId
 			// parentId
 			// img
+			Map<String,Object> p=new HashMap<String,Object>();
+			p.put("openId", params.get("params"));
+			List<User> l=userService.selectListByParams(p);
+			if(l!= null && l.size()!=0) {
+				info.setCode(ResponseCode.FAIL);
+				info.setMsg("该openId已经注册用户");
+				return info.toJsonString();
+			}
 
 			User record = new User();
 			record.setName((String) params.get("name"));
@@ -349,5 +363,40 @@ public class UserController {
 			return info.toJsonString();
 		}
 	}
+	
+	/**
+	 * 微信openid获取
+	 * 
+	 * */
+	@ResponseBody
+	@RequestMapping("/manage/user/getOpenId")
+	public String getOpenId(@RequestParam Map<String, Object> params) {
+		ResponseInfo<String> info = new ResponseInfo<String>();
+		try {
+			// js_code
+			
+			String app_id="wxce31758573e47ce3";
+			String app_key="50745ba9b3b68f32a005a14ecf438ec5";
+			String paramsStr="";
+			paramsStr+="appid="+app_id+"&secret="+app_key+"&grant_type=authorization_code&js_code="+Tools.ObjectToString(params.get("js_code"));
+			
+			String result=MyHttpSender.commonGet(paramsStr);
+			JSONObject json=JSONObject.parseObject(result);
+			if(json.getString("errcode")==null || "".equals(json.getString("errcode"))) {
+				info.setData(json.getString("openid"));
+				info.setCode(ResponseCode.SUCC);
+				info.setMsg(result);
+			}else {
+				info.setCode(ResponseCode.FAIL);
+				info.setMsg("微信调用失败");
+			}
+			return info.toJsonString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			info.setCode(ResponseCode.EXCEPTION);
+			return info.toJsonString();
+		}
+	}
+	
 
 }
