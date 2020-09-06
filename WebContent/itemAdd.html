@@ -117,6 +117,14 @@
                                     <input type="text" class="form-control" id="details" placeholder="">
                                 </div>
                             </div>
+                            <br><br>
+                            <div class="form-group draggable">
+                                <div class="col-sm-12 col-sm-offset-3">
+                                    <button class="btn btn-primary" type="button" id="itemadd-submit-btn">保存内容</button>
+                                    <button class="btn btn-white" type="button" id="itemadd-cancel-btn">取消</button>
+                                </div>
+                            </div>
+                            <br><br>
                     </div>
                 </div>
             </div>
@@ -131,7 +139,7 @@
     	$(function(){
     		
     		init();
-    		
+    		init2();
     	});
     	
     	
@@ -145,7 +153,11 @@
                 },
                 success:function(data){
                     if(data.code=='000'){
-                    	console.log(data);
+                    	result="";
+                    	for(var e=0;e<data.data.length;e++){
+                    		result+="<option value='"+data.data[e].cid+"'>"+data.data[e].name+"</option>";
+                    	}
+                    	$("#cid").html($("#cid").html()+result);
                     }else{
                         console.log(data.msg)
                     }
@@ -154,6 +166,30 @@
                 	 window.location.href="/500.html";
                 }
             });
+    	}
+    		function init2(){
+        		$.ajax({
+                    type:"POST",
+                    url:"/admin/getCatAllInfo.do",
+                    dataType:"json",
+                    data:{
+                    	"isParent":9
+                    },
+                    success:function(data){
+                        if(data.code=='000'){
+                        	result="";
+                        	for(var e=0;e<data.data.length;e++){
+                        		result+="<option value='"+data.data[e].cid+"'>"+data.data[e].name+"</option>";
+                        	}
+                        	$("#itemTagId").html($("#itemTagId").html()+result);
+                        }else{
+                            console.log(data.msg)
+                        }
+                    },
+                    error: function(jqXHR){
+                    	 window.location.href="/500.html";
+                    }
+                });
     	}
     </script>
 </body>
