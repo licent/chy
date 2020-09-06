@@ -88,4 +88,14 @@ public class ItemServiceImpl implements ItemService {
 		return itemMapper.selectItemBuysAndSales(params);
 	}
 
+	@Override
+	public long selectAllByPageCount(Map<String, Object> params) {
+		return itemMapper.selectAllByPageCount(params);
+	}
+
+	@Override
+	public List<Item> selectAllByPage(Map<String, Object> params) {
+		return itemMapper.selectAllByPage(params);
+	}
+
 }

@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.chy.pojo.out.AutoPoint;
+import com.chy.pojo.out.User;
 import com.chy.pojo.out.UserAddress;
 import com.chy.service.AutoPointService;
 import com.chy.service.UserAddressService;
+import com.chy.service.UserService;
 import com.tools.IDMaker;
 import com.tools.ResponseCode;
 import com.tools.ResponseInfo;
@@ -30,6 +32,9 @@ public class AutoPointController {
 
 	@Autowired
 	UserAddressService userAddressService;
+	
+	@Autowired
+	UserService userService;
 
 	/**
 	 * 新增自提点
@@ -41,21 +46,36 @@ public class AutoPointController {
 		try {
 			// address
 			// userId
-			// ztd
 			// phone
 			// parentUserId
 			// localX
 			// localY
+			// idCardNo
 
 			// codeHead
 			AutoPoint record = new AutoPoint();
 			record.setAddress((String) params.get("address"));
 			record.setUserId((Integer) params.get("userId"));
-			record.setZtd((String) params.get("ztd"));
 			record.setParentUserId((Integer) params.get("parentUserId"));
 			record.setPhone((String) params.get("phone"));
 			record.setCode(IDMaker.createAutoPointCode((String) params.get("codeHead")));
-			info.setData(autoPointService.insertSelective(record));
+			
+			User ucount=userService.selectByPrimaryKey(record.getUserId());
+			
+			if(ucount==null) {
+				info.setCode(ResponseCode.FAIL);
+				info.setMsg("用户不存在");
+				return info.toJsonString();
+			}
+			int r=autoPointService.insertSelective(record);
+			if(r>1) {
+				User userparams=new User();
+				userparams.setId(record.getUserId());
+				userparams.setIdCardNo(Tools.ObjectToString(params.get("idCardNo")));
+				r+=userService.updateByPrimaryKey(userparams);
+			}
+			
+			info.setData(r);
 			info.setCode(ResponseCode.SUCC);
 			return info.toJsonString();
 		} catch (Exception e) {

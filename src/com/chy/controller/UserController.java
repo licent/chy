@@ -1,6 +1,5 @@
 package com.chy.controller;
 
-import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
 import com.chy.pojo.in.UserEx;
-import com.chy.pojo.out.AdminUsers;
 import com.chy.pojo.out.OrderGross;
 import com.chy.pojo.out.OrderGrossDalyrecords;
 import com.chy.pojo.out.User;
@@ -22,7 +20,6 @@ import com.chy.service.OrderGrossDalyrecordsService;
 import com.chy.service.OrderGrossService;
 import com.chy.service.UserAddressService;
 import com.chy.service.UserService;
-import com.tools.Base64Pass;
 import com.tools.MyHttpSender;
 import com.tools.ResponseCode;
 import com.tools.ResponseInfo;
@@ -62,8 +59,15 @@ public class UserController {
 			// openId
 			// parentId
 			// img
+			
+			if(params.get("phone")==null) {
+				info.setCode(ResponseCode.FAIL);
+				info.setMsg("参数缺失");
+				return info.toJsonString();
+			}
+			
 			Map<String,Object> p=new HashMap<String,Object>();
-			p.put("openId", params.get("params"));
+			p.put("openId", params.get("openId"));
 			List<User> l=userService.selectListByParams(p);
 			if(l!= null && l.size()!=0) {
 				info.setCode(ResponseCode.FAIL);
@@ -97,7 +101,7 @@ public class UserController {
 		ResponseInfo<User> info = new ResponseInfo<User>();
 		try {
 			// id
-			info.setData(userService.selectByPrimaryKey((Integer) params.get("id")));
+			info.setData(userService.selectByPrimaryKey(Tools.ObjectToInt(params.get("id"))));
 			info.setCode(ResponseCode.SUCC);
 			return info.toJsonString();
 		} catch (Exception e) {

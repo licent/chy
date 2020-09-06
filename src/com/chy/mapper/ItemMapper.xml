@@ -363,6 +363,52 @@
 		</where>
 	</select>
 	
+	<select id="selectAllByPage" parameterType="java.util.Map"
+		resultMap="ResultMapWithBLOBs">
+		SELECT
+		i.*
+		FROM
+		t_item AS i
+		LEFT JOIN t_item_cats AS ic ON i.cid = ic.cid
+		<where>
+			<if test="itemId != null">
+				and i.id = #{itemId,jdbcType=INTEGER}
+			</if>
+			<if test="cid != null">
+				and i.cid = #{cid,jdbcType=INTEGER}
+			</if>
+			<if test="parentCid != null">
+				and ic.parent_cid = #{parentCid,jdbcType=INTEGER}
+			</if>
+			<if test="key != null">
+				and i.`name` like CONCAT('%',#{key},'%')</if>
+		</where>
+		order by i.id desc
+		limit #{startIndex},#{endIndex}
+	</select>
+	
+	<select id="selectAllByPageCount" parameterType="java.util.Map"
+		resultType="java.lang.Long">
+		SELECT
+		count(1)
+		FROM
+		t_item AS i
+		LEFT JOIN t_item_cats AS ic ON i.cid = ic.cid
+		<where>
+			<if test="itemId != null">
+				and i.id = #{itemId,jdbcType=INTEGER}
+			</if>
+			<if test="cid != null">
+				and i.cid = #{cid,jdbcType=INTEGER}
+			</if>
+			<if test="parentCid != null">
+				and ic.parent_cid = #{parentCid,jdbcType=INTEGER}
+			</if>
+			<if test="key != null">
+				and i.`name` like CONCAT('%',#{key},'%')</if>
+		</where>
+		order by i.id desc
+	</select>
 	
 	<select id="selectItemBuysAndSales"
 		parameterType="java.util.Map" resultType="com.chy.pojo.in.ItemSalesEx">

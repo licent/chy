@@ -35,4 +35,7 @@ public interface ItemService {
 	
 	ItemSalesEx selectItemBuysAndSales(Map<String, Object> params);
 	
+	long selectAllByPageCount(Map<String, Object> params);
+	
+	List<Item> selectAllByPage(Map<String, Object> params);
 }

@@ -116,8 +116,8 @@
 	    <if test="openId != null">
 	       and open_id=#{openId}
 	    </if>
-	    <if test="phone != null">
-	       and phone=#{phone}
+	    <if test="userId != null">
+	       and id=#{userId}
 	    </if>
 	    <if test="parentId != null">
 	       and parent_id=#{parentId}

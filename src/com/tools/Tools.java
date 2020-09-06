@@ -57,6 +57,13 @@ public class Tools {
 	public static String ObjectToString(Object obj) {
 		return obj != null ? obj.toString() : "";
 	}
+	
+	/**
+	 * Object转String
+	 */
+	public static Float ObjectToFloat(Object obj) {
+		return obj != null ? Float.parseFloat(obj.toString()) : 0f;
+	}
 
 	/**
 	 * Object转JSONSTRING
