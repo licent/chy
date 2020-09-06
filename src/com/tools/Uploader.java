@@ -1,7 +1,9 @@
 package com.tools;
 
 import java.io.FileInputStream;
-import com.google.gson.Gson;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.qiniu.http.Response;
 import com.qiniu.storage.Configuration;
 import com.qiniu.storage.Region;
@@ -27,11 +29,11 @@ public class Uploader {
 			String upToken = auth.uploadToken(bucket);
 			Response response = uploadManager.put(in, key, upToken, null, null);
 			// 解析上传成功的结果
-			DefaultPutRet putRet = new Gson().fromJson(response.bodyString(), DefaultPutRet.class);
-			System.out.println(putRet.key);
-			System.out.println(putRet.hash);
-			if (putRet.hash != null && !"".equals(putRet.hash)) {
-				return picUrlString + putRet.hash;
+			JSONObject json=JSONObject.parseObject(response.bodyString());
+			System.out.println(json.getString("key"));
+			System.out.println(json.getString("hash"));
+			if (json.getString("hash") != null && !"".equals(json.getString("hash"))) {
+				return picUrlString + json.getString("hash");
 			} else {
 				return null;
 			}
