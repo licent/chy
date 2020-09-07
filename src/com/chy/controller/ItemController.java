@@ -2,6 +2,9 @@ package com.chy.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSONObject;
 import com.chy.pojo.in.ItemSalesEx;
@@ -157,10 +161,10 @@ public class ItemController {
 	 * */
 	@RequestMapping("/admin/uploadPic")
 	@ResponseBody
-	public String uploadPic(@RequestParam File file) {
+	public String uploadPic(@RequestParam("file") MultipartFile file) {
 		ResponseInfo<String> info = new ResponseInfo<String>();
 		try {
-			info.setData(Uploader.uploadFile(new FileInputStream(file)));
+			info.setData(Uploader.uploadFile(file.getInputStream()));
 			info.setCode(ResponseCode.SUCC);
 			return info.toJsonString();
 		} catch (Exception e) {
@@ -194,6 +198,8 @@ public class ItemController {
 			record.setIshot(Tools.ObjectToInt(params.get("ishot")));
 			record.setCreated(((AdminUsers)request.getSession().getAttribute("USERSESSION")).getUsername());
 			record.setState(new Byte("0"));
+			SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd :hh:mm:ss");
+			record.setModified(dateFormat.format(new Date()));
 			info.setData(itemService.insertSelective(record));
 			info.setCode(ResponseCode.SUCC);
 			return info.toJsonString();

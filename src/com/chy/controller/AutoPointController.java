@@ -55,8 +55,8 @@ public class AutoPointController {
 			// codeHead
 			AutoPoint record = new AutoPoint();
 			record.setAddress((String) params.get("address"));
-			record.setUserId((Integer) params.get("userId"));
-			record.setParentUserId((Integer) params.get("parentUserId"));
+			record.setUserId(Tools.ObjectToInt( params.get("userId")));
+			record.setParentUserId(Tools.ObjectToInt( params.get("parentUserId")));
 			record.setPhone((String) params.get("phone"));
 			record.setCode(IDMaker.createAutoPointCode((String) params.get("codeHead")));
 			
@@ -178,11 +178,11 @@ public class AutoPointController {
 	@RequestMapping("/manage/autopoint/queryUserAutoPoint")
 	@ResponseBody
 	public String queryUserAutoPoint(@RequestParam Map<String, Object> params) {
-		ResponseInfo<List<UserAddress>> info = new ResponseInfo<List<UserAddress>>();
+		ResponseInfo<List<AutoPoint>> info = new ResponseInfo<List<AutoPoint>>();
 		try {
 			// userId
-			params.put("tag",2);
-			info.setData(userAddressService.selectListByParams(params));
+			// selected
+			info.setData(autoPointService.selectListByParams(params));
 			info.setCode(ResponseCode.SUCC);
 			info.setCode(ResponseCode.FAIL);
 			return info.toJsonString();

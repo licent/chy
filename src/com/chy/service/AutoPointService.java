@@ -24,4 +24,6 @@ public interface AutoPointService {
 	long selectFansById(Map<String, Object> params);
 	
 	List<AutoPoint> selectNearlyInfo(Map<String, Object> params);
+	
+	List<AutoPoint> selectListByParams (Map<String, Object> params);
 }

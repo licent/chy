@@ -34,7 +34,7 @@
 	     <if test="tag ==2">
 	        and address is null and phone is null and name is null
 	     </if>
-	     <if test="selected ==2">
+	     <if test="selected !=null">
 	        and selected=#{selected}
 	     </if>
     </where>

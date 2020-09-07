@@ -8,15 +8,17 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
 public class MyHttpSender {
-	private static String URL="https://api.weixin.qq.com/sns/jscode2session";
+	public static String UPLOAD_URL="https://api.weixin.qq.com/sns/jscode2session";
+	
+	public static String MSG_CODE_SEND_URL="https://3ke.xyz/api/ali/sms";
 	
 	/**
-	 * @公共接口调用 
+	 * @图片上传公共接口调用 
 	 * */
-	public static String commonGet(String params) throws Exception {
+	public static String commonGet(String u,String params) throws Exception {
 		String strResult = "9";
 		try {
-			String url = URL +"?" + params;
+			String url = u +"?" + params;
 			System.out.println(url);
 			CloseableHttpClient httpClient = HttpClients.createDefault();
 			HttpGet httpGet = new HttpGet(url);
@@ -38,4 +40,5 @@ public class MyHttpSender {
 		}
 		return strResult;
 	}
+	
 }

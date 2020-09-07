@@ -1,6 +1,7 @@
 package com.tools;
 
 import java.io.FileInputStream;
+import java.io.InputStream;
 
 import com.alibaba.fastjson.JSONObject;
 import com.qiniu.http.Response;
@@ -10,7 +11,7 @@ import com.qiniu.storage.UploadManager;
 import com.qiniu.util.Auth;
 
 public class Uploader {
-	public static String uploadFile(FileInputStream in) throws Exception {
+	public static String uploadFile(InputStream in) throws Exception {
 		String picUrlString = "http://qf7ff1sr2.hn-bkt.clouddn.com/";
 		// 构造一个带指定 Region 对象的配置类
 		Configuration cfg = new Configuration(Region.huanan());

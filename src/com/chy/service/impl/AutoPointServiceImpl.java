@@ -15,11 +15,11 @@ import com.chy.service.AutoPointService;
  * @自提点
  */
 @Service
-public class AutoPointServiceImpl implements AutoPointService{
-	
+public class AutoPointServiceImpl implements AutoPointService {
+
 	@Autowired
 	AutoPointMapper autoPointMapper;
-	
+
 	@Override
 	public int deleteByPrimaryKey(Integer id) {
 		return autoPointMapper.deleteByPrimaryKey(id);
@@ -63,6 +63,11 @@ public class AutoPointServiceImpl implements AutoPointService{
 	@Override
 	public List<AutoPoint> selectNearlyInfo(Map<String, Object> params) {
 		return autoPointMapper.selectNearlyInfo(params);
+	}
+
+	@Override
+	public List<AutoPoint> selectListByParams(Map<String, Object> params) {
+		return autoPointMapper.selectListByParams(params);
 	}
 
 }

@@ -58,7 +58,7 @@ public class OrderController {
 			order.setThTime((String) params.get("thTime"));
 			order.setThPhone((String) params.get("thPhone"));
 			order.setUserId((String) params.get("userId"));
-			order.setZtdId((Integer) params.get("ztdId"));
+			order.setZtdId(Tools.ObjectToInt( params.get("ztdId")));
 
 			/**
 			 * itemId orderId num
@@ -87,7 +87,7 @@ public class OrderController {
 		Map<String, Integer> re = new HashMap<String, Integer>();
 		try {
 			Order order = new Order();
-			order.setId((Integer) params.get("orderId"));
+			order.setId(Tools.ObjectToInt( params.get("orderId")));
 			order.setStatus((Byte) params.get("status"));
 			int or = orderService.updateByPrimaryKeySelective(order);
 			if (or > 0) {

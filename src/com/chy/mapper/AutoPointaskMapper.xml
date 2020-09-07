@@ -31,6 +31,7 @@
       #{startTime,jdbcType=VARCHAR}, #{endTime,jdbcType=VARCHAR}, #{isStart,jdbcType=BIT}, 
       #{isEnd,jdbcType=BIT})
   </insert>
+  
   <insert id="insertSelective" parameterType="com.chy.pojo.out.AutoPointask">
     insert into t_auto_point_task
     <trim prefix="(" suffix=")" suffixOverrides=",">

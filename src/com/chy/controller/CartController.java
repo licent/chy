@@ -15,6 +15,7 @@ import com.chy.service.CartService;
 import com.chy.service.ItemService;
 import com.tools.ResponseCode;
 import com.tools.ResponseInfo;
+import com.tools.Tools;
 
 /**
  * @购物车控制器
@@ -39,9 +40,9 @@ public class CartController {
 		try {
 			// itemId商品编号 num商品数量 userId用户ID
 			Cart cart = new Cart();
-			cart.setItemId((Integer) params.get("itemId"));
+			cart.setItemId(Tools.ObjectToInt(params.get("itemId")));
 			cart.setUserId((String) params.get("userId"));
-			cart.setNum((Integer) params.get("num"));
+			cart.setNum(Tools.ObjectToInt(params.get("num")));
 
 			int i = cartService.insertSelective(cart);
 			info.setData(i);

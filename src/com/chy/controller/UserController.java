@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -59,17 +61,17 @@ public class UserController {
 			// openId
 			// parentId
 			// img
-			
-			if(params.get("phone")==null) {
+
+			if (params.get("phone") == null) {
 				info.setCode(ResponseCode.FAIL);
 				info.setMsg("参数缺失");
 				return info.toJsonString();
 			}
-			
-			Map<String,Object> p=new HashMap<String,Object>();
+
+			Map<String, Object> p = new HashMap<String, Object>();
 			p.put("openId", params.get("openId"));
-			List<User> l=userService.selectListByParams(p);
-			if(l!= null && l.size()!=0) {
+			List<User> l = userService.selectListByParams(p);
+			if (l != null && l.size() != 0) {
 				info.setCode(ResponseCode.FAIL);
 				info.setMsg("该openId已经注册用户");
 				return info.toJsonString();
@@ -79,7 +81,7 @@ public class UserController {
 			record.setName((String) params.get("name"));
 			record.setPhone((String) params.get("phone"));
 			record.setOpenId((String) params.get("openId"));
-			record.setParentId((Integer) params.get("parentId"));
+			record.setParentId(Tools.ObjectToInt(params.get("parentId")));
 			record.setImg((String) params.get("img"));
 			info.setData(userService.insertSelective(record));
 
@@ -180,16 +182,16 @@ public class UserController {
 			record.setAddress((String) params.get("address"));
 			record.setUserId((String) params.get("userId"));
 			record.setPhone((String) params.get("phone"));
-			int r=userAddressService.createUserAddress(record);
-			if(r>0) {
-				Map<String,Object> p =new HashMap<String,Object>();
+			int r = userAddressService.createUserAddress(record);
+			if (r > 0) {
+				Map<String, Object> p = new HashMap<String, Object>();
 				p.put("tag", 1);
 				p.put("userId", params.get("userId"));
 				params.put("selected", new Byte("0"));
-				r+=userAddressService.updateByPrimaryKeySelectiveWithOutId(p);
+				r += userAddressService.updateByPrimaryKeySelectiveWithOutId(p);
 				info.setData(r);
 				info.setCode(ResponseCode.SUCC);
-			}else {
+			} else {
 				info.setCode(ResponseCode.FAIL);
 			}
 			return info.toJsonString();
@@ -199,18 +201,18 @@ public class UserController {
 			return info.toJsonString();
 		}
 	}
-	
+
 	/**
 	 * 用户粉丝查询
-	 * */
+	 */
 	@RequestMapping("/manage/user/getUserFans")
 	@ResponseBody
 	public String getUserFans(@RequestParam Map<String, Object> params) {
 		ResponseInfo<List<User>> info = new ResponseInfo<List<User>>();
 		try {
 			// userId
-			//fansId
-			//fansName
+			// fansId
+			// fansName
 			info.setData(userService.selectUserFansListByUserId(params));
 			info.setCode(ResponseCode.SUCC);
 			return info.toJsonString();
@@ -220,7 +222,7 @@ public class UserController {
 			return info.toJsonString();
 		}
 	}
-	
+
 	/**
 	 * 用户地址信息修改
 	 */
@@ -233,22 +235,22 @@ public class UserController {
 			// address
 			// phone
 			UserAddress record = new UserAddress();
-			record.setId((Integer) params.get("addressId"));
+			record.setId(Tools.ObjectToInt(params.get("addressId")));
 			record.setAddress((String) params.get("address"));
 			record.setUserId((String) params.get("userId"));
 			record.setPhone((String) params.get("phone"));
 			record.setSelected(new Byte("1"));
-			int r=userAddressService.updateByPrimaryKeySelective(record);
-			if(r>0) {
+			int r = userAddressService.updateByPrimaryKeySelective(record);
+			if (r > 0) {
 				params.put("tag", 1);
 				params.put("selected", new Byte("0"));
-				r+=userAddressService.updateByPrimaryKeySelectiveWithOutId(params);
+				r += userAddressService.updateByPrimaryKeySelectiveWithOutId(params);
 				info.setData(r);
 				info.setCode(ResponseCode.SUCC);
-			}else {
+			} else {
 				info.setCode(ResponseCode.FAIL);
 			}
-			
+
 			return info.toJsonString();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -266,8 +268,8 @@ public class UserController {
 		ResponseInfo<List<UserAddress>> info = new ResponseInfo<List<UserAddress>>();
 		try {
 			// userId
-			//selected
-			params.put("tag",1);
+			// selected
+			params.put("tag", 1);
 			info.setData(userAddressService.selectListByParams(params));
 			info.setCode(ResponseCode.SUCC);
 			return info.toJsonString();
@@ -347,8 +349,7 @@ public class UserController {
 			return info.toJsonString();
 		}
 	}
-	
-	
+
 	/**
 	 * 判断用户是否是厂商或店长
 	 */
@@ -367,30 +368,31 @@ public class UserController {
 			return info.toJsonString();
 		}
 	}
-	
+
 	/**
 	 * 微信openid获取
 	 * 
-	 * */
+	 */
 	@ResponseBody
 	@RequestMapping("/manage/user/getOpenId")
 	public String getOpenId(@RequestParam Map<String, Object> params) {
 		ResponseInfo<String> info = new ResponseInfo<String>();
 		try {
 			// js_code
-			
-			String app_id="wxce31758573e47ce3";
-			String app_key="50745ba9b3b68f32a005a14ecf438ec5";
-			String paramsStr="";
-			paramsStr+="appid="+app_id+"&secret="+app_key+"&grant_type=authorization_code&js_code="+Tools.ObjectToString(params.get("js_code"));
-			
-			String result=MyHttpSender.commonGet(paramsStr);
-			JSONObject json=JSONObject.parseObject(result);
-			if(json.getString("errcode")==null || "".equals(json.getString("errcode"))) {
+
+			String app_id = "wxce31758573e47ce3";
+			String app_key = "50745ba9b3b68f32a005a14ecf438ec5";
+			String paramsStr = "";
+			paramsStr += "appid=" + app_id + "&secret=" + app_key + "&grant_type=authorization_code&js_code="
+					+ Tools.ObjectToString(params.get("js_code"));
+
+			String result = MyHttpSender.commonGet(MyHttpSender.UPLOAD_URL, paramsStr);
+			JSONObject json = JSONObject.parseObject(result);
+			if (json.getString("errcode") == null || "".equals(json.getString("errcode"))) {
 				info.setData(json.getString("openid"));
 				info.setCode(ResponseCode.SUCC);
 				info.setMsg(result);
-			}else {
+			} else {
 				info.setCode(ResponseCode.FAIL);
 				info.setMsg("微信调用失败");
 			}
@@ -401,6 +403,79 @@ public class UserController {
 			return info.toJsonString();
 		}
 	}
-	
+
+	/**
+	 * @获取手机短信验证码
+	 */
+	@ResponseBody
+	@RequestMapping("/manage/user/sendMsgCode")
+	public String sendMsgCode(@RequestParam Map<String, Object> params, HttpServletRequest request) {
+		ResponseInfo<String> info = new ResponseInfo<String>();
+		try {
+			// phone
+
+			String paramsStr = "";
+			paramsStr += "mobile=" + Tools.ObjectToString(params.get("phone"));
+			paramsStr += "&secretkey=abe7dfc9db2ff3046dbf4dd6b8fe91bd";
+			paramsStr += "&templateid=7";
+			int code = (int) ((Math.random() * 9 + 1) * 100000);
+			paramsStr += "&code=" + code;
+
+			request.getSession().setAttribute("MSGCODE", Tools.ObjectToString(params.get("phone")) + ":" + code);
+			request.getSession().setAttribute("MSGCODE_TIME", System.currentTimeMillis());
+
+			String result = MyHttpSender.commonGet(MyHttpSender.MSG_CODE_SEND_URL, paramsStr);
+			JSONObject json = JSONObject.parseObject(result);
+			System.out.println(json.toJSONString());
+			return info.toJsonString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			info.setCode(ResponseCode.EXCEPTION);
+			return info.toJsonString();
+		}
+	}
+
+	/**
+	 * @校验短信验证码
+	 */
+	@ResponseBody
+	@RequestMapping("/manage/user/checkMsgCode")
+	public String checkMsgCode(@RequestParam Map<String, Object> params, HttpServletRequest request) {
+		ResponseInfo<String> info = new ResponseInfo<String>();
+		try {
+			// code
+			// phone
+			String paramsStr = Tools.ObjectToString(params.get("phone")) + ":"
+					+ Tools.ObjectToString(params.get("code"));
+
+			long tim = Tools.ObjectToLong(request.getSession().getAttribute("MSGCODE_TIME"));
+			String pcStr = Tools.ObjectToString(request.getSession().getAttribute("MSGCODE"));
+
+			if (pcStr != null && !pcStr.equals(paramsStr)) {
+				info.setCode(ResponseCode.FAIL);
+				info.setMsg("验证码错误");
+			} else if (tim != 0 && System.currentTimeMillis() - tim > 60000) {
+
+				request.getSession().removeAttribute("MSGCODE_TIME");
+				request.getSession().removeAttribute("MSGCODE");
+
+				info.setCode(ResponseCode.FAIL);
+				info.setMsg("验证码失效,请重新发送");
+			} else if (pcStr == null && tim == 0) {
+				info.setCode(ResponseCode.FAIL);
+				info.setMsg("尚未发送验证码");
+			} else {
+				info.setCode(ResponseCode.SUCC);
+				info.setMsg("校验成功");
+				request.getSession().removeAttribute("MSGCODE_TIME");
+				request.getSession().removeAttribute("MSGCODE");
+			}
+			return info.toJsonString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			info.setCode(ResponseCode.EXCEPTION);
+			return info.toJsonString();
+		}
+	}
 
 }

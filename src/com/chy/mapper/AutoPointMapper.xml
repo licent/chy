@@ -83,6 +83,17 @@
 		distance ASC;
   </select>
   
+    <select id="selectListByParams" parameterType="java.util.Map" resultMap="BaseResultMap">
+	    SELECT
+			ap.*
+		FROM
+			t_auto_point AS ap
+		INNER JOIN t_user_address AS ua ON ap.id = ua.ztd_id
+		WHERE
+			ua.user_id = #{userId,jdbcType=INTEGER}
+	    order by selected desc,id desc
+	  </select>
+  
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
