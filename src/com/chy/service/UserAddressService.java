@@ -24,5 +24,5 @@ public interface UserAddressService {
 
 	int updateCurrentAddressByUserId(Map<String, Object> pararms);
 	
-	int updateByPrimaryKeySelectiveWithOutId(Map<String, Object> pararms);
+	int updateByPrimaryKeySelectiveWithOutUserId(Map<String, Object> pararms);
 }

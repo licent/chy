@@ -97,16 +97,18 @@ public class AutoPointController {
 			// ztdId
 			UserAddress record=new  UserAddress();
 			record.setUserId(Tools.ObjectToString(params.get("userId")));
+			record.setId(Tools.ObjectToInt(params.get("addressId")));
 			record.setSelected(new Byte("1"));
 			record.setZtdId(Tools.ObjectToInt(params.get("ztdId")));
 			int r=userAddressService.insertSelective(record);
 			if(r>0) {
 				Map<String,Object> p=new HashMap<String,Object>();
+				p.put("addressId", params.get("addressId"));
 				p.put("userId", params.get("userId"));
 				p.put("ztdId", params.get("ztdId"));
 				p.put("selected",new Byte("0"));
 				p.put("tag", 2);
-				r+=userAddressService.updateByPrimaryKeySelectiveWithOutId(p);
+				r+=userAddressService.updateByPrimaryKeySelectiveWithOutUserId(p);
 				info.setData(r);
 				info.setCode(ResponseCode.SUCC);
 			}else {
@@ -141,36 +143,6 @@ public class AutoPointController {
 		}
 	}
 
-	/**
-	 * 切换当前自提点
-	 */
-	@RequestMapping("/manage/autopoint/changeCurrentAutopoint")
-	@ResponseBody
-	public String changeCurrentAutopoint(@RequestParam Map<String, Object> params) {
-		ResponseInfo<Integer> info = new ResponseInfo<Integer>();
-		try {
-			// userId
-			// ztdId
-			int r=userAddressService.updateCurrentAddressByUserId(params);
-			if(r>0) {
-				Map<String,Object> p=new HashMap<String,Object>();
-				p.put("userId", params.get("userId"));
-				p.put("ztdId", params.get("ztdId"));
-				p.put("selected",new Byte("0"));
-				p.put("tag", 2);
-				r+=userAddressService.updateByPrimaryKeySelectiveWithOutId(p);
-				info.setData(r);
-				info.setCode(ResponseCode.SUCC);
-			}else {
-				info.setCode(ResponseCode.FAIL);
-			}
-			return info.toJsonString();
-		} catch (Exception e) {
-			e.printStackTrace();
-			info.setCode(ResponseCode.EXCEPTION);
-			return info.toJsonString();
-		}
-	}
 	
 	/**
 	 *  查询用户自提点和历史自提点

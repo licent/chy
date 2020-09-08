@@ -38,6 +38,13 @@
                                     <input type="text" id="name" class="form-control" placeholder="">
                                 </div>
                             </div>
+                            <br><br>
+                            <div class="form-group draggable">
+                                <label class="col-sm-3 control-label">厂商代码：<font color="red">*</font></label>
+                                <div class="col-sm-9">
+                                    <input type="text" id="businessCode" class="form-control" placeholder="">
+                                </div>
+                            </div>
                            <br><br>
                             <div class="form-group draggable">
                                 <label class="col-sm-3 control-label">市场价：<font color="red">*</font></label>
@@ -102,14 +109,20 @@
                             <div class="form-group draggable">
                                 <label class="col-sm-3 control-label">预售时间：</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="yushouTime" placeholder="例：1月1日">
-                                </div>
-                            </div>
+                                	<div class="input-group date">
+		                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+		                                <input type="text" class="form-control" id="yushouTime" value="2014-11-11">
+		                            </div>
+	                            </div>
+                           </div>
                            <br><br>
                             <div class="form-group draggable">
                                 <label class="col-sm-3 control-label">到货时间：</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="getTime" placeholder="例：1月5日">
+                                	<div class="input-group date">
+		                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+		                                <input type="text" class="form-control" id="getTime"  value="2014-11-11">
+		                            </div>
                                 </div>
                             </div>
                            <br><br>
@@ -180,6 +193,7 @@
                     	"purchasePrice":$("#purchasePrice").val(),
                     	"cid":$("#cid").val(),
                     	"itemTagId":$("#itemTagId").val(),
+                    	"businessCode":$("#businessCode").val(),
                     	"picUrl":$("#picUrl").val(),
                     	"ishot":$("input[name=ishot]:checked").val(),
                     	"yushouTime":$("#yushouTime").val(),
@@ -187,14 +201,10 @@
                     	"details":$("#details").val()
                     },
                     success:function(data){
-                        if(data.code=='000'){
-                        	
-                        }else{
-                            console.log(data.msg)
-                        }
+                        console.log(data.msg);
                     },
                     error: function(jqXHR){
-                    	 window.location.href="/500.html";
+                    	window.location.href="/500.html";
                     }
                 });
         	});

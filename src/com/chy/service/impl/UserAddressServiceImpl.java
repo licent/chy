@@ -37,16 +37,13 @@ public class UserAddressServiceImpl implements UserAddressService {
 			throw new Exception("新增用户地址参数错误");
 		}
 
-		int uu = userAddressMapper.updateByUserId(params);
-		if (uu > 0) {
-			record.setSelected(new Byte("1"));
-			if (userAddressMapper.insert(record) > 0) {
-				return 1;
-			} else {
-				throw new Exception("新增用户地址信息失败");
-			}
+		userAddressMapper.updateByUserId(params);
+		
+		record.setSelected(new Byte("1"));
+		if (userAddressMapper.insertSelective(record) > 0) {
+			return 1;
 		} else {
-			throw new Exception("新增用户地址-更新已有地址选取状态错误");
+			throw new Exception("新增用户地址信息失败");
 		}
 	}
 
@@ -88,8 +85,8 @@ public class UserAddressServiceImpl implements UserAddressService {
 	}
 
 	@Override
-	public int updateByPrimaryKeySelectiveWithOutId(Map<String, Object> pararms) {
-		return userAddressMapper.updateByPrimaryKeySelectiveWithOutId(pararms);
+	public int updateByPrimaryKeySelectiveWithOutUserId(Map<String, Object> pararms) {
+		return userAddressMapper.updateByPrimaryKeySelectiveWithOutUserId(pararms);
 	}
 
 }

@@ -95,6 +95,11 @@ public class Item {
 	private List<User> userList;
 
 	private Integer num;
+	
+	
+	
+	private String catsName;
+	private String itemTagName;
 
 	public Integer getId() {
 		return id;
@@ -464,4 +469,22 @@ public class Item {
 		this.num = num;
 	}
 
+	public String getCatsName() {
+		return catsName;
+	}
+
+	public void setCatsName(String catsName) {
+		this.catsName = catsName;
+	}
+
+	public String getItemTagName() {
+		return itemTagName;
+	}
+
+	public void setItemTagName(String itemTagName) {
+		this.itemTagName = itemTagName;
+	}
+	
+	
+	
 }

@@ -98,4 +98,9 @@ public class ItemServiceImpl implements ItemService {
 		return itemMapper.selectAllByPage(params);
 	}
 
+	@Override
+	public List<Item> selectAllForAdmin(Map<String, Object> params) {
+		return itemMapper.selectAllForAdmin(params);
+	}
+
 }

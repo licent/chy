@@ -182,18 +182,10 @@ public class UserController {
 			record.setAddress((String) params.get("address"));
 			record.setUserId((String) params.get("userId"));
 			record.setPhone((String) params.get("phone"));
+			record.setName((String) params.get("name"));
 			int r = userAddressService.createUserAddress(record);
-			if (r > 0) {
-				Map<String, Object> p = new HashMap<String, Object>();
-				p.put("tag", 1);
-				p.put("userId", params.get("userId"));
-				params.put("selected", new Byte("0"));
-				r += userAddressService.updateByPrimaryKeySelectiveWithOutId(p);
-				info.setData(r);
-				info.setCode(ResponseCode.SUCC);
-			} else {
-				info.setCode(ResponseCode.FAIL);
-			}
+			info.setCode(ResponseCode.SUCC);
+			info.setData(r);
 			return info.toJsonString();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -239,12 +231,13 @@ public class UserController {
 			record.setAddress((String) params.get("address"));
 			record.setUserId((String) params.get("userId"));
 			record.setPhone((String) params.get("phone"));
+			record.setName((String) params.get("name"));
 			record.setSelected(new Byte("1"));
 			int r = userAddressService.updateByPrimaryKeySelective(record);
 			if (r > 0) {
 				params.put("tag", 1);
 				params.put("selected", new Byte("0"));
-				r += userAddressService.updateByPrimaryKeySelectiveWithOutId(params);
+				r += userAddressService.updateByPrimaryKeySelectiveWithOutUserId(params);
 				info.setData(r);
 				info.setCode(ResponseCode.SUCC);
 			} else {

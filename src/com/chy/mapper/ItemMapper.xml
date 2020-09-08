@@ -188,6 +188,35 @@
 		limit ${startindex},${pageSize}
 	</select>
 	
+	<select id="selectAllForAdmin" parameterType="java.util.Map" resultType="com.chy.pojo.out.Item">
+		SELECT
+			i.`code`,
+			i.business_code AS businessCode,
+			i.`name`,
+			i.price,
+			i.purchase_price AS purchasePrice,
+			i.state,
+			i.pic_url AS picUrl,
+			ic.`name` AS catsName,
+			ic2.`name` AS itemTagName,
+			i.ishot,
+			i.yushuo_time AS yushouTime,
+			i.get_time AS getTime,
+			i.modified
+		FROM
+			t_item AS i
+		LEFT JOIN t_item_cats AS ic ON i.cid = ic.cid
+		AND ic.is_parent = 0
+		LEFT JOIN t_item_cats AS ic2 ON i.item_tag_id = ic2.cid
+		AND ic2.is_parent = 9
+		<where>
+			<if test="state != null">
+				AND i.state = #{state}
+			</if>
+		</where>
+		order by i.id desc
+	</select>
+	
 	<select id="getUserList" resultMap="UserBaseResultMap">
 		SELECT
 		al.*
@@ -262,7 +291,7 @@
 				AND c.user_id =#{userId}
 			</if>
 			<if test="itemId != null">
-				AND i.id = #{itemId}
+				AND i.id in (${itemId})
 			</if>
 		</where>
 	</select>

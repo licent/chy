@@ -38,4 +38,6 @@ public interface ItemService {
 	long selectAllByPageCount(Map<String, Object> params);
 	
 	List<Item> selectAllByPage(Map<String, Object> params);
+	
+	List<Item> selectAllForAdmin(Map<String, Object> params);
 }

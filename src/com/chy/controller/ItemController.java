@@ -196,8 +196,10 @@ public class ItemController {
 			record.setGetTime(Tools.ObjectToString(params.get("getTime")));
 			record.setYushuoTime(Tools.ObjectToString(params.get("yushouTime")));
 			record.setIshot(Tools.ObjectToInt(params.get("ishot")));
+			record.setBusinessCode(Tools.ObjectToString(params.get("businessCode")));
 			record.setCreated(((AdminUsers)request.getSession().getAttribute("USERSESSION")).getUsername());
 			record.setState(new Byte("0"));
+			record.setState(new Byte("onsale"));
 			SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd :hh:mm:ss");
 			record.setModified(dateFormat.format(new Date()));
 			info.setData(itemService.insertSelective(record));
@@ -258,6 +260,29 @@ public class ItemController {
 			//isParent
 			//parentCid
 			info.setData(itemCatsService.selectAllByParams(params));
+			info.setCode(ResponseCode.SUCC);
+			return info.toJsonString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			info.setCode(ResponseCode.EXCEPTION);
+			return info.toJsonString();
+		}
+	}
+	
+	
+	/**
+	 * 产品详情
+	 */
+	@RequestMapping("/admin/getItemList")
+	@ResponseBody
+	public String getItemList(@RequestParam Map<String, Object> params) {
+		ResponseInfo<List<Item>> info = new ResponseInfo<List<Item>>();
+		try {
+			// state=9是查询全部审核状态 
+			if(9==Tools.ObjectToInt(params.get("state"))) {
+				params.put("state", null);
+			}
+			info.setData(itemService.selectAllForAdmin(params));
 			info.setCode(ResponseCode.SUCC);
 			return info.toJsonString();
 		} catch (Exception e) {

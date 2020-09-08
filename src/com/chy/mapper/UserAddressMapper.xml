@@ -166,7 +166,7 @@
     </set>
     <where>
 	     <if test="id ==1">
-	         and id != #{id,jdbcType=INTEGER} 
+	         and id != #{addressId,jdbcType=INTEGER} 
 	     </if>
 	     <if test="userId != null">
 	         and user_id = #{userId,jdbcType=VARCHAR}
