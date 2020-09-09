@@ -58,16 +58,34 @@ public class OrderController {
 			order.setThTime((String) params.get("thTime"));
 			order.setThPhone((String) params.get("thPhone"));
 			order.setUserId((String) params.get("userId"));
-			order.setZtdId(Tools.ObjectToInt( params.get("ztdId")));
+			order.setZtdId(Tools.ObjectToInt(params.get("ztdId")));
 
 			/**
 			 * itemId orderId num
 			 */
 			List<OrderItem> orderItemList = new ArrayList<OrderItem>();
-			JSONArray ja = JSONArray.parseArray(Tools.ObjectToJsonString(params.get("orderItemList")));
+			JSONArray ja = JSONArray.parseArray(Tools.ObjectToJsonString(params.get("itemList")));
+
+			if (ja == null && ja.size() == 0) {
+				info.setCode(ResponseCode.FAIL);
+				info.setMsg("参数缺失itemList");
+				return info.toJsonString();
+			}
+			
+			
+			String itemIdList="";
+			for(int i=0;i<ja.size();i++) {
+				JSONObject tempObj=ja.getJSONObject(i);
+				if(i!=0) {
+					itemIdList+=",";
+				}else {
+					itemIdList+=tempObj.getIntValue("itemId");
+				}
+			}
+			
 			orderItemList = JSONObject.parseArray(ja.toJSONString(), OrderItem.class);
 
-			info.setData(orderService.creatOrder(order, orderItemList, Tools.ObjectToString(params.get("itemList"))));
+			info.setData(orderService.creatOrder(order, orderItemList, itemIdList));
 			info.setCode(ResponseCode.SUCC);
 			return info.toJsonString();
 		} catch (Exception e) {
@@ -87,13 +105,13 @@ public class OrderController {
 		Map<String, Integer> re = new HashMap<String, Integer>();
 		try {
 			Order order = new Order();
-			order.setId(Tools.ObjectToInt( params.get("orderId")));
+			order.setId(Tools.ObjectToInt(params.get("orderId")));
 			order.setStatus((Byte) params.get("status"));
 			int or = orderService.updateByPrimaryKeySelective(order);
 			if (or > 0) {
 				re.put("order_update_records", or);
-				if(order.getId()==1 || order.getId()==2) {
-					//有效订单才进行毛利数据存储
+				if (order.getId() == 1 || order.getId() == 2) {
+					// 有效订单才进行毛利数据存储
 					Map<String, Object> p = new HashMap<String, Object>();
 					params.put("orderId", order.getId());
 					// 查询订单商品情况
@@ -153,7 +171,7 @@ public class OrderController {
 			return info.toJsonString();
 		}
 	}
-	
+
 	/**
 	 * 查询订单并分页
 	 */

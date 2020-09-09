@@ -16,7 +16,7 @@ public interface UserAddressService {
 
 	int updateByPrimaryKeySelective(UserAddress record);
 
-	int updateUserAddress(UserAddress record) throws Exception;
+	int updateUserAddressByParams(UserAddress record) throws Exception;
 
 	int updateByPrimaryKey(UserAddress record);
 

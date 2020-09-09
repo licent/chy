@@ -74,9 +74,8 @@ public class UserAddressServiceImpl implements UserAddressService {
 
 	@Transactional
 	@Override
-	public int updateUserAddress(UserAddress record) throws Exception {
-		//待优化
-		return 0;
+	public int updateUserAddressByParams(UserAddress record) throws Exception {
+		return userAddressMapper.updateUserAddressByParams(record);
 	}
 
 	@Override

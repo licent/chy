@@ -79,6 +79,7 @@ public class OrderServiceImpl implements OrderService {
 				// 删除购物车
 				Map<String, Object> params = new HashMap<String, Object>();
 				params.put("itemIdList", itemList);
+				params.put("userId",order.getUserId());
 				long dc = cartMapper.deleteByParams(params);
 				if (dc > 0) {
 					Map<String, Object> p = new HashMap<String, Object>();
