@@ -77,7 +77,7 @@ public class OrderController {
 			String itemIdList="";
 			for(int i=0;i<ja.size();i++) {
 				JSONObject tempObj=ja.getJSONObject(i);
-				if(i!=0) {
+				if(i!=0 && i!=ja.size()-1) {
 					itemIdList+=",";
 				}else {
 					itemIdList+=tempObj.getIntValue("itemId");

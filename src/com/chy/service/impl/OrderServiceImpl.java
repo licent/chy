@@ -61,7 +61,7 @@ public class OrderServiceImpl implements OrderService {
 		return orderMapper.updateByPrimaryKey(record);
 	}
 
-	@Transactional
+	@Transactional(value="txManager",rollbackFor = Exception.class)
 	@Override
 	public Order creatOrder(Order order, List<OrderItem> orderItem, String itemList) throws Exception {
 		List<Order> result = null;
@@ -74,23 +74,30 @@ public class OrderServiceImpl implements OrderService {
 		// 创建订单
 		long or = orderMapper.insertSelective(order);
 		if (or > 0) {
+			Map<String, Object> _qp = new HashMap<String, Object>();
+			_qp.put("orderCode", order.getOrderCode());
+			Order _ro = orderMapper.selectListByParams(_qp).get(0);
+
+			for (int e = 0; e < orderItem.size(); e++) {
+				orderItem.get(e).setOrderId(_ro.getId() + "");
+			}
+
 			long oir = orderItemMapper.insertBatch(orderItem);
 			if (oir > 0) {
 				// 删除购物车
 				Map<String, Object> params = new HashMap<String, Object>();
 				params.put("itemIdList", itemList);
-				params.put("userId",order.getUserId());
+				params.put("userId", order.getUserId());
 				long dc = cartMapper.deleteByParams(params);
-				if (dc > 0) {
-					Map<String, Object> p = new HashMap<String, Object>();
-					p.put("orderCode", order.getOrderCode());
-					// 查询订单数据 
-					
-					result = orderMapper.selectListByParams(p);
-				} else {
-					// 订单创建失败
-					throw new Exception("购物车数据清空失败t_cart");
-				}
+				/*
+					if(dc==0) {
+						throw new Exception("订单关联数据新增失败t_order_item");
+					}
+				*/
+				Map<String, Object> p = new HashMap<String, Object>();
+				p.put("orderCode", order.getOrderCode());
+				// 查询订单数据
+				result = orderMapper.selectListByParams(p);
 			} else {
 				// 订单创建失败
 				throw new Exception("订单关联数据新增失败t_order_item");
@@ -111,10 +118,12 @@ public class OrderServiceImpl implements OrderService {
 	public List<Order> selectListByParams(Map<String, Object> params) {
 		return orderMapper.selectListByParams(params);
 	}
+
 	@Override
-	public List<Order> selectListByParamsPageing(Map<String,Object> params){
+	public List<Order> selectListByParamsPageing(Map<String, Object> params) {
 		return orderMapper.selectListByParamsPageing(params);
 	}
+
 	@Override
 	public int selectListOrderPageCount(Map<String, Object> params) {
 		return orderMapper.selectListOrderPageCount(params);
