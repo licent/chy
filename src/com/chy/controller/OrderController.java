@@ -59,14 +59,15 @@ public class OrderController {
 			order.setThPhone((String) params.get("thPhone"));
 			order.setUserId((String) params.get("userId"));
 			order.setZtdId(Tools.ObjectToInt(params.get("ztdId")));
+			order.setIsSignFor(Tools.ObjectToInt(params.get("isSignFor"))==0?false:true);
 
 			/**
 			 * itemId orderId num
 			 */
 			List<OrderItem> orderItemList = new ArrayList<OrderItem>();
-			JSONArray ja = JSONArray.parseArray(Tools.ObjectToJsonString(params.get("itemList")));
+			JSONArray ja = JSONArray.parseArray(Tools.ObjectToString(params.get("itemList")));
 
-			if (ja == null && ja.size() == 0) {
+			if (ja == null || ja.size() == 0) {
 				info.setCode(ResponseCode.FAIL);
 				info.setMsg("参数缺失itemList");
 				return info.toJsonString();

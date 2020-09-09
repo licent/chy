@@ -212,7 +212,7 @@
       <if test="totalMoney != null">
         total_money,
       </if>
-      <if test="createTime != null">
+      <if test="true">
         create_time,
       </if>
       <if test="thd != null">
