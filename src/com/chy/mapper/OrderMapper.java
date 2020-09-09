@@ -19,4 +19,8 @@ public interface OrderMapper {
     int updateByPrimaryKey(Order record);
     
 	List<Order> selectListByParams(Map<String,Object> params);
+	
+	List<Order> selectListByParamsPageing(Map<String,Object> params);
+	
+	int selectListOrderPageCount(Map<String, Object> params);
 }

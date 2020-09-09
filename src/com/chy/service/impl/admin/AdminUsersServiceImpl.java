@@ -7,7 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.chy.mapper.AdminUsersMapper;
+import com.chy.mapper.OrderMapper;
 import com.chy.pojo.out.AdminUsers;
+import com.chy.pojo.out.Order;
+import com.chy.service.OrderService;
 import com.chy.service.admin.AdminUsersService;
 
 @Service
@@ -55,5 +58,4 @@ public class AdminUsersServiceImpl implements AdminUsersService{
 	public List<AdminUsers> selectListByParams(Map<String, Object> params) {
 		return adminUsersMapper.selectListByParams(params);
 	}
-
 }

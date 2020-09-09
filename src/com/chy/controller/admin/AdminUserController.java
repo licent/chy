@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.chy.pojo.in.UserEx;
 import com.chy.pojo.out.AdminUsers;
+import com.chy.pojo.out.Order;
+import com.chy.service.OrderService;
 import com.chy.service.admin.AdminUsersService;
 import com.tools.Md5;
 import com.tools.ResponseCode;
@@ -29,6 +31,9 @@ public class AdminUserController {
 
 	@Autowired
 	AdminUsersService adminUsersService;
+	
+	@Autowired
+	OrderService orderService;
 
 	/**
 	 * 登录接口
@@ -205,6 +210,43 @@ public class AdminUserController {
 			}
 
 			info.setData(adminUsersService.updateByPrimaryKeySelective(record));
+			info.setCode(ResponseCode.SUCC);
+			return info.toJsonString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			info.setCode(ResponseCode.EXCEPTION);
+			return info.toJsonString();
+		}
+	}
+	/**
+	 * 用户订单列表查询分页
+	 */
+	@ResponseBody
+	@RequestMapping("/admin/selectAdminUserOrderPage")
+	public String selectAdminUserOrderPage(@RequestParam Map<String ,Object> params) {
+		ResponseInfo<List<Order>> info = new ResponseInfo<List<Order>>();
+		try {
+			// userId 或 status 或 orderId 分页 pageNum pageSize
+			int totalPageSize;
+			List<Order> or = orderService.selectListByParamsPageing(params);
+			int totalCount = orderService.selectListOrderPageCount(params);
+			int pageNum = Tools.ObjectToInt(params.get("pageNum"));
+			int pageSize =Tools.ObjectToInt(params.get("pageSize"));
+			if(pageSize==0) {
+				pageSize=20;
+			}
+			if(totalCount % pageSize==0) {
+				totalPageSize = totalCount / pageSize;
+			}else {
+				totalPageSize = totalCount / pageSize+1;
+			}
+			info.setData(or);
+			//总数据量
+			info.setTotalCount(totalCount);
+			//总页数
+			info.setTotalPage(totalPageSize);
+			//当前页
+			info.setPageNo(pageNum);
 			info.setCode(ResponseCode.SUCC);
 			return info.toJsonString();
 		} catch (Exception e) {

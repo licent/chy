@@ -153,5 +153,23 @@ public class OrderController {
 			return info.toJsonString();
 		}
 	}
-
+	
+	/**
+	 * 查询订单并分页
+	 */
+	@RequestMapping("/manage/order/orderListPage")
+	@ResponseBody
+	public String orderListPage(@RequestParam Map<String, Object> params) {
+		ResponseInfo<List<Order>> info = new ResponseInfo<List<Order>>();
+		try {
+			// userId 或 status 或 orderId 分页 pageNum pageSize
+			info.setData(orderService.selectListByParamsPageing(params));
+			info.setCode(ResponseCode.SUCC);
+			return info.toJsonString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			info.setCode(ResponseCode.EXCEPTION);
+			return info.toJsonString();
+		}
+	}
 }

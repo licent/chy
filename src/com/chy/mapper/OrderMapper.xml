@@ -130,6 +130,44 @@
 			<if test="status != null">
 	       		and o.id = #{orderId}
 	        </if>
+	        <if test="orderCode!=null">
+	        	and o.order_code = #{orderCode}
+	        </if>
+        </where>
+  </select>
+  <select id="selectListByParamsPageing" parameterType="java.util.Map" resultMap="BaseResultMapEx">
+  	SELECT
+			o.*
+		FROM
+			t_order AS o
+		<where>
+			<if test="userId != null">
+	       		and o.user_id=#{userId}
+	        </if>
+	        <if test="status != null">
+	       		and o.status = #{status}
+	        </if>
+			<if test="orderId != null">
+	       		and o.id = #{orderId}
+	        </if>
+        </where>
+        LIMIT ${pageNum},${pageSize}
+  </select>
+  <select id="selectListOrderPageCount" parameterType="java.util.Map" resultType="integer">
+  	SELECT
+			count(*)
+		FROM
+			t_order AS o
+		<where>
+			<if test="userId != null">
+	       		and o.user_id=#{userId}
+	        </if>
+	        <if test="status != null">
+	       		and o.status = #{status}
+	        </if>
+			<if test="status != null">
+	       		and o.id = #{orderId}
+	        </if>
         </where>
   </select>
   

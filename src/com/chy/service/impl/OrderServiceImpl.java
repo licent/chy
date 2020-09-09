@@ -82,8 +82,9 @@ public class OrderServiceImpl implements OrderService {
 				long dc = cartMapper.deleteByParams(params);
 				if (dc > 0) {
 					Map<String, Object> p = new HashMap<String, Object>();
-					p.put("userId", order.getUserId());
-					// 查询订单数据
+					p.put("orderCode", order.getOrderCode());
+					// 查询订单数据 
+					
 					result = orderMapper.selectListByParams(p);
 				} else {
 					// 订单创建失败
@@ -108,6 +109,14 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public List<Order> selectListByParams(Map<String, Object> params) {
 		return orderMapper.selectListByParams(params);
+	}
+	@Override
+	public List<Order> selectListByParamsPageing(Map<String,Object> params){
+		return orderMapper.selectListByParamsPageing(params);
+	}
+	@Override
+	public int selectListOrderPageCount(Map<String, Object> params) {
+		return orderMapper.selectListOrderPageCount(params);
 	}
 
 }

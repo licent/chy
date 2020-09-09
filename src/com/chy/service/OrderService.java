@@ -22,4 +22,9 @@ public interface OrderService {
 	Order creatOrder(Order order, List<OrderItem> orderItem, String itemList) throws Exception;
 	
 	List<Order> selectListByParams(Map<String,Object> params);
+	
+	List<Order> selectListByParamsPageing(Map<String,Object> params);
+
+	int selectListOrderPageCount(Map<String, Object> params);
+	
 }
