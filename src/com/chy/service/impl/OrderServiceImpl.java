@@ -97,6 +97,7 @@ public class OrderServiceImpl implements OrderService {
 				Map<String, Object> p = new HashMap<String, Object>();
 				p.put("orderCode", order.getOrderCode());
 				// 查询订单数据
+				System.out.println(p);
 				result = orderMapper.selectListByParams(p);
 			} else {
 				// 订单创建失败
@@ -106,7 +107,7 @@ public class OrderServiceImpl implements OrderService {
 			// 创建订单失败
 			throw new Exception("订单基础数据新增失败t_order");
 		}
-		if (result != null && result.size() > 1) {
+		if (result != null && result.size() > 0) {
 			return result.get(0);
 		} else {
 			return null;

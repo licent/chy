@@ -44,7 +44,7 @@ public class OrderController {
 	OrderGrossService orderGrossService;
 
 	/**
-	 * 新建订单
+	 * 新建订单 
 	 */
 	@RequestMapping("/manage/order/create")
 	@ResponseBody
@@ -52,14 +52,14 @@ public class OrderController {
 		ResponseInfo<Order> info = new ResponseInfo<Order>();
 		try {
 			Order order = new Order();
-			order.setTotalMoney((Float) params.get("totalMoney"));
-			order.setThd((String) params.get("thd"));
-			order.setThr((String) params.get("thr"));
-			order.setThTime((String) params.get("thTime"));
-			order.setThPhone((String) params.get("thPhone"));
-			order.setUserId((String) params.get("userId"));
+			order.setTotalMoney(Tools.ObjectToFloat(params.get("totalMoney")));
+			order.setThd(Tools.ObjectToString(params.get("thd")));
+			order.setThr(Tools.ObjectToString(params.get("thr")));
+			order.setThTime(Tools.ObjectToString(params.get("thTime")));
+			order.setThPhone(Tools.ObjectToString(params.get("thPhone")));
+			order.setUserId(Tools.ObjectToString(params.get("userId")));
 			order.setZtdId(Tools.ObjectToInt(params.get("ztdId")));
-			order.setIsSignFor(Tools.ObjectToInt(params.get("isSignFor"))==0?false:true);
+			order.setIsSignFor(Tools.ObjectToInt(params.get("isSignFor"))==1?true:false);
 
 			/**
 			 * itemId orderId num
