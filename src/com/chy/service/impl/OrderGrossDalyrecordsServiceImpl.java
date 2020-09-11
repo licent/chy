@@ -74,4 +74,9 @@ public class OrderGrossDalyrecordsServiceImpl implements OrderGrossDalyrecordsSe
 		return orderGrossDalyrecordsMapper.updateStatusByUserIdAndTime(params);
 	}
 
+	@Override
+	public Map<String, Object> queryUserGrossByUserId(Map<String, Object> params) {
+		return orderGrossDalyrecordsMapper.queryUserGrossByUserId(params);
+	}
+
 }

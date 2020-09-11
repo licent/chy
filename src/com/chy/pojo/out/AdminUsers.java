@@ -11,7 +11,7 @@ public class AdminUsers {
 
     private String email;
 
-    private String emailCode;
+    private String busCode;
 
     private Long phone;
 
@@ -63,15 +63,7 @@ public class AdminUsers {
         this.email = email == null ? null : email.trim();
     }
 
-    public String getEmailCode() {
-        return emailCode;
-    }
-
-    public void setEmailCode(String emailCode) {
-        this.emailCode = emailCode == null ? null : emailCode.trim();
-    }
-
-    public Long getPhone() {
+	public Long getPhone() {
         return phone;
     }
 
@@ -110,4 +102,14 @@ public class AdminUsers {
     public void setLastLoginTime(Integer lastLoginTime) {
         this.lastLoginTime = lastLoginTime;
     }
+
+	public String getBusCode() {
+		return busCode;
+	}
+
+	public void setBusCode(String busCode) {
+		this.busCode = busCode;
+	}
+    
+    
 }

@@ -28,4 +28,6 @@ public interface OrderService {
 
 	int selectListOrderPageCount(Map<String, Object> params);
 	
+	boolean wechatPay(Order order);
+	
 }

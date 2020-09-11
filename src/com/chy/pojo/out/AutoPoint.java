@@ -32,7 +32,7 @@ public class AutoPoint {
     private String local_x;
     
     private String local_y;
-
+    
     public Integer getId() {
         return id;
     }

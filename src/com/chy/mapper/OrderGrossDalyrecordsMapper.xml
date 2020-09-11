@@ -190,5 +190,32 @@
 		user_id,item_id,DATE_FORMAT(createtime,'%Y%m%d')
   </insert>
   
-  
+  <select id="queryUserGrossByUserId" parameterType="java.util.Map" resultType="java.util.Map">
+  	SELECT
+		sum(totalmoney) AS "myMoney",
+		sum(
+			(
+				CASE
+				WHEN `status` = 1 
+				THEN totalmoney
+				ELSE
+					0
+				END
+			)
+		) AS "getMoney",
+		sum(
+			(
+				CASE
+				WHEN `status` = 0 
+				THEN totalmoney
+				ELSE
+					0
+				END
+			)
+		) AS "unGetMoney"
+	FROM
+		t_order_gross_dalyrecords
+	WHERE
+		user_id = #{userId}
+  </select>
 </mapper>

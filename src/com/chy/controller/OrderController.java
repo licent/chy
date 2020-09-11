@@ -44,7 +44,7 @@ public class OrderController {
 	OrderGrossService orderGrossService;
 
 	/**
-	 * 新建订单
+	 * 新建订单 
 	 */
 	@RequestMapping("/manage/order/create")
 	@ResponseBody
@@ -52,22 +52,41 @@ public class OrderController {
 		ResponseInfo<Order> info = new ResponseInfo<Order>();
 		try {
 			Order order = new Order();
-			order.setTotalMoney((Float) params.get("totalMoney"));
-			order.setThd((String) params.get("thd"));
-			order.setThr((String) params.get("thr"));
-			order.setThTime((String) params.get("thTime"));
-			order.setThPhone((String) params.get("thPhone"));
-			order.setUserId((String) params.get("userId"));
-			order.setZtdId(Tools.ObjectToInt( params.get("ztdId")));
+			order.setTotalMoney(Tools.ObjectToFloat(params.get("totalMoney")));
+			order.setThd(Tools.ObjectToString(params.get("thd")));
+			order.setThr(Tools.ObjectToString(params.get("thr")));
+			order.setThTime(Tools.ObjectToString(params.get("thTime")));
+			order.setThPhone(Tools.ObjectToString(params.get("thPhone")));
+			order.setUserId(Tools.ObjectToString(params.get("userId")));
+			order.setZtdId(Tools.ObjectToInt(params.get("ztdId")));
+			order.setIsSignFor(Tools.ObjectToInt(params.get("isSignFor"))==1?true:false);
 
 			/**
 			 * itemId orderId num
 			 */
 			List<OrderItem> orderItemList = new ArrayList<OrderItem>();
-			JSONArray ja = JSONArray.parseArray(Tools.ObjectToJsonString(params.get("orderItemList")));
+			JSONArray ja = JSONArray.parseArray(Tools.ObjectToString(params.get("itemList")));
+
+			if (ja == null || ja.size() == 0) {
+				info.setCode(ResponseCode.FAIL);
+				info.setMsg("参数缺失itemList");
+				return info.toJsonString();
+			}
+			
+			
+			String itemIdList="";
+			for(int i=0;i<ja.size();i++) {
+				JSONObject tempObj=ja.getJSONObject(i);
+				if(i!=0 && i!=ja.size()-1) {
+					itemIdList+=",";
+				}else {
+					itemIdList+=tempObj.getIntValue("itemId");
+				}
+			}
+			
 			orderItemList = JSONObject.parseArray(ja.toJSONString(), OrderItem.class);
 
-			info.setData(orderService.creatOrder(order, orderItemList, Tools.ObjectToString(params.get("itemList"))));
+			info.setData(orderService.creatOrder(order, orderItemList, itemIdList));
 			info.setCode(ResponseCode.SUCC);
 			return info.toJsonString();
 		} catch (Exception e) {
@@ -87,13 +106,13 @@ public class OrderController {
 		Map<String, Integer> re = new HashMap<String, Integer>();
 		try {
 			Order order = new Order();
-			order.setId(Tools.ObjectToInt( params.get("orderId")));
+			order.setId(Tools.ObjectToInt(params.get("orderId")));
 			order.setStatus((Byte) params.get("status"));
 			int or = orderService.updateByPrimaryKeySelective(order);
 			if (or > 0) {
 				re.put("order_update_records", or);
-				if(order.getId()==1 || order.getId()==2) {
-					//有效订单才进行毛利数据存储
+				if (order.getId() == 1 || order.getId() == 2) {
+					// 有效订单才进行毛利数据存储
 					Map<String, Object> p = new HashMap<String, Object>();
 					params.put("orderId", order.getId());
 					// 查询订单商品情况
@@ -144,6 +163,12 @@ public class OrderController {
 		ResponseInfo<List<Order>> info = new ResponseInfo<List<Order>>();
 		try {
 			// userId 或 status 或 orderId
+			if(!(params.get("userId")!=null && params.get("orderId")!=null)) {
+				info.setCode(ResponseCode.FAIL);
+				info.setMsg("参数确实 userId orderId至少需要一个参数");
+				return info.toJsonString();
+			}
+			
 			info.setData(orderService.selectListByParams(params));
 			info.setCode(ResponseCode.SUCC);
 			return info.toJsonString();
@@ -153,7 +178,7 @@ public class OrderController {
 			return info.toJsonString();
 		}
 	}
-	
+
 	/**
 	 * 查询订单并分页
 	 */

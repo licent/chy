@@ -90,13 +90,23 @@
 			t_auto_point AS ap
 		INNER JOIN t_user_address AS ua ON ap.id = ua.ztd_id
 		WHERE
-			ua.user_id = #{userId,jdbcType=INTEGER}
+			ua.user_id = #{userId,jdbcType=VARCHAR}
 			<if test="selected != null">
-		       and ua.selected=#{selected,jdbcType=VARCHAR},
+		       and ua.selected=#{selected,jdbcType=VARCHAR}
+		    </if>
+		    <if test="ztdId != null">
+		       and ua.ztd_id=#{ztdId,jdbcType=INTEGER}
 		    </if>
 		    and ua.address is null and ua.phone is null and ua.name is null
 	    order by ua.selected desc,ua.id desc
 	  </select>
+  <select id="selectAutoPointByParams" parameterType="java.util.Map" resultMap="BaseResultMap">
+  		SELECT
+			<include refid="Base_Column_List" />
+		FROM
+			t_auto_point 
+		WHERE user_id=#{userId}
+  </select>
   
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
