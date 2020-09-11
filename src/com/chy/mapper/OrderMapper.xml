@@ -35,8 +35,8 @@
     <collection property="itemList" select="selectListByParamsEx"
 			column="id">
 		</collection>
-	<collection property="user" select="selectUser"
-			column="userId">
+	<collection property="autoPint" select="selectAutoPint"
+			column="ztdId">
 	</collection>
   </resultMap>
   <resultMap id="ItemBaseResultMap" type="com.chy.pojo.out.Item">

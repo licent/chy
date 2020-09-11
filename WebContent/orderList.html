@@ -171,7 +171,7 @@
 										result += "<tr>" +"<td>"+(i+1)+"</td>"+
 											"<td>" + data.data[i].orderCode + "</td>" +
 											"<td>" + data.data[i].createTime + "</td>";
-										if (data.data[i].thd == null) {
+										if (data.data[i].thd == "" || data.data[i].thd==null) {
 											result += "<td>提货点不明</td>"
 										} else {
 											result += "<td>" + data.data[i].thd + "</td>"
