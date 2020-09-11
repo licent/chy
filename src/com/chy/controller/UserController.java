@@ -408,17 +408,17 @@ public class UserController {
 		try {
 			// phone
 
-			String paramsStr = "";
-			paramsStr += "mobile=" + Tools.ObjectToString(params.get("phone"));
-			paramsStr += "&secretkey=abe7dfc9db2ff3046dbf4dd6b8fe91bd";
-			paramsStr += "&templateid=7";
+			Map<String,String> paramsStr = new HashMap<String,String>();
+			paramsStr.put("mobile", Tools.ObjectToString(params.get("phone")));
+			paramsStr.put("secretkey", "abe7dfc9db2ff3046dbf4dd6b8fe91bd");
+			paramsStr.put("templateid", "7");
 			int code = (int) ((Math.random() * 9 + 1) * 100000);
-			paramsStr += "&code=" + code;
+			paramsStr.put("code", code+"");
 
 			request.getSession().setAttribute("MSGCODE", Tools.ObjectToString(params.get("phone")) + ":" + code);
 			request.getSession().setAttribute("MSGCODE_TIME", System.currentTimeMillis());
 
-			String result = MyHttpSender.commonGet(MyHttpSender.MSG_CODE_SEND_URL, paramsStr);
+			String result = MyHttpSender.commonPost(MyHttpSender.MSG_CODE_SEND_URL, paramsStr);
 			JSONObject json = JSONObject.parseObject(result);
 			System.out.println(json.toJSONString());
 			return info.toJsonString();
