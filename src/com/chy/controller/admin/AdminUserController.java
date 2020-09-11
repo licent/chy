@@ -31,7 +31,7 @@ public class AdminUserController {
 
 	@Autowired
 	AdminUsersService adminUsersService;
-	
+
 	@Autowired
 	OrderService orderService;
 
@@ -69,8 +69,8 @@ public class AdminUserController {
 				info.setMsg("用户名或密码错误");
 				return info.toJsonString();
 			}
-			
-			if(!adminUsers.getStatus()) {
+
+			if (!adminUsers.getStatus()) {
 				info.setCode(ResponseCode.FAIL);
 				info.setMsg("用户被禁止使用");
 				return info.toJsonString();
@@ -220,40 +220,23 @@ public class AdminUserController {
 	}
 	/**
 	 * 用户订单列表查询分页
-	 */
-	@ResponseBody
-	@RequestMapping("/admin/selectAdminUserOrderPage")
-	public String selectAdminUserOrderPage(@RequestParam Map<String ,Object> params) {
-		ResponseInfo<List<Order>> info = new ResponseInfo<List<Order>>();
-		try {
-			// userId 或 status 或 orderId 分页 pageNum pageSize
-			int totalPageSize;
-			List<Order> or = orderService.selectListByParamsPageing(params);
-			int totalCount = orderService.selectListOrderPageCount(params);
-			int pageNum = Tools.ObjectToInt(params.get("pageNum"));
-			int pageSize =Tools.ObjectToInt(params.get("pageSize"));
-			if(pageSize==0) {
-				pageSize=20;
-			}
-			if(totalCount % pageSize==0) {
-				totalPageSize = totalCount / pageSize;
-			}else {
-				totalPageSize = totalCount / pageSize+1;
-			}
-			info.setData(or);
-			//总数据量
-			info.setTotalCount(totalCount);
-			//总页数
-			info.setTotalPage(totalPageSize);
-			//当前页
-			info.setPageNo(pageNum);
-			info.setCode(ResponseCode.SUCC);
-			return info.toJsonString();
-		} catch (Exception e) {
-			e.printStackTrace();
-			info.setCode(ResponseCode.EXCEPTION);
-			return info.toJsonString();
-		}
-	}
+	 *//*
+		 * @ResponseBody
+		 * 
+		 * @RequestMapping("/admin/selectAdminUserOrderPage") public String
+		 * selectAdminUserOrderPage(@RequestParam Map<String ,Object> params) {
+		 * ResponseInfo<List<Order>> info = new ResponseInfo<List<Order>>(); try { //
+		 * userId 或 status 或 orderId 分页 pageNum pageSize int totalPageSize; List<Order>
+		 * or = orderService.selectListByParamsPageing(params); int totalCount =
+		 * orderService.selectListOrderPageCount(params); int pageNum =
+		 * Tools.ObjectToInt(params.get("pageNum")); int pageSize
+		 * =Tools.ObjectToInt(params.get("pageSize")); if(pageSize==0) { pageSize=20; }
+		 * if(totalCount % pageSize==0) { totalPageSize = totalCount / pageSize; }else {
+		 * totalPageSize = totalCount / pageSize+1; } info.setData(or); //总数据量
+		 * info.setTotalCount(totalCount); //总页数 info.setTotalPage(totalPageSize); //当前页
+		 * info.setPageNo(pageNum); info.setCode(ResponseCode.SUCC); return
+		 * info.toJsonString(); } catch (Exception e) { e.printStackTrace();
+		 * info.setCode(ResponseCode.EXCEPTION); return info.toJsonString(); } }
+		 */
 
 }

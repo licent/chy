@@ -34,8 +34,10 @@
     <result column="is_sign_for" jdbcType="BIT" property="isSignFor" />
     <collection property="itemList" select="selectListByParamsEx"
 			column="id">
-
 		</collection>
+	<collection property="user" select="selectUser"
+			column="userId">
+	</collection>
   </resultMap>
   <resultMap id="ItemBaseResultMap" type="com.chy.pojo.out.Item">
 		<id column="id" jdbcType="INTEGER" property="id" />
@@ -141,14 +143,14 @@
 		FROM
 			t_order AS o
 		<where>
-			<if test="userId != null">
+			<if test="userId != null and userId !=''">
 	       		and o.user_id=#{userId}
 	        </if>
-	        <if test="status != null">
+	        <if test="status != null and status !=''">
 	       		and o.status = #{status}
 	        </if>
-			<if test="orderId != null">
-	       		and o.id = #{orderId}
+			<if test="orderCode!=null and orderCode!=''">
+	        	and o.order_code = #{orderCode}
 	        </if>
         </where>
         LIMIT ${pageNum},${pageSize}
@@ -159,14 +161,14 @@
 		FROM
 			t_order AS o
 		<where>
-			<if test="userId != null">
+			<if test="userId != null and userId !=''">
 	       		and o.user_id=#{userId}
 	        </if>
-	        <if test="status != null">
+	        <if test="status != null and status!=''">
 	       		and o.status = #{status}
 	        </if>
-			<if test="status != null">
-	       		and o.id = #{orderId}
+			<if test="orderCode != null and orderCode !=''">
+	       		and o.order_code = #{orderCode}
 	        </if>
         </where>
   </select>
@@ -180,7 +182,6 @@
 	WHERE
 		oi.order_id = #{id}
   </select>
-  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from t_order
     where id = #{id,jdbcType=INTEGER}

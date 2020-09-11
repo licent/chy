@@ -32,6 +32,7 @@ public class Order {
     private Boolean isSignFor;
     
     private List<Item> itemList;
+    
 
     public Integer getId() {
         return id;

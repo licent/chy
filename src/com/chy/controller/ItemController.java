@@ -238,7 +238,7 @@ public class ItemController {
 			info.setPageNo(Tools.ObjectToInt(params.get("pageNo")));
 			info.setPageSize(Tools.ObjectToInt(params.get("pageSize")));
 			info.setTotalCount(totalCount);
-			info.setTotalPage(totalCount%pageNo==0?totalCount/pageNo:totalCount/pageNo+1);
+			info.setTotalPage(totalCount%pageSize==0?totalCount/pageSize:totalCount/pageSize+1);
 			info.setCode(ResponseCode.SUCC);
 			return info.toJsonString();
 		} catch (Exception e) {
