@@ -105,6 +105,7 @@
 		<result column="tag" jdbcType="INTEGER" property="tag" />
 		<result column="renqi" jdbcType="INTEGER" property="renqi" />
 		<result column="ishot" jdbcType="INTEGER" property="ishot" />
+		<result column="num" jdbcType="INTEGER" property="num" />
 	</resultMap>
   <sql id="Base_Column_List">
     id, order_code, status, total_money, create_time, thd, thr, th_time, th_phone, user_id, 
@@ -129,7 +130,7 @@
 	        <if test="status != null">
 	       		and o.status = #{status}
 	        </if>
-			<if test="status != null">
+			<if test="orderId != null">
 	       		and o.id = #{orderId}
 	        </if>
 	        <if test="orderCode!=null">
@@ -175,7 +176,7 @@
   
   <select id="selectListByParamsEx" parameterType="java.util.Map" resultMap="ItemBaseResultMap">
   	SELECT
-		i.*
+		i.*,oi.num
 	FROM
 		t_item AS i
 	INNER JOIN t_order_item AS oi ON i.id = oi.item_id

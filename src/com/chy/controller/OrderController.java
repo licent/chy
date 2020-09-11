@@ -163,7 +163,7 @@ public class OrderController {
 		ResponseInfo<List<Order>> info = new ResponseInfo<List<Order>>();
 		try {
 			// userId 或 status 或 orderId
-			if(!(params.get("userId")!=null && params.get("orderId")!=null)) {
+			if(params.get("userId")==null && params.get("orderId")==null) {
 				info.setCode(ResponseCode.FAIL);
 				info.setMsg("参数确实 userId orderId至少需要一个参数");
 				return info.toJsonString();
