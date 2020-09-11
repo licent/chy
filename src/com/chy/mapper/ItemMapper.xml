@@ -310,6 +310,15 @@
 			</if>
 		</where>
 	</select>
+	
+	<select id="selectItemPriceByIdList" parameterType="java.util.Map"
+		resultType="java.util.Map">
+		SELECT
+			id as "id",concat(id,':',price,':',purchase_price) as "itemStr"
+		FROM
+			t_item
+		where id in (${itemIdList})
+	</select>
 
 	<select id="selectItemGrossInfolistByOrderId"
 		parameterType="java.util.Map"

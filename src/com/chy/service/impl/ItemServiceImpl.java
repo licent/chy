@@ -103,4 +103,9 @@ public class ItemServiceImpl implements ItemService {
 		return itemMapper.selectAllForAdmin(params);
 	}
 
+	@Override
+	public List<Map<String,Object>> selectItemPriceByIdList(Map<String, Object> params) {
+		return itemMapper.selectItemPriceByIdList(params);
+	}
+
 }

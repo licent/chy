@@ -10,12 +10,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.chy.mapper.CartMapper;
+import com.chy.mapper.ItemMapper;
 import com.chy.mapper.OrderItemMapper;
 import com.chy.mapper.OrderMapper;
 import com.chy.pojo.out.Order;
 import com.chy.pojo.out.OrderItem;
 import com.chy.service.OrderService;
 import com.tools.IDMaker;
+import com.tools.Tools;
 
 /**
  * @订单服务
@@ -31,6 +33,9 @@ public class OrderServiceImpl implements OrderService {
 
 	@Autowired
 	CartMapper cartMapper;
+	
+	@Autowired
+	ItemMapper itemMapper;
 
 	@Override
 	public int deleteByPrimaryKey(Integer id) {
@@ -78,9 +83,25 @@ public class OrderServiceImpl implements OrderService {
 			Map<String, Object> _qp = new HashMap<String, Object>();
 			_qp.put("orderCode", order.getOrderCode());
 			Order _ro = orderMapper.selectListByParams(_qp).get(0);
-
+			
+			
+			Map<String,Object> _rlist_param = new HashMap<String,Object>();
+			_rlist_param.put("itemIdList", itemList);
+			
+			//把商品列表每件商品价格查询出来
+			List<Map<String,Object>> _rlist=itemMapper.selectItemPriceByIdList(_rlist_param);
+			Map<String,String> priceMap=new HashMap<String,String>();
+			
+			for(Map<String,Object> obj:_rlist) {
+				priceMap.put(Tools.ObjectToString(obj.get("id")), Tools.ObjectToString(obj.get("itemStr")));
+			}
+			
+			
+			//将商品价格 封装到预处理对象
 			for (int e = 0; e < orderItem.size(); e++) {
 				orderItem.get(e).setOrderId(_ro.getId() + "");
+				orderItem.get(e).setPrice(Float.parseFloat(priceMap.get(orderItem.get(e).getItemId()+"").split(":")[1]));
+				orderItem.get(e).setPurchasePrice(Float.parseFloat(priceMap.get(orderItem.get(e).getItemId()+"").split(":")[2]));
 			}
 
 			long oir = orderItemMapper.insertBatch(orderItem);

@@ -46,7 +46,7 @@
         values
         <foreach collection="list" item="t" index="index" separator=",">
             (
-            #{t.itemId},#{t.orderId},#{t.num},#{price,jdbcType=REAL},#{purchase_price,jdbcType=REAL}
+            #{t.itemId},#{t.orderId},#{t.num},#{t.price,jdbcType=REAL},#{t.purchasePrice,jdbcType=REAL}
             )
         </foreach>
   </insert>

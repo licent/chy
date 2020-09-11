@@ -40,4 +40,6 @@ public interface ItemService {
 	List<Item> selectAllByPage(Map<String, Object> params);
 	
 	List<Item> selectAllForAdmin(Map<String, Object> params);
+	
+	List<Map<String,Object>> selectItemPriceByIdList(Map<String, Object> params);
 }

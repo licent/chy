@@ -66,7 +66,7 @@ public class OrderController {
 			 */
 			List<OrderItem> orderItemList = new ArrayList<OrderItem>();
 			JSONArray ja = JSONArray.parseArray(Tools.ObjectToString(params.get("itemList")));
-
+			
 			if (ja == null || ja.size() == 0) {
 				info.setCode(ResponseCode.FAIL);
 				info.setMsg("参数缺失itemList");
@@ -77,15 +77,16 @@ public class OrderController {
 			String itemIdList="";
 			for(int i=0;i<ja.size();i++) {
 				JSONObject tempObj=ja.getJSONObject(i);
-				if(i!=0 && i!=ja.size()-1) {
+				if(i!=0) {
 					itemIdList+=",";
-				}else {
-					itemIdList+=tempObj.getIntValue("itemId");
 				}
+				
+				itemIdList+=tempObj.getIntValue("itemId");
+				
 			}
 			
 			orderItemList = JSONObject.parseArray(ja.toJSONString(), OrderItem.class);
-
+			
 			info.setData(orderService.creatOrder(order, orderItemList, itemIdList));
 			info.setCode(ResponseCode.SUCC);
 			return info.toJsonString();
