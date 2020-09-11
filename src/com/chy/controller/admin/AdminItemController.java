@@ -35,7 +35,7 @@ public class AdminItemController {
 	
 	@Autowired
 	ItemCatsService itemCatsService;
-	
+	 
 	/**
 	 * 商品图片上传
 	 * */
