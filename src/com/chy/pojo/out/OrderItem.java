@@ -8,6 +8,10 @@ public class OrderItem {
     private String orderId;
 
     private Integer num;
+    
+    private Float price;
+    
+	private Float purchasePrice;
 
     public Integer getId() {
         return id;
@@ -40,4 +44,22 @@ public class OrderItem {
     public void setNum(Integer num) {
         this.num = num;
     }
+
+	public Float getPrice() {
+		return price;
+	}
+
+	public void setPrice(Float price) {
+		this.price = price;
+	}
+
+	public Float getPurchasePrice() {
+		return purchasePrice;
+	}
+
+	public void setPurchasePrice(Float purchasePrice) {
+		this.purchasePrice = purchasePrice;
+	}
+    
+    
 }

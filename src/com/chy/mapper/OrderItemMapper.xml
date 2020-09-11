@@ -6,9 +6,11 @@
     <result column="item_id" jdbcType="VARCHAR" property="itemId" />
     <result column="order_id" jdbcType="VARCHAR" property="orderId" />
     <result column="num" jdbcType="INTEGER" property="num" />
+    <result column="price" jdbcType="REAL" property="price" />
+    <result column="purchase_price" jdbcType="REAL" property="purchasePrice" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, item_id, order_id, num
+    id, item_id, order_id, num,price,purchase_price
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -22,9 +24,9 @@
   </delete>
   <insert id="insert" parameterType="com.chy.pojo.out.OrderItem">
     insert into t_order_item (id, item_id, order_id, 
-      num)
+      num,price,purchase_price)
     values (#{id,jdbcType=INTEGER}, #{itemId,jdbcType=VARCHAR}, #{orderId,jdbcType=VARCHAR}, 
-      #{num,jdbcType=INTEGER})
+      #{num,jdbcType=INTEGER},#{price,jdbcType=REAL},#{purchase_price,jdbcType=REAL})
   </insert>
   <update id="updateByParams" parameterType="java.util.Map">
   	update t_order_item
@@ -40,11 +42,11 @@
   </update>
   <insert id="insertBatch" parameterType="java.util.List">
   	insert into t_order_item
-        (item_id,order_id,num)
+        (item_id,order_id,num,price,purchase_price)
         values
         <foreach collection="list" item="t" index="index" separator=",">
             (
-            #{t.itemId},#{t.orderId},#{t.num}
+            #{t.itemId},#{t.orderId},#{t.num},#{price,jdbcType=REAL},#{purchase_price,jdbcType=REAL}
             )
         </foreach>
   </insert>
@@ -63,6 +65,12 @@
       <if test="num != null">
         num,
       </if>
+       <if test="price != null">
+        price,
+      </if>
+       <if test="purchasePrice != null">
+        purchase_price,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -76,6 +84,12 @@
       </if>
       <if test="num != null">
         #{num,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=REAL},
+      </if>
+      <if test="purchasePrice != null">
+        #{purchase_price,jdbcType=REAL},
       </if>
     </trim>
   </insert>
@@ -91,6 +105,12 @@
       <if test="num != null">
         num = #{num,jdbcType=INTEGER},
       </if>
+      <if test="price != null">
+        price = #{price,jdbcType=REAL},
+      </if>
+      <if test="purchasePrice != null">
+        purchase_price = #{purchasePrice,jdbcType=REAL},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -98,7 +118,9 @@
     update t_order_item
     set item_id = #{itemId,jdbcType=VARCHAR},
       order_id = #{orderId,jdbcType=VARCHAR},
-      num = #{num,jdbcType=INTEGER}
+      num = #{num,jdbcType=INTEGER},
+      price = #{price,jdbcType=REAL},
+      purchase_price = #{purchasePrice,jdbcType=REAL}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
