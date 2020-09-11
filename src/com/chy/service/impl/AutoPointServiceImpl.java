@@ -70,4 +70,9 @@ public class AutoPointServiceImpl implements AutoPointService {
 		return autoPointMapper.selectListByParams(params);
 	}
 
+	@Override
+	public AutoPoint selectAutoPointByParams(Map<String, Object> params) {
+		return autoPointMapper.selectAutoPointByParams(params);
+	}
+
 }

@@ -10,8 +10,8 @@
 			property="password" />
 		<result column="avatar" jdbcType="VARCHAR" property="avatar" />
 		<result column="email" jdbcType="VARCHAR" property="email" />
-		<result column="email_code" jdbcType="VARCHAR"
-			property="emailCode" />
+		<result column="bus_code" jdbcType="VARCHAR"
+			property="busCode" />
 		<result column="phone" jdbcType="BIGINT" property="phone" />
 		<result column="status" jdbcType="BIT" property="status" />
 		<result column="register_time" jdbcType="INTEGER"
@@ -22,14 +22,14 @@
 			property="lastLoginTime" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		id, username, password, avatar, email, email_code, phone,
+		id, username, password, avatar, email, bus_code, phone,
 		status,
 		register_time,
 		last_login_ip, last_login_time
 	</sql>
 
 	<sql id="Base_Column_List_Ex">
-		id, username, avatar, email, email_code, phone, status,
+		id, username, avatar, email, bus_code, phone, status,
 		register_time,
 		last_login_ip, last_login_time
 	</sql>
@@ -65,8 +65,8 @@
 			<if test="email != null">
 				and email = #{email,jdbcType=VARCHAR}
 			</if>
-			<if test="emailCode != null">
-				and email_code = #{emailCode,jdbcType=VARCHAR}
+			<if test="busCode != null">
+				and bus_code = #{busCode,jdbcType=VARCHAR}
 			</if>
 			<if test="phone != null">
 				and phone = #{phone,jdbcType=BIGINT}
@@ -96,7 +96,7 @@
 	<insert id="insert" parameterType="com.chy.pojo.out.AdminUsers">
 		insert into admin_users (id,
 		username, password,
-		avatar, email, email_code,
+		avatar, email, bus_code,
 		phone, status,
 		register_time,
 		last_login_ip, last_login_time)
@@ -104,7 +104,7 @@
 		(#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR},
 		#{password,jdbcType=VARCHAR},
 		#{avatar,jdbcType=VARCHAR},
-		#{email,jdbcType=VARCHAR}, #{emailCode,jdbcType=VARCHAR},
+		#{email,jdbcType=VARCHAR}, #{busCode,jdbcType=VARCHAR},
 		#{phone,jdbcType=BIGINT}, #{status,jdbcType=BIT},
 		#{registerTime,jdbcType=INTEGER},
 		#{lastLoginIp,jdbcType=VARCHAR},
@@ -129,8 +129,8 @@
 			<if test="email != null">
 				email,
 			</if>
-			<if test="emailCode != null">
-				email_code,
+			<if test="busCode != null">
+				bus_code,
 			</if>
 			<if test="phone != null">
 				phone,
@@ -164,8 +164,8 @@
 			<if test="email != null">
 				#{email,jdbcType=VARCHAR},
 			</if>
-			<if test="emailCode != null">
-				#{emailCode,jdbcType=VARCHAR},
+			<if test="busCode != null">
+				#{busCode,jdbcType=VARCHAR},
 			</if>
 			<if test="phone != null">
 				#{phone,jdbcType=BIGINT},
@@ -200,8 +200,8 @@
 			<if test="email != null">
 				email = #{email,jdbcType=VARCHAR},
 			</if>
-			<if test="emailCode != null">
-				email_code = #{emailCode,jdbcType=VARCHAR},
+			<if test="busCode != null">
+				bus_code = #{busCode,jdbcType=VARCHAR},
 			</if>
 			<if test="phone != null">
 				phone = #{phone,jdbcType=BIGINT},
@@ -229,7 +229,7 @@
 		password = #{password,jdbcType=VARCHAR},
 		avatar = #{avatar,jdbcType=VARCHAR},
 		email = #{email,jdbcType=VARCHAR},
-		email_code = #{emailCode,jdbcType=VARCHAR},
+		bus_code = #{busCode,jdbcType=VARCHAR},
 		phone =
 		#{phone,jdbcType=BIGINT},
 		status = #{status,jdbcType=BIT},

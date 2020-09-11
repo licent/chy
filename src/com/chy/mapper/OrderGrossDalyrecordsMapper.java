@@ -27,4 +27,6 @@ public interface OrderGrossDalyrecordsMapper {
 	List<OrderGrossDalyrecords> selectUserDalyGrossByParams(Map<String, Object> params);
 	
 	int updateStatusByUserIdAndTime(Map<String, Object> params);
+	
+	Map<String,Object> queryUserGrossByUserId(Map<String,Object> params);
 }

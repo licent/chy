@@ -26,4 +26,6 @@ public interface AutoPointService {
 	List<AutoPoint> selectNearlyInfo(Map<String, Object> params);
 	
 	List<AutoPoint> selectListByParams (Map<String, Object> params);
+	
+	AutoPoint selectAutoPointByParams(Map<String, Object> params);
 }

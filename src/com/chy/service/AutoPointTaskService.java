@@ -1,11 +1,12 @@
-package com.chy.mapper;
+package com.chy.service;
 
 import java.util.Map;
 
 import com.chy.pojo.out.AutoPointask;
 
-public interface AutoPointaskMapper {
-    int deleteByPrimaryKey(Integer id);
+public interface AutoPointTaskService {
+	
+	int deleteByPrimaryKey(Integer id);
 
     int insert(AutoPointask record);
 

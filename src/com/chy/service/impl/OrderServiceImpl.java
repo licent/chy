@@ -3,6 +3,7 @@ package com.chy.service.impl;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -130,4 +131,29 @@ public class OrderServiceImpl implements OrderService {
 		return orderMapper.selectListOrderPageCount(params);
 	}
 
+	@Override
+	public boolean wechatPay(Order order) {
+		//https://api.mch.weixin.qq.com/pay/unifiedorde
+			
+		String appid="wxce31758573e47ce3";
+		String mch_id="";
+		String nonce_str=UUID.randomUUID().toString();
+		String sign="";
+		String body="";
+		String out_trade_no=order.getOrderCode();
+		float total_fee = order.getTotalMoney();
+		
+		String spbill_create_ip="";
+		
+		String notify_ur="";
+		
+		//小程序支付 JSAPI
+		String trade_type="JSAPI";
+		
+		return false;
+	}
+
 }
+
+
+

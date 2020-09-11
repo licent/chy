@@ -22,6 +22,7 @@ import com.chy.service.OrderGrossDalyrecordsService;
 import com.chy.service.OrderGrossService;
 import com.chy.service.UserAddressService;
 import com.chy.service.UserService;
+import com.tools.Md5;
 import com.tools.MyHttpSender;
 import com.tools.ResponseCode;
 import com.tools.ResponseInfo;
@@ -295,7 +296,7 @@ public class UserController {
 			return info.toJsonString();
 		}
 	}
-
+	
 	/**
 	 * 查询每日毛利产生列表
 	 */
@@ -470,5 +471,60 @@ public class UserController {
 			return info.toJsonString();
 		}
 	}
-
+	
+	
+	/**
+	 * 修改用户交易密码
+	 * */
+	@ResponseBody
+	@RequestMapping("/manage/user/changeOrInsertPayPwd")
+	public String changeOrInsertPayPwd(@RequestParam Map<String, Object> params, HttpServletRequest request) {
+		ResponseInfo<Integer> info = new ResponseInfo<Integer>();
+		try {
+			//userId
+			//payPwd
+			if(params.get("userId")==null || params.get("payPwd")==null ) {
+				info.setCode(ResponseCode.FAIL);
+				info.setMsg("参数缺失 userId payPwd");
+				return info.toJsonString();
+			}
+			
+			User record =new User();
+			record.setId(Tools.ObjectToInt(params.get("userId")));
+			record.setBsnsPwd(Md5.GetMD5Code(Tools.ObjectToString(params.get("payPwd"))));
+			info.setData(userService.updateByPrimaryKey(record));
+			info.setCode(ResponseCode.SUCC);
+			return info.toJsonString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			info.setCode(ResponseCode.EXCEPTION);
+			return info.toJsonString();
+		}
+	}
+	
+	/**
+	 * 查询用户钱包  未提现金额 已体现金额 总金额
+	 * */
+	@ResponseBody
+	@RequestMapping("/manage/user/queryUserGrossByUserId")
+	public String queryUserGrossByUserId(@RequestParam Map<String, Object> params, HttpServletRequest request) {
+		ResponseInfo<Map<String,Object>> info = new ResponseInfo<Map<String,Object>>();
+		try {
+			//userId
+			if(params.get("userId")==null) {
+				info.setCode(ResponseCode.FAIL);
+				info.setMsg("参数缺失 userId");
+				return info.toJsonString();
+			}
+			info.setData(orderGrossDalyrecordsService.queryUserGrossByUserId(params));
+			info.setCode(ResponseCode.SUCC);
+			return info.toJsonString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			info.setCode(ResponseCode.EXCEPTION);
+			return info.toJsonString();
+		}
+	}
+	
+	
 }
