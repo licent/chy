@@ -22,7 +22,7 @@ public class PayController {
 	OrderService orderService;
 	
 	/**
-	 * 微信提现接口
+	 * 微信支付接口
 	 * */
 	@RequestMapping("/manage/pay/wechatPay")
 	@ResponseBody
@@ -48,11 +48,12 @@ public class PayController {
 			
 			record.setStatus(new Byte("1"));
 			//orderId
-				info.setCode(ResponseCode.SUCC);
-				if(orderService.wechatPay(record)) {
+			
+			if(orderService.wechatPay(record)) {
+				info.setCode(ResponseCode.FAIL);
 				info.setMsg("支付失败");
 			}else {
-				info.setCode(ResponseCode.FAIL);
+				info.setCode(ResponseCode.SUCC);
 				info.setMsg("支付成功");
 			}
 			return info.toJsonString();
@@ -62,4 +63,23 @@ public class PayController {
 			return info.toJsonString();
 		}
 	}
+	
+	
+	/**
+	 * 微信支付回调接口
+	 * */
+	@RequestMapping("/manage/pay/wechatPayCallBack")
+	@ResponseBody
+	public String wechatPayCallBack(@RequestParam Map<String, Object> params) {
+		ResponseInfo<User> info = new ResponseInfo<User>();
+		try {
+			System.out.println(params.toString());
+			return info.toJsonString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			info.setCode(ResponseCode.EXCEPTION);
+			return info.toJsonString();
+		}
+	}
+	
 }

@@ -54,6 +54,20 @@ public class AutoPointTaskServiceImpl implements AutoPointTaskService{
 	public AutoPointask selectByParams(Map<String, Object> params) {
 		return autoPointaskMapper.selectByParams(params);
 	}
-	
+
+	@Override
+	public int autoPointUpdateTask(Map<String, Object> params) {
+		return autoPointaskMapper.autoPointUpdateTask(params);
+	}
+
+	@Override
+	public int autoPointDeteleTask(Map<String, Object> params) {
+		return autoPointaskMapper.autoPointDeteleTask(params);
+	}
+
+	@Override
+	public int updateByParams(Map<String, Object> params) {
+		return autoPointaskMapper.updateByParams(params);
+	}
 
 }

@@ -105,6 +105,36 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <update id="updateByParams" parameterType="com.chy.pojo.out.AutoPointask">
+    update t_auto_point_task
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=VARCHAR},
+      </if>
+      <if test="isStart != null">
+        is_start = #{isStart,jdbcType=BIT},
+      </if>
+      <if test="isEnd != null">
+        is_end = #{isEnd,jdbcType=BIT},
+      </if>
+    </set>
+    <where> 
+	    <if test="id != null">
+	        and id = #{id,jdbcType=INTEGER}
+	    </if>
+	    <if test="autoPointId != null">
+	        and auto_point_id = #{autoPointId,jdbcType=INTEGER}
+	    </if>
+     </where>
+  </update>
+  
   <update id="updateByPrimaryKey" parameterType="com.chy.pojo.out.AutoPointask">
     update t_auto_point_task
     set auto_point_id = #{autoPointId,jdbcType=INTEGER},
@@ -152,4 +182,29 @@
 	    limit 0,1
 	</if>
   </select>
+  
+  <update id="autoPointUpdateTask" parameterType="java.util.Map">
+	  UPDATE t_auto_point
+		SET is_open = 1
+		WHERE
+			id IN (
+				SELECT
+					auto_point_id
+				FROM
+					t_auto_point_task
+				WHERE
+					is_end = 0
+				AND DATE_FORMAT(end_time, '%Y%m%d') <![CDATA[ < ]]> DATE_FORMAT(sysdate(), '%Y%m%d')
+			)
+  </update>
+  
+  <delete id="autoPointDeteleTask" parameterType="java.util.Map">
+  		DELETE
+		FROM
+			t_auto_point_task
+		WHERE
+			is_end = 0
+		AND DATE_FORMAT(end_time, '%Y%m%d') <![CDATA[ < ]]> DATE_FORMAT(sysdate(), '%Y%m%d')
+  </delete>
+  
 </mapper>

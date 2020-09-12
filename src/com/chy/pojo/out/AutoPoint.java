@@ -29,9 +29,9 @@ public class AutoPoint {
 
     private Integer parentUserId;
     
-    private String local_x;
+    private String localX;
     
-    private String local_y;
+    private String localY;
     
     public Integer getId() {
         return id;
@@ -145,21 +145,20 @@ public class AutoPoint {
         this.parentUserId = parentUserId;
     }
 
-	public String getLocal_x() {
-		return local_x;
+	public String getLocalX() {
+		return localX;
 	}
 
-	public void setLocal_x(String local_x) {
-		this.local_x = local_x;
+	public void setLocalX(String localX) {
+		this.localX = localX;
 	}
 
-	public String getLocal_y() {
-		return local_y;
+	public String getLocalY() {
+		return localY;
 	}
 
-	public void setLocal_y(String local_y) {
-		this.local_y = local_y;
+	public void setLocalY(String localY) {
+		this.localY = localY;
 	}
-    
-    
+
 }

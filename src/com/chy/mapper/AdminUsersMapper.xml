@@ -106,7 +106,7 @@
 		#{avatar,jdbcType=VARCHAR},
 		#{email,jdbcType=VARCHAR}, #{busCode,jdbcType=VARCHAR},
 		#{phone,jdbcType=BIGINT}, #{status,jdbcType=BIT},
-		#{registerTime,jdbcType=INTEGER},
+		#{registerTime,jdbcType=BIGINT},
 		#{lastLoginIp,jdbcType=VARCHAR},
 		#{lastLoginTime,jdbcType=BIGINT})
 	</insert>
@@ -174,7 +174,7 @@
 				#{status,jdbcType=BIT},
 			</if>
 			<if test="registerTime != null">
-				#{registerTime,jdbcType=INTEGER},
+				#{registerTime,jdbcType=BIGINT},
 			</if>
 			<if test="lastLoginIp != null">
 				#{lastLoginIp,jdbcType=VARCHAR},
