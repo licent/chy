@@ -167,7 +167,7 @@ public class OrderServiceImpl implements OrderService {
 		if(order.getIsSignFor()) {
 			total_fee+=2;
 		}
-		String spbill_create_ip="182.254.202.42";
+//		String spbill_create_ip="182.254.202.42";
 		
 		String notify_ur="https://chioya.com/manage/pay/wechatPayCallBack.do";
 		
@@ -185,7 +185,7 @@ public class OrderServiceImpl implements OrderService {
 		paramsStr+="body="+body+"&";
 		paramsStr+="out_trade_no="+out_trade_no+"&";
 		paramsStr+="total_fee="+total_fee+"&";
-		paramsStr+="spbill_create_ip="+spbill_create_ip+"&";
+		paramsStr+="spbill_create_ip=&";
 		paramsStr+="notify_ur="+notify_ur+"&";
 		paramsStr+="trade_type="+trade_type+"&";
 		
@@ -200,7 +200,7 @@ public class OrderServiceImpl implements OrderService {
 			"<body>"+body+"</body>"+
 			"<out_trade_no>"+out_trade_no+"</out_trade_no>"+
 			"<total_fee>"+total_fee+"</total_fee>"+
-			"<spbill_create_ip>"+spbill_create_ip+"</spbill_create_ip>"+
+			"<spbill_create_ip></spbill_create_ip>"+
 			"<notify_ur>"+notify_ur+"</notify_ur>"+
 			"<trade_type>"+trade_type+"</trade_type>"+
 			"<sign>"+sign+"</sign>"+
