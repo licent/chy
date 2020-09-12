@@ -76,7 +76,7 @@
 								</thead>
 								<tbody id="order">
 									<tr class='gradeX'>
-										<td colspan=8>
+										<td colspan=9>
 											<center>暂无数据</center>
 										</td>
 									</tr>
@@ -163,7 +163,7 @@
 								var result = "";
 								var paging="";
 								if (data.data.length == 0) {
-									$("#order").html("<tr class='gradeX'><td colspan=8><center>暂无数据</center></td></tr>");
+									$("#order").html("<tr class='gradeX'><td colspan=9><center>暂无数据</center></td></tr>");
 									
 								} else {
 									paging+="<button type='button' class='btn btn-white' onclick='previousPage("+JSON.stringify(data)+")'><i class='fa fa-chevron-left'></i></button>";
@@ -201,8 +201,7 @@
 										$("#order").html(result);
 										$("#paging").html(paging);
 									} else {
-										alert("空")
-										$("#order").html("<tr class='gradeX'><td colspan=8><center>暂无数据</center></td></tr>");
+										$("#order").html("<tr class='gradeX'><td colspan=9><center>暂无数据</center></td></tr>");
 									}
 								}
 							} else {

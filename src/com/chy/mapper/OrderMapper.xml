@@ -156,7 +156,7 @@
         </where>
         LIMIT ${pageNum},${pageSize}
   </select>
-  <select id="selectListOrderPageCount" parameterType="java.util.Map" resultType="integer">
+  <select id="selectListOrderPageCount" parameterType="java.util.Map" resultType="java.lang.Long">
   	SELECT
 			count(*)
 		FROM

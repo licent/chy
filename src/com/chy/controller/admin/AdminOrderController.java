@@ -34,7 +34,7 @@ public class AdminOrderController {
 		ResponseInfo<List<Order>> info = new ResponseInfo<List<Order>>();
 		try {
 			// userId 或 status 或 orderCode 分页 pageNum pageSize
-			int totalCount = orderService.selectListOrderPageCount(params);
+			long totalCount = orderService.selectListOrderPageCount(params);
 			int pageSize =Tools.ObjectToInt(params.get("pageSize"));
 			if(pageSize==0) {
 				pageSize=20;

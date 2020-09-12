@@ -150,7 +150,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public int selectListOrderPageCount(Map<String, Object> params) {
+	public long selectListOrderPageCount(Map<String, Object> params) {
 		return orderMapper.selectListOrderPageCount(params);
 	}
 

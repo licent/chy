@@ -42,4 +42,8 @@ public interface ItemService {
 	List<Item> selectAllForAdmin(Map<String, Object> params);
 	
 	List<Map<String,Object>> selectItemPriceByIdList(Map<String, Object> params);
+	
+	List<Item> selectListByAdminItemByBusCode(Map<String, Object> params);
+	
+	long selectListAdminItemCount(Map<String,Object> params);
 }

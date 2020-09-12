@@ -25,7 +25,7 @@ public interface OrderService {
 	
 	List<Order> selectListByParamsPageing(Map<String,Object> params);
 
-	int selectListOrderPageCount(Map<String, Object> params);
+	long selectListOrderPageCount(Map<String, Object> params);
 	
 	String wechatPay(Order order) throws Exception;
 	

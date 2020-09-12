@@ -107,5 +107,14 @@ public class ItemServiceImpl implements ItemService {
 	public List<Map<String,Object>> selectItemPriceByIdList(Map<String, Object> params) {
 		return itemMapper.selectItemPriceByIdList(params);
 	}
+	@Override
+	public List<Item> selectListByAdminItemByBusCode(Map<String, Object> params){
+		return itemMapper.selectListByAdminItemByBusCode(params);
+	}
+	@Override
+	public long selectListAdminItemCount(Map<String,Object> params) {
+		return itemMapper.selectListAdminItemCount(params);
+	}
+	
 
 }

@@ -491,6 +491,55 @@
 		from t_item
 		where id = #{id,jdbcType=INTEGER}
 	</select>
+	<select id="selectListByAdminItemByBusCode" parameterType="java.util.Map" resultMap="BaseResultMap">
+	  	SELECT
+			i.*
+		FROM
+			admin_users AS u
+		INNER JOIN t_item AS i ON u.bus_code = i.business_code
+		INNER JOIN t_order_item AS o ON o.item_id = i.id
+		INNER JOIN t_order AS d ON d.id = o.order_id
+		AND d.`status` IN (1, 2, 3)
+		WHERE
+			(u.bus_code = #{busCode} or 'admin' = #{busCode} )
+		<where>
+			<if test="startTime != null and endTime == null">
+	       		AND DATE_FORMAT(d.end_time, '%Y%m%d') <![CDATA[ =  ]]>  DATE_FORMAT(#{startTime}, '%Y%m%d')
+	        </if>
+	        <if test="startTime == null and endTime != null">
+	       		AND DATE_FORMAT(d.end_time, '%Y%m%d') <![CDATA[  =  ]]>  DATE_FORMAT(#{endTime}, '%Y%m%d')
+	        </if>
+			<if test="startTime != null and endTime1 !=null">
+	       		AND DATE_FORMAT(d.end_time, '%Y%m%d') <![CDATA[ <=  ]]>  DATE_FORMAT(#{startTime}, '%Y%m%d')
+				AND DATE_FORMAT(d.end_time, '%Y%m%d') <![CDATA[ >=  ]]>  DATE_FORMAT(#{endTime}, '%Y%m%d')
+	        </if>
+        </where>
+		LIMIT ${pageNum},${pageSize}
+  	</select>
+  	<select id="selectListAdminItemCount" parameterType="java.util.Map" resultType="java.lang.Long">
+  		SELECT
+			COUNT(*)
+		FROM
+			admin_users AS u
+		INNER JOIN t_item AS i ON u.bus_code = i.business_code
+		INNER JOIN t_order_item AS o ON o.item_id = i.id
+		INNER JOIN t_order AS d ON d.id = o.order_id
+		AND d.`status` IN (1, 2, 3)
+		WHERE
+			u.bus_code = #{busCode}
+		<where>
+			<if test="startTime != null and endTime == null">
+	       		AND DATE_FORMAT(d.end_time, '%Y%m%d') <![CDATA[ =  ]]>  DATE_FORMAT(#{startTime}, '%Y%m%d')
+	        </if>
+	        <if test="startTime == null and endTime != null">
+	       		AND DATE_FORMAT(d.end_time, '%Y%m%d') <![CDATA[  =  ]]>  DATE_FORMAT(#{endTime}, '%Y%m%d')
+	        </if>
+			<if test="startTime != null and endTime1 !=null">
+	       		AND DATE_FORMAT(d.end_time, '%Y%m%d') <![CDATA[ <=  ]]>  DATE_FORMAT(#{startTime}, '%Y%m%d')
+				AND DATE_FORMAT(d.end_time, '%Y%m%d') <![CDATA[ >=  ]]>  DATE_FORMAT(#{endTime}, '%Y%m%d')
+	        </if>
+        </where>
+  	</select>
 	<delete id="deleteByPrimaryKey"
 		parameterType="java.lang.Integer">
 		delete from t_item
