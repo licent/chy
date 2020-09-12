@@ -155,7 +155,8 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public boolean wechatPay(Order order) {
 		//https://api.mch.weixin.qq.com/pay/unifiedorde
-			
+		boolean result=false;
+		
 		String appid="wxce31758573e47ce3";
 		String mch_id="";
 		String nonce_str=UUID.randomUUID().toString();
@@ -171,7 +172,8 @@ public class OrderServiceImpl implements OrderService {
 		//小程序支付 JSAPI
 		String trade_type="JSAPI";
 		
-		return false;
+		
+		return result;
 	}
 
 }

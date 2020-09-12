@@ -5,8 +5,8 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="ztd" jdbcType="VARCHAR" property="ztd" />
     <result column="address" jdbcType="VARCHAR" property="address" />
-    <result column="local_x" jdbcType="VARCHAR" property="local_x" />
-    <result column="local_y" jdbcType="VARCHAR" property="local_y" />
+    <result column="local_x" jdbcType="VARCHAR" property="localX" />
+    <result column="local_y" jdbcType="VARCHAR" property="localY" />
     <result column="phone" jdbcType="VARCHAR" property="phone" />
     <result column="code" jdbcType="VARCHAR" property="code" />
     <result column="abnormal" jdbcType="TINYINT" property="abnormal" />

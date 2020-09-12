@@ -64,10 +64,10 @@ public class AutoPointController {
 			record.setParentUserId(Tools.ObjectToInt(params.get("parentUserId")));
 			record.setPhone(Tools.ObjectToJsonString(params.get("phone")));
 			record.setCode(IDMaker.createAutoPointCode(Tools.ObjectToJsonString(params.get("codeHead"))));
-			record.setLocal_x(Tools.ObjectToJsonString(params.get("localX")));
-			record.setLocal_y(Tools.ObjectToJsonString(params.get("localY")));
+			record.setLocalX(Tools.ObjectToJsonString(params.get("localX")));
+			record.setLocalY(Tools.ObjectToJsonString(params.get("localY")));
 			record.setIsOpen(true);
-			
+
 			User ucount = userService.selectByPrimaryKey(record.getUserId());
 
 			if (ucount == null) {
@@ -200,12 +200,12 @@ public class AutoPointController {
 				info.setMsg("参数缺失autoPointId,userId,startTime,endTime");
 				return info.toJsonString();
 			}
-			
+
 			params.put("justOne", true);
 			params.put("isEnd", 0);
-			
-			AutoPointask autoPointask=autoPointTaskService.selectByParams(params);
-			if(autoPointask!=null) {
+
+			AutoPointask autoPointask = autoPointTaskService.selectByParams(params);
+			if (autoPointask != null) {
 				info.setCode(ResponseCode.FAIL);
 				info.setMsg("新增失败，数据已经存在");
 				return info.toJsonString();
@@ -218,16 +218,14 @@ public class AutoPointController {
 			record.setEndTime(Tools.ObjectToString(params.get("endTime")));
 			record.setIsStart(true);
 			record.setIsEnd(false);
-			
-			AutoPoint r=new AutoPoint();
+
+			AutoPoint r = new AutoPoint();
 			r.setIsOpen(false);
 			r.setId(Tools.ObjectToInt(params.get("autoPointId")));
 			autoPointService.updateByPrimaryKeySelective(r);
-			
-			
+
 			info.setData(autoPointTaskService.insertSelective(record));
 			info.setCode(ResponseCode.SUCC);
-			info.setCode(ResponseCode.FAIL);
 			return info.toJsonString();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -254,9 +252,10 @@ public class AutoPointController {
 				info.setMsg("参数缺失id不能为空或者userId和autoPointId不能为空");
 				return info.toJsonString();
 			}
-			
-			AutoPoint record=new AutoPoint();
-			record.setId(autoPointTaskService.selectByPrimaryKey(Tools.ObjectToInt(params.get("params"))).getAutoPointId());
+
+			AutoPoint record = new AutoPoint();
+			record.setId(
+					autoPointTaskService.selectByPrimaryKey(Tools.ObjectToInt(params.get("params"))).getAutoPointId());
 			record.setIsOpen(true);
 			autoPointService.updateByPrimaryKeySelective(record);
 			info.setCode(ResponseCode.SUCC);
@@ -276,22 +275,27 @@ public class AutoPointController {
 	public String updateTask(@RequestParam Map<String, Object> params) {
 		ResponseInfo<Integer> info = new ResponseInfo<Integer>();
 		try {
-			// id
-			if(params.get("id")==null) {
+			// 
+			if (params.get("id") == null) {
 				info.setCode(ResponseCode.FAIL);
 				info.setMsg("参数缺失id");
 				return info.toJsonString();
 			}
-			AutoPointask record =new AutoPointask();
+			AutoPoint record = new AutoPoint();
 			record.setId(Tools.ObjectToInt(params.get("id")));
-			record.setIsEnd(false);
+			record.setIsOpen(true);
 			
-			AutoPoint r =new AutoPoint();
-			r.setId(autoPointTaskService.selectByPrimaryKey(Tools.ObjectToInt(params.get("params"))).getAutoPointId());
-			r.setIsOpen(true);
+			Map<String,Object> m=new HashMap<String,Object>();
+			m.put("autoPointId", params.get("id"));
+			m.put("isEnd",1);
 			
-			info.setData(autoPointTaskService.updateByPrimaryKeySelective(record));
-			info.setCode(ResponseCode.SUCC);
+			if (autoPointTaskService.updateByParams(m) > 0) {
+				info.setData(autoPointService.updateByPrimaryKeySelective(record));
+				info.setCode(ResponseCode.SUCC);
+			} else {
+				info.setCode(ResponseCode.FAIL);
+				info.setMsg("未查询到停业信息");
+			}
 			return info.toJsonString();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -299,17 +303,17 @@ public class AutoPointController {
 			return info.toJsonString();
 		}
 	}
-	
+
 	/**
 	 * 店长查看自己自提点信息
-	 * */
+	 */
 	@RequestMapping("/manage/autopoint/queryAutoPointByUserId")
 	@ResponseBody
 	public String queryAutoPointByUserId(@RequestParam Map<String, Object> params) {
 		ResponseInfo<AutoPoint> info = new ResponseInfo<AutoPoint>();
 		try {
 			// userId
-			if(params.get("userId")==null) {
+			if (params.get("userId") == null) {
 				info.setCode(ResponseCode.FAIL);
 				info.setMsg("参数缺失userId");
 				return info.toJsonString();
@@ -323,7 +327,5 @@ public class AutoPointController {
 			return info.toJsonString();
 		}
 	}
-	
-	
 
 }

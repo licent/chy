@@ -21,4 +21,10 @@ public interface AutoPointTaskService {
     int deleteByParams(Map<String,Object> params);
     
     AutoPointask selectByParams(Map<String,Object> params);
+    
+    int autoPointUpdateTask(Map<String,Object> params);
+    
+    int autoPointDeteleTask(Map<String,Object> params);
+    
+    int updateByParams(Map<String,Object> params);
 }

@@ -112,7 +112,7 @@ public class OrderController {
 			int or = orderService.updateByPrimaryKeySelective(order);
 			if (or > 0) {
 				re.put("order_update_records", or);
-				if (order.getId() == 1 || order.getId() == 2) {
+				if (order.getStatus() == 1 || order.getStatus() == 2 || order.getStatus()==3) {
 					// 有效订单才进行毛利数据存储
 					Map<String, Object> p = new HashMap<String, Object>();
 					params.put("orderId", order.getId());
