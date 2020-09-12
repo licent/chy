@@ -24,9 +24,12 @@ public interface OrderGrossDalyrecordsMapper {
 
 	int copyFactoryGross(Map<String, Object> pararms);
 	
+	int copyAutoPointBrokerage(Map<String, Object> pararms);
+	
 	List<OrderGrossDalyrecords> selectUserDalyGrossByParams(Map<String, Object> params);
 	
 	int updateStatusByUserIdAndTime(Map<String, Object> params);
 	
 	Map<String,Object> queryUserGrossByUserId(Map<String,Object> params);
+	
 }

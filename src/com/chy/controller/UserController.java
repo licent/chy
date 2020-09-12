@@ -297,6 +297,35 @@ public class UserController {
 		}
 	}
 	
+	
+	/**
+	 * @查询店长佣金列表
+	 */
+	@RequestMapping("/manage/gross/getAutoPointBrokerageInfoList")
+	@ResponseBody
+	public String getAutoPointBrokerageInfoList(@RequestParam Map<String, Object> params) {
+		ResponseInfo<List<OrderGross>> info = new ResponseInfo<List<OrderGross>>();
+		try {
+			// userId
+			// begintime
+			// endtime
+			if(params.get("userId")==null) {
+				info.setCode(ResponseCode.FAIL);
+				info.setMsg("参数缺失userId");
+				return info.toJsonString();
+			}
+			
+			// 查询一天的结果 begintime和 endtime传同一个值 yyyy-mm-dd
+			info.setData(orderGrossService.selectAutoPointBrokeAgeByParams(params));
+			info.setCode(ResponseCode.SUCC);
+			return info.toJsonString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			info.setCode(ResponseCode.EXCEPTION);
+			return info.toJsonString();
+		}
+	}
+	
 	/**
 	 * 查询每日毛利产生列表
 	 */
@@ -524,6 +553,8 @@ public class UserController {
 			return info.toJsonString();
 		}
 	}
+	
+	
 	
 	
 }

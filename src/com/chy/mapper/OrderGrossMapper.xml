@@ -37,13 +37,13 @@
 			if(og.money * og.num - og.purchase_money * og.num <![CDATA[< ]]> 0,0,og.money * og.num - og.purchase_money * og.num)
 			)
 			<if test="type == 1">
-		       *0.03
+		       *0.1
 		    </if>
 		    <if test="type == 2">
 		       *0.03
 		    </if>
 		    <if test="type == 3">
-		       *0.1
+		       *0.03
 		    </if>
 		     AS totalmoney
 		FROM
@@ -75,6 +75,24 @@
 		    </if>
 	  order by DATE_FORMAT(og.createtime,'%Y%m%d') desc;
   </select>
+  
+  <select id="selectAutoPointBrokeAgeByParams" parameterType="java.util.Map" resultMap="BaseResultMap">
+	  SELECT
+		  o.order_code as `code`,
+			max(og.createtime) as createtime,
+			sum(if(og.money * og.num - og.purchase_money * og.num <![CDATA[< ]]> 0,0,og.money * og.num - og.purchase_money * og.num))*0.24 AS totalmoney
+			FROM t_order_gross as og
+		    inner join t_order as o
+			on og.order_id=o.id
+			inner join t_auto_point as ap
+			on ap.id=o.ztd_id
+			WHERE ap.user_id=#{userId}
+			AND DATE_FORMAT(og.createtime,'%Y%m%d')<![CDATA[<= ]]>  DATE_FORMAT(#{endtime},'%Y%m%d')
+			AND DATE_FORMAT(og.createtime,'%Y%m%d')<![CDATA[>= ]]>  DATE_FORMAT(#{begintime},'%Y%m%d')
+			GROUP BY og.order_id
+		  order by DATE_FORMAT(og.createtime,'%Y%m%d') desc
+	</select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from t_order_gross
     where id = #{id,jdbcType=INTEGER}

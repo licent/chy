@@ -55,6 +55,7 @@ public class PayController {
 			}else {
 				info.setCode(ResponseCode.SUCC);
 				info.setMsg("支付成功");
+				orderService.updateByPrimaryKeySelective(record);
 			}
 			return info.toJsonString();
 		} catch (Exception e) {

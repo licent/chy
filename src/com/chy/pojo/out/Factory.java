@@ -2,7 +2,9 @@ package com.chy.pojo.out;
 
 public class Factory {
     private Integer id;
-
+    
+    private String fCode;
+    
     private String fName;
 
     private String fMr;
@@ -41,7 +43,15 @@ public class Factory {
         this.id = id;
     }
 
-    public String getfName() {
+    public String getfCode() {
+		return fCode;
+	}
+
+	public void setfCode(String fCode) {
+		this.fCode = fCode;
+	}
+
+	public String getfName() {
         return fName;
     }
 

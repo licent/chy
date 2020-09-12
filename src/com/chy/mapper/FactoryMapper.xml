@@ -3,6 +3,7 @@
 <mapper namespace="com.chy.mapper.FactoryMapper">
   <resultMap id="BaseResultMap" type="com.chy.pojo.out.Factory">
     <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="f_code" jdbcType="VARCHAR" property="fCode" />
     <result column="f_name" jdbcType="VARCHAR" property="fName" />
     <result column="f_mr" jdbcType="VARCHAR" property="fMr" />
     <result column="f_mark" jdbcType="VARCHAR" property="fMark" />
@@ -20,7 +21,7 @@
     <result column="ft" jdbcType="VARCHAR" property="ft" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, f_name, f_mr, f_mark, f_fool, f_boss, f_phone, f_alipay, f_tenypay, f_balance, 
+    id, f_code,f_name, f_mr, f_mark, f_fool, f_boss, f_phone, f_alipay, f_tenypay, f_balance, 
     f_status, f_discount, user_id, parent_user_id, pic_url, ft
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -34,13 +35,13 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.chy.pojo.out.Factory">
-    insert into t_factory (id, f_name, f_mr, 
+    insert into t_factory (id, f_code,f_name, f_mr, 
       f_mark, f_fool, f_boss, 
       f_phone, f_alipay, f_tenypay, 
       f_balance, f_status, f_discount, 
       user_id, parent_user_id, pic_url, 
       ft)
-    values (#{id,jdbcType=INTEGER}, #{fName,jdbcType=VARCHAR}, #{fMr,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER},#{fCode,jdbcType=VARCHAR}, #{fName,jdbcType=VARCHAR}, #{fMr,jdbcType=VARCHAR}, 
       #{fMark,jdbcType=VARCHAR}, #{fFool,jdbcType=VARCHAR}, #{fBoss,jdbcType=VARCHAR}, 
       #{fPhone,jdbcType=VARCHAR}, #{fAlipay,jdbcType=VARCHAR}, #{fTenypay,jdbcType=VARCHAR}, 
       #{fBalance,jdbcType=REAL}, #{fStatus,jdbcType=TINYINT}, #{fDiscount,jdbcType=VARCHAR}, 
@@ -52,6 +53,9 @@
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
+      </if>
+      <if test="fCode != null">
+        f_code,
       </if>
       <if test="fName != null">
         f_name,
@@ -103,6 +107,9 @@
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
+      <if test="fCode != null">
+        #{fCode,jdbcType=VARCHAR},
+      </if>
       <if test="fName != null">
         #{fName,jdbcType=VARCHAR},
       </if>
@@ -153,6 +160,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.chy.pojo.out.Factory">
     update t_factory
     <set>
+    <if test="fCode != null">
+        f_code = #{fCode,jdbcType=VARCHAR},
+      </if>
       <if test="fName != null">
         f_name = #{fName,jdbcType=VARCHAR},
       </if>
@@ -203,7 +213,8 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.chy.pojo.out.Factory">
     update t_factory
-    set f_name = #{fName,jdbcType=VARCHAR},
+    set f_code = #{fCode,jdbcType=VARCHAR},
+    	f_name = #{fName,jdbcType=VARCHAR},
       f_mr = #{fMr,jdbcType=VARCHAR},
       f_mark = #{fMark,jdbcType=VARCHAR},
       f_fool = #{fFool,jdbcType=VARCHAR},

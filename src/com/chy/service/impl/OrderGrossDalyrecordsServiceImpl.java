@@ -79,4 +79,9 @@ public class OrderGrossDalyrecordsServiceImpl implements OrderGrossDalyrecordsSe
 		return orderGrossDalyrecordsMapper.queryUserGrossByUserId(params);
 	}
 
+	@Override
+	public int copyAutoPointBrokerage(Map<String, Object> pararms) {
+		return orderGrossDalyrecordsMapper.copyAutoPointBrokerage(pararms);
+	}
+
 }
