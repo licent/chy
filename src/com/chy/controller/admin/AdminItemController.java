@@ -18,6 +18,7 @@ import com.chy.pojo.out.AdminUsers;
 import com.chy.pojo.out.Item;
 import com.chy.pojo.out.ItemCats;
 import com.chy.pojo.out.ItemWithBLOBs;
+import com.chy.pojo.out.Order;
 import com.chy.service.ItemCatsService;
 import com.chy.service.ItemService;
 import com.tools.IDMaker;
@@ -118,7 +119,7 @@ public class AdminItemController {
 			info.setPageNo(Tools.ObjectToInt(params.get("pageNo")));
 			info.setPageSize(Tools.ObjectToInt(params.get("pageSize")));
 			info.setTotalCount(totalCount);
-			info.setTotalPage(totalCount%pageNo==0?totalCount/pageNo:totalCount/pageNo+1);
+			info.setTotalPage(totalCount%pageSize==0?totalCount/pageSize:totalCount/pageSize+1);
 			info.setCode(ResponseCode.SUCC);
 			return info.toJsonString();
 		} catch (Exception e) {
@@ -127,8 +128,6 @@ public class AdminItemController {
 			return info.toJsonString();
 		}
 	}
-	
-	
 	/**
 	 * 查询所有标签
 	 * */
@@ -171,4 +170,47 @@ public class AdminItemController {
 			return info.toJsonString();
 		}
 	}
+	/**
+	 * 商品销售信息
+	 */
+	@ResponseBody
+	@RequestMapping("/admin/queryItemList")
+	public String queryItemList(@RequestParam Map<String,Object> params,HttpServletRequest request) {
+		ResponseInfo<List<Item>> info = new ResponseInfo<List<Item>>();
+		try {
+			//startTime endTime  分页 pageNo pageSize
+			AdminUsers adminUser = (AdminUsers)request.getSession().getAttribute("USERSESSION");
+			System.out.println(params.get("startTime"));  
+			String busCode = adminUser.getBusCode();
+			params.put("busCode",busCode);
+			long totalCount = itemService.selectListAdminItemCount(params);
+			int pageSize =Tools.ObjectToInt(params.get("pageSize"));
+			if(pageSize==0) {
+				pageSize=20;
+			}
+			int pageNo=Tools.ObjectToInt(params.get("pageNo"));
+			if(pageNo==0) {
+				pageNo=1;
+			}
+			params.put("pageNum", (pageNo-1)*pageSize);
+			params.put("endindex", pageNo*pageSize);
+			List<Item> Item = itemService.selectListByAdminItemByBusCode(params);
+			info.setData(Item);
+			//总数据量
+			info.setTotalCount(totalCount);
+			//总页数
+			info.setTotalPage(totalCount%pageSize==0?totalCount/pageSize:totalCount/pageSize+1);
+			//当前页
+			info.setPageNo(Tools.ObjectToInt(params.get("pageNo")));
+			//一页数据量
+			info.setPageSize(pageSize);
+			info.setCode(ResponseCode.SUCC);
+			return info.toJsonString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			info.setCode(ResponseCode.EXCEPTION);
+			return info.toJsonString();
+		}
+	}
+	
 }
