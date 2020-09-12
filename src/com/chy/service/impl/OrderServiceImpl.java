@@ -18,6 +18,7 @@ import com.chy.pojo.out.OrderItem;
 import com.chy.service.OrderService;
 import com.tools.IDMaker;
 import com.tools.Md5;
+import com.tools.MyHttpSender;
 import com.tools.Tools;
 
 /**
@@ -154,8 +155,8 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public boolean wechatPay(Order order) {
-		boolean result=false;
+	public String wechatPay(Order order) throws Exception{
+		String result=null;
 		
 		String appid="wxce31758573e47ce3";
 		String mch_id="1601274073";
@@ -204,6 +205,8 @@ public class OrderServiceImpl implements OrderService {
 			"<trade_type>"+trade_type+"</trade_type>"+
 			"<sign>"+sign+"</sign>"+
 		"</xml>";
+		
+		result=MyHttpSender.commonPost(MyHttpSender.WE_CHAT_PAY, paramXml);
 		
 		
 		

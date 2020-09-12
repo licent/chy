@@ -27,7 +27,7 @@ public class PayController {
 	@RequestMapping("/manage/pay/wechatPay")
 	@ResponseBody
 	public String wechatPay(@RequestParam Map<String, Object> params) {
-		ResponseInfo<User> info = new ResponseInfo<User>();
+		ResponseInfo<String> info = new ResponseInfo<String>();
 		try {
 			
 			if(params.get("orderId")==null) {
@@ -48,14 +48,16 @@ public class PayController {
 			
 			record.setStatus(new Byte("1"));
 			//orderId
-			
-			if(orderService.wechatPay(record)) {
+			String re=orderService.wechatPay(rcount);
+			if(re==null) {
 				info.setCode(ResponseCode.FAIL);
 				info.setMsg("支付失败");
 			}else {
 				info.setCode(ResponseCode.SUCC);
 				info.setMsg("支付成功");
-				orderService.updateByPrimaryKeySelective(record);
+				int r=orderService.updateByPrimaryKeySelective(record);
+				info.setMsg(r+"行订单状态修改");
+				info.setData("支付回调报文:"+re);
 			}
 			return info.toJsonString();
 		} catch (Exception e) {

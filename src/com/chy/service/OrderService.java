@@ -3,7 +3,6 @@ package com.chy.service;
 import java.util.List;
 import java.util.Map;
 
-import com.chy.pojo.out.Item;
 import com.chy.pojo.out.Order;
 import com.chy.pojo.out.OrderItem;
 
@@ -28,6 +27,6 @@ public interface OrderService {
 
 	int selectListOrderPageCount(Map<String, Object> params);
 	
-	boolean wechatPay(Order order);
+	String wechatPay(Order order) throws Exception;
 	
 }

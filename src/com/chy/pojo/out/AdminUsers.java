@@ -17,7 +17,7 @@ public class AdminUsers {
 
     private Boolean status;
 
-    private Integer registerTime;
+    private Long registerTime;
 
     private String lastLoginIp;
 
@@ -78,16 +78,16 @@ public class AdminUsers {
     public void setStatus(Boolean status) {
         this.status = status;
     }
+    
+    public Long getRegisterTime() {
+		return registerTime;
+	}
 
-    public Integer getRegisterTime() {
-        return registerTime;
-    }
+	public void setRegisterTime(Long registerTime) {
+		this.registerTime = registerTime;
+	}
 
-    public void setRegisterTime(Integer registerTime) {
-        this.registerTime = registerTime;
-    }
-
-    public String getLastLoginIp() {
+	public String getLastLoginIp() {
         return lastLoginIp;
     }
 

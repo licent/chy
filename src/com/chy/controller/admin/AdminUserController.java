@@ -158,7 +158,7 @@ public class AdminUserController {
 				info.setCode(ResponseCode.FAIL);
 				info.setMsg("该手机号码或用户名已经注册过用户");
 			} else {
-				adminUsers.setRegisterTime((int) (new Date()).getTime() / 1000);
+				adminUsers.setRegisterTime(System.currentTimeMillis());
 				int r = adminUsersService.insertSelective(adminUsers);
 				if (r > 0) {
 					info.setCode(ResponseCode.SUCC);
