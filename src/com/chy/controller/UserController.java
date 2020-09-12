@@ -491,7 +491,7 @@ public class UserController {
 			User record =new User();
 			record.setId(Tools.ObjectToInt(params.get("userId")));
 			record.setBsnsPwd(Md5.GetMD5Code(Tools.ObjectToString(params.get("payPwd"))));
-			info.setData(userService.updateByPrimaryKey(record));
+			info.setData(userService.updateByPrimaryKeySelective(record));
 			info.setCode(ResponseCode.SUCC);
 			return info.toJsonString();
 		} catch (Exception e) {
