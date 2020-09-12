@@ -17,6 +17,7 @@ import com.chy.pojo.out.Order;
 import com.chy.pojo.out.OrderItem;
 import com.chy.service.OrderService;
 import com.tools.IDMaker;
+import com.tools.Md5;
 import com.tools.Tools;
 
 /**
@@ -154,23 +155,56 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public boolean wechatPay(Order order) {
-		//https://api.mch.weixin.qq.com/pay/unifiedorde
 		boolean result=false;
 		
 		String appid="wxce31758573e47ce3";
-		String mch_id="";
+		String mch_id="1601274073";
 		String nonce_str=UUID.randomUUID().toString();
-		String sign="";
-		String body="";
+		String body="吃货丫-订单支付";
 		String out_trade_no=order.getOrderCode();
 		float total_fee = order.getTotalMoney();
+		if(order.getIsSignFor()) {
+			total_fee+=2;
+		}
+		String spbill_create_ip="182.254.202.42";
 		
-		String spbill_create_ip="";
-		
-		String notify_ur="";
+		String notify_ur="https://chioya.com/manage/pay/wechatPayCallBack.do";
 		
 		//小程序支付 JSAPI
 		String trade_type="JSAPI";
+		
+		
+		String key="YeD1L1kLN9pMWzMXGe60SNWeIWVmVjvL";
+		
+		
+		String paramsStr="";
+		paramsStr+="appid="+appid+"&";
+		paramsStr+="mch_id="+mch_id+"&";
+		paramsStr+="nonce_str="+nonce_str+"&";
+		paramsStr+="body="+body+"&";
+		paramsStr+="out_trade_no="+out_trade_no+"&";
+		paramsStr+="total_fee="+total_fee+"&";
+		paramsStr+="spbill_create_ip="+spbill_create_ip+"&";
+		paramsStr+="notify_ur="+notify_ur+"&";
+		paramsStr+="trade_type="+trade_type+"&";
+		
+		paramsStr+="key"+key;
+		
+		String sign=Md5.GetMD5Code(paramsStr).toUpperCase();//注：MD5签名方式
+		
+		String paramXml="<xml>"+
+			"<appid>"+appid+"</appid>"+
+			"<mch_id>"+mch_id+"</mch_id>"+
+			"<nonce_str>"+nonce_str+"</nonce_str>"+
+			"<body>"+body+"</body>"+
+			"<out_trade_no>"+out_trade_no+"</out_trade_no>"+
+			"<total_fee>"+total_fee+"</total_fee>"+
+			"<spbill_create_ip>"+spbill_create_ip+"</spbill_create_ip>"+
+			"<notify_ur>"+notify_ur+"</notify_ur>"+
+			"<trade_type>"+trade_type+"</trade_type>"+
+			"<sign>"+sign+"</sign>"+
+		"</xml>";
+		
 		
 		
 		return result;

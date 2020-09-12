@@ -22,4 +22,6 @@ public interface OrderGrossService {
 	int insertBatch(List<OrderGrossEx> records);
 	
 	List<OrderGross> selectUserGrossByParams(Map<String, Object> params);
+	
+	List<OrderGross> selectAutoPointBrokeAgeByParams(Map<String, Object> params);
 }

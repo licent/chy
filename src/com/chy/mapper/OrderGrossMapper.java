@@ -23,4 +23,6 @@ public interface OrderGrossMapper {
 
 	List<OrderGross> selectUserGrossByParams(Map<String, Object> params);
 	
+	List<OrderGross> selectAutoPointBrokeAgeByParams(Map<String, Object> params);
+	
 }

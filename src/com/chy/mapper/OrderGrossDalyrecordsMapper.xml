@@ -158,12 +158,34 @@
 		max(createtime) AS c_time,
 		sum(
 			if(money * num - purchase_money * num <![CDATA[<]]> 0,0,money * num - purchase_money * num)
-		)*0.03 AS totalmoney,
+		)*0.1 AS totalmoney,
 		type,
 		0 AS `status`
 	FROM
 		t_order_gross
 	WHERE DATE_FORMAT(createtime,'%Y%m%d')=DATE_FORMAT(sysdate()-1,'%Y%m%d')  and type=2
+	GROUP BY
+		user_id,order_id,DATE_FORMAT(createtime,'%Y%m%d')
+  </insert>
+  
+  <insert id="copyAutoPointBrokerage" parameterType="java.util.Map">
+  	INSERT INTO t_order_gross_dalyrecords (
+  		user_id,
+		c_time,
+		totalmoney,
+		4,
+		`status`
+	) SELECT
+		user_id,
+		max(createtime) AS c_time,
+		sum(
+			if(money * num - purchase_money * num <![CDATA[<]]> 0,0,money * num - purchase_money * num)
+		)*0.24 AS totalmoney,
+		type,
+		0 AS `status`
+	FROM
+		t_order_gross
+	WHERE DATE_FORMAT(createtime,'%Y%m%d')=DATE_FORMAT(sysdate()-1,'%Y%m%d')  and type=3
 	GROUP BY
 		user_id,order_id,DATE_FORMAT(createtime,'%Y%m%d')
   </insert>
@@ -180,7 +202,7 @@
 		max(createtime) AS c_time,
 		sum(
 			if(money * num - purchase_money * num <![CDATA[<]]> 0,0,money * num - purchase_money * num)
-		)*0.1 AS totalmoney,
+		)*0.03 AS totalmoney,
 		type,
 		0 AS `status`
 	FROM

@@ -23,6 +23,8 @@ public interface OrderGrossDalyrecordsService {
 	int copyAutoPointGross(Map<String, Object> pararms);
 
 	int copyFactoryGross(Map<String, Object> pararms);
+	
+	int copyAutoPointBrokerage(Map<String, Object> pararms);
 
 	List<OrderGrossDalyrecords> selectUserDalyGrossByParams(Map<String, Object> params);
 

@@ -60,4 +60,9 @@ public class OrderGrossServiceImpl implements OrderGrossService {
 		return orderGrossMapper.selectUserGrossByParams(params);
 	}
 
+	@Override
+	public List<OrderGross> selectAutoPointBrokeAgeByParams(Map<String, Object> params) {
+		return orderGrossMapper.selectAutoPointBrokeAgeByParams(params);
+	}
+
 }

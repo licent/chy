@@ -57,6 +57,25 @@ public class AdminItemController {
 	
 	
 	/**
+	 * 商品图片上传
+	 * */
+	@RequestMapping("/manage/uploadPicForApp")
+	@ResponseBody
+	public String uploadPicForApp(@RequestParam("file") MultipartFile file) {
+		ResponseInfo<String> info = new ResponseInfo<String>();
+		try {
+			info.setData(Uploader.uploadFile(file.getInputStream()));
+			info.setCode(ResponseCode.SUCC);
+			return info.toJsonString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			info.setCode(ResponseCode.EXCEPTION);
+			return info.toJsonString();
+		}
+	}
+	
+	
+	/**
 	 * 商品信息保存
 	 * */
 	@RequestMapping("/admin/addItemInfo")
