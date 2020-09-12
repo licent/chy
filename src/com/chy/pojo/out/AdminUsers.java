@@ -21,7 +21,7 @@ public class AdminUsers {
 
     private String lastLoginIp;
 
-    private Integer lastLoginTime;
+    private Long lastLoginTime;
 
     public Integer getId() {
         return id;
@@ -95,11 +95,11 @@ public class AdminUsers {
         this.lastLoginIp = lastLoginIp == null ? null : lastLoginIp.trim();
     }
 
-    public Integer getLastLoginTime() {
+    public Long getLastLoginTime() {
         return lastLoginTime;
     }
 
-    public void setLastLoginTime(Integer lastLoginTime) {
+    public void setLastLoginTime(Long lastLoginTime) {
         this.lastLoginTime = lastLoginTime;
     }
 

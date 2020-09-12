@@ -14,11 +14,11 @@
 			property="busCode" />
 		<result column="phone" jdbcType="BIGINT" property="phone" />
 		<result column="status" jdbcType="BIT" property="status" />
-		<result column="register_time" jdbcType="INTEGER"
+		<result column="register_time" jdbcType="BIGINT"
 			property="registerTime" />
 		<result column="last_login_ip" jdbcType="VARCHAR"
 			property="lastLoginIp" />
-		<result column="last_login_time" jdbcType="INTEGER"
+		<result column="last_login_time" jdbcType="BIGINT"
 			property="lastLoginTime" />
 	</resultMap>
 	<sql id="Base_Column_List">
@@ -75,7 +75,7 @@
 				and status = #{status,jdbcType=BIT}
 			</if>
 			<if test="registerTime != null">
-				and register_time = #{registerTime,jdbcType=INTEGER}
+				and register_time = #{registerTime,jdbcType=BIGINT}
 			</if>
 			<if test="key != null">
 				and (id = #{key} or username like concat('%',#{key},'%'))
@@ -108,7 +108,7 @@
 		#{phone,jdbcType=BIGINT}, #{status,jdbcType=BIT},
 		#{registerTime,jdbcType=INTEGER},
 		#{lastLoginIp,jdbcType=VARCHAR},
-		#{lastLoginTime,jdbcType=INTEGER})
+		#{lastLoginTime,jdbcType=BIGINT})
 	</insert>
 	<insert id="insertSelective"
 		parameterType="com.chy.pojo.out.AdminUsers">
@@ -180,7 +180,7 @@
 				#{lastLoginIp,jdbcType=VARCHAR},
 			</if>
 			<if test="lastLoginTime != null">
-				#{lastLoginTime,jdbcType=INTEGER},
+				#{lastLoginTime,jdbcType=BIGINT},
 			</if>
 		</trim>
 	</insert>
@@ -210,13 +210,13 @@
 				status = #{status,jdbcType=BIT},
 			</if>
 			<if test="registerTime != null">
-				register_time = #{registerTime,jdbcType=INTEGER},
+				register_time = #{registerTime,jdbcType=BIGINT},
 			</if>
 			<if test="lastLoginIp != null">
 				last_login_ip = #{lastLoginIp,jdbcType=VARCHAR},
 			</if>
 			<if test="lastLoginTime != null">
-				last_login_time = #{lastLoginTime,jdbcType=INTEGER},
+				last_login_time = #{lastLoginTime,jdbcType=BIGINT},
 			</if>
 		</set>
 		where id = #{id,jdbcType=INTEGER}
@@ -233,11 +233,11 @@
 		phone =
 		#{phone,jdbcType=BIGINT},
 		status = #{status,jdbcType=BIT},
-		register_time = #{registerTime,jdbcType=INTEGER},
+		register_time = #{registerTime,jdbcType=BIGINT},
 		last_login_ip =
 		#{lastLoginIp,jdbcType=VARCHAR},
 		last_login_time =
-		#{lastLoginTime,jdbcType=INTEGER}
+		#{lastLoginTime,jdbcType=BIGINT}
 		where id = #{id,jdbcType=INTEGER}
 	</update>
 </mapper>

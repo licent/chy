@@ -444,20 +444,19 @@ public class UserController {
 
 			long tim = Tools.ObjectToLong(request.getSession().getAttribute("MSGCODE_TIME"));
 			String pcStr = Tools.ObjectToString(request.getSession().getAttribute("MSGCODE"));
-
-			if (pcStr != null && !pcStr.equals(paramsStr)) {
+			if (pcStr == null || "".equals(pcStr) || tim == 0) {
+				info.setCode(ResponseCode.FAIL);
+				info.setMsg("尚未发送验证码");
+			}else if (!pcStr.equals(paramsStr)) {
 				info.setCode(ResponseCode.FAIL);
 				info.setMsg("验证码错误");
-			} else if (tim != 0 && System.currentTimeMillis() - tim > 60000) {
+			} else if (System.currentTimeMillis() - tim > 60000) {
 
 				request.getSession().removeAttribute("MSGCODE_TIME");
 				request.getSession().removeAttribute("MSGCODE");
 
 				info.setCode(ResponseCode.FAIL);
 				info.setMsg("验证码失效,请重新发送");
-			} else if (pcStr == null && tim == 0) {
-				info.setCode(ResponseCode.FAIL);
-				info.setMsg("尚未发送验证码");
 			} else {
 				info.setCode(ResponseCode.SUCC);
 				info.setMsg("校验成功");

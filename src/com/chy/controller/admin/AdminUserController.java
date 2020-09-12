@@ -78,7 +78,12 @@ public class AdminUserController {
 
 			AdminUsers r = new AdminUsers();
 			r.setId(adminUsers.getId());
-			r.setLastLoginTime((int) (System.currentTimeMillis()));
+			r.setLastLoginTime(System.currentTimeMillis());
+			
+			if(r.getLastLoginTime()==0) {
+				r.setLastLoginTime(null);
+			}
+			
 			adminUsersService.updateByPrimaryKeySelective(r);
 
 			request.getSession().setAttribute("USERSESSION", adminUsers);
@@ -238,5 +243,4 @@ public class AdminUserController {
 		 * info.toJsonString(); } catch (Exception e) { e.printStackTrace();
 		 * info.setCode(ResponseCode.EXCEPTION); return info.toJsonString(); } }
 		 */
-
 }
