@@ -108,7 +108,7 @@ public class OrderController {
 		try {
 			Order order = new Order();
 			order.setId(Tools.ObjectToInt(params.get("orderId")));
-			order.setStatus((Byte) params.get("status"));
+			order.setStatus(Tools.ObjectToByte(params.get("status")));
 			int or = orderService.updateByPrimaryKeySelective(order);
 			if (or > 0) {
 				re.put("order_update_records", or);

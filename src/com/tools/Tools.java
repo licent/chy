@@ -78,7 +78,12 @@ public class Tools {
 	public static int ObjectToInt(Object obj) {
 		return obj != null ? Integer.parseInt(obj.toString()) : 0;
 	}
-
+	/**
+	 * Object转Byte
+	 */
+	public static Byte ObjectToByte(Object obj) {
+		return obj !=null ? Byte.parseByte(obj.toString()) :null;
+	}
 	/**
 	 * Object转long
 	 **/

@@ -121,7 +121,6 @@ public class OrderServiceImpl implements OrderService {
 				Map<String, Object> p = new HashMap<String, Object>();
 				p.put("orderCode", order.getOrderCode());
 				// 查询订单数据
-				System.out.println(p);
 				result = orderMapper.selectListByParams(p);
 			} else {
 				// 订单创建失败
