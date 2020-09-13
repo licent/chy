@@ -229,11 +229,17 @@ public class UserController {
 			// phone
 			UserAddress record = new UserAddress();
 			record.setId(Tools.ObjectToInt(params.get("addressId")));
-			record.setAddress((String) params.get("address"));
-			record.setUserId((String) params.get("userId"));
-			record.setPhone((String) params.get("phone"));
-			record.setName((String) params.get("name"));
+			if(params.get("address")!=null)
+			record.setAddress(Tools.ObjectToString(params.get("address")));
+			if(params.get("userId")!=null)
+			record.setUserId(Tools.ObjectToString(params.get("userId")));
+			if(params.get("phone")!=null)
+			record.setPhone(Tools.ObjectToString(params.get("phone")));
+			if(params.get("name")!=null)
+			record.setName(Tools.ObjectToString(params.get("name")));
+			
 			record.setSelected(new Byte("1"));
+			
 			int r = userAddressService.updateByPrimaryKeySelective(record);
 			if (r > 0) {
 				params.put("tag", 1);

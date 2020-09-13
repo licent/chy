@@ -49,9 +49,7 @@ public class AutoPointController {
 	public String createAutoPoint(@RequestParam Map<String, Object> params) {
 		ResponseInfo<Integer> info = new ResponseInfo<Integer>();
 		try {
-			// address
 			// userId
-			// phone
 			// parentUserId
 			// localX
 			// localY
@@ -59,10 +57,8 @@ public class AutoPointController {
 
 			// codeHead
 			AutoPoint record = new AutoPoint();
-			record.setAddress(Tools.ObjectToJsonString(params.get("address")));
 			record.setUserId(Tools.ObjectToInt(params.get("userId")));
 			record.setParentUserId(Tools.ObjectToInt(params.get("parentUserId")));
-			record.setPhone(Tools.ObjectToJsonString(params.get("phone")));
 			record.setCode(IDMaker.createAutoPointCode(Tools.ObjectToJsonString(params.get("codeHead"))));
 			record.setLocalX(Tools.ObjectToJsonString(params.get("localX")));
 			record.setLocalY(Tools.ObjectToJsonString(params.get("localY")));
@@ -105,7 +101,7 @@ public class AutoPointController {
 			// ztdId
 			UserAddress record = new UserAddress();
 			record.setUserId(Tools.ObjectToString(params.get("userId")));
-			record.setId(Tools.ObjectToInt(params.get("addressId")));
+			// record.setId(Tools.ObjectToInt(params.get("addressId")));
 			record.setSelected(new Byte("1"));
 			record.setZtdId(Tools.ObjectToInt(params.get("ztdId")));
 
@@ -125,7 +121,7 @@ public class AutoPointController {
 
 			if (r > 0) {
 				Map<String, Object> p = new HashMap<String, Object>();
-				p.put("addressId", params.get("addressId"));
+				//p.put("addressId", params.get("addressId"));
 				p.put("userId", params.get("userId"));
 				p.put("ztdId", params.get("ztdId"));
 				p.put("selected", new Byte("0"));
