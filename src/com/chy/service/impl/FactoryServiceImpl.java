@@ -1,5 +1,8 @@
 package com.chy.service.impl;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.chy.mapper.FactoryMapper;
@@ -43,6 +46,15 @@ public class FactoryServiceImpl implements FactoryService {
 	@Override
 	public int updateByPrimaryKey(Factory record) {
 		return factoryMapper.updateByPrimaryKey(record);
+	}
+	
+	@Override
+	public List<Factory> selectFactoryList(Map<String, Object> params){
+		return factoryMapper.selectFactoryList(params);
+	}
+	@Override
+	public long selectFactoryListCount(Map<String,Object> params) {
+		return factoryMapper.selectFactoryListCount(params);
 	}
 
 }

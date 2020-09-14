@@ -24,7 +24,7 @@ import com.tools.Tools;
 public class AdminOrderController {
 	
 	@Autowired
-	OrderService orderService;
+	OrderService orderService; 
 	/**
 	 * 用户订单列表查询分页
 	 */

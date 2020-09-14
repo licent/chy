@@ -199,7 +199,6 @@ public class AdminItemController {
 		try {
 			//startTime endTime  分页 pageNo pageSize
 			AdminUsers adminUser = (AdminUsers)request.getSession().getAttribute("USERSESSION");
-			System.out.println(params.get("startTime"));  
 			String busCode = adminUser.getBusCode();
 			params.put("busCode",busCode);
 			long totalCount = itemService.selectListAdminItemCount(params);

@@ -28,13 +28,20 @@
 				<div class="col-sm-12">
 					<div class="ibox float-e-margins">
 						<div class="ibox-title">
-							<h5>用户订单信息<small>全部</small></h5>
+							<h5>商家信息 </h5>
 							<div class="ibox-tools">
-						
+								<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+									<i class="fa fa-wrench"></i>
+								</a>
+								<ul class="dropdown-menu dropdown-user">
+									<li><a onclick="init(1, 10, 0)">未审核</a>
+									</li>
+									<li><a onclick="init(1, 10, 1)">已审核</a>
+								</ul>
 							</div>
 						</div>
 						<div class="ibox-content">
-							<div class="col-sm-12">
+							<!-- <div class="col-sm-12">
 								<form role="form" class="form-inline">
 									<div class="form-group">
 										<input type="date" id="startTime" class="form-control">
@@ -43,24 +50,26 @@
 									<div class="form-group">
 										<input type="date" id="endTime" class="form-control">
 									</div>
-									<!-- <div class="form-group">
+									<div class="form-group">
 										<input type="text" placeholder="用户Id" id="userId" class="form-control">
-									</div> -->
+									</div>
 									<button class="btn btn-white" id="hunt" type="button">搜索</button>
 									<button class="btn btn-white" id="clear" type="button">清空</button>
 								</form>
-							</div>
+							</div> -->
 							<table class="table table-striped table-bordered table-hover dataTables-example">
 								<thead>
 									<tr>
 										<th>序号</th>
-										<th>商品编号</th>
-										<th>商品名称</th>
-										<th>价格</th>
-										<th>进价</th>
+										<th>商家编号</th>
+										<th>商家名称</th>
+										<th>商家地址</th>
+										<th>联系电话</th>
+										<th>状态</th>
+										<th>操作</th>
 									</tr>
 								</thead>
-								<tbody id="item">
+								<tbody id="factory">
 									<tr class='gradeX'>
 										<td colspan=5>
 											<center>暂无数据</center>
@@ -83,21 +92,19 @@
 				<script src="js/content.min.js?v=1.0.0"></script>
 				<script type="text/javascript">
 					$(function() {
-						init(1,10,null,null);
+						init(1,10);
 					})
 
-					function init(pageNo, pageSize,startTime,endTime) {
-						$("#item").html("");
+					function init(pageNo, pageSize,fStatus) {
+						$("#factory").html("");
 						$.ajax({
 							type: "POST",
-							url: "/admin/queryItemList.do",
+							url: "/admin/factory/SelectFactoryList.do",
 							dataType: "json",
 							data: {
 								"pageNo": pageNo,
 								"pageSize": pageSize,
-								"startTime":startTime,
-								"endTime": endTime
-
+								"fStatus":fStatus
 							},
 							success: function(data) {
 								if (data.code == '000') {
@@ -105,29 +112,41 @@
 									var result = "";
 									var paging = "";
 									if (data.data.length == 0) {
-										$("#item").html("<tr class='gradeX'><td colspan=5><center>暂无数据</center></td></tr>");
+										$("#factory").html("<tr class='gradeX'><td colspan=5><center>暂无数据</center></td></tr>");
 
 									} else {
 										paging += "<button type='button' class='btn btn-white' onclick='previousPage(" + JSON.stringify(data) +
 											")'><i class='fa fa-chevron-left'></i></button>";
 										for (var i = 0; i < data.data.length; i++) {
 											result += "<tr>" + "<td>" + (i + 1) + "</td>" +
-												"<td>" + data.data[i].id + "</td>" +
-												"<td>" + data.data[i].name + "</td>" +
-												"<td>" + data.data[i].price + "</td>" +
-												"<td>" + data.data[i].purchasePrice + "</td>"
-											result += "</tr>`";
+												"<td>" + data.data[i].fCode + "</td>" +
+												"<td>" + data.data[i].fName + "</td>" +
+												"<td>" + data.data[i].fFool + "</td>" +
+												"<td>" + data.data[i].fPhone + "</td>"
+											
+											if(data.data[i].fStatus==0){
+												result +="<td>未审核</td>"
+											}else{
+												result +="<td>已审核</td>"
+											}
+				                	            if(data.data[i].fStatus==0){
+				                	            	result+="<td><a onclick='forbidFactory("+data.data[i].id+",1);'>审核</a></td>";
+				                	            }else{
+				                	            	result+="<td></td>";
+				                	            }
+				                	         result += "</tr>`";
 										}
 										for (var k = 1; k <= data.totalPage; k++) {
 											paging += "<button class='btn btn-white' onclick='goPage(" + k + ")'>" + k + "</button>"
 										}
 										paging += "<button type='button' class='btn btn-white' onclick='nextPage(" + JSON.stringify(data) +
 											")'><i class='fa fa-chevron-right'></i></button>";
+										paging +="<p>当前页码:(<span>"+data.pageNo+"/"+data.totalPage+"</span>)&nbsp;&nbsp;&nbsp;共:(<span>"+data.totalCount+"</span>)条数据</p>";
 										if (result != "") {
-											$("#item").html(result);
+											$("#factory").html(result);
 											$("#paging").html(paging);
 										} else {
-											$("#item").html("<tr class='gradeX'><td colspan=5><center>暂无数据</center></td></tr>");
+											$("#factory").html("<tr class='gradeX'><td colspan=5><center>暂无数据</center></td></tr>");
 										}
 									}
 								} else {
@@ -140,44 +159,56 @@
 						});
 					}
 					$("#hunt").click(function() {
-						var startTime = $("#startTime").val();
-						var endTime = $("#endTime").val();
-						init(1, 10,startTime,endTime);
+						init(1, 10);
 					});
 					$("#clear").click(function() {
-						$("#endTime").val("");
-						init(1, 10,startTime,endTime);
+						init(1, 10);
 					});
 
 					function previousPage(data) {
-						var startTime = $("#startTime").val();
-						var endTime = $("#endTime").val();
 						var pageNo = data.pageNo;
 						if (pageNo <= 1) {
 							alert("已经是第一页了");
 						} else {
 							var pageNum = pageNo - 1;
-							init(pageNum, data.pageSize,startTime,endTime);
+							init(pageNum, data.pageSize);
 						}
 
 					};
 
 					function nextPage(data) {
-						var startTime = $("#startTime").val();
-						var endTime = $("#endTime").val();
 						var pageNo = data.pageNo;
 						if (pageNo >= data.totalPage) {
 							alert("已经是最后一页了");
 						} else {
 							var pageNum = pageNo + 1;
-							init(pageNum, data.pageSize,startTime,endTime);
+							init(pageNum, data.pageSize);
 						}
 					};
 
 					function goPage(pageNo) {
-						var startTime = $("#startTime").val();
-						var endTime = $("#endTime").val();
-						init(pageNo, data.pageSize,startTime,endTime);
+						init(pageNo, 10);
+					}
+					function forbidFactory(id,sta){
+						$.ajax({
+			                type:"POST",
+			                url:"/admin/factory/updateFactoryStatus.do",
+			                dataType:"json",
+			                data:{
+			                	"id":id,
+			                	"fStatus":sta
+			                },
+			                success:function(data){
+			                    if(data.code=='000'){
+			                    	init(1,10);
+			                    }else{
+			                        console.log(data.msg)
+			                    }
+			                },
+			                error: function(jqXHR){
+			                	 window.location.href="/500.html";
+			                }
+			            });
 					}
 
 					function formatDate(datetime) {

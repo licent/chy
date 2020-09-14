@@ -197,6 +197,7 @@
 										paging+="<button class='btn btn-white' onclick='goPage("+k+")'>"+k+"</button>"
 									}
 									paging+="<button type='button' class='btn btn-white' onclick='nextPage("+JSON.stringify(data)+")'><i class='fa fa-chevron-right'></i></button>";
+									paging +="<p>当前页码:(<span>"+data.pageNo+"/"+data.totalPage+"</span>)&nbsp;&nbsp;&nbsp;共:(<span>"+data.totalCount+"</span>)条数据</p>";
 									if (result != "") {
 										$("#order").html(result);
 										$("#paging").html(paging);
