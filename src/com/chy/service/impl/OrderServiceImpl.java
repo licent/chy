@@ -1,5 +1,6 @@
 package com.chy.service.impl;
 
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +21,7 @@ import com.tools.IDMaker;
 import com.tools.Md5;
 import com.tools.MyHttpSender;
 import com.tools.Tools;
+import com.tools.WXPayUtil;
 
 /**
  * @订单服务
@@ -154,64 +156,68 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public String wechatPay(Order order) throws Exception{
+	public String wechatPay(Order order,String openId) throws Exception{
 		String result=null;
-		
+		Map<String, String> map = new HashMap<String, String>();
 		String appid="wxce31758573e47ce3";
 		String mch_id="1601274073";
-		String nonce_str=UUID.randomUUID().toString();
+		String nonce_str=Md5.GetMD5Code(UUID.randomUUID().toString().replaceAll("-", "")).toUpperCase();
 		String body="吃货丫-订单支付";
 		String out_trade_no=order.getOrderCode();
 		float total_fee = order.getTotalMoney();
 		if(order.getIsSignFor()) {
 			total_fee+=2;
 		}
-//		String spbill_create_ip="182.254.202.42";
+		long final_total_fee=(long) (total_fee*100);
 		
-		String notify_ur="https://chioya.com/manage/pay/wechatPayCallBack.do";
+		
+//		String spbill_create_ip="182.254.202.42";
+		String notify_url="<![CDATA[https://chioya.com/manage/pay/wechatPayCallBack.do]]>";
 		
 		//小程序支付 JSAPI
 		String trade_type="JSAPI";
 		
-		
-		String key="YeD1L1kLN9pMWzMXGe60SNWeIWVmVjvL";
-		
-		
+		String key="lubenjweiniub6666666666666666666";
 		String paramsStr="";
 		paramsStr+="appid="+appid+"&";
+		paramsStr+="body="+body+"&";
 		paramsStr+="mch_id="+mch_id+"&";
 		paramsStr+="nonce_str="+nonce_str+"&";
-		paramsStr+="body="+body+"&";
+		paramsStr+="notify_url="+notify_url+"&";
+		paramsStr+="openid="+openId+"&";
 		paramsStr+="out_trade_no="+out_trade_no+"&";
-		paramsStr+="total_fee="+total_fee+"&";
-		paramsStr+="spbill_create_ip=&";
-		paramsStr+="notify_ur="+notify_ur+"&";
+		paramsStr+="spbill_create_ip=182.254.202.42&";
+		paramsStr+="total_fee="+final_total_fee+"&";
 		paramsStr+="trade_type="+trade_type+"&";
+		paramsStr+="key="+key;
 		
-		paramsStr+="key"+key;
+		map.put("appid",appid);
+		map.put("body",body);
+		map.put("mch_id", mch_id);
+		map.put("nonce_str",nonce_str);
+		map.put("notify_url", notify_url);
+		map.put("openid", openId);
+		map.put("out_trade_no",out_trade_no);
+		map.put("spbill_create_ip","182.254.202.42");
+		map.put("total_fee",final_total_fee+"");
+		map.put("trade_type",trade_type);
 		
-		String sign=Md5.GetMD5Code(paramsStr).toUpperCase();//注：MD5签名方式
-		
-		String paramXml="<xml>"+
-			"<appid>"+appid+"</appid>"+
-			"<mch_id>"+mch_id+"</mch_id>"+
-			"<nonce_str>"+nonce_str+"</nonce_str>"+
-			"<body>"+body+"</body>"+
-			"<out_trade_no>"+out_trade_no+"</out_trade_no>"+
-			"<total_fee>"+total_fee+"</total_fee>"+
-			"<spbill_create_ip></spbill_create_ip>"+
-			"<notify_ur>"+notify_ur+"</notify_ur>"+
-			"<trade_type>"+trade_type+"</trade_type>"+
-			"<sign>"+sign+"</sign>"+
-		"</xml>";
-		
-		result=MyHttpSender.commonPost(MyHttpSender.WE_CHAT_PAY, paramXml);
+		String sign=Md5.GetMD5Code(paramsStr);//注：MD5签名方式
+		sign=sign.toUpperCase();
+		map.put("sign",sign);
 		
 		
+		String paramXml = WXPayUtil.mapToXml(map);
+		result=MyHttpSender.commonPost(MyHttpSender.WE_CHAT_PAY, paramXml,mch_id,6000,8000);
 		
 		return result;
 	}
 
+	
+	
+	public static void main(String[] args) {
+		System.out.println(UUID.randomUUID().toString().replaceAll("-", ""));
+	}
 }
 
 

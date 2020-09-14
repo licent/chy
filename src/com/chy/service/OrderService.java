@@ -27,6 +27,6 @@ public interface OrderService {
 
 	long selectListOrderPageCount(Map<String, Object> params);
 	
-	String wechatPay(Order order) throws Exception;
+	String wechatPay(Order order,String openId) throws Exception;
 	
 }
