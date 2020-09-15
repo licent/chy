@@ -25,4 +25,6 @@ public interface OrderMapper {
 	List<Order> selectListByAutoPint(Map<String,Object> params);
 	
 	long selectListOrderPageCount(Map<String, Object> params);
+	
+	int updateStatusByOrderCode(Order record);
 }

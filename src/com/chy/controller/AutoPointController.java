@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -330,7 +331,7 @@ public class AutoPointController {
 	 * 店长订单管理
 	 */
 	@ResponseBody
-	@RequestMapping("/manage/autopoint/queryAutopintOrder")
+	@RequestMapping("/manage/autopoint/queryAutopointOrder")
 	public String queryAutopintOrder(@RequestParam Map<String, Object> params) {
 		ResponseInfo<List<Order>> info = new ResponseInfo<List<Order>>();
 		try {
@@ -348,7 +349,7 @@ public class AutoPointController {
 	 * 店长注销
 	 */
 	@ResponseBody
-	@RequestMapping("/manage/autopoint/autopintOut")
+	@RequestMapping("/manage/autopoint/autopointOut")
 	public String autopintOut(@RequestParam Map<String, Object> params) {
 		ResponseInfo<String> info = new ResponseInfo<String>();
 		try {
@@ -356,6 +357,7 @@ public class AutoPointController {
 			int count = autoPointService.deleteByPrimaryKey(Tools.ObjectToInt(params.get("id")));
 			if(count>0) {
 				info.setCode(ResponseCode.SUCC);
+				return info.toJsonString();
 			}
 				info.setCode(ResponseCode.FAIL);
 				return info.toJsonString();
@@ -368,8 +370,27 @@ public class AutoPointController {
 	/**
 	 * 店长修改订单状态
 	 */
-	@RequestMapping("/manage/autopoint/autopintUpdateOrder")
+	@ResponseBody
+	@RequestMapping("/manage/autopoint/autopointUpdateOrder")
 	public String autopintUpdateOrder(@RequestParam Map<String, Object> params) {
-		ResponseInfo<String> info =  new ResponseInfo<String>();		
+		ResponseInfo<String> info =  new ResponseInfo<String>();
+		try {
+			//id status
+			Order record = new Order();
+			record.setId(Tools.ObjectToInt(params.get("id")));
+			record.setStatus(Tools.ObjectToByte(params.get("status")));
+			int count = orderService.updateByPrimaryKeySelective(record);
+			if(count>0) {
+				info.setCode(ResponseCode.SUCC);
+				return info.toJsonString();
+			}
+			info.setCode(ResponseCode.FAIL);
+			return info.toJsonString();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			info.setCode(ResponseCode.EXCEPTION);
+			return info.toJsonString();
+		}
 	}
 }

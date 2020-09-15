@@ -173,7 +173,7 @@ public class OrderServiceImpl implements OrderService {
 		
 		
 //		String spbill_create_ip="182.254.202.42";
-		String notify_url="<![CDATA[https://chioya.com/manage/pay/wechatPayCallBack.do]]>";
+		String notify_url="https://chioya.com/manage/pay/wechatPayCallBack.do";
 		
 		//小程序支付 JSAPI
 		String trade_type="JSAPI";
@@ -216,6 +216,11 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public List<Order> selectListByAutoPint(Map<String,Object> params){
 		return orderMapper.selectListByAutoPint(params);
+	}
+
+	@Override
+	public int updateStatusByOrderCode(Order record) {
+		return orderMapper.updateStatusByOrderCode(record);
 	}
 }
 

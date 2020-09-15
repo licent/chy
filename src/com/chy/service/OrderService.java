@@ -31,4 +31,6 @@ public interface OrderService {
 	
 	String wechatPay(Order order,String openId) throws Exception;
 	
+	int updateStatusByOrderCode(Order record);
+	
 }

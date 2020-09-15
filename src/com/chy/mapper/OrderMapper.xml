@@ -181,7 +181,7 @@
 		oi.order_id = #{id}
   </select>
   <select id="selectListByAutoPint" parameterType="java.util.Map" resultMap="BaseResultMapEx">
-  	select * from t_order 
+  	select * from t_order
   	<where>
   		<if test="status!=null">
   			and status = #{status}
@@ -189,16 +189,16 @@
   		<if test="ztdId!=null">
   			and ztd_id = #{ztdId}
   		</if>
-  		<if test="beginTime != null and endTime == null">
-	       		AND DATE_FORMAT(create_time, '%Y%m%d') <![CDATA[ =  ]]>  DATE_FORMAT(#{beginTime}, '%Y%m%d')
-	        </if>
-	        <if test="beginTime == null and endTime != null">
-	       		AND DATE_FORMAT(create_time, '%Y%m%d') <![CDATA[  =  ]]>  DATE_FORMAT(#{endTime}, '%Y%m%d')
-	        </if>
-			<if test="beginTime != null and endTime1 !=null">
-	       		AND DATE_FORMAT(create_time, '%Y%m%d') <![CDATA[ <=  ]]>  DATE_FORMAT(#{beginTime}, '%Y%m%d')
-				AND DATE_FORMAT(create_time, '%Y%m%d') <![CDATA[ >=  ]]>  DATE_FORMAT(#{endTime}, '%Y%m%d')
-	        </if>
+  		<if test="beginTime != null">
+       		AND DATE_FORMAT(create_time, '%Y%m%d') <![CDATA[ >=  ]]>  DATE_FORMAT(#{beginTime}, '%Y%m%d')
+        </if>
+        <if test="endTime != null">
+       		AND DATE_FORMAT(create_time, '%Y%m%d') <![CDATA[ <=  ]]>  DATE_FORMAT(#{endTime}, '%Y%m%d')
+        </if>
+
+        <if test="isSignFor !=null">
+        	and is_sign_for = #{isSign}
+        </if>
   	</where>
   	order by create_time desc
   </select>
@@ -354,6 +354,14 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  
+  <update id="updateStatusByOrderCode" parameterType="com.chy.pojo.out.Order">
+    update t_order
+    set status = #{status,jdbcType=TINYINT}
+    where order_code = #{orderCode}
+  </update>
+  
   <update id="updateByPrimaryKey" parameterType="com.chy.pojo.out.Order">
     update t_order
     set order_code = #{orderCode,jdbcType=VARCHAR},

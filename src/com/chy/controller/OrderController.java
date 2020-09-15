@@ -112,17 +112,6 @@ public class OrderController {
 			int or = orderService.updateByPrimaryKeySelective(order);
 			if (or > 0) {
 				re.put("order_update_records", or);
-				if (order.getStatus() == 1) {
-					// 有效订单才进行毛利数据存储
-					Map<String, Object> p = new HashMap<String, Object>();
-					params.put("orderId", order.getId());
-					// 查询订单商品情况
-					List<OrderGrossEx> result = itemService.selectItemGrossInfolistByOrderId(p);
-					if (result != null && result.size() == 1) {
-						// 毛利记录表保存
-						re.put("order_gross_update_records", orderGrossService.insertBatch(result));
-					}
-				}
 			}
 			info.setData(re);
 			info.setCode(ResponseCode.SUCC);
