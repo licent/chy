@@ -336,6 +336,7 @@ public class AutoPointController {
 		try {
 			//ztdId status
 			info.setData(orderService.selectListByAutoPint(params));
+			info.setCode(ResponseCode.SUCC);
 			return info.toJsonString();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -346,5 +347,29 @@ public class AutoPointController {
 	/**
 	 * 店长注销
 	 */
-
+	@ResponseBody
+	@RequestMapping("/manage/autopoint/autopintOut")
+	public String autopintOut(@RequestParam Map<String, Object> params) {
+		ResponseInfo<String> info = new ResponseInfo<String>();
+		try {
+			//id
+			int count = autoPointService.deleteByPrimaryKey(Tools.ObjectToInt(params.get("id")));
+			if(count>0) {
+				info.setCode(ResponseCode.SUCC);
+			}
+				info.setCode(ResponseCode.FAIL);
+				return info.toJsonString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			info.setCode(ResponseCode.EXCEPTION);
+			return info.toJsonString();
+		}
+	}
+	/**
+	 * 店长修改订单状态
+	 */
+	@RequestMapping("/manage/autopoint/autopintUpdateOrder")
+	public String autopintUpdateOrder(@RequestParam Map<String, Object> params) {
+		ResponseInfo<String> info =  new ResponseInfo<String>();		
+	}
 }

@@ -1,4 +1,4 @@
-package com.chy.pojo.out;
+package com.chy.pojo.out ;
 
 public class Factory {
     private Integer id;

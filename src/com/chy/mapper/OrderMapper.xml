@@ -189,8 +189,18 @@
   		<if test="ztdId!=null">
   			and ztd_id = #{ztdId}
   		</if>
+  		<if test="beginTime != null and endTime == null">
+	       		AND DATE_FORMAT(create_time, '%Y%m%d') <![CDATA[ =  ]]>  DATE_FORMAT(#{beginTime}, '%Y%m%d')
+	        </if>
+	        <if test="beginTime == null and endTime != null">
+	       		AND DATE_FORMAT(create_time, '%Y%m%d') <![CDATA[  =  ]]>  DATE_FORMAT(#{endTime}, '%Y%m%d')
+	        </if>
+			<if test="beginTime != null and endTime1 !=null">
+	       		AND DATE_FORMAT(create_time, '%Y%m%d') <![CDATA[ <=  ]]>  DATE_FORMAT(#{beginTime}, '%Y%m%d')
+				AND DATE_FORMAT(create_time, '%Y%m%d') <![CDATA[ >=  ]]>  DATE_FORMAT(#{endTime}, '%Y%m%d')
+	        </if>
   	</where>
-  	
+  	order by create_time desc
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from t_order

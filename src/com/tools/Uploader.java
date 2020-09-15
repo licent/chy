@@ -22,7 +22,7 @@ public class Uploader {
 		String secretKey = "DtnmWpI6eiVH-qo1YoLy3Q0ZfGm1m2r6-fUTARcX";
 		String bucket = "chioya";
 		// 默认不指定key的情况下，以文件内容的hash值作为文件名
-		String key = null;
+		String key = null; 
 		try {
 			Auth auth = Auth.create(accessKey, secretKey);
 			String upToken = auth.uploadToken(bucket);
