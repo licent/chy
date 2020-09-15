@@ -22,5 +22,7 @@ public interface OrderMapper {
 	
 	List<Order> selectListByParamsPageing(Map<String,Object> params);
 	
+	List<Order> selectListByAutoPint(Map<String,Object> params);
+	
 	long selectListOrderPageCount(Map<String, Object> params);
 }

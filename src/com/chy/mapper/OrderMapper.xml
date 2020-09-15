@@ -35,9 +35,6 @@
     <collection property="itemList" select="selectListByParamsEx"
 			column="id">
 		</collection>
-	<collection property="autoPint" select="selectAutoPint"
-			column="ztdId">
-	</collection>
   </resultMap>
   <resultMap id="ItemBaseResultMap" type="com.chy.pojo.out.Item">
 		<id column="id" jdbcType="INTEGER" property="id" />
@@ -182,6 +179,18 @@
 	INNER JOIN t_order_item AS oi ON i.id = oi.item_id
 	WHERE
 		oi.order_id = #{id}
+  </select>
+  <select id="selectListByAutoPint" parameterType="java.util.Map" resultMap="BaseResultMapEx">
+  	select * from t_order 
+  	<where>
+  		<if test="status!=null">
+  			and status = #{status}
+  		</if>
+  		<if test="ztdId!=null">
+  			and ztd_id = #{ztdId}
+  		</if>
+  	</where>
+  	
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from t_order

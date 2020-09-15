@@ -14,6 +14,7 @@ import com.chy.mapper.CartMapper;
 import com.chy.mapper.ItemMapper;
 import com.chy.mapper.OrderItemMapper;
 import com.chy.mapper.OrderMapper;
+import com.chy.mapper.OrdersMapper;
 import com.chy.pojo.out.Order;
 import com.chy.pojo.out.OrderItem;
 import com.chy.service.OrderService;
@@ -212,11 +213,9 @@ public class OrderServiceImpl implements OrderService {
 		
 		return result;
 	}
-
-	
-	
-	public static void main(String[] args) {
-		System.out.println(UUID.randomUUID().toString().replaceAll("-", ""));
+	@Override
+	public List<Order> selectListByAutoPint(Map<String,Object> params){
+		return orderMapper.selectListByAutoPint(params);
 	}
 }
 

@@ -1,23 +1,18 @@
 package com.chy.controller.admin;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.chy.pojo.in.OrderGrossEx;
 import com.chy.pojo.out.AdminUsers;
 import com.chy.pojo.out.Factory;
-import com.chy.pojo.out.Item;
 import com.chy.service.FactoryService;
 import com.tools.ResponseCode;
 import com.tools.ResponseInfo;

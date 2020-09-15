@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.chy.pojo.out.AutoPoint;
 import com.chy.pojo.out.AutoPointask;
+import com.chy.pojo.out.Order;
 import com.chy.pojo.out.User;
 import com.chy.pojo.out.UserAddress;
 import com.chy.service.AutoPointService;
 import com.chy.service.AutoPointTaskService;
+import com.chy.service.OrderService;
 import com.chy.service.UserAddressService;
 import com.chy.service.UserService;
 import com.tools.IDMaker;
@@ -40,7 +42,8 @@ public class AutoPointController {
 
 	@Autowired
 	AutoPointTaskService autoPointTaskService;
-
+	@Autowired
+	OrderService orderService;
 	/**
 	 * 新增自提点
 	 */
@@ -323,5 +326,25 @@ public class AutoPointController {
 			return info.toJsonString();
 		}
 	}
+	/**
+	 * 店长订单管理
+	 */
+	@ResponseBody
+	@RequestMapping("/manage/autopoint/queryAutopintOrder")
+	public String queryAutopintOrder(@RequestParam Map<String, Object> params) {
+		ResponseInfo<List<Order>> info = new ResponseInfo<List<Order>>();
+		try {
+			//ztdId status
+			info.setData(orderService.selectListByAutoPint(params));
+			return info.toJsonString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			info.setCode(ResponseCode.EXCEPTION);
+			return info.toJsonString();
+		}
+	}
+	/**
+	 * 店长注销
+	 */
 
 }
