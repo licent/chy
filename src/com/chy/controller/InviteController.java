@@ -11,13 +11,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
-import com.chy.pojo.out.User;
 import com.tools.MyHttpSender;
 import com.tools.ResponseCode;
 import com.tools.ResponseInfo;
 import com.tools.Tools;
 
-import sun.misc.BASE64Encoder;
 
 /**
  * @邀请二维码生成

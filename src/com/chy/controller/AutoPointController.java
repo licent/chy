@@ -61,11 +61,13 @@ public class AutoPointController {
 
 			// codeHead
 			AutoPoint record = new AutoPoint();
+			record.setZtd(Tools.ObjectToString(params.get("ztd")));
+			record.setAddress(Tools.ObjectToString(params.get("address")));
 			record.setUserId(Tools.ObjectToInt(params.get("userId")));
 			record.setParentUserId(Tools.ObjectToInt(params.get("parentUserId")));
 			record.setCode(IDMaker.createAutoPointCode(Tools.ObjectToJsonString(params.get("codeHead"))));
-			record.setLocalX(Tools.ObjectToJsonString(params.get("localX")));
-			record.setLocalY(Tools.ObjectToJsonString(params.get("localY")));
+			record.setLocalX(Tools.ObjectToString(params.get("localX")));
+			record.setLocalY(Tools.ObjectToString(params.get("localY")));
 			record.setIsOpen(true);
 
 			User ucount = userService.selectByPrimaryKey(record.getUserId());

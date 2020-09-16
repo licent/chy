@@ -1,5 +1,6 @@
 package com.chy.controller;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -45,7 +46,8 @@ public class FactoryController {
 			// fTenypay
 			// userId
 			// parentUserId
-			// ft
+			// ft			
+			params.put("fCode",IDMaker.createFatoryCode());
 			Factory f = JSONObject.parseObject(Tools.ObjectToJsonString(params), Factory.class);
 			f.setfMr(IDMaker.createFatoryCode());
 			info.setData(factoryService.insertSelective(f));

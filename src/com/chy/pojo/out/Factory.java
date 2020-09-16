@@ -1,5 +1,9 @@
 package com.chy.pojo.out ;
 
+/**
+ * @author Administrator
+ *
+ */
 public class Factory {
     private Integer id;
     
@@ -34,8 +38,19 @@ public class Factory {
     private String picUrl;
 
     private String ft;
+    
+    private String createTime;
+    
 
-    public Integer getId() {
+    public String getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(String createTime) {
+		this.createTime = createTime;
+	}
+
+	public Integer getId() {
         return id;
     }
 
