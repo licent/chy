@@ -1,7 +1,5 @@
 package com.chy.controller;
 
-import java.util.Date;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +10,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
 import com.chy.pojo.out.Factory;
-import com.chy.pojo.out.ItemWithBLOBs;
-import com.chy.pojo.out.UserAddress;
 import com.chy.service.FactoryService;
 import com.tools.IDMaker;
 import com.tools.ResponseCode;
@@ -49,7 +45,6 @@ public class FactoryController {
 			// ft			
 			params.put("fCode",IDMaker.createFatoryCode());
 			Factory f = JSONObject.parseObject(Tools.ObjectToJsonString(params), Factory.class);
-			f.setfMr(IDMaker.createFatoryCode());
 			info.setData(factoryService.insertSelective(f));
 			info.setCode(ResponseCode.SUCC);
 			return info.toJsonString();

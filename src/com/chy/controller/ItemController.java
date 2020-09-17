@@ -76,7 +76,6 @@ public class ItemController {
 			return info.toJsonString();
 		}
 	}
-
 	/**
 	 * 产品详情
 	 */

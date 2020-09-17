@@ -2,12 +2,10 @@ package com.tools;
 
 import static com.tools.WXPayConstants.USER_AGENT;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.imageio.stream.FileImageOutputStream;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -121,7 +119,6 @@ public class MyHttpSender {
 			System.out.println(url);
 			CloseableHttpClient httpClient = HttpClients.createDefault();
 			HttpPost httpPost = new HttpPost(url);
-
 			StringEntity requestEntity = new StringEntity(Tools.ObjectToJsonString(params), "utf-8");
 			requestEntity.setContentEncoding("UTF-8");
 			httpPost.setHeader("Content-type", "application/json");

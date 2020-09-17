@@ -104,6 +104,11 @@ public class UserController {
 		ResponseInfo<User> info = new ResponseInfo<User>();
 		try {
 			// id
+			if (params.get("id") == null) {
+				info.setCode(ResponseCode.FAIL);
+				info.setMsg("参数缺失id");
+				return info.toJsonString();
+			}
 			info.setData(userService.selectByPrimaryKey(Tools.ObjectToInt(params.get("id"))));
 			info.setCode(ResponseCode.SUCC);
 			return info.toJsonString();
@@ -229,17 +234,17 @@ public class UserController {
 			// phone
 			UserAddress record = new UserAddress();
 			record.setId(Tools.ObjectToInt(params.get("addressId")));
-			if(params.get("address")!=null)
-			record.setAddress(Tools.ObjectToString(params.get("address")));
-			if(params.get("userId")!=null)
-			record.setUserId(Tools.ObjectToString(params.get("userId")));
-			if(params.get("phone")!=null)
-			record.setPhone(Tools.ObjectToString(params.get("phone")));
-			if(params.get("name")!=null)
-			record.setName(Tools.ObjectToString(params.get("name")));
-			
+			if (params.get("address") != null)
+				record.setAddress(Tools.ObjectToString(params.get("address")));
+			if (params.get("userId") != null)
+				record.setUserId(Tools.ObjectToString(params.get("userId")));
+			if (params.get("phone") != null)
+				record.setPhone(Tools.ObjectToString(params.get("phone")));
+			if (params.get("name") != null)
+				record.setName(Tools.ObjectToString(params.get("name")));
+
 			record.setSelected(new Byte("1"));
-			
+
 			int r = userAddressService.updateByPrimaryKeySelective(record);
 			if (r > 0) {
 				params.put("tag", 1);
@@ -302,8 +307,7 @@ public class UserController {
 			return info.toJsonString();
 		}
 	}
-	
-	
+
 	/**
 	 * @查询店长佣金列表
 	 */
@@ -315,12 +319,12 @@ public class UserController {
 			// userId
 			// begintime
 			// endtime
-			if(params.get("userId")==null) {
+			if (params.get("userId") == null) {
 				info.setCode(ResponseCode.FAIL);
 				info.setMsg("参数缺失userId");
 				return info.toJsonString();
 			}
-			
+
 			// 查询一天的结果 begintime和 endtime传同一个值 yyyy-mm-dd
 			info.setData(orderGrossService.selectAutoPointBrokeAgeByParams(params));
 			info.setCode(ResponseCode.SUCC);
@@ -331,7 +335,7 @@ public class UserController {
 			return info.toJsonString();
 		}
 	}
-	
+
 	/**
 	 * 查询每日毛利产生列表
 	 */
@@ -443,12 +447,12 @@ public class UserController {
 		try {
 			// phone
 
-			Map<String,String> paramsStr = new HashMap<String,String>();
+			Map<String, String> paramsStr = new HashMap<String, String>();
 			paramsStr.put("mobile", Tools.ObjectToString(params.get("phone")));
 			paramsStr.put("secretkey", "abe7dfc9db2ff3046dbf4dd6b8fe91bd");
 			paramsStr.put("templateid", "7");
 			int code = (int) ((Math.random() * 9 + 1) * 100000);
-			paramsStr.put("code", code+"");
+			paramsStr.put("code", code + "");
 
 			request.getSession().setAttribute("MSGCODE", Tools.ObjectToString(params.get("phone")) + ":" + code);
 			request.getSession().setAttribute("MSGCODE_TIME", System.currentTimeMillis());
@@ -482,7 +486,7 @@ public class UserController {
 			if (pcStr == null || "".equals(pcStr) || tim == 0) {
 				info.setCode(ResponseCode.FAIL);
 				info.setMsg("尚未发送验证码");
-			}else if (!pcStr.equals(paramsStr)) {
+			} else if (!pcStr.equals(paramsStr)) {
 				info.setCode(ResponseCode.FAIL);
 				info.setMsg("验证码错误");
 			} else if (System.currentTimeMillis() - tim > 60000) {
@@ -505,25 +509,24 @@ public class UserController {
 			return info.toJsonString();
 		}
 	}
-	
-	
+
 	/**
 	 * 修改用户交易密码
-	 * */
+	 */
 	@ResponseBody
 	@RequestMapping("/manage/user/changeOrInsertPayPwd")
 	public String changeOrInsertPayPwd(@RequestParam Map<String, Object> params, HttpServletRequest request) {
 		ResponseInfo<Integer> info = new ResponseInfo<Integer>();
 		try {
-			//userId
-			//payPwd
-			if(params.get("userId")==null || params.get("payPwd")==null ) {
+			// userId
+			// payPwd
+			if (params.get("userId") == null || params.get("payPwd") == null) {
 				info.setCode(ResponseCode.FAIL);
 				info.setMsg("参数缺失 userId payPwd");
 				return info.toJsonString();
 			}
-			
-			User record =new User();
+
+			User record = new User();
 			record.setId(Tools.ObjectToInt(params.get("userId")));
 			record.setBsnsPwd(Md5.GetMD5Code(Tools.ObjectToString(params.get("payPwd"))));
 			info.setData(userService.updateByPrimaryKeySelective(record));
@@ -535,17 +538,17 @@ public class UserController {
 			return info.toJsonString();
 		}
 	}
-	
+
 	/**
-	 * 查询用户钱包  未提现金额 已体现金额 总金额
-	 * */
+	 * 查询用户钱包 未提现金额 已体现金额 总金额
+	 */
 	@ResponseBody
 	@RequestMapping("/manage/user/queryUserGrossByUserId")
 	public String queryUserGrossByUserId(@RequestParam Map<String, Object> params, HttpServletRequest request) {
-		ResponseInfo<Map<String,Object>> info = new ResponseInfo<Map<String,Object>>();
+		ResponseInfo<Map<String, Object>> info = new ResponseInfo<Map<String, Object>>();
 		try {
-			//userId
-			if(params.get("userId")==null) {
+			// userId
+			if (params.get("userId") == null) {
 				info.setCode(ResponseCode.FAIL);
 				info.setMsg("参数缺失 userId");
 				return info.toJsonString();
@@ -559,8 +562,5 @@ public class UserController {
 			return info.toJsonString();
 		}
 	}
-	
-	
-	
-	
+
 }

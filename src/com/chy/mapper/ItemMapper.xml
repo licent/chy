@@ -185,6 +185,9 @@
 			<if test="itemTagId != null">
 				and i.item_tag_id=#{itemTagId}
 			</if>
+			<if test="cId !=null">
+				and i.cid = #{cId}
+			</if>
 		limit ${startindex},${pageSize}
 	</select>
 	
