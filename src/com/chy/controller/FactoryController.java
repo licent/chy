@@ -42,7 +42,7 @@ public class FactoryController {
 			// fTenypay
 			// userId
 			// parentUserId
-			// ft			
+			// ft
 			params.put("fCode",IDMaker.createFatoryCode());
 			Factory f = JSONObject.parseObject(Tools.ObjectToJsonString(params), Factory.class);
 			info.setData(factoryService.insertSelective(f));
