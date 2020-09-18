@@ -562,5 +562,31 @@ public class UserController {
 			return info.toJsonString();
 		}
 	}
-
+	/**
+	 * 删除用户自提点信息
+	 */
+	@ResponseBody
+	@RequestMapping("/manage/user/deleteByUserIdAndZtdId")
+	public String deleteByUserIdAndZtdId(@RequestParam Map<String, Object> params) {
+		ResponseInfo<Map<String, Object>> info = new ResponseInfo<Map<String, Object>>();
+		try {
+			// id ztdId
+			if (params.get("id") == null) {
+				info.setCode(ResponseCode.FAIL);
+				info.setMsg("参数缺失 userId");
+				return info.toJsonString();
+			}
+			int count = userAddressService.deleteByUserIdAndZtdId(params);
+			if(count>0) {
+				info.setCode(ResponseCode.SUCC);
+				return info.toJsonString();
+			}
+			info.setCode(ResponseCode.FAIL);
+			return info.toJsonString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			info.setCode(ResponseCode.EXCEPTION);
+			return info.toJsonString();
+		}
+	}
 }

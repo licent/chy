@@ -79,13 +79,17 @@ public class UserAddressServiceImpl implements UserAddressService {
 	}
 
 	@Override
-	public int updateCurrentAddressByUserId(Map<String, Object> pararms) {
-		return userAddressMapper.updateCurrentAddressByUserId(pararms);
+	public int updateCurrentAddressByUserId(Map<String, Object> params) {
+		return userAddressMapper.updateCurrentAddressByUserId(params);
 	}
 
 	@Override
-	public int updateByPrimaryKeySelectiveWithOutUserId(Map<String, Object> pararms) {
-		return userAddressMapper.updateByPrimaryKeySelectiveWithOutUserId(pararms);
+	public int updateByPrimaryKeySelectiveWithOutUserId(Map<String, Object> params) {
+		return userAddressMapper.updateByPrimaryKeySelectiveWithOutUserId(params);
+	}
+	@Override
+	public int deleteByUserIdAndZtdId(Map<String, Object> params) {
+		return userAddressMapper.deleteByUserIdAndZtdId(params);
 	}
 
 }
