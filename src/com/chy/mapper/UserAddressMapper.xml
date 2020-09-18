@@ -20,7 +20,7 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
   
-  <select id="selectListByParams" parameterType="java.util.Map">
+  <select id="selectListByParams" parameterType="java.util.Map" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from t_user_address
@@ -50,7 +50,7 @@
   </delete>
   <delete id="deleteByUserIdAndZtdId" parameterType="java.util.Map" >
   	delete from t_user_address
-  	where id = #{id} and ztd_id = #{ztdId}
+  	where user_id = #{userId} and ztd_id = #{ztdId}
   </delete>
   <insert id="insert" parameterType="com.chy.pojo.out.UserAddress" >
     insert into t_user_address (id, address, user_id, 

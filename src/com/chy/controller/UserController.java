@@ -571,9 +571,9 @@ public class UserController {
 		ResponseInfo<Map<String, Object>> info = new ResponseInfo<Map<String, Object>>();
 		try {
 			// id ztdId
-			if (params.get("id") == null) {
+			if (params.get("userId") == null) {
 				info.setCode(ResponseCode.FAIL);
-				info.setMsg("参数缺失 userId");
+				info.setMsg("参数缺失 id");
 				return info.toJsonString();
 			}
 			int count = userAddressService.deleteByUserIdAndZtdId(params);
