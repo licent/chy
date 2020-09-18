@@ -48,7 +48,6 @@ public class AdminFactoryController {
 					pageNo = 1;
 				}
 				params.put("pageNum", (pageNo - 1) * pageSize);
-				params.put("endindex", pageNo * pageSize);
 				List<Factory> factory = factoryService.selectFactoryList(params);
 				info.setData(factory);
 				// 总数据量

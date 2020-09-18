@@ -45,6 +45,17 @@
 	AND ap.id = #{ztdId,jdbcType=INTEGER}
   </select>
   
+  <select id= "selectAutoPointListCount" parameterType="java.util.Map" resultType="java.lang.Long">
+  	SELECT COUNT(*) 
+  	FROM
+  	t_auto_point
+  </select> 
+  <select id="selectAutoPointList" parameterType="java.util.Map" resultMap="BaseResultMap">
+  	SELECT * 
+  	FROM
+  	t_auto_point
+  	LIMIT ${pageNum},${pageSize}
+  </select>
   <select id="selectNearlyInfo" parameterType="java.util.Map" resultMap="BaseResultMap">
 	SELECT
 		<include refid="Base_Column_List" />,

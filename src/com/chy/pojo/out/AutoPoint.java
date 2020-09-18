@@ -25,7 +25,7 @@ public class AutoPoint {
 
     private Boolean isOpen;
 
-    private Boolean status;
+    private Byte status;
 
     private Integer parentUserId;
     
@@ -129,15 +129,15 @@ public class AutoPoint {
         this.isOpen = isOpen;
     }
 
-    public Boolean getStatus() {
-        return status;
-    }
+    public Byte getStatus() {
+		return status;
+	}
 
-    public void setStatus(Boolean status) {
-        this.status = status;
-    }
+	public void setStatus(Byte status) {
+		this.status = status;
+	}
 
-    public Integer getParentUserId() {
+	public Integer getParentUserId() {
         return parentUserId;
     }
 
