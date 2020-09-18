@@ -17,6 +17,7 @@ import com.chy.mapper.OrderMapper;
 import com.chy.mapper.OrdersMapper;
 import com.chy.pojo.out.Order;
 import com.chy.pojo.out.OrderItem;
+import com.chy.pojo.out.User;
 import com.chy.service.OrderService;
 import com.tools.IDMaker;
 import com.tools.Md5;
@@ -166,6 +167,8 @@ public class OrderServiceImpl implements OrderService {
 		String body="吃货丫-订单支付";
 		String out_trade_no=order.getOrderCode();
 		float total_fee = order.getTotalMoney();
+		
+		
 		if(order.getIsSignFor()) {
 			total_fee+=2;
 		}
@@ -221,6 +224,64 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public int updateStatusByOrderCode(Order record) {
 		return orderMapper.updateStatusByOrderCode(record);
+	}
+
+	@Override
+	public String wechatGetCash(User user) throws Exception {
+
+		
+		String paramsStr="";
+		
+		String result="";
+		
+		String appid="wxce31758573e47ce3";
+		String mchid="1601274073";
+		String nonce_str=Md5.GetMD5Code(UUID.randomUUID().toString().replaceAll("-", "")).toUpperCase();
+		String partner_trade_no=Md5.GetMD5Code(UUID.randomUUID().toString().replaceAll("-", "")).toUpperCase();
+		String openid=user.getOpenId();
+		String check_name="NO_CHECK";
+		long amount=1;
+		String desc="分红/佣金提现";
+		
+		String key="lubenjweiniub6666666666666666666";
+		
+		
+		Map<String, String> map = new HashMap<String, String>();
+		
+		
+		map.put("appid",appid);
+		map.put("mchid", mchid);
+		map.put("nonce_str",nonce_str);
+		map.put("partner_trade_no", partner_trade_no);
+		map.put("openid", openid);
+		map.put("check_name",check_name);
+		map.put("spbill_create_ip","182.254.202.42");
+		map.put("amount",amount+"");
+		map.put("desc",desc);
+		
+		
+		
+		paramsStr+="amount="+amount;
+		paramsStr+="&appid="+appid;
+		paramsStr+="&check_name="+check_name;
+		paramsStr+="&desc="+desc;
+		paramsStr+="&mchid="+mchid;
+		paramsStr+="&nonce_str="+nonce_str;
+		paramsStr+="&openid="+openid;
+		paramsStr+="&partner_trade_no="+partner_trade_no;
+
+		
+		paramsStr+="&key="+key;
+		
+		String sign=Md5.GetMD5Code(paramsStr);//注：MD5签名方式
+		sign=sign.toUpperCase();
+		map.put("sign",sign);
+		
+		
+		String paramXml = WXPayUtil.mapToXml(map);
+		result=MyHttpSender.commonPost(MyHttpSender.WE_CHAT_PAY, paramXml,mchid,6000,8000);
+		
+		return result;
 	}
 }
 

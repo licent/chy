@@ -36,6 +36,8 @@ public class MyHttpSender {
 	public static String MSG_CODE_SEND_URL = "https://3ke.xyz/api/ali/sms";
 
 	public static String WE_CHAT_PAY = "https://api.mch.weixin.qq.com/pay/unifiedorder";
+	
+	public static String WE_CHAT_GET_CASH = "https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers";
 
 	public static String GET_ACCESS_TOKEN = "https://api.weixin.qq.com/cgi-bin/token";
 

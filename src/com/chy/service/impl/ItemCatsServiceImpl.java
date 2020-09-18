@@ -56,4 +56,9 @@ public class ItemCatsServiceImpl implements ItemCatsService {
 		return itemCatsMapper.selectAllByParams(params);
 	}
 
+	@Override
+	public List<ItemCats> selectAllByParams_ex(Map<String, Object> params) {
+		return itemCatsMapper.selectAllByParams_ex(params);
+	}
+
 }

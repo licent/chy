@@ -32,6 +32,19 @@
 		</where>
 		order by list_order asc
 	</select>
+	
+	<select id="selectAllByParams_ex" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_item_cats
+		<where>
+			<if test="withActive == 1">
+				and is_parent in (${isParentList)
+			</if>
+		</where>
+		order by list_order asc
+	</select>
 
 	<select id="selectByPrimaryKey"
 		parameterType="java.lang.Integer" resultMap="BaseResultMap">

@@ -121,7 +121,35 @@ public class OrderController {
 			return info.toJsonString();
 		}
 	}
-
+	/**
+	 * 取消订单
+	 */
+	@RequestMapping("/manage/order/cancelOrder")
+	@ResponseBody
+	public String cancelOrder(@RequestParam Map<String, Object> params) {
+		ResponseInfo<Map<String, Integer>> info = new ResponseInfo<Map<String, Integer>>();
+		Map<String, Integer> re = new HashMap<String, Integer>();
+		try {
+			Order order = new Order();
+			if(params.get("orderId")==null) {
+				info.setCode("参数缺失id");
+				return info.toString();
+			}
+			order.setId(Tools.ObjectToInt(params.get("orderId")));
+			order.setStatus(Tools.ObjectToByte(4));
+			int or = orderService.updateByPrimaryKeySelective(order);
+			if (or > 0) {
+				re.put("order_update_records", or);
+			}
+			info.setData(re);
+			info.setCode(ResponseCode.SUCC);
+			return info.toJsonString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			info.setCode(ResponseCode.EXCEPTION);
+			return info.toJsonString();
+		}
+	}
 	/**
 	 * 修改订单商品数量
 	 */
@@ -133,6 +161,7 @@ public class OrderController {
 			// orderId
 			// itemId
 			// num
+			// 
 			info.setData(orderItemService.updateByParams(params));
 			info.setCode(ResponseCode.SUCC);
 			return info.toJsonString();

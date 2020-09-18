@@ -24,7 +24,7 @@ public interface ItemMapper {
 	int updateByPrimaryKey(Item record);
 
 	List<Item> selectAllByParams(Map<String, Object> params);
-
+	
 	List<Item> selectHotItemByParams(Map<String, Object> params);
 
 	List<Item> getItemListByParams(Map<String, Object> params);

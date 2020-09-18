@@ -98,11 +98,4 @@ public class AdminFactoryController {
 			return info.toJsonString();
 		}
 	}
-	/*	*//**
-			 * 报表
-			 *//*
-				 * @ResponseBody
-				 * 
-				 * @RequestMapping("/admin/factory/excelDerive")
-				 */
 }

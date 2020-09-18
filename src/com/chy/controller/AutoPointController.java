@@ -394,4 +394,22 @@ public class AutoPointController {
 			return info.toJsonString();
 		}
 	}
+	/**
+	 *通过自提点Id查询
+	 */
+	@ResponseBody
+	@RequestMapping("/manage/autopoint/autopointById")
+	public String autopointById(@RequestParam Map<String,Object> params) {
+		ResponseInfo<AutoPoint> info =  new ResponseInfo<AutoPoint>();
+		try {
+			info.setData(autoPointService.selectByPrimaryKey(Tools.ObjectToInt(params.get("id"))));
+			info.setCode(ResponseCode.SUCC);
+			return info.toJsonString();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			info.setCode(ResponseCode.EXCEPTION);
+			return info.toJsonString();
+		}
+	}
 }

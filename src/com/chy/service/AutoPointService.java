@@ -28,4 +28,8 @@ public interface AutoPointService {
 	List<AutoPoint> selectListByParams (Map<String, Object> params);
 	
 	AutoPoint selectAutoPointByParams(Map<String, Object> params);
+	
+	long selectAutoPointListCount(Map<String,Object> params);
+	
+	List<AutoPoint> selectAutoPointList(Map<String,Object> params);
 }

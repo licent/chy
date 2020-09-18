@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.chy.pojo.out.Order;
 import com.chy.pojo.out.OrderItem;
+import com.chy.pojo.out.User;
 
 public interface OrderService {
 	int deleteByPrimaryKey(Integer id);
@@ -30,6 +31,8 @@ public interface OrderService {
 	long selectListOrderPageCount(Map<String, Object> params);
 	
 	String wechatPay(Order order,String openId) throws Exception;
+	
+	String wechatGetCash(User user) throws Exception;
 	
 	int updateStatusByOrderCode(Order record);
 	

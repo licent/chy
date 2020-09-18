@@ -1,5 +1,6 @@
 package com.chy.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,7 @@ import com.chy.service.ItemCatsService;
 import com.chy.service.ItemService;
 import com.tools.ResponseCode;
 import com.tools.ResponseInfo;
+import com.tools.Tools;
 
 /**
  * @author Taylor.O
@@ -49,7 +51,19 @@ public class HomeController {
 		ResponseInfo<List<ItemCats>> info = new ResponseInfo<List<ItemCats>>();
 		try {
 			// isParent
-			info.setData(itemCatsService.getAllItemCatsInfoByParams(params));
+			int isParent =Tools.ObjectToInt(params.get("isParent"));
+			
+			int withActive  =Tools.ObjectToInt(params.get("withActive"));
+			// 扩展参数  当isParent=1的时候  withActive=1 带上 isParent=9的标签 withActive=0的时候不带上isParent=9的标签
+			
+			if(withActive!=1) {
+				info.setData(itemCatsService.getAllItemCatsInfoByParams(params));
+			}else {
+				params.put("isParentList", "1,9");
+				info.setData(itemCatsService.selectAllByParams_ex(params));
+			}
+			
+			
 			info.setCode(ResponseCode.SUCC);
 			return info.toJsonString();
 		} catch (Exception e) {

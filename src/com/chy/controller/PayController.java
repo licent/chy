@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.chy.pojo.in.OrderGrossEx;
 import com.chy.pojo.out.Order;
+import com.chy.pojo.out.User;
 import com.chy.service.ItemService;
 import com.chy.service.OrderGrossService;
 import com.chy.service.OrderService;
+import com.chy.service.UserService;
 import com.tools.ResponseCode;
 import com.tools.ResponseInfo;
 import com.tools.StreamUtil;
@@ -35,6 +37,9 @@ public class PayController {
 	
 	@Autowired
 	OrderGrossService orderGrossService;
+	
+	@Autowired
+	UserService userService;
 
 	/**
 	 * 微信支付接口
@@ -140,6 +145,66 @@ public class PayController {
 				  "<return_msg><![CDATA[OK]]></return_msg>"+
 				"</xml>";
 		return resultXml;
+	}
+	
+	
+	/**
+	 * 微信提现
+	 * 
+	 * @throws IOException
+	 */
+	@RequestMapping("/manage/pay/wechatGetCash")
+	@ResponseBody
+	public String wechatGetCash(@RequestParam Map<String, Object> params) throws Exception {
+		ResponseInfo<Map<String, String>> info = new ResponseInfo<Map<String, String>>();
+		try {
+
+			if (params.get("userId") == null) {
+				info.setCode(ResponseCode.FAIL);
+				info.setMsg("参数缺失userId");
+				return info.toJsonString();
+			}
+
+			User user = userService.selectByPrimaryKey(Tools.ObjectToInt(params.get("userId")));
+			if (user == null) {
+				info.setCode(ResponseCode.FAIL);
+				info.setMsg("用户不存在");
+				return info.toJsonString();
+			}
+
+			Map<String, String> resultData = new HashMap<String, String>();
+
+			// orderId
+			String re = orderService.wechatGetCash(user);
+			
+			if (re != null && re.contains("<return_code><![CDATA[SUCCESS]]></return_code>")
+					&& re.contains("<result_code><![CDATA[SUCCESS]]></result_code>")) {
+
+				re = re.replace("<![CDATA[", "");
+				re = re.replace("]]>", "");
+
+				String sign = re.split("<sign>")[1].split("</sign>")[0];
+				String nonce_str = re.split("<nonce_str>")[1].split("</nonce_str>")[0];
+				String prepay_id = re.split("<prepay_id>")[1].split("</prepay_id>")[0];
+				resultData.put("sign", sign);
+				resultData.put("nonce_str", nonce_str);
+				resultData.put("prepay_id", prepay_id);
+				info.setData(resultData);
+				info.setCode(ResponseCode.SUCC);
+				info.setMsg("发起支付成功");
+				
+			} else {
+				resultData.put("error", re);
+				info.setData(resultData);
+				info.setCode(ResponseCode.FAIL);
+				info.setMsg("发起支付失败");
+			}
+			return info.toJsonString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			info.setCode(ResponseCode.EXCEPTION);
+			return info.toJsonString();
+		}
 	}
 
 }
