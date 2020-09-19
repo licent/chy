@@ -115,6 +115,8 @@ public class ItemServiceImpl implements ItemService {
 	public long selectListAdminItemCount(Map<String,Object> params) {
 		return itemMapper.selectListAdminItemCount(params);
 	}
-	
-
+	@Override
+	public int getPurchasedItemSum(Map<String,Object> params) {
+		return itemMapper.getPurchasedItemSum(params);
+	}
 }

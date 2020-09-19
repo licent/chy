@@ -46,4 +46,6 @@ public interface ItemMapper {
 	List<Item> selectListByAdminItemByBusCode(Map<String, Object> params);
 	
 	long selectListAdminItemCount(Map<String,Object> params);
+	
+	int getPurchasedItemSum(Map<String,Object> params);
 }

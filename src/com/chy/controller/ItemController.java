@@ -132,5 +132,23 @@ public class ItemController {
 			return info.toJsonString();
 		}
 	}
-	
+	/**
+	 * 查询已购商品数量
+	 */
+	@RequestMapping("/manage/item/getPurchasedItemSum")
+	@ResponseBody
+	public String getPurchasedItemSum(@RequestParam Map<String,Object> params) {
+		ResponseInfo<Integer> info = new ResponseInfo<Integer>();
+		try {
+			// userId
+			//itemId
+			info.setData(itemService.getPurchasedItemSum(params));
+			info.setCode(ResponseCode.SUCC);
+			return info.toJsonString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			info.setCode(ResponseCode.EXCEPTION);
+			return info.toJsonString();
+		}
+	}
 }
