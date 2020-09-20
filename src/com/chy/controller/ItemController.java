@@ -138,10 +138,14 @@ public class ItemController {
 	@RequestMapping("/manage/item/getPurchasedItemSum")
 	@ResponseBody
 	public String getPurchasedItemSum(@RequestParam Map<String,Object> params) {
-		ResponseInfo<Integer> info = new ResponseInfo<Integer>();
+		ResponseInfo<String> info = new ResponseInfo<String>();
 		try {
 			// userId
 			//itemId
+			if(itemService.getPurchasedItemSum(params)==null) {
+				info.setData("0");
+				return info.toJsonString();
+			}
 			info.setData(itemService.getPurchasedItemSum(params));
 			info.setCode(ResponseCode.SUCC);
 			return info.toJsonString();

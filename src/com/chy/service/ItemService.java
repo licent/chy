@@ -47,5 +47,5 @@ public interface ItemService {
 	
 	long selectListAdminItemCount(Map<String,Object> params);
 	
-	int getPurchasedItemSum(Map<String,Object> params);
+	String getPurchasedItemSum(Map<String,Object> params);
 }

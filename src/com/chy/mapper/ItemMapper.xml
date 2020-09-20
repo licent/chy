@@ -515,7 +515,7 @@
 	        <if test="startTime == null and endTime != null">
 	       		AND DATE_FORMAT(d.end_time, '%Y%m%d') <![CDATA[  =  ]]>  DATE_FORMAT(#{endTime}, '%Y%m%d')
 	        </if>
-			<if test="startTime != null and endTime1 !=null">
+			<if test="startTime != null and endTime !=null">
 	       		AND DATE_FORMAT(d.end_time, '%Y%m%d') <![CDATA[ <=  ]]>  DATE_FORMAT(#{startTime}, '%Y%m%d')
 				AND DATE_FORMAT(d.end_time, '%Y%m%d') <![CDATA[ >=  ]]>  DATE_FORMAT(#{endTime}, '%Y%m%d')
 	        </if>
@@ -532,7 +532,7 @@
 		INNER JOIN t_order AS d ON d.id = o.order_id
 		AND d.`status` IN (1, 2, 3)
 		WHERE
-			u.bus_code = #{busCode}
+			(u.bus_code = #{busCode} or 'admin' = #{busCode} )
 		<where>
 			<if test="startTime != null and endTime == null">
 	       		AND DATE_FORMAT(d.end_time, '%Y%m%d') <![CDATA[ =  ]]>  DATE_FORMAT(#{startTime}, '%Y%m%d')
@@ -540,22 +540,29 @@
 	        <if test="startTime == null and endTime != null">
 	       		AND DATE_FORMAT(d.end_time, '%Y%m%d') <![CDATA[  =  ]]>  DATE_FORMAT(#{endTime}, '%Y%m%d')
 	        </if>
-			<if test="startTime != null and endTime1 !=null">
+			<if test="startTime != null and endTime !=null">
 	       		AND DATE_FORMAT(d.end_time, '%Y%m%d') <![CDATA[ <=  ]]>  DATE_FORMAT(#{startTime}, '%Y%m%d')
 				AND DATE_FORMAT(d.end_time, '%Y%m%d') <![CDATA[ >=  ]]>  DATE_FORMAT(#{endTime}, '%Y%m%d')
 	        </if>
         </where>
   	</select>
-  	<select id="getPurchasedItemSum" parameterType="java.util.Map" resultType="java.lang.Integer">
+  	<select id="getPurchasedItemSum" parameterType="java.util.Map" resultType="java.lang.String">
  		SELECT
 		SUM(i.num)
 		FROM
 			t_order_item AS i
 		INNER JOIN t_order AS o ON o.id = i.order_id
-		WHERE (o.status!=0 
-		AND o.status !=4)
-		AND o.user_id = #{userId}
-		AND i.item_id =	#{itemId}
+		AND
+			o.`status` NOT IN (0,4,5)
+		<where>
+			<if test="userId !=null">
+				AND o.user_id = #{userId}
+			</if>
+			<if test="itemId !=null">
+				AND i.item_id =	#{itemId}
+			</if>
+		</where>
+			
   	</select>
 	<delete id="deleteByPrimaryKey"
 		parameterType="java.lang.Integer">
@@ -646,7 +653,7 @@
 			<if test="id != null">
 				id,
 			</if>
-			<if test="created != null">
+			<if test="true">
 				created,
 			</if>
 			<if test="modified != null">
@@ -786,8 +793,8 @@
 			<if test="id != null">
 				#{id,jdbcType=INTEGER},
 			</if>
-			<if test="created != null">
-				#{created,jdbcType=VARCHAR},
+			<if test="true">
+				sysdate(),
 			</if>
 			<if test="modified != null">
 				#{modified,jdbcType=VARCHAR},

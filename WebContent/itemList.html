@@ -48,42 +48,20 @@
                         <table class="table table-striped table-bordered table-hover dataTables-example">
                             <thead>
                                 <tr>
+                                	<th>序号</th>
                                 	<th>商品代码</th>
                                     <th>商品名称</th>
                                     <th>市场价</th>
                                     <th>进货价</th>
-                                    <th>商品状态</th>
-                                    <th>图片预览</th>
                                     <th>分类</th>
-                                    <th>活动</th>
-                                    <th>热品</th>
-                                    <th>预售时间</th>
-                                    <th>到货时间</th>
                                     <th>创建时间</th>
-                                    <th>操作</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="item">
                             	<tr class='gradeX'><td colspan=13><center>暂无结果</center></td></tr>
                             </tbody>
-                           <!--  <tfoot>
-                                 <tr>
-                                    <th>商品名称</th>
-                                    <th>市场价</th>
-                                    <th>进货价</th>
-                                    <th>商品状态</th>
-                                    <th>图片预览</th>
-                                    <th>分类</th>
-                                    <th>活动</th>
-                                    <th>热品</th>
-                                    <th>预售时间</th>
-                                    <th>到货时间</th>
-                                    <th>商品描述</th>
-                                    <th>操作</th>
-                                </tr>
-                            </tfoot> -->
+                           
                         </table>
-
                     </div>
                 </div>
             </div>
@@ -112,15 +90,43 @@
                 success:function(data){
                     if(data.code=='000'){
                     	console.log(data)
-                    	
                     	var result="";
-                    	
                     	if(data.data.length==0){
                     		result+="<tr class='gradeX'><td colspan=13><center>暂无结果</center></td></tr>";
                     	}else{
-                    		
+                    		for (var i = 0; i < data.data.length; i++) {
+                    			/*  <tr>
+                             	<th>商品代码</th>
+                                 <th>商品名称</th>
+                                 <th>市场价</th>
+                                 <th>进货价</th>
+                                 <th>商品状态</th>
+                                 <th>图片预览</th>
+                                 <th>分类</th>
+                                 <th>活动</th>
+                                 <th>热品</th>
+                                 <th>预售时间</th>
+                                 <th>到货时间</th>
+                                 <th>创建时间</th>
+                                 <th>操作</th>
+                             	</tr>*/
+								result += "<tr>" + "<td>" + (i + 1) + "</td>" +
+									"<td>" + data.data[i].code + "</td>" +
+									"<td>" + data.data[i].name + "</td>" +
+									"<td>" + data.data[i].price + "</td>" +
+									"<td>" + data.data[i].purchasePrice + "</td>"+
+									"<td>" + data.data[i].itemTagName+"</td>"+
+									"<td>" + data.data[i].modified+"</td>"
+								result += "</tr>`"; 
+							}
+								
+							if (result != "") {
+								$("#item").html(result);
+							} else {
+								$("#item").html("<tr class='gradeX'><td colspan=5><center>暂无数据</center></td></tr>");
+							}
                     	}
-                    	$("tbody").html(result);
+                    	$("#item").html(result);
                     }else{
                         console.log(data.msg)
                     }

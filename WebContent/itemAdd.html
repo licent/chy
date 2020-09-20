@@ -158,7 +158,7 @@
     		
     		$("#file").change(function(){
     			var formData = new FormData();
-    			formData.append("file", $("#file")[0].files[0]);
+    			formData.append("file", $("#file"));
     			$.ajax({
                     type:"POST",
                     url:"/admin/uploadPic.do",
@@ -201,7 +201,7 @@
                     	"details":$("#details").val()
                     },
                     success:function(data){
-                        console.log(data.msg);
+                        console.log(data);
                     },
                     error: function(jqXHR){
                     	window.location.href="/500.html";

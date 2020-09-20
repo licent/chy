@@ -134,6 +134,7 @@
 	        	and o.order_code = #{orderCode}
 	        </if>
         </where>
+        order by o.create_time DESC
   </select>
   <select id="selectListByParamsPageing" parameterType="java.util.Map" resultMap="BaseResultMapEx">
   	SELECT

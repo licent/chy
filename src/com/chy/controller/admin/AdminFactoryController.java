@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.chy.pojo.out.AdminUsers;
 import com.chy.pojo.out.Factory;
 import com.chy.service.FactoryService;
+import com.chy.service.admin.AdminUsersService;
+import com.tools.Md5;
 import com.tools.ResponseCode;
 import com.tools.ResponseInfo;
 import com.tools.Tools;
@@ -22,6 +24,9 @@ import com.tools.Tools;
 public class AdminFactoryController {
 	@Autowired
 	FactoryService factoryService;
+	
+	@Autowired
+	AdminUsersService adminUsersService;
 
 	/**
 	 * 查询FactoryList
@@ -87,6 +92,22 @@ public class AdminFactoryController {
 				factory.setId(Tools.ObjectToInt(params.get("id")));
 				factory.setfStatus(Tools.ObjectToByte(params.get("fStatus")));
 				int or = factoryService.updateByPrimaryKeySelective(factory);
+				
+				if(or>0) {
+					Factory f=factoryService.selectByPrimaryKey(Tools.ObjectToInt(params.get("id")));
+					
+					AdminUsers adminUsers =new AdminUsers();
+					adminUsers.setBusCode(f.getfCode());
+					adminUsers.setUsername(f.getfPhone());
+					adminUsers.setPassword(Md5.GetMD5Code(f.getfPhone()));
+					adminUsers.setPhone(Tools.strToLong(f.getfPhone()));
+					adminUsers.setStatus(true);
+					adminUsers.setRegisterTime(System.currentTimeMillis());
+					
+					
+					adminUsersService.insertSelective(adminUsers);
+				}
+				
 				info.setData(or);
 				info.setCode(ResponseCode.SUCC);
 				return info.toJsonString();

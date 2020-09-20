@@ -83,7 +83,7 @@
 				<script src="js/content.min.js?v=1.0.0"></script>
 				<script type="text/javascript">
 					$(function() {
-						init(1,10,null,null);
+						init(1,10);
 					})
 
 					function init(pageNo, pageSize,startTime,endTime) {
@@ -101,7 +101,6 @@
 							},
 							success: function(data) {
 								if (data.code == '000') {
-									console.log(data)
 									var result = "";
 									var paging = "";
 									if (data.data.length == 0) {

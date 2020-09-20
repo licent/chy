@@ -1,5 +1,6 @@
 package com.chy.controller.admin;
 
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -41,10 +42,17 @@ public class AdminItemController {
 	 * */
 	@RequestMapping("/admin/uploadPic")
 	@ResponseBody
-	public String uploadPic(@RequestParam("file") MultipartFile file) {
+	public String uploadPic(@RequestParam("file") MultipartFile[] file) {
 		ResponseInfo<String> info = new ResponseInfo<String>();
+		String picList="";
 		try {
-			info.setData(Uploader.uploadFile(file.getInputStream()));
+			for(int i=0;i<file.length;i++ ) {
+				if(i!=0) {
+					picList+=";";
+				}
+				picList+=Uploader.uploadFile(file[i].getInputStream());
+			}
+			info.setData(picList);
 			info.setCode(ResponseCode.SUCC);
 			return info.toJsonString();
 		} catch (Exception e) {
@@ -96,9 +104,9 @@ public class AdminItemController {
 			record.setYushuoTime(Tools.ObjectToString(params.get("yushouTime")));
 			record.setIshot(Tools.ObjectToInt(params.get("ishot")));
 			record.setBusinessCode(Tools.ObjectToString(params.get("businessCode")));
-			record.setCreated(((AdminUsers)request.getSession().getAttribute("USERSESSION")).getUsername());
+			//record.setCreated(((AdminUsers)request.getSession().getAttribute("USERSESSION")).getUsername());
 			record.setState(new Byte("0"));
-			record.setState(new Byte("onsale"));
+			record.setStatus("onsale");
 			SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd :hh:mm:ss");
 			record.setModified(dateFormat.format(new Date()));
 			info.setData(itemService.insertSelective(record));
@@ -198,6 +206,7 @@ public class AdminItemController {
 		try {
 			//startTime endTime  分页 pageNo pageSize
 			AdminUsers adminUser = (AdminUsers)request.getSession().getAttribute("USERSESSION");
+			System.out.println(adminUser);
 			String busCode = adminUser.getBusCode();
 			params.put("busCode",busCode);
 			long totalCount = itemService.selectListAdminItemCount(params);
