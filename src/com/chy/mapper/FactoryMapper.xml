@@ -50,6 +50,10 @@
   		</if>
   	</where>
   </select>
+  <select id="selectFatoryApply" parameterType="java.util.Map" resultMap="BaseResultMap">
+  	select * from t_factory
+  	where user_id = #{userId}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from t_factory
     where id = #{id,jdbcType=INTEGER}

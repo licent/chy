@@ -66,7 +66,7 @@ public class InviteController {
 				return info.toJsonString();
 			}
 			//user.getId()
-			String urlTail="/pages/shopowner/apply?parentId="+Tools.ObjectToInt(params.get("userId"));
+			String urlTail="/pages/aboutus_shop_manger_apply_for/aboutus_shop_manger_apply_for?parentId="+Tools.ObjectToInt(params.get("userId"));
 			
 		    String result =MyHttpSender.commonGet(MyHttpSender.GET_ACCESS_TOKEN, "grant_type=client_credential&appid=wxce31758573e47ce3&secret=50745ba9b3b68f32a005a14ecf438ec5");
 		    JSONObject ja =JSONObject.parseObject(result);

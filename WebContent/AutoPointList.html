@@ -125,11 +125,13 @@
 											
 												if(data.data[i].status==0){
 													result +="<td>未审核</td>"
-												}else{
+												}else if(data.data[i].status==1){
 													result +="<td>已审核</td>"
+												}else if(data.data[i].status==2){
+													result +="<td>已驳回</td>"
 												}
 					                	        if(data.data[i].status==0){
-					                	            result+="<td><a onclick='forbiAutoPoint("+data.data[i].id+",1);'>审核</a></td>";
+					                	            result+="<td><a onclick='forbiAutoPoint("+data.data[i].id+",1);'>审核</a>&:nbsp;&:nbsp;&:nbsp;<a onclick='forbiAutoPoint("+data.data[i].id+",2);'>驳回</a></td>";
 					                	        }else{
 					                	            result+="<td></td>";
 					                	        }

@@ -17,11 +17,12 @@
     <result column="close_end_time" jdbcType="VARCHAR" property="closeEndTime" />
     <result column="is_open" jdbcType="BIT" property="isOpen" />
     <result column="status" jdbcType="BIT" property="status" />
+      <result column="pic_url" jdbcType="VARCHAR" property="picUrl"/> 
     <result column="parent_user_id" jdbcType="INTEGER" property="parentUserId" />
   </resultMap>
   <sql id="Base_Column_List">
     id, ztd, address,local_x,local_y, phone, code, abnormal, user_id, business_or_not, close_start_time, 
-    is_close, close_end_time, is_open, status, parent_user_id
+    is_close, close_end_time, is_open,status,pic_url,parent_user_id
   </sql>
   <select id="selectFansById" parameterType="java.util.Map" resultType="java.lang.Long">
     SELECT
@@ -120,7 +121,13 @@
 		WHERE user_id=#{userId} 
 		AND status = 1 
   </select>
-  
+  <select id="selectAutopointApply" parameterType="java.util.Map" resultMap="BaseResultMap">
+  		SElECT 
+  			<include refid="Base_Column_List"/>
+  		FROM
+  			t_auto_point
+  		WHERE user_id=#{userId}
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -192,6 +199,9 @@
       <if test="status != null">
         status,
       </if>
+      <if test="picUrl !=null">
+      	pic_url,
+      </if>
       <if test="parentUserId != null">
         parent_user_id,
       </if>
@@ -242,6 +252,9 @@
       <if test="status != null">
         #{status,jdbcType=BIT},
       </if>
+      <if test="picUrl !=null">
+      	#{picUrl,jdbcType=VARCHAR},
+      </if>
       <if test="parentUserId != null">
         #{parentUserId,jdbcType=INTEGER},
       </if>
@@ -291,6 +304,9 @@
       </if>
       <if test="status != null">
         status = #{status,jdbcType=BIT},
+      </if>
+      <if test="picUrl !=null">
+      	pic_url = #{picUrl,jdbcType=VARCHAR},
       </if>
       <if test="parentUserId != null">
         parent_user_id = #{parentUserId,jdbcType=INTEGER},

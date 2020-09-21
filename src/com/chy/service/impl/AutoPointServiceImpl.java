@@ -78,8 +78,13 @@ public class AutoPointServiceImpl implements AutoPointService {
 	public long selectAutoPointListCount(Map<String,Object> params) {
 		return autoPointMapper.selectAutoPointListCount(params);
 	}
+	@Override
 	public List<AutoPoint> selectAutoPointList(Map<String,Object> params){
 		return autoPointMapper.selectAutoPointList(params);
+	}
+	@Override
+	public AutoPoint selectAutopointApply(Map<String,Object> params) {
+		return autoPointMapper.selectAutopointApply(params);
 	}
 
 }

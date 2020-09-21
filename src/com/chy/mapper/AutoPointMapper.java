@@ -31,4 +31,6 @@ public interface AutoPointMapper {
 	long selectAutoPointListCount(Map<String,Object> params);
 	
 	List<AutoPoint>selectAutoPointList(Map<String,Object> params);
+	
+	AutoPoint selectAutopointApply(Map<String,Object> params);
 }

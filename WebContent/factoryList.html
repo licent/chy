@@ -92,7 +92,7 @@
 				<script src="js/content.min.js?v=1.0.0"></script>
 				<script type="text/javascript">
 					$(function() {
-						init(1,10);
+						init(1,30);
 					})
 
 					function init(pageNo, pageSize,fStatus) {
@@ -159,10 +159,10 @@
 						});
 					}
 					$("#hunt").click(function() {
-						init(1, 10);
+						init(1, 30);
 					});
 					$("#clear").click(function() {
-						init(1, 10);
+						init(1, 30);
 					});
 
 					function previousPage(data) {
@@ -187,7 +187,7 @@
 					};
 
 					function goPage(pageNo) {
-						init(pageNo, 10);
+						init(pageNo, 30);
 					}
 					function forbidFactory(id,sta){
 						$.ajax({

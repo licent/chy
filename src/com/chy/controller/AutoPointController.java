@@ -63,10 +63,12 @@ public class AutoPointController {
 			record.setZtd(Tools.ObjectToString(params.get("ztd")));
 			record.setAddress(Tools.ObjectToString(params.get("address")));
 			record.setUserId(Tools.ObjectToInt(params.get("userId")));
+			record.setPhone(Tools.ObjectToString(params.get("phone")));
 			record.setParentUserId(Tools.ObjectToInt(params.get("parentUserId")));
-			record.setCode(IDMaker.createAutoPointCode(Tools.ObjectToJsonString(params.get("codeHead"))));
+			record.setCode(IDMaker.createAutoPointCode(Tools.ObjectToString(params.get("codeHead"))));
 			record.setLocalX(Tools.ObjectToString(params.get("localX")));
 			record.setLocalY(Tools.ObjectToString(params.get("localY")));
+			record.setPicUrl(Tools.ObjectToString(params.get("picUrl")));
 			record.setIsOpen(true);
 
 			User ucount = userService.selectByPrimaryKey(record.getUserId());
@@ -412,4 +414,22 @@ public class AutoPointController {
 			return info.toJsonString();
 		}
 	}
+	/**
+	 * 查询自提点申请信息
+	 */
+	@ResponseBody
+	@RequestMapping("/manage/autopoint/selectAutopointApply")
+	public String selectAutopointApply(@RequestParam Map<String,Object> params) {
+		ResponseInfo<AutoPoint> info = new ResponseInfo<AutoPoint>();
+		try {
+			info.setData(autoPointService.selectAutopointApply(params));
+			info.setCode(ResponseCode.SUCC);
+			return info.toJsonString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			info.setCode(ResponseCode.EXCEPTION);
+			return info.toJsonString();
+		}
+	}
+	
 }

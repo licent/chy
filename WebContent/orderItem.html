@@ -85,8 +85,7 @@
 					$(function() {
 						init(1,10);
 					})
-
-					function init(pageNo, pageSize,startTime,endTime) {
+					function init(pageNo,pageSize,startTime,endTime) {
 						$("#item").html("");
 						$.ajax({
 							type: "POST",
@@ -107,6 +106,7 @@
 										$("#item").html("<tr class='gradeX'><td colspan=5><center>暂无数据</center></td></tr>");
 
 									} else {
+										console.log(data);
 										paging += "<button type='button' class='btn btn-white' onclick='previousPage(" + JSON.stringify(data) +
 											")'><i class='fa fa-chevron-left'></i></button>";
 										for (var i = 0; i < data.data.length; i++) {
@@ -142,11 +142,16 @@
 					$("#hunt").click(function() {
 						var startTime = $("#startTime").val();
 						var endTime = $("#endTime").val();
-						init(1, 10,startTime,endTime);
+						if(startTime =="" || endTime ==""){
+							alert("请输入开始时间和结束时间");
+						}else{
+							init(1, 10,startTime,endTime);
+						}
 					});
 					$("#clear").click(function() {
+						$("#startTime").val("");
 						$("#endTime").val("");
-						init(1, 10,startTime,endTime);
+						init(1, 10);
 					});
 
 					function previousPage(data) {
@@ -157,7 +162,11 @@
 							alert("已经是第一页了");
 						} else {
 							var pageNum = pageNo - 1;
-							init(pageNum, data.pageSize,startTime,endTime);
+							if(startTime=="" || endTime ==""){
+								init(pageNum,data.pageSize);
+							}else{
+								init(pageNum, data.pageSize,startTime,endTime);
+							}
 						}
 
 					};
@@ -170,14 +179,23 @@
 							alert("已经是最后一页了");
 						} else {
 							var pageNum = pageNo + 1;
-							init(pageNum, data.pageSize,startTime,endTime);
+							if(startTime=="" || endTime ==""){
+								init(pageNum,data.pageSize);
+							}else{
+								init(pageNum, data.pageSize,startTime,endTime);
+							}
 						}
 					};
 
 					function goPage(pageNo) {
 						var startTime = $("#startTime").val();
 						var endTime = $("#endTime").val();
-						init(pageNo, data.pageSize,startTime,endTime);
+						if(startTime=="" || endTime ==""){
+							init(pageNo,10);
+						}else{
+							init(pageNo,10,startTime,endTime);
+						}
+						
 					}
 
 					function formatDate(datetime) {

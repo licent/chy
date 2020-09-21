@@ -56,5 +56,9 @@ public class FactoryServiceImpl implements FactoryService {
 	public long selectFactoryListCount(Map<String,Object> params) {
 		return factoryMapper.selectFactoryListCount(params);
 	}
+	@Override
+	public Factory selectFatoryApply(Map<String,Object> params) {
+		return factoryMapper.selectFatoryApply(params);
+	}
 
 }

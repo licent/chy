@@ -26,6 +26,8 @@ public class AutoPoint {
     private Boolean isOpen;
 
     private Byte status;
+    
+    private String picUrl;
 
     private Integer parentUserId;
     
@@ -135,6 +137,14 @@ public class AutoPoint {
 
 	public void setStatus(Byte status) {
 		this.status = status;
+	}
+	
+	public String getPicUrl() {
+		return picUrl;
+	}
+
+	public void setPicUrl(String picUrl) {
+		this.picUrl = picUrl;
 	}
 
 	public Integer getParentUserId() {

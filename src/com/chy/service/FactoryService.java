@@ -21,4 +21,6 @@ public interface FactoryService {
 	List<Factory> selectFactoryList(Map<String, Object> params);
 	
 	long selectFactoryListCount(Map<String,Object> params);
+	
+	Factory selectFatoryApply(Map<String ,Object> params);
 }
