@@ -102,7 +102,7 @@
 			t_auto_point AS ap
 		INNER JOIN t_user_address AS ua ON ap.id = ua.ztd_id
 		WHERE
-			ua.user_id = #{userId,jdbcType=VARCHAR 
+			ua.user_id = #{userId,jdbcType=VARCHAR}
 			AND ap.status = 1
 			<if test="selected != null">
 		       and ua.selected=#{selected,jdbcType=VARCHAR}
