@@ -1,221 +1,243 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chy.mapper.OrderGrossMapper">
-  <resultMap id="BaseResultMap" type="com.chy.pojo.out.OrderGross">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="type" jdbcType="INTEGER" property="type" />
-    <result column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="order_id" jdbcType="INTEGER" property="orderId" />
-    <result column="num" jdbcType="INTEGER" property="num" />
-    <result column="item_id" jdbcType="INTEGER" property="itemId" />
-    <result column="money" jdbcType="REAL" property="money" />
-    <result column="purchase_money" jdbcType="REAL" property="purchaseMoney" />
-    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, type,user_id,order_id, num, item_id, money, purchase_money, createtime
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from t_order_gross
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <select id="selectUserGrossByParams" parameterType="java.util.Map" resultMap="BaseResultMap">
-  	SELECT
+	<resultMap id="BaseResultMap"
+		type="com.chy.pojo.out.OrderGross">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="type" jdbcType="INTEGER" property="type" />
+		<result column="user_id" jdbcType="INTEGER" property="userId" />
+		<result column="order_id" jdbcType="INTEGER" property="orderId" />
+		<result column="num" jdbcType="INTEGER" property="num" />
+		<result column="item_id" jdbcType="INTEGER" property="itemId" />
+		<result column="money" jdbcType="REAL" property="money" />
+		<result column="purchase_money" jdbcType="REAL"
+			property="purchaseMoney" />
+		<result column="createtime" jdbcType="TIMESTAMP"
+			property="createtime" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, type,user_id,order_id, num, item_id, money, purchase_money,
+		createtime
+	</sql>
+	<select id="selectByPrimaryKey"
+		parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_order_gross
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<select id="selectUserGrossByParams"
+		parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT
 		<if test="type == 1">
-	       o.order_code as `code`,
-	    </if>
-	    <if test="type == 2">
-	       o.order_code as `code`,
-	    </if>
-	    <if test="type == 3">
-	       i.`code` as `code`,
-	    </if>
+			o.order_code as `code`,
+		</if>
+		<if test="type == 2">
+			o.order_code as `code`,
+		</if>
+		<if test="type == 3">
+			i.`code` as `code`,
+		</if>
 		max(og.createtime) as createtime,
 		sum(
-			if(og.money * og.num - og.purchase_money * og.num <![CDATA[< ]]> 0,0,og.money * og.num - og.purchase_money * og.num)
-			)
-			<if test="type == 1">
-		       *0.1
-		    </if>
-		    <if test="type == 2">
-		       *0.03
-		    </if>
-		    <if test="type == 3">
-		       *0.03
-		    </if>
-		     AS totalmoney
-		FROM
-			t_order_gross as og
+		if(og.money * og.num - og.purchase_money * og.num <![CDATA[< ]]>
+		0,0,og.money * og.num - og.purchase_money * og.num)
+		)
 		<if test="type == 1">
-	       inner join t_order as o
+			*0.1
+		</if>
+		<if test="type == 2">
+			*0.03
+		</if>
+		<if test="type == 3">
+			*0.03
+		</if>
+		AS totalmoney
+		FROM
+		t_order_gross as og
+		<if test="type == 1">
+			inner join t_order as o
 			on og.order_id=o.id
-	    </if>
-	    <if test="type == 2">
-	       inner join t_order as o
+		</if>
+		<if test="type == 2">
+			inner join t_order as o
 			on og.order_id=o.id
-	    </if>
-	    <if test="type == 3">
-	       inner join t_item as i
+		</if>
+		<if test="type == 3">
+			inner join t_item as i
 			on og.item_id=i.id
-	    </if>
-		WHERE og.type=#{type} and og.user_id=#{userId}  
-		AND DATE_FORMAT(og.createtime,'%Y%m%d')<![CDATA[<= ]]>  DATE_FORMAT(#{endtime},'%Y%m%d')
-		AND DATE_FORMAT(og.createtime,'%Y%m%d')<![CDATA[>= ]]>  DATE_FORMAT(#{begintime},'%Y%m%d')
+		</if>
+		WHERE og.type=#{type} and og.user_id=#{userId}
+		AND DATE_FORMAT(og.createtime,'%Y%m%d')<![CDATA[<= ]]>
+		DATE_FORMAT(#{endtime},'%Y%m%d')
+		AND
+		DATE_FORMAT(og.createtime,'%Y%m%d')<![CDATA[>= ]]>
+		DATE_FORMAT(#{begintime},'%Y%m%d')
 		GROUP BY
-			<if test="type == 1">
-		       og.order_id
-		    </if>
-		    <if test="type == 2">
-		       og.order_id
-		    </if>
-		    <if test="type == 3">
-		       og.item_id
-		    </if>
-	  order by DATE_FORMAT(og.createtime,'%Y%m%d') desc;
-  </select>
-  
-  <select id="selectAutoPointBrokeAgeByParams" parameterType="java.util.Map" resultMap="BaseResultMap">
-	  SELECT
-		  o.order_code as `code`,
-			max(og.createtime) as createtime,
-			sum(if(og.money * og.num - og.purchase_money * og.num <![CDATA[< ]]> 0,0,og.money * og.num - og.purchase_money * og.num))*0.24 AS totalmoney
-			FROM t_order_gross as og
-		    inner join t_order as o
-			on og.order_id=o.id
-			inner join t_auto_point as ap
-			on ap.id=o.ztd_id
-			WHERE ap.user_id=#{userId}
-			AND DATE_FORMAT(og.createtime,'%Y%m%d')<![CDATA[<= ]]>  DATE_FORMAT(#{endtime},'%Y%m%d')
-			AND DATE_FORMAT(og.createtime,'%Y%m%d')<![CDATA[>= ]]>  DATE_FORMAT(#{begintime},'%Y%m%d')
-			GROUP BY og.order_id
-		  order by DATE_FORMAT(og.createtime,'%Y%m%d') desc
+		<if test="type == 1">
+			og.order_id
+		</if>
+		<if test="type == 2">
+			og.order_id
+		</if>
+		<if test="type == 3">
+			og.item_id
+		</if>
+		order by DATE_FORMAT(og.createtime,'%Y%m%d') desc;
 	</select>
-  
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from t_order_gross
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.chy.pojo.out.OrderGross">
-    insert into t_order_gross (id, type,user_id,order_id, num, 
-      item_id, money, purchase_money, 
-      createtime)
-    values (#{id,jdbcType=INTEGER},  #{type,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER},#{orderId,jdbcType=INTEGER}, #{num,jdbcType=INTEGER}, 
-      #{itemId,jdbcType=INTEGER}, #{money,jdbcType=REAL}, #{purchaseMoney,jdbcType=REAL}, 
-      #{createtime,jdbcType=TIMESTAMP})
-  </insert>
-  <insert id="insertBatch" parameterType="java.util.List">
-  	insert into t_order_gross
-        (type,user_id,order_id,item_id,num,money,purchase_money,create_time)
-        values
-        <foreach collection="list" item="t" index="index" separator=",">
-            (
-            #{t.type,t.userId,t.orderId,t.itemId,t.num,t.money,t.purchaseMoney},sysdate()
-            )
-        </foreach>
-  </insert>
-  <insert id="insertSelective" parameterType="com.chy.pojo.out.OrderGross">
-    insert into t_order_gross
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="type != null">
-        type,
-      </if>
-      <if test="userId != null">
-        user_id,
-      </if>
-      <if test="orderId != null">
-        order_id,
-      </if>
-      <if test="num != null">
-        num,
-      </if>
-      <if test="itemId != null">
-        item_id,
-      </if>
-      <if test="money != null">
-        money,
-      </if>
-      <if test="purchaseMoney != null">
-        purchase_money,
-      </if>
-      <if test="createtime != null">
-        createtime,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="type != null">
-        #{type,jdbcType=INTEGER},
-      </if>
-      <if test="userId != null">
-        #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="orderId != null">
-        #{orderId,jdbcType=INTEGER},
-      </if>
-      <if test="num != null">
-        #{num,jdbcType=INTEGER},
-      </if>
-      <if test="itemId != null">
-        #{itemId,jdbcType=INTEGER},
-      </if>
-      <if test="money != null">
-        #{money,jdbcType=REAL},
-      </if>
-      <if test="purchaseMoney != null">
-        #{purchaseMoney,jdbcType=REAL},
-      </if>
-      <if test="createtime != null">
-        #{createtime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.chy.pojo.out.OrderGross">
-    update t_order_gross
-    <set>
-      <if test="type != null">
-        type = #{type,jdbcType=INTEGER},
-      </if>
-      <if test="userId != null">
-        user_id = #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="orderId != null">
-        order_id = #{orderId,jdbcType=INTEGER},
-      </if>
-      <if test="num != null">
-        num = #{num,jdbcType=INTEGER},
-      </if>
-      <if test="itemId != null">
-        item_id = #{itemId,jdbcType=INTEGER},
-      </if>
-      <if test="money != null">
-        money = #{money,jdbcType=REAL},
-      </if>
-      <if test="purchaseMoney != null">
-        purchase_money = #{purchaseMoney,jdbcType=REAL},
-      </if>
-      <if test="createtime != null">
-        createtime = #{createtime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.chy.pojo.out.OrderGross">
-    update t_order_gross
-    set type = #{type,jdbcType=INTEGER},
-      user_id = #{userId,jdbcType=INTEGER},
-      order_id = #{orderId,jdbcType=INTEGER},
-      num = #{num,jdbcType=INTEGER},
-      item_id = #{itemId,jdbcType=INTEGER},
-      money = #{money,jdbcType=REAL},
-      purchase_money = #{purchaseMoney,jdbcType=REAL},
-      createtime = #{createtime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+
+	<select id="selectAutoPointBrokeAgeByParams"
+		parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT
+		o.order_code as `code`,
+		max(og.createtime) as createtime,
+		sum(if(og.money * og.num - og.purchase_money * og.num <![CDATA[< ]]>
+		0,0,og.money * og.num - og.purchase_money * og.num))*0.24 AS
+		totalmoney
+		FROM t_order_gross as og
+		inner join t_order as o
+		on og.order_id=o.id
+		inner join t_auto_point as ap
+		on ap.id=o.ztd_id
+		WHERE ap.user_id=#{userId}
+		AND DATE_FORMAT(og.createtime,'%Y%m%d')<![CDATA[<= ]]>
+		DATE_FORMAT(#{endtime},'%Y%m%d')
+		AND DATE_FORMAT(og.createtime,'%Y%m%d')<![CDATA[>= ]]>
+		DATE_FORMAT(#{begintime},'%Y%m%d')
+		GROUP BY og.order_id
+		order by DATE_FORMAT(og.createtime,'%Y%m%d') desc
+	</select>
+
+	<delete id="deleteByPrimaryKey"
+		parameterType="java.lang.Integer">
+		delete from t_order_gross
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.chy.pojo.out.OrderGross">
+		insert into t_order_gross (id, type,user_id,order_id, num,
+		item_id, money, purchase_money,
+		createtime)
+		values (#{id,jdbcType=INTEGER}, #{type,jdbcType=INTEGER},
+		#{userId,jdbcType=INTEGER},#{orderId,jdbcType=INTEGER},
+		#{num,jdbcType=INTEGER},
+		#{itemId,jdbcType=INTEGER}, #{money,jdbcType=REAL}, #{purchaseMoney,jdbcType=REAL},
+		#{createtime,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into t_order_gross
+		(type,user_id,order_id,item_id,num,money,purchase_money,create_time)
+		values
+		<foreach collection="list" item="t" index="index"
+			separator=",">
+			(
+			#{t.type,t.userId,t.orderId,t.itemId,t.num,t.money,t.purchaseMoney},sysdate()
+			)
+		</foreach>
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.chy.pojo.out.OrderGross">
+		insert into t_order_gross
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="type != null">
+				type,
+			</if>
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="orderId != null">
+				order_id,
+			</if>
+			<if test="num != null">
+				num,
+			</if>
+			<if test="itemId != null">
+				item_id,
+			</if>
+			<if test="money != null">
+				money,
+			</if>
+			<if test="purchaseMoney != null">
+				purchase_money,
+			</if>
+			<if test="createtime != null">
+				createtime,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=INTEGER},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=INTEGER},
+			</if>
+			<if test="orderId != null">
+				#{orderId,jdbcType=INTEGER},
+			</if>
+			<if test="num != null">
+				#{num,jdbcType=INTEGER},
+			</if>
+			<if test="itemId != null">
+				#{itemId,jdbcType=INTEGER},
+			</if>
+			<if test="money != null">
+				#{money,jdbcType=REAL},
+			</if>
+			<if test="purchaseMoney != null">
+				#{purchaseMoney,jdbcType=REAL},
+			</if>
+			<if test="createtime != null">
+				#{createtime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.chy.pojo.out.OrderGross">
+		update t_order_gross
+		<set>
+			<if test="type != null">
+				type = #{type,jdbcType=INTEGER},
+			</if>
+			<if test="userId != null">
+				user_id = #{userId,jdbcType=INTEGER},
+			</if>
+			<if test="orderId != null">
+				order_id = #{orderId,jdbcType=INTEGER},
+			</if>
+			<if test="num != null">
+				num = #{num,jdbcType=INTEGER},
+			</if>
+			<if test="itemId != null">
+				item_id = #{itemId,jdbcType=INTEGER},
+			</if>
+			<if test="money != null">
+				money = #{money,jdbcType=REAL},
+			</if>
+			<if test="purchaseMoney != null">
+				purchase_money = #{purchaseMoney,jdbcType=REAL},
+			</if>
+			<if test="createtime != null">
+				createtime = #{createtime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.chy.pojo.out.OrderGross">
+		update t_order_gross
+		set type = #{type,jdbcType=INTEGER},
+		user_id = #{userId,jdbcType=INTEGER},
+		order_id = #{orderId,jdbcType=INTEGER},
+		num = #{num,jdbcType=INTEGER},
+		item_id = #{itemId,jdbcType=INTEGER},
+		money = #{money,jdbcType=REAL},
+		purchase_money = #{purchaseMoney,jdbcType=REAL},
+		createtime = #{createtime,jdbcType=TIMESTAMP}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
 </mapper>

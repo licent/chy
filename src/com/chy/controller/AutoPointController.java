@@ -255,10 +255,8 @@ public class AutoPointController {
 				info.setMsg("参数缺失id不能为空或者userId和autoPointId不能为空");
 				return info.toJsonString();
 			}
-
 			AutoPoint record = new AutoPoint();
-			record.setId(
-					autoPointTaskService.selectByPrimaryKey(Tools.ObjectToInt(params.get("params"))).getAutoPointId());
+			record.setId(autoPointTaskService.selectByPrimaryKey(Tools.ObjectToInt(params.get("params"))).getAutoPointId());
 			record.setIsOpen(true);
 			autoPointService.updateByPrimaryKeySelective(record);
 			info.setCode(ResponseCode.SUCC);

@@ -3,154 +3,198 @@
 
 <head>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>吃货丫-后台信息管理系统</title>
 
-    <link rel="shortcut icon" href="favicon.ico"> <link href="css/bootstrap.min.css?v=3.3.5" rel="stylesheet">
-    <link href="css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
-    <link href="css/animate.min.css" rel="stylesheet">
-    <link href="css/plugins/summernote/summernote.css" rel="stylesheet">
-    <link href="css/plugins/summernote/summernote-bs3.css" rel="stylesheet">
-    <link href="css/style.min.css?v=4.0.0" rel="stylesheet"><base target="_blank">
+<title>吃货丫-后台信息管理系统</title>
 
-    <style>
-        .droppable-active{background-color:#ffe!important}.tools a{cursor:pointer;font-size:80%}.form-body .col-md-6,.form-body .col-md-12{min-height:400px}.draggable{cursor:move}
-    </style>
+<link rel="shortcut icon" href="favicon.ico">
+<link href="css/bootstrap.min.css?v=3.3.5" rel="stylesheet">
+<link href="css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+<link href="css/animate.min.css" rel="stylesheet">
+<link href="css/plugins/summernote/summernote.css" rel="stylesheet">
+<link href="css/plugins/summernote/summernote-bs3.css" rel="stylesheet">
+<link href="css/style.min.css?v=4.0.0" rel="stylesheet">
+<base target="_blank">
+
+<style>
+.droppable-active {
+	background-color: #ffe !important
+}
+
+.tools a {
+	cursor: pointer;
+	font-size: 80%
+}
+
+.form-body .col-md-6, .form-body .col-md-12 {
+	min-height: 400px
+}
+
+.draggable {
+	cursor: move
+}
+</style>
 
 </head>
 
-<body class="gray-bg" style="height:1000px">
-    <div class="wrapper wrapper-content">
+<body class="gray-bg" style="height: 1000px">
+	<div class="wrapper wrapper-content">
 
-        <div class="row">
-            <div class="col-sm-12" >
-                <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h5>商品新增</h5>
-                    </div>
-                    <div class="ibox-content" style="height:1000px;">
-                            <div class="form-group draggable">
-                                <label class="col-sm-3 control-label">商品名称：<font color="red">*</font></label>
-                                <div class="col-sm-9">
-                                    <input type="text" id="name" class="form-control" placeholder="">
-                                </div>
-                            </div>
-                            <br><br>
-                            <div class="form-group draggable">
-                                <label class="col-sm-3 control-label">厂商代码：<font color="red">*</font></label>
-                                <div class="col-sm-9">
-                                    <input type="text" id="businessCode" class="form-control" placeholder="">
-                                </div>
-                            </div>
-                           <br><br>
-                            <div class="form-group draggable">
-                                <label class="col-sm-3 control-label">市场价：<font color="red">*</font></label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="price" placeholder="">
-                                </div>
-                            </div>
-                           <br><br>
-                            <div class="form-group draggable">
-                                <label class="col-sm-3 control-label">进货价：<font color="red">*</font></label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="purchasePrice" placeholder="">
-                                </div>
-                            </div>
-                           <br><br>
-                            <div class="form-group draggable">
-                                <label class="col-sm-3 control-label">分类：<font color="red">*</font></label>
-                                <div class="col-sm-9">
-                                    <select class="form-control" id="cid">
-                                        <option value="0">无</option>
-                                    </select>
-                                </div>
-                            </div>
-                           <br><br>
-                            <div class="form-group draggable">
-                                <label class="col-sm-3 control-label">活动：</label>
-                                <div class="col-sm-9">
-                                    <select class="form-control" id="itemTagId">
-                                    	<option value="0">无</option>
-                                    </select>
-                                </div>
-                            </div>
-                           <br><br>
-                            <div class="form-group draggable">
-                                <label class="col-sm-3 control-label">图片上传：<font color="red">*</font></label>
-                                <div class="col-sm-9">
-                                	<form id="uploadForm" action="" method="post" enctype="multipart/form-data" >
-                                    	<input type="file" id="file" name="file" multiple="multiple" class="form-control">
-                                    </form>
-                                </div>
-                            </div>
-                           <br><br>
-                            <div class="form-group draggable">
-                                <label class="col-sm-3 control-label">图片预览：</label>
-                                <div class="col-sm-9">
-                                    <p class="form-control-static" id="picArea"></p>
-                                    <input id="picUrl" value="" type="hidden"></input>
-                                </div>
-                            </div>
-                           <br><br>
-                            <div class="form-group draggable">
-                                <label class="col-sm-3 control-label">设置为热销产品：
-                                </label>
-                                <div class="col-sm-9">
-                                    <label class="radio-inline">
-                                        <input type="radio" checked="" value="0" id="ishot" name="ishot">否</label>
-                                    <label class="radio-inline">
-                                        <input type="radio" value="1" id="ishot" name="ishot">是</label>
-                                </div>
-                            </div>
-                           <br>
-                            <div class="form-group draggable">
-                                <label class="col-sm-3 control-label">预售时间：</label>
-                                <div class="col-sm-9">
-                                	<div class="input-group date">
-		                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-		                                <input type="text" class="form-control" id="yushouTime" value="2014-11-11">
-		                            </div>
-	                            </div>
-                           </div>
-                           <br><br>
-                            <div class="form-group draggable">
-                                <label class="col-sm-3 control-label">到货时间：</label>
-                                <div class="col-sm-9">
-                                	<div class="input-group date">
-		                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-		                                <input type="text" class="form-control" id="getTime"  value="2014-11-11">
-		                            </div>
-                                </div>
-                            </div>
-                           <br><br>
-                            <div class="form-group draggable">
-                                <label class="col-sm-3 control-label">商品描述：</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="details" placeholder="">
-                                </div>
-                            </div>
-                            <br><br>
-                            <div class="form-group draggable">
-                                <div class="col-sm-12 col-sm-offset-3">
-                                    <button class="btn btn-primary" type="button" id="itemadd-submit-btn">保存内容</button>
-                                    <!-- <button class="btn btn-white" type="button" id="itemadd-cancel-btn">取消</button> -->
-                                </div>
-                            </div>
-                            <br><br>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <script src="js/jquery.min.js?v=2.1.4"></script>
-    <script src="js/bootstrap.min.js?v=3.3.5"></script>
-    <script src="js/content.min.js?v=1.0.0"></script>
-    <script src="js/jquery-ui-1.10.4.min.js"></script>
-    <script src="js/plugins/beautifyhtml/beautifyhtml.js"></script>
-    <script type="text/javascript">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="ibox float-e-margins">
+					<div class="ibox-title">
+						<h5>商品新增</h5>
+					</div>
+					<div class="ibox-content" style="height: 1000px;">
+						<div class="form-group draggable">
+							<label class="col-sm-3 control-label">商品名称：<font
+								color="red">*</font></label>
+							<div class="col-sm-9">
+								<input type="text" id="name" class="form-control" placeholder="">
+							</div>
+						</div>
+						<br>
+						<br>
+						<div class="form-group draggable">
+							<label class="col-sm-3 control-label">厂商代码：<font
+								color="red">*</font></label>
+							<div class="col-sm-9">
+								<input type="text" id="businessCode" class="form-control"
+									placeholder="">
+							</div>
+						</div>
+						<br>
+						<br>
+						<div class="form-group draggable">
+							<label class="col-sm-3 control-label">市场价：<font
+								color="red">*</font></label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="price"
+									placeholder="">
+							</div>
+						</div>
+						<br>
+						<br>
+						<div class="form-group draggable">
+							<label class="col-sm-3 control-label">进货价：<font
+								color="red">*</font></label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="purchasePrice"
+									placeholder="">
+							</div>
+						</div>
+						<br>
+						<br>
+						<div class="form-group draggable">
+							<label class="col-sm-3 control-label">分类：<font
+								color="red">*</font></label>
+							<div class="col-sm-9">
+								<select class="form-control" id="cid">
+									<option value="0">无</option>
+								</select>
+							</div>
+						</div>
+						<br>
+						<br>
+						<div class="form-group draggable">
+							<label class="col-sm-3 control-label">活动：</label>
+							<div class="col-sm-9">
+								<select class="form-control" id="itemTagId">
+									<option value="0">无</option>
+								</select>
+							</div>
+						</div>
+						<br>
+						<br>
+						<div class="form-group draggable">
+							<label class="col-sm-3 control-label">图片上传：<font
+								color="red">*</font></label>
+							<div class="col-sm-9">
+								<form id="uploadForm" action="" method="post"
+									enctype="multipart/form-data">
+									<input type="file" id="file" name="file" multiple="multiple"
+										class="form-control">
+								</form>
+							</div>
+						</div>
+						<br>
+						<br>
+						<div class="form-group draggable">
+							<label class="col-sm-3 control-label">图片预览：</label>
+							<div class="col-sm-9">
+								<p class="form-control-static" id="picArea"></p>
+								<input id="picUrl" value="" type="hidden"></input>
+							</div>
+						</div>
+						<br>
+						<br>
+						<div class="form-group draggable">
+							<label class="col-sm-3 control-label">设置为热销产品： </label>
+							<div class="col-sm-9">
+								<label class="radio-inline"> <input type="radio"
+									checked="" value="0" id="ishot" name="ishot">否
+								</label> <label class="radio-inline"> <input type="radio"
+									value="1" id="ishot" name="ishot">是
+								</label>
+							</div>
+						</div>
+						<br>
+						<div class="form-group draggable">
+							<label class="col-sm-3 control-label">预售时间：</label>
+							<div class="col-sm-9">
+								<div class="input-group date">
+									<span class="input-group-addon"><i
+										class="fa fa-calendar"></i></span> <input type="text"
+										class="form-control" id="yushouTime" value="2014-11-11">
+								</div>
+							</div>
+						</div>
+						<br>
+						<br>
+						<div class="form-group draggable">
+							<label class="col-sm-3 control-label">到货时间：</label>
+							<div class="col-sm-9">
+								<div class="input-group date">
+									<span class="input-group-addon"><i
+										class="fa fa-calendar"></i></span> <input type="text"
+										class="form-control" id="getTime" value="2014-11-11">
+								</div>
+							</div>
+						</div>
+						<br>
+						<br>
+						<div class="form-group draggable">
+							<label class="col-sm-3 control-label">商品描述：</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="details"
+									placeholder="">
+							</div>
+						</div>
+						<br>
+						<br>
+						<div class="form-group draggable">
+							<div class="col-sm-12 col-sm-offset-3">
+								<button class="btn btn-primary" type="button"
+									id="itemadd-submit-btn">保存内容</button>
+								<!-- <button class="btn btn-white" type="button" id="itemadd-cancel-btn">取消</button> -->
+							</div>
+						</div>
+						<br>
+						<br>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="js/jquery.min.js?v=2.1.4"></script>
+	<script src="js/bootstrap.min.js?v=3.3.5"></script>
+	<script src="js/content.min.js?v=1.0.0"></script>
+	<script src="js/jquery-ui-1.10.4.min.js"></script>
+	<script src="js/plugins/beautifyhtml/beautifyhtml.js"></script>
+	<script type="text/javascript">
     	$(function(){
     		
     		init();

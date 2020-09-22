@@ -509,7 +509,30 @@ public class UserController {
 			return info.toJsonString();
 		}
 	}
-
+	/**
+	 * 查询交易密码
+	 */
+	@ResponseBody
+	@RequestMapping("/manage/user/selectUserPayPwd")
+	public String selectUserPayPwd(@RequestParam Map<String,Object> params) {
+		ResponseInfo<User> info = new ResponseInfo<User>();
+		try {
+			if (params.get("userId") == null ) {
+				info.setCode(ResponseCode.FAIL);
+				info.setMsg("参数缺失 userId payPwd");
+				return info.toJsonString();
+			}
+				params.put("payPwd",Md5.GetMD5Code(Tools.ObjectToString(params.get("payPwd"))));
+				
+				info.setData(userService.selectUserPayPwd(params));
+				info.setCode(ResponseCode.SUCC);
+				return info.toJsonString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			info.setCode(ResponseCode.EXCEPTION);
+			return info.toJsonString();
+		}
+	}
 	/**
 	 * 修改用户交易密码
 	 */

@@ -24,9 +24,9 @@
 		count(1)
 		from t_cart
 		where user_id = #{userId,jdbcType=INTEGER}
-			<if test="id != null">
-				item_id = #{ItemId,jdbcType=INTEGER}
-			</if>
+		<if test="id != null">
+			item_id = #{ItemId,jdbcType=INTEGER}
+		</if>
 	</select>
 
 	<delete id="deleteByPrimaryKey"
@@ -37,7 +37,8 @@
 
 	<delete id="deleteByParams" parameterType="java.util.Map">
 		delete from t_cart
-		where user_id= #{userId,jdbcType=INTEGER} and item_id in (${itemIdList})
+		where user_id= #{userId,jdbcType=INTEGER} and item_id in
+		(${itemIdList})
 	</delete>
 
 	<insert id="insert" parameterType="com.chy.pojo.out.Cart">
@@ -105,7 +106,8 @@
 				num = #{num,jdbcType=INTEGER},
 			</if>
 		</set>
-		where user_id = #{userId,jdbcType=VARCHAR} and  item_id = #{itemId,jdbcType=INTEGER}
+		where user_id = #{userId,jdbcType=VARCHAR} and item_id =
+		#{itemId,jdbcType=INTEGER}
 	</update>
 
 	<update id="updateByPrimaryKey"

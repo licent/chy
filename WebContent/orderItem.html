@@ -1,87 +1,87 @@
 <!DOCTYPE html>
 <html>
 
-	<head>
+<head>
 
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
-		<title>吃货丫-后台信息管理系统</title>
+<title>吃货丫-后台信息管理系统</title>
 
-		<link rel="shortcut icon" href="favicon.ico">
-		<link href="css/bootstrap.min.css?v=3.3.5" rel="stylesheet">
-		<link href="css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+<link rel="shortcut icon" href="favicon.ico">
+<link href="css/bootstrap.min.css?v=3.3.5" rel="stylesheet">
+<link href="css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
 
-		<!-- Data Tables -->
-		<link href="css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+<!-- Data Tables -->
+<link href="css/plugins/dataTables/dataTables.bootstrap.css"
+	rel="stylesheet">
 
-		<link href="css/animate.min.css" rel="stylesheet">
-		<link href="css/style.min.css?v=4.0.0" rel="stylesheet">
-		<base target="_blank">
+<link href="css/animate.min.css" rel="stylesheet">
+<link href="css/style.min.css?v=4.0.0" rel="stylesheet">
+<base target="_blank">
 
-	</head>
+</head>
 
-	<body class="gray-bg">
-		<div class="wrapper wrapper-content animated fadeInRight">
-			<div class="row">
-				<div class="col-sm-12">
-					<div class="ibox float-e-margins">
-						<div class="ibox-title">
-							<h5>用户订单信息<small>全部</small></h5>
-							<div class="ibox-tools">
-						
-							</div>
-						</div>
-						<div class="ibox-content">
-							<div class="col-sm-12">
-								<form role="form" class="form-inline">
-									<div class="form-group">
-										<input type="date" id="startTime" class="form-control">
-									</div>
-									<span>-</span>
-									<div class="form-group">
-										<input type="date" id="endTime" class="form-control">
-									</div>
-									<!-- <div class="form-group">
+<body class="gray-bg">
+	<div class="wrapper wrapper-content animated fadeInRight">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="ibox float-e-margins">
+					<div class="ibox-title">
+						<h5>
+							用户订单信息<small>全部</small>
+						</h5>
+						<div class="ibox-tools"></div>
+					</div>
+					<div class="ibox-content">
+						<div class="col-sm-12">
+							<form role="form" class="form-inline">
+								<div class="form-group">
+									<input type="date" id="startTime" class="form-control">
+								</div>
+								<span>-</span>
+								<div class="form-group">
+									<input type="date" id="endTime" class="form-control">
+								</div>
+								<!-- <div class="form-group">
 										<input type="text" placeholder="用户Id" id="userId" class="form-control">
 									</div> -->
-									<button class="btn btn-white" id="hunt" type="button">搜索</button>
-									<button class="btn btn-white" id="clear" type="button">清空</button>
-								</form>
-							</div>
-							<table class="table table-striped table-bordered table-hover dataTables-example">
-								<thead>
-									<tr>
-										<th>序号</th>
-										<th>商品编号</th>
-										<th>商品名称</th>
-										<th>价格</th>
-										<th>进价</th>
-									</tr>
-								</thead>
-								<tbody id="item">
-									<tr class='gradeX'>
-										<td colspan=5>
-											<center>暂无数据</center>
-										</td>
-									</tr>
-								</tbody>
-							</table>
-							<div class="btn-group-right" id="paging">
-							</div>
+								<button class="btn btn-white" id="hunt" type="button">搜索</button>
+								<button class="btn btn-white" id="clear" type="button">清空</button>
+							</form>
 						</div>
-						<div>
-						</div>
+						<table
+							class="table table-striped table-bordered table-hover dataTables-example">
+							<thead>
+								<tr>
+									<th>序号</th>
+									<th>商品编号</th>
+									<th>商品名称</th>
+									<th>价格</th>
+									<th>进价</th>
+								</tr>
+							</thead>
+							<tbody id="item">
+								<tr class='gradeX'>
+									<td colspan=5>
+										<center>暂无数据</center>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="btn-group-right" id="paging"></div>
 					</div>
+					<div></div>
 				</div>
-				<script src="js/jquery.min.js?v=2.1.4"></script>
-				<script src="js/bootstrap.min.js?v=3.3.5"></script>
-				<script src="js/plugins/jeditable/jquery.jeditable.js"></script>
-				<script src="js/plugins/dataTables/jquery.dataTables.js"></script>
-				<script src="js/plugins/dataTables/dataTables.bootstrap.js"></script>
-				<script src="js/content.min.js?v=1.0.0"></script>
-				<script type="text/javascript">
+			</div>
+			<script src="js/jquery.min.js?v=2.1.4"></script>
+			<script src="js/bootstrap.min.js?v=3.3.5"></script>
+			<script src="js/plugins/jeditable/jquery.jeditable.js"></script>
+			<script src="js/plugins/dataTables/jquery.dataTables.js"></script>
+			<script src="js/plugins/dataTables/dataTables.bootstrap.js"></script>
+			<script src="js/content.min.js?v=1.0.0"></script>
+			<script type="text/javascript">
 					$(function() {
 						init(1,10);
 					})
@@ -212,6 +212,6 @@
 						return result;
 					}
 				</script>
-	</body>
+</body>
 
 </html>

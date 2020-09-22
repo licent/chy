@@ -1,348 +1,379 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chy.mapper.UserMapper">
-  <resultMap id="BaseResultMap" type="com.chy.pojo.out.User">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="phone" jdbcType="VARCHAR" property="phone" />
-    <result column="open_id" jdbcType="VARCHAR" property="openId" />
-    <result column="money" jdbcType="DECIMAL" property="money" />
-    <result column="parent_id" jdbcType="INTEGER" property="parentId" />
-    <result column="img" jdbcType="VARCHAR" property="img" />
-    <result column="id_card_img" jdbcType="VARCHAR" property="idCardImg" />
-    <result column="zipai" jdbcType="VARCHAR" property="zipai" />
-    <result column="id_card_no" jdbcType="VARCHAR" property="idCardNo" />
-    <result column="is_authentication" jdbcType="TINYINT" property="isAuthentication" />
-    <result column="add_time" jdbcType="INTEGER" property="addTime" />
-    <result column="bsns_pwd" jdbcType="VARCHAR" property="bsnsPwd" />
-    <result column="bsns_pwd_salt" jdbcType="VARCHAR" property="bsnsPwdSalt" />
-    <result column="add_time_str" jdbcType="VARCHAR" property="addTimeStr" />
-  </resultMap>
-  
-  <sql id="Base_Column_List">
-    id, name, phone, open_id, money, parent_id,img, id_card_img, zipai, id_card_no, 
-    is_authentication, add_time, bsns_pwd, bsns_pwd_salt, add_time_str
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    	<include refid="Base_Column_List" />
-    from t_user
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  
-  <select id="selectUserFansListByUserId" parameterType="java.util.Map" resultMap="BaseResultMap">
-	SELECT
+	<resultMap id="BaseResultMap" type="com.chy.pojo.out.User">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="phone" jdbcType="VARCHAR" property="phone" />
+		<result column="open_id" jdbcType="VARCHAR" property="openId" />
+		<result column="money" jdbcType="DECIMAL" property="money" />
+		<result column="parent_id" jdbcType="INTEGER"
+			property="parentId" />
+		<result column="img" jdbcType="VARCHAR" property="img" />
+		<result column="id_card_img" jdbcType="VARCHAR"
+			property="idCardImg" />
+		<result column="zipai" jdbcType="VARCHAR" property="zipai" />
+		<result column="id_card_no" jdbcType="VARCHAR"
+			property="idCardNo" />
+		<result column="is_authentication" jdbcType="TINYINT"
+			property="isAuthentication" />
+		<result column="add_time" jdbcType="INTEGER" property="addTime" />
+		<result column="bsns_pwd" jdbcType="VARCHAR" property="bsnsPwd" />
+		<result column="bsns_pwd_salt" jdbcType="VARCHAR"
+			property="bsnsPwdSalt" />
+		<result column="add_time_str" jdbcType="VARCHAR"
+			property="addTimeStr" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id, name, phone, open_id, money, parent_id,img, id_card_img, zipai,
+		id_card_no,
+		is_authentication, add_time, bsns_pwd, bsns_pwd_salt, add_time_str
+	</sql>
+	<select id="selectByPrimaryKey"
+		parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select
 		<include refid="Base_Column_List" />
-	FROM
+		from t_user
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+
+	<select id="selectUserFansListByUserId"
+		parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM
 		t_user
-	WHERE
+		WHERE
 		id IN (
-			SELECT
-				user_id
-			FROM
-				t_auto_point
-			WHERE
-				parent_user_id = #{userId}
-			UNION
-				SELECT
-					user_id
-				FROM
-					t_factory
-				WHERE
-					parent_user_id = #{userId}
-				UNION
-					SELECT
-						id
-					FROM
-						t_user
-					WHERE
-						parent_id = #{userId}
-		) 
+		SELECT
+		user_id
+		FROM
+		t_auto_point
+		WHERE
+		parent_user_id = #{userId}
+		UNION
+		SELECT
+		user_id
+		FROM
+		t_factory
+		WHERE
+		parent_user_id = #{userId}
+		UNION
+		SELECT
+		id
+		FROM
+		t_user
+		WHERE
+		parent_id = #{userId}
+		)
 		<if test="fansId != null">
-	       and id =#{fansId}
-	    </if>
-	    <if test="fansName != null">
-	       and name like CONCAT('%',#{fansName},'%')
-	    </if>
-  </select>
-   <select id="selectUserRolesStatus" parameterType="java.util.Map" resultType="com.chy.pojo.in.UserEx">
-  	SELECT
+			and id =#{fansId}
+		</if>
+		<if test="fansName != null">
+			and name like CONCAT('%',#{fansName},'%')
+		</if>
+	</select>
+	<select id="selectUserRolesStatus" parameterType="java.util.Map"
+		resultType="com.chy.pojo.in.UserEx">
+		SELECT
 		sum(IF(t.ty = 'f', t.n, 0)) AS isFactory,
-		sum(IF(t.ty = 'p', t.n, 0)) AS isAutoPoint
-	FROM
+		sum(IF(t.ty = 'p', t.n, 0))
+		AS isAutoPoint
+		FROM
 		(
-			SELECT
-				'f' AS ty,
-				count(1) AS n
-			FROM
-				t_factory
-			WHERE
-				user_id = #{userId}
-			UNION
-				SELECT
-					'p' AS ty,
-					count(1) AS n
-				FROM
-					t_auto_point
-				WHERE
-					user_id = #{userId}
-		) t	
-  </select>
-  <select id="selectNearlyCustomersListByItemId" parameterType="java.util.Map" resultType="com.chy.pojo.in.UserEx">
-	SELECT
+		SELECT
+		'f' AS ty,
+		count(1) AS n
+		FROM
+		t_factory
+		WHERE
+		user_id = #{userId}
+		UNION
+		SELECT
+		'p' AS ty,
+		count(1) AS n
+		FROM
+		t_auto_point
+		WHERE
+		user_id = #{userId}
+		) t
+	</select>
+	<select id="selectNearlyCustomersListByItemId"
+		parameterType="java.util.Map" resultType="com.chy.pojo.in.UserEx">
+		SELECT
 		u.`name`,
 		o.end_time as endTime,
 		u.img,
 		oi.num
-	FROM
+		FROM
 		t_user AS u
-	INNER JOIN t_order AS o ON o.user_id = u.id
-	INNER JOIN t_order_item AS oi ON oi.order_id = o.id
-	WHERE
+		INNER JOIN t_order AS o ON o.user_id = u.id
+		INNER JOIN t_order_item AS oi ON oi.order_id = o.id
+		WHERE
 		oi.item_id = #{itemId}
-	ORDER BY
+		ORDER BY
 		o.end_time DESC
-	LIMIT 0,10
-  </select>
-  
-  <select id="selectListByParams" parameterType="java.util.Map" resultMap="BaseResultMap">
-  	select  
-  		<include refid="Base_Column_List" /> 
-  	from t_user
-  	<where>
-  		<if test="phone != null">
-	       and phone=#{phone}
-	    </if>
-	    <if test="openId != null">
-	       and open_id=#{openId}
-	    </if>
-	    <if test="userId != null">
-	       and id=#{userId}
-	    </if>
-	    <if test="parentId != null">
-	       and parent_id=#{parentId}
-	    </if>
-	    
-  	</where>
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from t_user
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.chy.pojo.out.User">
-    insert into t_user (id, name, phone, 
-      open_id, money, parent_id, 
-      img, id_card_img, zipai, 
-      id_card_no, is_authentication, add_time, 
-      bsns_pwd, bsns_pwd_salt, add_time_str
-      )
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
-      #{openId,jdbcType=VARCHAR}, #{money,jdbcType=DECIMAL}, #{parentId,jdbcType=INTEGER}, 
-      #{img,jdbcType=VARCHAR}, #{idCardImg,jdbcType=VARCHAR}, #{zipai,jdbcType=VARCHAR}, 
-      #{idCardNo,jdbcType=VARCHAR}, #{isAuthentication,jdbcType=TINYINT}, #{addTime,jdbcType=INTEGER}, 
-      #{bsnsPwd,jdbcType=VARCHAR}, #{bsnsPwdSalt,jdbcType=VARCHAR}, #{addTimeStr,jdbcType=VARCHAR}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.chy.pojo.out.User">
-    insert into t_user
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="name != null">
-        name,
-      </if>
-      <if test="phone != null">
-        phone,
-      </if>
-      <if test="openId != null">
-        open_id,
-      </if>
-      <if test="money != null">
-        money,
-      </if>
-      <if test="parentId != null">
-        parent_id,
-      </if>
-      <if test="img != null">
-        img,
-      </if>
-      <if test="idCardImg != null">
-        id_card_img,
-      </if>
-      <if test="zipai != null">
-        zipai,
-      </if>
-      <if test="idCardNo != null">
-        id_card_no,
-      </if>
-      <if test="isAuthentication != null">
-        is_authentication,
-      </if>
-      <if test="addTime != null">
-        add_time,
-      </if>
-      <if test="bsnsPwd != null">
-        bsns_pwd,
-      </if>
-      <if test="bsnsPwdSalt != null">
-        bsns_pwd_salt,
-      </if>
-      <if test="addTimeStr != null">
-        add_time_str,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="phone != null">
-        #{phone,jdbcType=VARCHAR},
-      </if>
-      <if test="openId != null">
-        #{openId,jdbcType=VARCHAR},
-      </if>
-      <if test="money != null">
-        #{money,jdbcType=DECIMAL},
-      </if>
-      <if test="parentId != null">
-        #{parentId,jdbcType=INTEGER},
-      </if>
-      <if test="img != null">
-        #{img,jdbcType=VARCHAR},
-      </if>
-      <if test="idCardImg != null">
-        #{idCardImg,jdbcType=VARCHAR},
-      </if>
-      <if test="zipai != null">
-        #{zipai,jdbcType=VARCHAR},
-      </if>
-      <if test="idCardNo != null">
-        #{idCardNo,jdbcType=VARCHAR},
-      </if>
-      <if test="isAuthentication != null">
-        #{isAuthentication,jdbcType=TINYINT},
-      </if>
-      <if test="addTime != null">
-        #{addTime,jdbcType=INTEGER},
-      </if>
-      <if test="bsnsPwd != null">
-        #{bsnsPwd,jdbcType=VARCHAR},
-      </if>
-      <if test="bsnsPwdSalt != null">
-        #{bsnsPwdSalt,jdbcType=VARCHAR},
-      </if>
-      <if test="addTimeStr != null">
-        #{addTimeStr,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  
-  <update id="updateInfoByParams" parameterType="java.util.Map">
-	update t_user
-	<set>
-		  <if test="name != null">
-	        name = #{name,jdbcType=VARCHAR},
-	      </if>
-	      <if test="phone != null">
-	        phone = #{phone,jdbcType=VARCHAR},
-	      </if>
-	      <if test="money != null">
-	        money = #{money,jdbcType=DECIMAL},
-	      </if>
-	      <if test="parentId != null">
-	        parent_id = #{parentId,jdbcType=INTEGER},
-	      </if>
-	      <if test="img != null">
-	        img = #{img,jdbcType=VARCHAR},
-	      </if>
-	      <if test="idCardImg != null">
-	        id_card_img = #{idCardImg,jdbcType=VARCHAR},
-	      </if>
-	      <if test="zipai != null">
-	        zipai = #{zipai,jdbcType=VARCHAR},
-	      </if>
-	      <if test="idCardNo != null">
-	        id_card_no = #{idCardNo,jdbcType=VARCHAR},
-	      </if>
-	</set> 
-	<where>
-		  <if test="openId != null">
-	        and open_id = #{openId,jdbcType=VARCHAR}
-	      </if>
-	      <if test="id != null">
-	        and id = #{id,jdbcType=INTEGER}
-	      </if>
-	</where>
-  </update>
-  
-  <update id="updateByPrimaryKeySelective" parameterType="com.chy.pojo.out.User">
-    update t_user
-    <set>
-      <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="phone != null">
-        phone = #{phone,jdbcType=VARCHAR},
-      </if>
-      <if test="openId != null">
-        open_id = #{openId,jdbcType=VARCHAR},
-      </if>
-      <if test="money != null">
-        money = #{money,jdbcType=DECIMAL},
-      </if>
-      <if test="parentId != null">
-        parent_id = #{parentId,jdbcType=INTEGER},
-      </if>
-      <if test="img != null">
-        img = #{img,jdbcType=VARCHAR},
-      </if>
-      <if test="idCardImg != null">
-        id_card_img = #{idCardImg,jdbcType=VARCHAR},
-      </if>
-      <if test="zipai != null">
-        zipai = #{zipai,jdbcType=VARCHAR},
-      </if>
-      <if test="idCardNo != null">
-        id_card_no = #{idCardNo,jdbcType=VARCHAR},
-      </if>
-      <if test="isAuthentication != null">
-        is_authentication = #{isAuthentication,jdbcType=TINYINT},
-      </if>
-      <if test="addTime != null">
-        add_time = #{addTime,jdbcType=INTEGER},
-      </if>
-      <if test="bsnsPwd != null">
-        bsns_pwd = #{bsnsPwd,jdbcType=VARCHAR},
-      </if>
-      <if test="bsnsPwdSalt != null">
-        bsns_pwd_salt = #{bsnsPwdSalt,jdbcType=VARCHAR},
-      </if>
-      <if test="addTimeStr != null">
-        add_time_str = #{addTimeStr,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.chy.pojo.out.User">
-    update t_user
-    set name = #{name,jdbcType=VARCHAR},
-      phone = #{phone,jdbcType=VARCHAR},
-      open_id = #{openId,jdbcType=VARCHAR},
-      money = #{money,jdbcType=DECIMAL},
-      parent_id = #{parentId,jdbcType=INTEGER},
-      img = #{img,jdbcType=VARCHAR},
-      id_card_img = #{idCardImg,jdbcType=VARCHAR},
-      zipai = #{zipai,jdbcType=VARCHAR},
-      id_card_no = #{idCardNo,jdbcType=VARCHAR},
-      is_authentication = #{isAuthentication,jdbcType=TINYINT},
-      add_time = #{addTime,jdbcType=INTEGER},
-      bsns_pwd = #{bsnsPwd,jdbcType=VARCHAR},
-      bsns_pwd_salt = #{bsnsPwdSalt,jdbcType=VARCHAR},
-      add_time_str = #{addTimeStr,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+		LIMIT 0,10
+	</select>
+
+	<select id="selectListByParams" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_user
+		<where>
+			<if test="phone != null">
+				and phone=#{phone}
+			</if>
+			<if test="openId != null">
+				and open_id=#{openId}
+			</if>
+			<if test="userId != null">
+				and id=#{userId}
+			</if>
+			<if test="parentId != null">
+				and parent_id=#{parentId}
+			</if>
+
+		</where>
+	</select>
+	<select id="selectUserPayPwd" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT * FROM 
+		t_user
+		<where>
+			AND id = #{userId}
+			<if test="payPwd !=null">
+				AND bsns_pwd = #{payPwd}
+			</if>
+		</where>
+			
+	</select>
+	<delete id="deleteByPrimaryKey"
+		parameterType="java.lang.Integer">
+		delete from t_user
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.chy.pojo.out.User">
+		insert into t_user (id, name, phone,
+		open_id, money, parent_id,
+		img, id_card_img, zipai,
+		id_card_no, is_authentication, add_time,
+		bsns_pwd, bsns_pwd_salt, add_time_str
+		)
+		values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
+		#{phone,jdbcType=VARCHAR},
+		#{openId,jdbcType=VARCHAR}, #{money,jdbcType=DECIMAL}, #{parentId,jdbcType=INTEGER},
+		#{img,jdbcType=VARCHAR}, #{idCardImg,jdbcType=VARCHAR},
+		#{zipai,jdbcType=VARCHAR},
+		#{idCardNo,jdbcType=VARCHAR}, #{isAuthentication,jdbcType=TINYINT}, #{addTime,jdbcType=INTEGER},
+		#{bsnsPwd,jdbcType=VARCHAR}, #{bsnsPwdSalt,jdbcType=VARCHAR},
+		#{addTimeStr,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.chy.pojo.out.User">
+		insert into t_user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="phone != null">
+				phone,
+			</if>
+			<if test="openId != null">
+				open_id,
+			</if>
+			<if test="money != null">
+				money,
+			</if>
+			<if test="parentId != null">
+				parent_id,
+			</if>
+			<if test="img != null">
+				img,
+			</if>
+			<if test="idCardImg != null">
+				id_card_img,
+			</if>
+			<if test="zipai != null">
+				zipai,
+			</if>
+			<if test="idCardNo != null">
+				id_card_no,
+			</if>
+			<if test="isAuthentication != null">
+				is_authentication,
+			</if>
+			<if test="addTime != null">
+				add_time,
+			</if>
+			<if test="bsnsPwd != null">
+				bsns_pwd,
+			</if>
+			<if test="bsnsPwdSalt != null">
+				bsns_pwd_salt,
+			</if>
+			<if test="addTimeStr != null">
+				add_time_str,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null">
+				#{phone,jdbcType=VARCHAR},
+			</if>
+			<if test="openId != null">
+				#{openId,jdbcType=VARCHAR},
+			</if>
+			<if test="money != null">
+				#{money,jdbcType=DECIMAL},
+			</if>
+			<if test="parentId != null">
+				#{parentId,jdbcType=INTEGER},
+			</if>
+			<if test="img != null">
+				#{img,jdbcType=VARCHAR},
+			</if>
+			<if test="idCardImg != null">
+				#{idCardImg,jdbcType=VARCHAR},
+			</if>
+			<if test="zipai != null">
+				#{zipai,jdbcType=VARCHAR},
+			</if>
+			<if test="idCardNo != null">
+				#{idCardNo,jdbcType=VARCHAR},
+			</if>
+			<if test="isAuthentication != null">
+				#{isAuthentication,jdbcType=TINYINT},
+			</if>
+			<if test="addTime != null">
+				#{addTime,jdbcType=INTEGER},
+			</if>
+			<if test="bsnsPwd != null">
+				#{bsnsPwd,jdbcType=VARCHAR},
+			</if>
+			<if test="bsnsPwdSalt != null">
+				#{bsnsPwdSalt,jdbcType=VARCHAR},
+			</if>
+			<if test="addTimeStr != null">
+				#{addTimeStr,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateInfoByParams" parameterType="java.util.Map">
+		update t_user
+		<set>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null">
+				phone = #{phone,jdbcType=VARCHAR},
+			</if>
+			<if test="money != null">
+				money = #{money,jdbcType=DECIMAL},
+			</if>
+			<if test="parentId != null">
+				parent_id = #{parentId,jdbcType=INTEGER},
+			</if>
+			<if test="img != null">
+				img = #{img,jdbcType=VARCHAR},
+			</if>
+			<if test="idCardImg != null">
+				id_card_img = #{idCardImg,jdbcType=VARCHAR},
+			</if>
+			<if test="zipai != null">
+				zipai = #{zipai,jdbcType=VARCHAR},
+			</if>
+			<if test="idCardNo != null">
+				id_card_no = #{idCardNo,jdbcType=VARCHAR},
+			</if>
+		</set>
+		<where>
+			<if test="openId != null">
+				and open_id = #{openId,jdbcType=VARCHAR}
+			</if>
+			<if test="id != null">
+				and id = #{id,jdbcType=INTEGER}
+			</if>
+		</where>
+	</update>
+
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.chy.pojo.out.User">
+		update t_user
+		<set>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null">
+				phone = #{phone,jdbcType=VARCHAR},
+			</if>
+			<if test="openId != null">
+				open_id = #{openId,jdbcType=VARCHAR},
+			</if>
+			<if test="money != null">
+				money = #{money,jdbcType=DECIMAL},
+			</if>
+			<if test="parentId != null">
+				parent_id = #{parentId,jdbcType=INTEGER},
+			</if>
+			<if test="img != null">
+				img = #{img,jdbcType=VARCHAR},
+			</if>
+			<if test="idCardImg != null">
+				id_card_img = #{idCardImg,jdbcType=VARCHAR},
+			</if>
+			<if test="zipai != null">
+				zipai = #{zipai,jdbcType=VARCHAR},
+			</if>
+			<if test="idCardNo != null">
+				id_card_no = #{idCardNo,jdbcType=VARCHAR},
+			</if>
+			<if test="isAuthentication != null">
+				is_authentication = #{isAuthentication,jdbcType=TINYINT},
+			</if>
+			<if test="addTime != null">
+				add_time = #{addTime,jdbcType=INTEGER},
+			</if>
+			<if test="bsnsPwd != null">
+				bsns_pwd = #{bsnsPwd,jdbcType=VARCHAR},
+			</if>
+			<if test="bsnsPwdSalt != null">
+				bsns_pwd_salt = #{bsnsPwdSalt,jdbcType=VARCHAR},
+			</if>
+			<if test="addTimeStr != null">
+				add_time_str = #{addTimeStr,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.chy.pojo.out.User">
+		update t_user
+		set name = #{name,jdbcType=VARCHAR},
+		phone = #{phone,jdbcType=VARCHAR},
+		open_id = #{openId,jdbcType=VARCHAR},
+		money = #{money,jdbcType=DECIMAL},
+		parent_id = #{parentId,jdbcType=INTEGER},
+		img = #{img,jdbcType=VARCHAR},
+		id_card_img = #{idCardImg,jdbcType=VARCHAR},
+		zipai = #{zipai,jdbcType=VARCHAR},
+		id_card_no = #{idCardNo,jdbcType=VARCHAR},
+		is_authentication = #{isAuthentication,jdbcType=TINYINT},
+		add_time = #{addTime,jdbcType=INTEGER},
+		bsns_pwd = #{bsnsPwd,jdbcType=VARCHAR},
+		bsns_pwd_salt = #{bsnsPwdSalt,jdbcType=VARCHAR},
+		add_time_str = #{addTimeStr,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
 </mapper>

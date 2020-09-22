@@ -26,15 +26,19 @@
 	<delete id="deleteByPrimaryKey"
 		parameterType="java.lang.Integer">
 		delete from admin_article
-		where id = #{id,jdbcType=INTEGER}
+		where id =
+		#{id,jdbcType=INTEGER}
 	</delete>
-	<insert id="insert" parameterType="com.chy.pojo.out.AdminArticle">
+	<insert id="insert"
+		parameterType="com.chy.pojo.out.AdminArticle">
 		insert into admin_article (id, title, abstract,
 		create_time, author, content,
 		del)
-		values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR},
+		values (#{id,jdbcType=INTEGER},
+		#{title,jdbcType=VARCHAR},
 		#{abstract,jdbcType=VARCHAR},
-		#{createTime,jdbcType=TIMESTAMP}, #{author,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR},
+		#{createTime,jdbcType=TIMESTAMP}, #{author,jdbcType=VARCHAR},
+		#{content,jdbcType=VARCHAR},
 		#{del,jdbcType=INTEGER})
 	</insert>
 	<insert id="insertSelective"
@@ -115,12 +119,15 @@
 	<update id="updateByPrimaryKey"
 		parameterType="com.chy.pojo.out.AdminArticle">
 		update admin_article
-		set title = #{title,jdbcType=VARCHAR},
+		set title =
+		#{title,jdbcType=VARCHAR},
 		abstract = #{abstract,jdbcType=VARCHAR},
 		create_time = #{createTime,jdbcType=TIMESTAMP},
-		author = #{author,jdbcType=VARCHAR},
+		author =
+		#{author,jdbcType=VARCHAR},
 		content = #{content,jdbcType=VARCHAR},
-		del = #{del,jdbcType=INTEGER}
+		del =
+		#{del,jdbcType=INTEGER}
 		where id = #{id,jdbcType=INTEGER}
 	</update>
 </mapper>

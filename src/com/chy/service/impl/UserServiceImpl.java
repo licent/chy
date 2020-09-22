@@ -76,5 +76,8 @@ public class UserServiceImpl implements UserService {
 	public UserEx selectUserRolesStatus(Map<String, Object> params) {
 		return userMapper.selectUserRolesStatus(params);
 	}
-
+	@Override
+	public User selectUserPayPwd(Map<String, Object> params) {
+		return userMapper.selectUserPayPwd(params);
+	}
 }

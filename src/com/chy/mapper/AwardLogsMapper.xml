@@ -1,188 +1,199 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chy.mapper.AwardLogsMapper">
-  <resultMap id="BaseResultMap" type="com.chy.pojo.out.AwardLogs">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="uid" jdbcType="INTEGER" property="uid" />
-    <result column="money" jdbcType="DECIMAL" property="money" />
-    <result column="money_type" jdbcType="BIT" property="moneyType" />
-    <result column="add_time" jdbcType="INTEGER" property="addTime" />
-    <result column="before" jdbcType="DECIMAL" property="before" />
-    <result column="after" jdbcType="DECIMAL" property="after" />
-    <result column="type" jdbcType="BIT" property="type" />
-    <result column="produce_id" jdbcType="INTEGER" property="produceId" />
-    <result column="order_id" jdbcType="INTEGER" property="orderId" />
-    <result column="content" jdbcType="VARCHAR" property="content" />
-    <result column="add_time_str" jdbcType="VARCHAR" property="addTimeStr" />
-    <result column="is_t" jdbcType="BIT" property="isT" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, uid, money, money_type, add_time, before, after, type, produce_id, order_id, 
-    content, add_time_str, is_t
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from t_award_logs
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from t_award_logs
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.chy.pojo.out.AwardLogs">
-    insert into t_award_logs (id, uid, money, 
-      money_type, add_time, before, 
-      after, type, produce_id, 
-      order_id, content, add_time_str, 
-      is_t)
-    values (#{id,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, #{money,jdbcType=DECIMAL}, 
-      #{moneyType,jdbcType=BIT}, #{addTime,jdbcType=INTEGER}, #{before,jdbcType=DECIMAL}, 
-      #{after,jdbcType=DECIMAL}, #{type,jdbcType=BIT}, #{produceId,jdbcType=INTEGER}, 
-      #{orderId,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, #{addTimeStr,jdbcType=VARCHAR}, 
-      #{isT,jdbcType=BIT})
-  </insert>
-  <insert id="insertSelective" parameterType="com.chy.pojo.out.AwardLogs">
-    insert into t_award_logs
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="uid != null">
-        uid,
-      </if>
-      <if test="money != null">
-        money,
-      </if>
-      <if test="moneyType != null">
-        money_type,
-      </if>
-      <if test="addTime != null">
-        add_time,
-      </if>
-      <if test="before != null">
-        before,
-      </if>
-      <if test="after != null">
-        after,
-      </if>
-      <if test="type != null">
-        type,
-      </if>
-      <if test="produceId != null">
-        produce_id,
-      </if>
-      <if test="orderId != null">
-        order_id,
-      </if>
-      <if test="content != null">
-        content,
-      </if>
-      <if test="addTimeStr != null">
-        add_time_str,
-      </if>
-      <if test="isT != null">
-        is_t,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="uid != null">
-        #{uid,jdbcType=INTEGER},
-      </if>
-      <if test="money != null">
-        #{money,jdbcType=DECIMAL},
-      </if>
-      <if test="moneyType != null">
-        #{moneyType,jdbcType=BIT},
-      </if>
-      <if test="addTime != null">
-        #{addTime,jdbcType=INTEGER},
-      </if>
-      <if test="before != null">
-        #{before,jdbcType=DECIMAL},
-      </if>
-      <if test="after != null">
-        #{after,jdbcType=DECIMAL},
-      </if>
-      <if test="type != null">
-        #{type,jdbcType=BIT},
-      </if>
-      <if test="produceId != null">
-        #{produceId,jdbcType=INTEGER},
-      </if>
-      <if test="orderId != null">
-        #{orderId,jdbcType=INTEGER},
-      </if>
-      <if test="content != null">
-        #{content,jdbcType=VARCHAR},
-      </if>
-      <if test="addTimeStr != null">
-        #{addTimeStr,jdbcType=VARCHAR},
-      </if>
-      <if test="isT != null">
-        #{isT,jdbcType=BIT},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.chy.pojo.out.AwardLogs">
-    update t_award_logs
-    <set>
-      <if test="uid != null">
-        uid = #{uid,jdbcType=INTEGER},
-      </if>
-      <if test="money != null">
-        money = #{money,jdbcType=DECIMAL},
-      </if>
-      <if test="moneyType != null">
-        money_type = #{moneyType,jdbcType=BIT},
-      </if>
-      <if test="addTime != null">
-        add_time = #{addTime,jdbcType=INTEGER},
-      </if>
-      <if test="before != null">
-        before = #{before,jdbcType=DECIMAL},
-      </if>
-      <if test="after != null">
-        after = #{after,jdbcType=DECIMAL},
-      </if>
-      <if test="type != null">
-        type = #{type,jdbcType=BIT},
-      </if>
-      <if test="produceId != null">
-        produce_id = #{produceId,jdbcType=INTEGER},
-      </if>
-      <if test="orderId != null">
-        order_id = #{orderId,jdbcType=INTEGER},
-      </if>
-      <if test="content != null">
-        content = #{content,jdbcType=VARCHAR},
-      </if>
-      <if test="addTimeStr != null">
-        add_time_str = #{addTimeStr,jdbcType=VARCHAR},
-      </if>
-      <if test="isT != null">
-        is_t = #{isT,jdbcType=BIT},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.chy.pojo.out.AwardLogs">
-    update t_award_logs
-    set uid = #{uid,jdbcType=INTEGER},
-      money = #{money,jdbcType=DECIMAL},
-      money_type = #{moneyType,jdbcType=BIT},
-      add_time = #{addTime,jdbcType=INTEGER},
-      before = #{before,jdbcType=DECIMAL},
-      after = #{after,jdbcType=DECIMAL},
-      type = #{type,jdbcType=BIT},
-      produce_id = #{produceId,jdbcType=INTEGER},
-      order_id = #{orderId,jdbcType=INTEGER},
-      content = #{content,jdbcType=VARCHAR},
-      add_time_str = #{addTimeStr,jdbcType=VARCHAR},
-      is_t = #{isT,jdbcType=BIT}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+	<resultMap id="BaseResultMap"
+		type="com.chy.pojo.out.AwardLogs">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="uid" jdbcType="INTEGER" property="uid" />
+		<result column="money" jdbcType="DECIMAL" property="money" />
+		<result column="money_type" jdbcType="BIT" property="moneyType" />
+		<result column="add_time" jdbcType="INTEGER" property="addTime" />
+		<result column="before" jdbcType="DECIMAL" property="before" />
+		<result column="after" jdbcType="DECIMAL" property="after" />
+		<result column="type" jdbcType="BIT" property="type" />
+		<result column="produce_id" jdbcType="INTEGER"
+			property="produceId" />
+		<result column="order_id" jdbcType="INTEGER" property="orderId" />
+		<result column="content" jdbcType="VARCHAR" property="content" />
+		<result column="add_time_str" jdbcType="VARCHAR"
+			property="addTimeStr" />
+		<result column="is_t" jdbcType="BIT" property="isT" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, uid, money, money_type, add_time, before, after, type, produce_id,
+		order_id,
+		content, add_time_str, is_t
+	</sql>
+	<select id="selectByPrimaryKey"
+		parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_award_logs
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey"
+		parameterType="java.lang.Integer">
+		delete from t_award_logs
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.chy.pojo.out.AwardLogs">
+		insert into t_award_logs (id, uid, money,
+		money_type, add_time, before,
+		after, type, produce_id,
+		order_id, content, add_time_str,
+		is_t)
+		values (#{id,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER},
+		#{money,jdbcType=DECIMAL},
+		#{moneyType,jdbcType=BIT}, #{addTime,jdbcType=INTEGER}, #{before,jdbcType=DECIMAL},
+		#{after,jdbcType=DECIMAL}, #{type,jdbcType=BIT},
+		#{produceId,jdbcType=INTEGER},
+		#{orderId,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, #{addTimeStr,jdbcType=VARCHAR},
+		#{isT,jdbcType=BIT})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.chy.pojo.out.AwardLogs">
+		insert into t_award_logs
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="uid != null">
+				uid,
+			</if>
+			<if test="money != null">
+				money,
+			</if>
+			<if test="moneyType != null">
+				money_type,
+			</if>
+			<if test="addTime != null">
+				add_time,
+			</if>
+			<if test="before != null">
+				before,
+			</if>
+			<if test="after != null">
+				after,
+			</if>
+			<if test="type != null">
+				type,
+			</if>
+			<if test="produceId != null">
+				produce_id,
+			</if>
+			<if test="orderId != null">
+				order_id,
+			</if>
+			<if test="content != null">
+				content,
+			</if>
+			<if test="addTimeStr != null">
+				add_time_str,
+			</if>
+			<if test="isT != null">
+				is_t,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="uid != null">
+				#{uid,jdbcType=INTEGER},
+			</if>
+			<if test="money != null">
+				#{money,jdbcType=DECIMAL},
+			</if>
+			<if test="moneyType != null">
+				#{moneyType,jdbcType=BIT},
+			</if>
+			<if test="addTime != null">
+				#{addTime,jdbcType=INTEGER},
+			</if>
+			<if test="before != null">
+				#{before,jdbcType=DECIMAL},
+			</if>
+			<if test="after != null">
+				#{after,jdbcType=DECIMAL},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=BIT},
+			</if>
+			<if test="produceId != null">
+				#{produceId,jdbcType=INTEGER},
+			</if>
+			<if test="orderId != null">
+				#{orderId,jdbcType=INTEGER},
+			</if>
+			<if test="content != null">
+				#{content,jdbcType=VARCHAR},
+			</if>
+			<if test="addTimeStr != null">
+				#{addTimeStr,jdbcType=VARCHAR},
+			</if>
+			<if test="isT != null">
+				#{isT,jdbcType=BIT},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.chy.pojo.out.AwardLogs">
+		update t_award_logs
+		<set>
+			<if test="uid != null">
+				uid = #{uid,jdbcType=INTEGER},
+			</if>
+			<if test="money != null">
+				money = #{money,jdbcType=DECIMAL},
+			</if>
+			<if test="moneyType != null">
+				money_type = #{moneyType,jdbcType=BIT},
+			</if>
+			<if test="addTime != null">
+				add_time = #{addTime,jdbcType=INTEGER},
+			</if>
+			<if test="before != null">
+				before = #{before,jdbcType=DECIMAL},
+			</if>
+			<if test="after != null">
+				after = #{after,jdbcType=DECIMAL},
+			</if>
+			<if test="type != null">
+				type = #{type,jdbcType=BIT},
+			</if>
+			<if test="produceId != null">
+				produce_id = #{produceId,jdbcType=INTEGER},
+			</if>
+			<if test="orderId != null">
+				order_id = #{orderId,jdbcType=INTEGER},
+			</if>
+			<if test="content != null">
+				content = #{content,jdbcType=VARCHAR},
+			</if>
+			<if test="addTimeStr != null">
+				add_time_str = #{addTimeStr,jdbcType=VARCHAR},
+			</if>
+			<if test="isT != null">
+				is_t = #{isT,jdbcType=BIT},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.chy.pojo.out.AwardLogs">
+		update t_award_logs
+		set uid = #{uid,jdbcType=INTEGER},
+		money = #{money,jdbcType=DECIMAL},
+		money_type = #{moneyType,jdbcType=BIT},
+		add_time = #{addTime,jdbcType=INTEGER},
+		before = #{before,jdbcType=DECIMAL},
+		after = #{after,jdbcType=DECIMAL},
+		type = #{type,jdbcType=BIT},
+		produce_id = #{produceId,jdbcType=INTEGER},
+		order_id = #{orderId,jdbcType=INTEGER},
+		content = #{content,jdbcType=VARCHAR},
+		add_time_str = #{addTimeStr,jdbcType=VARCHAR},
+		is_t = #{isT,jdbcType=BIT}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
 </mapper>

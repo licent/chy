@@ -3,77 +3,81 @@
 
 <head>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>吃货丫-后台信息管理系统</title>
 
-    <link rel="shortcut icon" href="favicon.ico"> <link href="css/bootstrap.min.css?v=3.3.5" rel="stylesheet">
-    <link href="css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+<title>吃货丫-后台信息管理系统</title>
 
-    <!-- Data Tables -->
-    <link href="css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+<link rel="shortcut icon" href="favicon.ico">
+<link href="css/bootstrap.min.css?v=3.3.5" rel="stylesheet">
+<link href="css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
 
-    <link href="css/animate.min.css" rel="stylesheet">
-    <link href="css/style.min.css?v=4.0.0" rel="stylesheet"><base target="_blank">
+<!-- Data Tables -->
+<link href="css/plugins/dataTables/dataTables.bootstrap.css"
+	rel="stylesheet">
+
+<link href="css/animate.min.css" rel="stylesheet">
+<link href="css/style.min.css?v=4.0.0" rel="stylesheet">
+<base target="_blank">
 
 </head>
 
 <body class="gray-bg">
-    <div class="wrapper wrapper-content animated fadeInRight">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h5>商品信息  <small>全部</small></h5>
-                        <div class="ibox-tools">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                <i class="fa fa-wrench"></i>
-                            </a>
-                            <ul class="dropdown-menu dropdown-user">
-                            	<li><a href="" onclick="init(9)">全部</a>
-                                </li>
-                                <li><a href="" onclick="init(0)">待审核</a>
-                                </li>
-                                <li><a href="" onclick="init(1)">审核通过</a>
-                                </li>
-                                <li><a href="" onclick="init(2)">审核不通过</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="ibox-content">
+	<div class="wrapper wrapper-content animated fadeInRight">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="ibox float-e-margins">
+					<div class="ibox-title">
+						<h5>
+							商品信息 <small>全部</small>
+						</h5>
+						<div class="ibox-tools">
+							<a class="dropdown-toggle" data-toggle="dropdown" href="#"> <i
+								class="fa fa-wrench"></i>
+							</a>
+							<ul class="dropdown-menu dropdown-user">
+								<li><a href="" onclick="init(9)">全部</a></li>
+								<li><a href="" onclick="init(0)">待审核</a></li>
+								<li><a href="" onclick="init(1)">审核通过</a></li>
+								<li><a href="" onclick="init(2)">审核不通过</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="ibox-content">
 
-                        <table class="table table-striped table-bordered table-hover dataTables-example">
-                            <thead>
-                                <tr>
-                                	<th>序号</th>
-                                	<th>商品代码</th>
-                                    <th>商品名称</th>
-                                    <th>市场价</th>
-                                    <th>进货价</th>
-                                    <th>分类</th>
-                                    <th>创建时间</th>
-                                    <th>操作</th>
-                                </tr>
-                            </thead>
-                            <tbody id="item">
-                            	<tr class='gradeX'><td colspan=13><center>暂无结果</center></td></tr>
-                            </tbody>
-                           
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <script src="js/jquery.min.js?v=2.1.4"></script>
-    <script src="js/bootstrap.min.js?v=3.3.5"></script>
-    <script src="js/plugins/jeditable/jquery.jeditable.js"></script>
-    <script src="js/plugins/dataTables/jquery.dataTables.js"></script>
-    <script src="js/plugins/dataTables/dataTables.bootstrap.js"></script>
-    <script src="js/content.min.js?v=1.0.0"></script>
+						<table
+							class="table table-striped table-bordered table-hover dataTables-example">
+							<thead>
+								<tr>
+									<th>序号</th>
+									<th>商品代码</th>
+									<th>商品名称</th>
+									<th>市场价</th>
+									<th>进货价</th>
+									<th>分类</th>
+									<th>创建时间</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+							<tbody id="item">
+								<tr class='gradeX'>
+									<td colspan=13><center>暂无结果</center></td>
+								</tr>
+							</tbody>
+
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="js/jquery.min.js?v=2.1.4"></script>
+	<script src="js/bootstrap.min.js?v=3.3.5"></script>
+	<script src="js/plugins/jeditable/jquery.jeditable.js"></script>
+	<script src="js/plugins/dataTables/jquery.dataTables.js"></script>
+	<script src="js/plugins/dataTables/dataTables.bootstrap.js"></script>
+	<script src="js/content.min.js?v=1.0.0"></script>
 	<script type="text/javascript">
 		$(function(){
 			init(9);

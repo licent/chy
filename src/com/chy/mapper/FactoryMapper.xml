@@ -1,260 +1,275 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chy.mapper.FactoryMapper">
-  <resultMap id="BaseResultMap" type="com.chy.pojo.out.Factory">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="f_code" jdbcType="VARCHAR" property="fCode" />
-    <result column="f_name" jdbcType="VARCHAR" property="fName" />
-    <result column="f_mr" jdbcType="VARCHAR" property="fMr" />
-    <result column="f_mark" jdbcType="VARCHAR" property="fMark" />
-    <result column="f_fool" jdbcType="VARCHAR" property="fFool" />
-    <result column="f_boss" jdbcType="VARCHAR" property="fBoss" />
-    <result column="f_phone" jdbcType="VARCHAR" property="fPhone" />
-    <result column="f_alipay" jdbcType="VARCHAR" property="fAlipay" />
-    <result column="f_tenypay" jdbcType="VARCHAR" property="fTenypay" />
-    <result column="f_balance" jdbcType="REAL" property="fBalance" />
-    <result column="f_status" jdbcType="TINYINT" property="fStatus" />
-    <result column="f_discount" jdbcType="VARCHAR" property="fDiscount" />
-    <result column="user_id" jdbcType="VARCHAR" property="userId" />
-    <result column="parent_user_id" jdbcType="VARCHAR" property="parentUserId" />
-    <result column="pic_url" jdbcType="VARCHAR" property="picUrl" />
-    <result column="ft" jdbcType="VARCHAR" property="ft" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, f_code,f_name, f_mr, f_mark, f_fool, f_boss, f_phone, f_alipay, f_tenypay, f_balance, 
-    f_status, f_discount, user_id, parent_user_id, pic_url, ft
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List"/>
-    from t_factory
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <select id="selectFactoryList" parameterType="java.util.Map" resultMap="BaseResultMap">
-  	select 
-  	<include refid="Base_Column_List"/>
-  	from t_factory
-  	<where>
-  		<if test="fStatus !=null and fStatus !=''">
-  			and f_status = #{fStatus}
-  		</if>
-  	</where>
-  	LIMIT ${pageNum},${pageSize}
-  </select>
-  <select id="selectFactoryListCount" parameterType="java.util.Map" resultType="java.lang.Long">
-  	select COUNT(*) 
-  	from t_factory
-  	<where>
-  		<if test="fStatus !=null and fStatus !=''">
-  			and f_status = #{fStatus}
-  		</if>
-  	</where>
-  </select>
-  <select id="selectFatoryApply" parameterType="java.util.Map" resultMap="BaseResultMap">
-  	select * from t_factory
-  	where user_id = #{userId}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from t_factory
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.chy.pojo.out.Factory">
-    insert into t_factory (id, f_code,f_name, f_mr, 
-      f_mark, f_fool, f_boss, 
-      f_phone, f_alipay, f_tenypay, 
-      f_balance, f_status, f_discount, 
-      user_id, parent_user_id, pic_url, 
-      ft)
-    values (#{id,jdbcType=INTEGER},#{fCode,jdbcType=VARCHAR}, #{fName,jdbcType=VARCHAR}, #{fMr,jdbcType=VARCHAR}, 
-      #{fMark,jdbcType=VARCHAR}, #{fFool,jdbcType=VARCHAR}, #{fBoss,jdbcType=VARCHAR}, 
-      #{fPhone,jdbcType=VARCHAR}, #{fAlipay,jdbcType=VARCHAR}, #{fTenypay,jdbcType=VARCHAR}, 
-      #{fBalance,jdbcType=REAL}, #{fStatus,jdbcType=TINYINT}, #{fDiscount,jdbcType=VARCHAR}, 
-      #{userId,jdbcType=VARCHAR}, #{parentUserId,jdbcType=VARCHAR}, #{picUrl,jdbcType=VARCHAR}, 
-      #{ft,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.chy.pojo.out.Factory">
-    insert into t_factory
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="fCode != null">
-        f_code,
-      </if>
-      <if test="fName != null">
-        f_name,
-      </if>
-      <if test="fMr != null">
-        f_mr,
-      </if>
-      <if test="fMark != null">
-        f_mark,
-      </if>
-      <if test="fFool != null">
-        f_fool,
-      </if>
-      <if test="fBoss != null">
-        f_boss,
-      </if>
-      <if test="fPhone != null">
-        f_phone,
-      </if>
-      <if test="fAlipay != null">
-        f_alipay,
-      </if>
-      <if test="fTenypay != null">
-        f_tenypay,
-      </if>
-      <if test="fBalance != null">
-        f_balance,
-      </if>
-      <if test="fStatus != null">
-        f_status,
-      </if>
-      <if test="fDiscount != null">
-        f_discount,
-      </if>
-      <if test="userId != null">
-        user_id,
-      </if>
-      <if test="parentUserId != null">
-        parent_user_id,
-      </if>
-      <if test="picUrl != null">
-        pic_url,
-      </if>
-      <if test="ft != null">
-        ft,
-      </if>
-      	create_time
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="fCode != null">
-        #{fCode,jdbcType=VARCHAR},
-      </if>
-      <if test="fName != null">
-        #{fName,jdbcType=VARCHAR},
-      </if>
-      <if test="fMr != null">
-        #{fMr,jdbcType=VARCHAR},
-      </if>
-      <if test="fMark != null">
-        #{fMark,jdbcType=VARCHAR},
-      </if>
-      <if test="fFool != null">
-        #{fFool,jdbcType=VARCHAR},
-      </if>
-      <if test="fBoss != null">
-        #{fBoss,jdbcType=VARCHAR},
-      </if>
-      <if test="fPhone != null">
-        #{fPhone,jdbcType=VARCHAR},
-      </if>
-      <if test="fAlipay != null">
-        #{fAlipay,jdbcType=VARCHAR},
-      </if>
-      <if test="fTenypay != null">
-        #{fTenypay,jdbcType=VARCHAR},
-      </if>
-      <if test="fBalance != null">
-        #{fBalance,jdbcType=REAL},
-      </if>
-      <if test="fStatus != null">
-        #{fStatus,jdbcType=TINYINT},
-      </if>
-      <if test="fDiscount != null">
-        #{fDiscount,jdbcType=VARCHAR},
-      </if>
-      <if test="userId != null">
-        #{userId,jdbcType=VARCHAR},
-      </if>
-      <if test="parentUserId != null">
-        #{parentUserId,jdbcType=VARCHAR},
-      </if>
-      <if test="picUrl != null">
-        #{picUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="ft != null">
-        #{ft,jdbcType=VARCHAR},
-      </if>
-      	date_format(sysdate(), '%Y-%m-%d %H:%i:%S')
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.chy.pojo.out.Factory">
-    update t_factory
-    <set>
-    <if test="fCode != null">
-        f_code = #{fCode,jdbcType=VARCHAR},
-      </if>
-      <if test="fName != null">
-        f_name = #{fName,jdbcType=VARCHAR},
-      </if>
-      <if test="fMr != null">
-        f_mr = #{fMr,jdbcType=VARCHAR},
-      </if>
-      <if test="fMark != null">
-        f_mark = #{fMark,jdbcType=VARCHAR},
-      </if>
-      <if test="fFool != null">
-        f_fool = #{fFool,jdbcType=VARCHAR},
-      </if>
-      <if test="fBoss != null">
-        f_boss = #{fBoss,jdbcType=VARCHAR},
-      </if>
-      <if test="fPhone != null">
-        f_phone = #{fPhone,jdbcType=VARCHAR},
-      </if>
-      <if test="fAlipay != null">
-        f_alipay = #{fAlipay,jdbcType=VARCHAR},
-      </if>
-      <if test="fTenypay != null">
-        f_tenypay = #{fTenypay,jdbcType=VARCHAR},
-      </if>
-      <if test="fBalance != null">
-        f_balance = #{fBalance,jdbcType=REAL},
-      </if>
-      <if test="fStatus != null">
-        f_status = #{fStatus,jdbcType=TINYINT},
-      </if>
-      <if test="fDiscount != null">
-        f_discount = #{fDiscount,jdbcType=VARCHAR},
-      </if>
-      <if test="userId != null">
-        user_id = #{userId,jdbcType=VARCHAR},
-      </if>
-      <if test="parentUserId != null">
-        parent_user_id = #{parentUserId,jdbcType=VARCHAR},
-      </if>
-      <if test="picUrl != null">
-        pic_url = #{picUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="ft != null">
-        ft = #{ft,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.chy.pojo.out.Factory">
-    update t_factory
-    set f_code = #{fCode,jdbcType=VARCHAR},
-    	f_name = #{fName,jdbcType=VARCHAR},
-      f_mr = #{fMr,jdbcType=VARCHAR},
-      f_mark = #{fMark,jdbcType=VARCHAR},
-      f_fool = #{fFool,jdbcType=VARCHAR},
-      f_boss = #{fBoss,jdbcType=VARCHAR},
-      f_phone = #{fPhone,jdbcType=VARCHAR},
-      f_alipay = #{fAlipay,jdbcType=VARCHAR},
-      f_tenypay = #{fTenypay,jdbcType=VARCHAR},
-      f_balance = #{fBalance,jdbcType=REAL},
-      f_status = #{fStatus,jdbcType=TINYINT},
-      f_discount = #{fDiscount,jdbcType=VARCHAR},
-      user_id = #{userId,jdbcType=VARCHAR},
-      parent_user_id = #{parentUserId,jdbcType=VARCHAR},
-      pic_url = #{picUrl,jdbcType=VARCHAR},
-      ft = #{ft,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+	<resultMap id="BaseResultMap" type="com.chy.pojo.out.Factory">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="f_code" jdbcType="VARCHAR" property="fCode" />
+		<result column="f_name" jdbcType="VARCHAR" property="fName" />
+		<result column="f_mr" jdbcType="VARCHAR" property="fMr" />
+		<result column="f_mark" jdbcType="VARCHAR" property="fMark" />
+		<result column="f_fool" jdbcType="VARCHAR" property="fFool" />
+		<result column="f_boss" jdbcType="VARCHAR" property="fBoss" />
+		<result column="f_phone" jdbcType="VARCHAR" property="fPhone" />
+		<result column="f_alipay" jdbcType="VARCHAR" property="fAlipay" />
+		<result column="f_tenypay" jdbcType="VARCHAR"
+			property="fTenypay" />
+		<result column="f_balance" jdbcType="REAL" property="fBalance" />
+		<result column="f_status" jdbcType="TINYINT" property="fStatus" />
+		<result column="f_discount" jdbcType="VARCHAR"
+			property="fDiscount" />
+		<result column="user_id" jdbcType="VARCHAR" property="userId" />
+		<result column="parent_user_id" jdbcType="VARCHAR"
+			property="parentUserId" />
+		<result column="pic_url" jdbcType="VARCHAR" property="picUrl" />
+		<result column="ft" jdbcType="VARCHAR" property="ft" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, f_code,f_name, f_mr, f_mark, f_fool, f_boss, f_phone, f_alipay,
+		f_tenypay, f_balance,
+		f_status, f_discount, user_id, parent_user_id, pic_url, ft
+	</sql>
+	<select id="selectByPrimaryKey"
+		parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_factory
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<select id="selectFactoryList" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_factory
+		<where>
+			<if test="fStatus !=null and fStatus !=''">
+				and f_status = #{fStatus}
+			</if>
+		</where>
+		LIMIT ${pageNum},${pageSize}
+	</select>
+	<select id="selectFactoryListCount"
+		parameterType="java.util.Map" resultType="java.lang.Long">
+		select COUNT(*)
+		from t_factory
+		<where>
+			<if test="fStatus !=null and fStatus !=''">
+				and f_status = #{fStatus}
+			</if>
+		</where>
+	</select>
+	<select id="selectFatoryApply" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		select * from t_factory
+		where user_id = #{userId}
+	</select>
+	<delete id="deleteByPrimaryKey"
+		parameterType="java.lang.Integer">
+		delete from t_factory
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.chy.pojo.out.Factory">
+		insert into t_factory (id, f_code,f_name, f_mr,
+		f_mark, f_fool, f_boss,
+		f_phone, f_alipay, f_tenypay,
+		f_balance, f_status, f_discount,
+		user_id, parent_user_id, pic_url,
+		ft)
+		values (#{id,jdbcType=INTEGER},#{fCode,jdbcType=VARCHAR},
+		#{fName,jdbcType=VARCHAR}, #{fMr,jdbcType=VARCHAR},
+		#{fMark,jdbcType=VARCHAR}, #{fFool,jdbcType=VARCHAR},
+		#{fBoss,jdbcType=VARCHAR},
+		#{fPhone,jdbcType=VARCHAR}, #{fAlipay,jdbcType=VARCHAR}, #{fTenypay,jdbcType=VARCHAR},
+		#{fBalance,jdbcType=REAL}, #{fStatus,jdbcType=TINYINT},
+		#{fDiscount,jdbcType=VARCHAR},
+		#{userId,jdbcType=VARCHAR}, #{parentUserId,jdbcType=VARCHAR}, #{picUrl,jdbcType=VARCHAR},
+		#{ft,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.chy.pojo.out.Factory">
+		insert into t_factory
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="fCode != null">
+				f_code,
+			</if>
+			<if test="fName != null">
+				f_name,
+			</if>
+			<if test="fMr != null">
+				f_mr,
+			</if>
+			<if test="fMark != null">
+				f_mark,
+			</if>
+			<if test="fFool != null">
+				f_fool,
+			</if>
+			<if test="fBoss != null">
+				f_boss,
+			</if>
+			<if test="fPhone != null">
+				f_phone,
+			</if>
+			<if test="fAlipay != null">
+				f_alipay,
+			</if>
+			<if test="fTenypay != null">
+				f_tenypay,
+			</if>
+			<if test="fBalance != null">
+				f_balance,
+			</if>
+			<if test="fStatus != null">
+				f_status,
+			</if>
+			<if test="fDiscount != null">
+				f_discount,
+			</if>
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="parentUserId != null">
+				parent_user_id,
+			</if>
+			<if test="picUrl != null">
+				pic_url,
+			</if>
+			<if test="ft != null">
+				ft,
+			</if>
+			create_time
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="fCode != null">
+				#{fCode,jdbcType=VARCHAR},
+			</if>
+			<if test="fName != null">
+				#{fName,jdbcType=VARCHAR},
+			</if>
+			<if test="fMr != null">
+				#{fMr,jdbcType=VARCHAR},
+			</if>
+			<if test="fMark != null">
+				#{fMark,jdbcType=VARCHAR},
+			</if>
+			<if test="fFool != null">
+				#{fFool,jdbcType=VARCHAR},
+			</if>
+			<if test="fBoss != null">
+				#{fBoss,jdbcType=VARCHAR},
+			</if>
+			<if test="fPhone != null">
+				#{fPhone,jdbcType=VARCHAR},
+			</if>
+			<if test="fAlipay != null">
+				#{fAlipay,jdbcType=VARCHAR},
+			</if>
+			<if test="fTenypay != null">
+				#{fTenypay,jdbcType=VARCHAR},
+			</if>
+			<if test="fBalance != null">
+				#{fBalance,jdbcType=REAL},
+			</if>
+			<if test="fStatus != null">
+				#{fStatus,jdbcType=TINYINT},
+			</if>
+			<if test="fDiscount != null">
+				#{fDiscount,jdbcType=VARCHAR},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="parentUserId != null">
+				#{parentUserId,jdbcType=VARCHAR},
+			</if>
+			<if test="picUrl != null">
+				#{picUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="ft != null">
+				#{ft,jdbcType=VARCHAR},
+			</if>
+			date_format(sysdate(), '%Y-%m-%d %H:%i:%S')
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.chy.pojo.out.Factory">
+		update t_factory
+		<set>
+			<if test="fCode != null">
+				f_code = #{fCode,jdbcType=VARCHAR},
+			</if>
+			<if test="fName != null">
+				f_name = #{fName,jdbcType=VARCHAR},
+			</if>
+			<if test="fMr != null">
+				f_mr = #{fMr,jdbcType=VARCHAR},
+			</if>
+			<if test="fMark != null">
+				f_mark = #{fMark,jdbcType=VARCHAR},
+			</if>
+			<if test="fFool != null">
+				f_fool = #{fFool,jdbcType=VARCHAR},
+			</if>
+			<if test="fBoss != null">
+				f_boss = #{fBoss,jdbcType=VARCHAR},
+			</if>
+			<if test="fPhone != null">
+				f_phone = #{fPhone,jdbcType=VARCHAR},
+			</if>
+			<if test="fAlipay != null">
+				f_alipay = #{fAlipay,jdbcType=VARCHAR},
+			</if>
+			<if test="fTenypay != null">
+				f_tenypay = #{fTenypay,jdbcType=VARCHAR},
+			</if>
+			<if test="fBalance != null">
+				f_balance = #{fBalance,jdbcType=REAL},
+			</if>
+			<if test="fStatus != null">
+				f_status = #{fStatus,jdbcType=TINYINT},
+			</if>
+			<if test="fDiscount != null">
+				f_discount = #{fDiscount,jdbcType=VARCHAR},
+			</if>
+			<if test="userId != null">
+				user_id = #{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="parentUserId != null">
+				parent_user_id = #{parentUserId,jdbcType=VARCHAR},
+			</if>
+			<if test="picUrl != null">
+				pic_url = #{picUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="ft != null">
+				ft = #{ft,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.chy.pojo.out.Factory">
+		update t_factory
+		set f_code = #{fCode,jdbcType=VARCHAR},
+		f_name = #{fName,jdbcType=VARCHAR},
+		f_mr = #{fMr,jdbcType=VARCHAR},
+		f_mark = #{fMark,jdbcType=VARCHAR},
+		f_fool = #{fFool,jdbcType=VARCHAR},
+		f_boss = #{fBoss,jdbcType=VARCHAR},
+		f_phone = #{fPhone,jdbcType=VARCHAR},
+		f_alipay = #{fAlipay,jdbcType=VARCHAR},
+		f_tenypay = #{fTenypay,jdbcType=VARCHAR},
+		f_balance = #{fBalance,jdbcType=REAL},
+		f_status = #{fStatus,jdbcType=TINYINT},
+		f_discount = #{fDiscount,jdbcType=VARCHAR},
+		user_id = #{userId,jdbcType=VARCHAR},
+		parent_user_id = #{parentUserId,jdbcType=VARCHAR},
+		pic_url = #{picUrl,jdbcType=VARCHAR},
+		ft = #{ft,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
 </mapper>

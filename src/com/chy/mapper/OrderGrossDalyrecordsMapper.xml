@@ -1,243 +1,274 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chy.mapper.OrderGrossDalyrecordsMapper">
-  <resultMap id="BaseResultMap" type="com.chy.pojo.out.OrderGrossDalyrecords">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="c_time" jdbcType="TIMESTAMP" property="cTime" />
-    <result column="totalmoney" jdbcType="REAL" property="totalmoney" />
-    <result column="type" jdbcType="INTEGER" property="type" />
-    <result column="status" jdbcType="INTEGER" property="status" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, user_id,c_time, totalmoney, type, status
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from t_order_gross_dalyrecords
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <select id="selectUserDalyGrossByParams" parameterType="java.util.Map" resultMap="BaseResultMap">
-  	SELECT
+	<resultMap id="BaseResultMap"
+		type="com.chy.pojo.out.OrderGrossDalyrecords">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="user_id" jdbcType="INTEGER" property="userId" />
+		<result column="c_time" jdbcType="TIMESTAMP" property="cTime" />
+		<result column="totalmoney" jdbcType="REAL"
+			property="totalmoney" />
+		<result column="type" jdbcType="INTEGER" property="type" />
+		<result column="status" jdbcType="INTEGER" property="status" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, user_id,c_time, totalmoney, type, status
+	</sql>
+	<select id="selectByPrimaryKey"
+		parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_order_gross_dalyrecords
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<select id="selectUserDalyGrossByParams"
+		parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT
 		DATE_FORMAT(ogd.c_time, '%Y%m%d') AS cTime,
-		sum(ogd.totalmoney) AS totalmoney
-	FROM
+		sum(ogd.totalmoney)
+		AS totalmoney
+		FROM
 		t_order_gross_dalyrecords AS ogd
-	WHERE
+		WHERE
 		ogd.type = #{type}
-	AND ogd.user_id = #{userId}
-	AND ogd.`status` = #{status}
-	AND DATE_FORMAT(ogd.c_time, '%Y%m%d') <![CDATA[ <=  ]]>  DATE_FORMAT(#{endtime}, '%Y%m%d')
-	AND DATE_FORMAT(ogd.c_time, '%Y%m%d') <![CDATA[ >=  ]]>  DATE_FORMAT(#{begin}, '%Y%m%d')
-	GROUP BY
+		AND ogd.user_id = #{userId}
+		AND ogd.`status` = #{status}
+		AND DATE_FORMAT(ogd.c_time, '%Y%m%d') <![CDATA[ <=  ]]>
+		DATE_FORMAT(#{endtime}, '%Y%m%d')
+		AND DATE_FORMAT(ogd.c_time, '%Y%m%d') <![CDATA[ >=  ]]>
+		DATE_FORMAT(#{begin}, '%Y%m%d')
+		GROUP BY
 		DATE_FORMAT(ogd.c_time, '%Y%m%d')
-	ORDER BY
+		ORDER BY
 		DATE_FORMAT(ogd.c_time, '%Y%m%d') DESC;
-  </select>
-  <update id="updateStatusByUserIdAndTime" parameterType="java.util.Map">
-  	update t_order_gross_dalyrecords set `status`=#{status} where user_id=#{userId} 
-	AND DATE_FORMAT(c_time, '%Y%m%d') <![CDATA[ <=  ]]>  DATE_FORMAT(#{endtime}, '%Y%m%d')
-	AND DATE_FORMAT(c_time, '%Y%m%d') <![CDATA[ >=  ]]>  DATE_FORMAT(#{begin}, '%Y%m%d')
-  </update>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from t_order_gross_dalyrecords
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.chy.pojo.out.OrderGrossDalyrecords">
-    insert into t_order_gross_dalyrecords (id, user_id,c_time, totalmoney, 
-      type, status)
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=TIMESTAMP},#{cTime,jdbcType=TIMESTAMP}, #{totalmoney,jdbcType=REAL}, 
-      #{type,jdbcType=INTEGER}, #{status,jdbcType=INTEGER})
-  </insert>
-  <insert id="insertSelective" parameterType="com.chy.pojo.out.OrderGrossDalyrecords">
-    insert into t_order_gross_dalyrecords
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="userId != null">
-        user_id,
-      </if>
-      <if test="cTime != null">
-        c_time,
-      </if>
-      <if test="totalmoney != null">
-        totalmoney,
-      </if>
-      <if test="type != null">
-        type,
-      </if>
-      <if test="status != null">
-        status,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="userId != null">
-        #{userId,jdbcType=TIMESTAMP},
-      </if>
-      <if test="cTime != null">
-        #{cTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="totalmoney != null">
-        #{totalmoney,jdbcType=REAL},
-      </if>
-      <if test="type != null">
-        #{type,jdbcType=INTEGER},
-      </if>
-      <if test="status != null">
-        #{status,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.chy.pojo.out.OrderGrossDalyrecords">
-    update t_order_gross_dalyrecords
-    <set>
-   	  <if test="userId != null">
-        user_id = #{userId,jdbcType=TIMESTAMP},
-      </if>
-      <if test="cTime != null">
-        c_time = #{cTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="totalmoney != null">
-        totalmoney = #{totalmoney,jdbcType=REAL},
-      </if>
-      <if test="type != null">
-        type = #{type,jdbcType=INTEGER},
-      </if>
-      <if test="status != null">
-        status = #{status,jdbcType=INTEGER},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.chy.pojo.out.OrderGrossDalyrecords">
-    update t_order_gross_dalyrecords
-    set user_id = #{userId,jdbcType=TIMESTAMP},
-      c_time = #{cTime,jdbcType=TIMESTAMP},
-      totalmoney = #{totalmoney,jdbcType=REAL},
-      type = #{type,jdbcType=INTEGER},
-      status = #{status,jdbcType=INTEGER}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  
-  <insert id="copyCustomerGross" parameterType="java.util.Map">
-  	INSERT INTO t_order_gross_dalyrecords (
-  		user_id,
+	</select>
+	<update id="updateStatusByUserIdAndTime"
+		parameterType="java.util.Map">
+		update t_order_gross_dalyrecords set `status`=#{status} where
+		user_id=#{userId}
+		AND DATE_FORMAT(c_time, '%Y%m%d') <![CDATA[ <=  ]]>
+		DATE_FORMAT(#{endtime}, '%Y%m%d')
+		AND DATE_FORMAT(c_time, '%Y%m%d') <![CDATA[ >=  ]]>
+		DATE_FORMAT(#{begin}, '%Y%m%d')
+	</update>
+	<delete id="deleteByPrimaryKey"
+		parameterType="java.lang.Integer">
+		delete from t_order_gross_dalyrecords
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert"
+		parameterType="com.chy.pojo.out.OrderGrossDalyrecords">
+		insert into t_order_gross_dalyrecords (id, user_id,c_time, totalmoney,
+		type, status)
+		values (#{id,jdbcType=INTEGER},
+		#{userId,jdbcType=TIMESTAMP},#{cTime,jdbcType=TIMESTAMP},
+		#{totalmoney,jdbcType=REAL},
+		#{type,jdbcType=INTEGER}, #{status,jdbcType=INTEGER})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.chy.pojo.out.OrderGrossDalyrecords">
+		insert into t_order_gross_dalyrecords
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="cTime != null">
+				c_time,
+			</if>
+			<if test="totalmoney != null">
+				totalmoney,
+			</if>
+			<if test="type != null">
+				type,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=TIMESTAMP},
+			</if>
+			<if test="cTime != null">
+				#{cTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="totalmoney != null">
+				#{totalmoney,jdbcType=REAL},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=INTEGER},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.chy.pojo.out.OrderGrossDalyrecords">
+		update t_order_gross_dalyrecords
+		<set>
+			<if test="userId != null">
+				user_id = #{userId,jdbcType=TIMESTAMP},
+			</if>
+			<if test="cTime != null">
+				c_time = #{cTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="totalmoney != null">
+				totalmoney = #{totalmoney,jdbcType=REAL},
+			</if>
+			<if test="type != null">
+				type = #{type,jdbcType=INTEGER},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=INTEGER},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.chy.pojo.out.OrderGrossDalyrecords">
+		update t_order_gross_dalyrecords
+		set user_id = #{userId,jdbcType=TIMESTAMP},
+		c_time = #{cTime,jdbcType=TIMESTAMP},
+		totalmoney = #{totalmoney,jdbcType=REAL},
+		type = #{type,jdbcType=INTEGER},
+		status = #{status,jdbcType=INTEGER}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+	<insert id="copyCustomerGross" parameterType="java.util.Map">
+		INSERT INTO t_order_gross_dalyrecords (
+		user_id,
 		c_time,
 		totalmoney,
 		type,
 		`status`
-	) SELECT
+		) SELECT
 		user_id,
 		max(createtime) AS c_time,
 		sum(
-			if(money * num - purchase_money * num <![CDATA[<]]> 0,0,money * num - purchase_money * num) 
+		if(money * num - purchase_money * num <![CDATA[<]]>
+		0,0,money * num - purchase_money * num)
 		)*0.03 AS totalmoney,
 		type,
 		0 AS `status`
-	FROM
+		FROM
 		t_order_gross
-	WHERE DATE_FORMAT(createtime,'%Y%m%d')=DATE_FORMAT(sysdate()-1,'%Y%m%d') and type=1
-	GROUP BY
+		WHERE DATE_FORMAT(createtime,'%Y%m%d')=DATE_FORMAT(sysdate()-1,'%Y%m%d')
+		and type=1
+		GROUP BY
 		user_id,order_id,DATE_FORMAT(createtime,'%Y%m%d')
-  </insert>
- 
-  <insert id="copyAutoPointGross" parameterType="java.util.Map">
-  	INSERT INTO t_order_gross_dalyrecords (
-  		user_id,
+	</insert>
+
+	<insert id="copyAutoPointGross" parameterType="java.util.Map">
+		INSERT INTO t_order_gross_dalyrecords (
+		user_id,
 		c_time,
 		totalmoney,
 		type,
 		`status`
-	) SELECT
+		) SELECT
 		user_id,
 		max(createtime) AS c_time,
 		sum(
-			if(money * num - purchase_money * num <![CDATA[<]]> 0,0,money * num - purchase_money * num)
+		if(money * num - purchase_money * num <![CDATA[<]]>
+		0,0,money * num - purchase_money * num)
 		)*0.1 AS totalmoney,
 		type,
-		0 AS `status`
-	FROM
+		0 AS
+		`status`
+		FROM
 		t_order_gross
-	WHERE DATE_FORMAT(createtime,'%Y%m%d')=DATE_FORMAT(sysdate()-1,'%Y%m%d')  and type=2
-	GROUP BY
+		WHERE DATE_FORMAT(createtime,'%Y%m%d')=DATE_FORMAT(sysdate()-1,'%Y%m%d')
+		and type=2
+		GROUP BY
 		user_id,order_id,DATE_FORMAT(createtime,'%Y%m%d')
-  </insert>
-  
-  <insert id="copyAutoPointBrokerage" parameterType="java.util.Map">
-  	INSERT INTO t_order_gross_dalyrecords (
-  		user_id,
+	</insert>
+
+	<insert id="copyAutoPointBrokerage"
+		parameterType="java.util.Map">
+		INSERT INTO t_order_gross_dalyrecords (
+		user_id,
 		c_time,
 		totalmoney,
 		4,
 		`status`
-	) SELECT
+		) SELECT
 		user_id,
 		max(createtime) AS c_time,
 		sum(
-			if(money * num - purchase_money * num <![CDATA[<]]> 0,0,money * num - purchase_money * num)
+		if(money * num - purchase_money * num <![CDATA[<]]>
+		0,0,money * num - purchase_money * num)
 		)*0.24 AS totalmoney,
 		type,
-		0 AS `status`
-	FROM
+		0 AS
+		`status`
+		FROM
 		t_order_gross
-	WHERE DATE_FORMAT(createtime,'%Y%m%d')=DATE_FORMAT(sysdate()-1,'%Y%m%d')  and type=3
-	GROUP BY
+		WHERE DATE_FORMAT(createtime,'%Y%m%d')=DATE_FORMAT(sysdate()-1,'%Y%m%d')
+		and type=3
+		GROUP BY
 		user_id,order_id,DATE_FORMAT(createtime,'%Y%m%d')
-  </insert>
-  
-  <insert id="copyFactoryGross" parameterType="java.util.Map">
-	INSERT INTO t_order_gross_dalyrecords (
+	</insert>
+
+	<insert id="copyFactoryGross" parameterType="java.util.Map">
+		INSERT INTO t_order_gross_dalyrecords (
 		user_id,
 		c_time,
 		totalmoney,
 		type,
 		`status`
-	SELECT
+		SELECT
 		user_id,
 		max(createtime) AS c_time,
 		sum(
-			if(money * num - purchase_money * num <![CDATA[<]]> 0,0,money * num - purchase_money * num)
+		if(money * num - purchase_money * num <![CDATA[<]]>
+		0,0,money * num - purchase_money * num)
 		)*0.03 AS totalmoney,
 		type,
-		0 AS `status`
-	FROM
+		0 AS
+		`status`
+		FROM
 		t_order_gross
-	WHERE DATE_FORMAT(createtime,'%Y%m%d')=DATE_FORMAT(sysdate()-1,'%Y%m%d') and type=3
-	GROUP BY
+		WHERE DATE_FORMAT(createtime,'%Y%m%d')=DATE_FORMAT(sysdate()-1,'%Y%m%d')
+		and type=3
+		GROUP BY
 		user_id,item_id,DATE_FORMAT(createtime,'%Y%m%d')
-  </insert>
-  
-  <select id="queryUserGrossByUserId" parameterType="java.util.Map" resultType="java.util.Map">
-  	SELECT
+	</insert>
+
+	<select id="queryUserGrossByUserId"
+		parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
 		sum(totalmoney) AS "myMoney",
 		sum(
-			(
-				CASE
-				WHEN `status` = 1 
-				THEN totalmoney
-				ELSE
-					0
-				END
-			)
+		(
+		CASE
+		WHEN `status` = 1
+		THEN totalmoney
+		ELSE
+		0
+		END
+		)
 		) AS "getMoney",
 		sum(
-			(
-				CASE
-				WHEN `status` = 0 
-				THEN totalmoney
-				ELSE
-					0
-				END
-			)
+		(
+		CASE
+		WHEN `status` = 0
+		THEN totalmoney
+		ELSE
+		0
+		END
+		)
 		) AS "unGetMoney"
-	FROM
+		FROM
 		t_order_gross_dalyrecords
-	WHERE
+		WHERE
 		user_id = #{userId}
-  </select>
+	</select>
 </mapper>

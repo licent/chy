@@ -1,305 +1,331 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chy.mapper.BudanMapper">
-  <resultMap id="BaseResultMap" type="com.chy.pojo.out.Budan">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="item_outer_id" jdbcType="VARCHAR" property="itemOuterId" />
-    <result column="store_id" jdbcType="INTEGER" property="storeId" />
-    <result column="title" jdbcType="VARCHAR" property="title" />
-    <result column="pic_url" jdbcType="VARCHAR" property="picUrl" />
-    <result column="cuxiao_price" jdbcType="REAL" property="cuxiaoPrice" />
-    <result column="jinhuo_price" jdbcType="REAL" property="jinhuoPrice" />
-    <result column="youhui_price" jdbcType="REAL" property="youhuiPrice" />
-    <result column="item_created" jdbcType="TIMESTAMP" property="itemCreated" />
-    <result column="mend_date" jdbcType="TIMESTAMP" property="mendDate" />
-    <result column="product_no" jdbcType="VARCHAR" property="productNo" />
-    <result column="life_tag" jdbcType="INTEGER" property="lifeTag" />
-    <result column="budan_tag" jdbcType="INTEGER" property="budanTag" />
-    <result column="platform_cost_rate" jdbcType="REAL" property="platformCostRate" />
-    <result column="mend_sleep_time" jdbcType="VARCHAR" property="mendSleepTime" />
-    <result column="status" jdbcType="TINYINT" property="status" />
-    <result column="express_cost" jdbcType="REAL" property="expressCost" />
-    <result column="gift_cost" jdbcType="REAL" property="giftCost" />
-    <result column="is_check" jdbcType="TINYINT" property="isCheck" />
-    <result column="check_man" jdbcType="VARCHAR" property="checkMan" />
-    <result column="check_time" jdbcType="VARCHAR" property="checkTime" />
-    <result column="have_ji" jdbcType="TINYINT" property="haveJi" />
-    <result column="person_in_charge" jdbcType="VARCHAR" property="personInCharge" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, item_outer_id, store_id, title, pic_url, cuxiao_price, jinhuo_price, youhui_price, 
-    item_created, mend_date, product_no, life_tag, budan_tag, platform_cost_rate, mend_sleep_time, 
-    status, express_cost, gift_cost, is_check, check_man, check_time, have_ji, person_in_charge
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from t_budan
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from t_budan
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.chy.pojo.out.Budan">
-    insert into t_budan (id, item_outer_id, store_id, 
-      title, pic_url, cuxiao_price, 
-      jinhuo_price, youhui_price, item_created, 
-      mend_date, product_no, life_tag, 
-      budan_tag, platform_cost_rate, mend_sleep_time, 
-      status, express_cost, gift_cost, 
-      is_check, check_man, check_time, 
-      have_ji, person_in_charge)
-    values (#{id,jdbcType=INTEGER}, #{itemOuterId,jdbcType=VARCHAR}, #{storeId,jdbcType=INTEGER}, 
-      #{title,jdbcType=VARCHAR}, #{picUrl,jdbcType=VARCHAR}, #{cuxiaoPrice,jdbcType=REAL}, 
-      #{jinhuoPrice,jdbcType=REAL}, #{youhuiPrice,jdbcType=REAL}, #{itemCreated,jdbcType=TIMESTAMP}, 
-      #{mendDate,jdbcType=TIMESTAMP}, #{productNo,jdbcType=VARCHAR}, #{lifeTag,jdbcType=INTEGER}, 
-      #{budanTag,jdbcType=INTEGER}, #{platformCostRate,jdbcType=REAL}, #{mendSleepTime,jdbcType=VARCHAR}, 
-      #{status,jdbcType=TINYINT}, #{expressCost,jdbcType=REAL}, #{giftCost,jdbcType=REAL}, 
-      #{isCheck,jdbcType=TINYINT}, #{checkMan,jdbcType=VARCHAR}, #{checkTime,jdbcType=VARCHAR}, 
-      #{haveJi,jdbcType=TINYINT}, #{personInCharge,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.chy.pojo.out.Budan">
-    insert into t_budan
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="itemOuterId != null">
-        item_outer_id,
-      </if>
-      <if test="storeId != null">
-        store_id,
-      </if>
-      <if test="title != null">
-        title,
-      </if>
-      <if test="picUrl != null">
-        pic_url,
-      </if>
-      <if test="cuxiaoPrice != null">
-        cuxiao_price,
-      </if>
-      <if test="jinhuoPrice != null">
-        jinhuo_price,
-      </if>
-      <if test="youhuiPrice != null">
-        youhui_price,
-      </if>
-      <if test="itemCreated != null">
-        item_created,
-      </if>
-      <if test="mendDate != null">
-        mend_date,
-      </if>
-      <if test="productNo != null">
-        product_no,
-      </if>
-      <if test="lifeTag != null">
-        life_tag,
-      </if>
-      <if test="budanTag != null">
-        budan_tag,
-      </if>
-      <if test="platformCostRate != null">
-        platform_cost_rate,
-      </if>
-      <if test="mendSleepTime != null">
-        mend_sleep_time,
-      </if>
-      <if test="status != null">
-        status,
-      </if>
-      <if test="expressCost != null">
-        express_cost,
-      </if>
-      <if test="giftCost != null">
-        gift_cost,
-      </if>
-      <if test="isCheck != null">
-        is_check,
-      </if>
-      <if test="checkMan != null">
-        check_man,
-      </if>
-      <if test="checkTime != null">
-        check_time,
-      </if>
-      <if test="haveJi != null">
-        have_ji,
-      </if>
-      <if test="personInCharge != null">
-        person_in_charge,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="itemOuterId != null">
-        #{itemOuterId,jdbcType=VARCHAR},
-      </if>
-      <if test="storeId != null">
-        #{storeId,jdbcType=INTEGER},
-      </if>
-      <if test="title != null">
-        #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="picUrl != null">
-        #{picUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="cuxiaoPrice != null">
-        #{cuxiaoPrice,jdbcType=REAL},
-      </if>
-      <if test="jinhuoPrice != null">
-        #{jinhuoPrice,jdbcType=REAL},
-      </if>
-      <if test="youhuiPrice != null">
-        #{youhuiPrice,jdbcType=REAL},
-      </if>
-      <if test="itemCreated != null">
-        #{itemCreated,jdbcType=TIMESTAMP},
-      </if>
-      <if test="mendDate != null">
-        #{mendDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="productNo != null">
-        #{productNo,jdbcType=VARCHAR},
-      </if>
-      <if test="lifeTag != null">
-        #{lifeTag,jdbcType=INTEGER},
-      </if>
-      <if test="budanTag != null">
-        #{budanTag,jdbcType=INTEGER},
-      </if>
-      <if test="platformCostRate != null">
-        #{platformCostRate,jdbcType=REAL},
-      </if>
-      <if test="mendSleepTime != null">
-        #{mendSleepTime,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null">
-        #{status,jdbcType=TINYINT},
-      </if>
-      <if test="expressCost != null">
-        #{expressCost,jdbcType=REAL},
-      </if>
-      <if test="giftCost != null">
-        #{giftCost,jdbcType=REAL},
-      </if>
-      <if test="isCheck != null">
-        #{isCheck,jdbcType=TINYINT},
-      </if>
-      <if test="checkMan != null">
-        #{checkMan,jdbcType=VARCHAR},
-      </if>
-      <if test="checkTime != null">
-        #{checkTime,jdbcType=VARCHAR},
-      </if>
-      <if test="haveJi != null">
-        #{haveJi,jdbcType=TINYINT},
-      </if>
-      <if test="personInCharge != null">
-        #{personInCharge,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.chy.pojo.out.Budan">
-    update t_budan
-    <set>
-      <if test="itemOuterId != null">
-        item_outer_id = #{itemOuterId,jdbcType=VARCHAR},
-      </if>
-      <if test="storeId != null">
-        store_id = #{storeId,jdbcType=INTEGER},
-      </if>
-      <if test="title != null">
-        title = #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="picUrl != null">
-        pic_url = #{picUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="cuxiaoPrice != null">
-        cuxiao_price = #{cuxiaoPrice,jdbcType=REAL},
-      </if>
-      <if test="jinhuoPrice != null">
-        jinhuo_price = #{jinhuoPrice,jdbcType=REAL},
-      </if>
-      <if test="youhuiPrice != null">
-        youhui_price = #{youhuiPrice,jdbcType=REAL},
-      </if>
-      <if test="itemCreated != null">
-        item_created = #{itemCreated,jdbcType=TIMESTAMP},
-      </if>
-      <if test="mendDate != null">
-        mend_date = #{mendDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="productNo != null">
-        product_no = #{productNo,jdbcType=VARCHAR},
-      </if>
-      <if test="lifeTag != null">
-        life_tag = #{lifeTag,jdbcType=INTEGER},
-      </if>
-      <if test="budanTag != null">
-        budan_tag = #{budanTag,jdbcType=INTEGER},
-      </if>
-      <if test="platformCostRate != null">
-        platform_cost_rate = #{platformCostRate,jdbcType=REAL},
-      </if>
-      <if test="mendSleepTime != null">
-        mend_sleep_time = #{mendSleepTime,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null">
-        status = #{status,jdbcType=TINYINT},
-      </if>
-      <if test="expressCost != null">
-        express_cost = #{expressCost,jdbcType=REAL},
-      </if>
-      <if test="giftCost != null">
-        gift_cost = #{giftCost,jdbcType=REAL},
-      </if>
-      <if test="isCheck != null">
-        is_check = #{isCheck,jdbcType=TINYINT},
-      </if>
-      <if test="checkMan != null">
-        check_man = #{checkMan,jdbcType=VARCHAR},
-      </if>
-      <if test="checkTime != null">
-        check_time = #{checkTime,jdbcType=VARCHAR},
-      </if>
-      <if test="haveJi != null">
-        have_ji = #{haveJi,jdbcType=TINYINT},
-      </if>
-      <if test="personInCharge != null">
-        person_in_charge = #{personInCharge,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.chy.pojo.out.Budan">
-    update t_budan
-    set item_outer_id = #{itemOuterId,jdbcType=VARCHAR},
-      store_id = #{storeId,jdbcType=INTEGER},
-      title = #{title,jdbcType=VARCHAR},
-      pic_url = #{picUrl,jdbcType=VARCHAR},
-      cuxiao_price = #{cuxiaoPrice,jdbcType=REAL},
-      jinhuo_price = #{jinhuoPrice,jdbcType=REAL},
-      youhui_price = #{youhuiPrice,jdbcType=REAL},
-      item_created = #{itemCreated,jdbcType=TIMESTAMP},
-      mend_date = #{mendDate,jdbcType=TIMESTAMP},
-      product_no = #{productNo,jdbcType=VARCHAR},
-      life_tag = #{lifeTag,jdbcType=INTEGER},
-      budan_tag = #{budanTag,jdbcType=INTEGER},
-      platform_cost_rate = #{platformCostRate,jdbcType=REAL},
-      mend_sleep_time = #{mendSleepTime,jdbcType=VARCHAR},
-      status = #{status,jdbcType=TINYINT},
-      express_cost = #{expressCost,jdbcType=REAL},
-      gift_cost = #{giftCost,jdbcType=REAL},
-      is_check = #{isCheck,jdbcType=TINYINT},
-      check_man = #{checkMan,jdbcType=VARCHAR},
-      check_time = #{checkTime,jdbcType=VARCHAR},
-      have_ji = #{haveJi,jdbcType=TINYINT},
-      person_in_charge = #{personInCharge,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+	<resultMap id="BaseResultMap" type="com.chy.pojo.out.Budan">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="item_outer_id" jdbcType="VARCHAR"
+			property="itemOuterId" />
+		<result column="store_id" jdbcType="INTEGER" property="storeId" />
+		<result column="title" jdbcType="VARCHAR" property="title" />
+		<result column="pic_url" jdbcType="VARCHAR" property="picUrl" />
+		<result column="cuxiao_price" jdbcType="REAL"
+			property="cuxiaoPrice" />
+		<result column="jinhuo_price" jdbcType="REAL"
+			property="jinhuoPrice" />
+		<result column="youhui_price" jdbcType="REAL"
+			property="youhuiPrice" />
+		<result column="item_created" jdbcType="TIMESTAMP"
+			property="itemCreated" />
+		<result column="mend_date" jdbcType="TIMESTAMP"
+			property="mendDate" />
+		<result column="product_no" jdbcType="VARCHAR"
+			property="productNo" />
+		<result column="life_tag" jdbcType="INTEGER" property="lifeTag" />
+		<result column="budan_tag" jdbcType="INTEGER"
+			property="budanTag" />
+		<result column="platform_cost_rate" jdbcType="REAL"
+			property="platformCostRate" />
+		<result column="mend_sleep_time" jdbcType="VARCHAR"
+			property="mendSleepTime" />
+		<result column="status" jdbcType="TINYINT" property="status" />
+		<result column="express_cost" jdbcType="REAL"
+			property="expressCost" />
+		<result column="gift_cost" jdbcType="REAL" property="giftCost" />
+		<result column="is_check" jdbcType="TINYINT" property="isCheck" />
+		<result column="check_man" jdbcType="VARCHAR"
+			property="checkMan" />
+		<result column="check_time" jdbcType="VARCHAR"
+			property="checkTime" />
+		<result column="have_ji" jdbcType="TINYINT" property="haveJi" />
+		<result column="person_in_charge" jdbcType="VARCHAR"
+			property="personInCharge" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, item_outer_id, store_id, title, pic_url, cuxiao_price, jinhuo_price,
+		youhui_price,
+		item_created, mend_date, product_no, life_tag, budan_tag, platform_cost_rate,
+		mend_sleep_time,
+		status, express_cost, gift_cost, is_check, check_man, check_time, have_ji,
+		person_in_charge
+	</sql>
+	<select id="selectByPrimaryKey"
+		parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_budan
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey"
+		parameterType="java.lang.Integer">
+		delete from t_budan
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.chy.pojo.out.Budan">
+		insert into t_budan (id, item_outer_id, store_id,
+		title, pic_url, cuxiao_price,
+		jinhuo_price, youhui_price, item_created,
+		mend_date, product_no, life_tag,
+		budan_tag, platform_cost_rate, mend_sleep_time,
+		status, express_cost, gift_cost,
+		is_check, check_man, check_time,
+		have_ji, person_in_charge)
+		values (#{id,jdbcType=INTEGER}, #{itemOuterId,jdbcType=VARCHAR},
+		#{storeId,jdbcType=INTEGER},
+		#{title,jdbcType=VARCHAR}, #{picUrl,jdbcType=VARCHAR}, #{cuxiaoPrice,jdbcType=REAL},
+		#{jinhuoPrice,jdbcType=REAL}, #{youhuiPrice,jdbcType=REAL},
+		#{itemCreated,jdbcType=TIMESTAMP},
+		#{mendDate,jdbcType=TIMESTAMP}, #{productNo,jdbcType=VARCHAR}, #{lifeTag,jdbcType=INTEGER},
+		#{budanTag,jdbcType=INTEGER}, #{platformCostRate,jdbcType=REAL},
+		#{mendSleepTime,jdbcType=VARCHAR},
+		#{status,jdbcType=TINYINT}, #{expressCost,jdbcType=REAL}, #{giftCost,jdbcType=REAL},
+		#{isCheck,jdbcType=TINYINT}, #{checkMan,jdbcType=VARCHAR},
+		#{checkTime,jdbcType=VARCHAR},
+		#{haveJi,jdbcType=TINYINT}, #{personInCharge,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.chy.pojo.out.Budan">
+		insert into t_budan
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="itemOuterId != null">
+				item_outer_id,
+			</if>
+			<if test="storeId != null">
+				store_id,
+			</if>
+			<if test="title != null">
+				title,
+			</if>
+			<if test="picUrl != null">
+				pic_url,
+			</if>
+			<if test="cuxiaoPrice != null">
+				cuxiao_price,
+			</if>
+			<if test="jinhuoPrice != null">
+				jinhuo_price,
+			</if>
+			<if test="youhuiPrice != null">
+				youhui_price,
+			</if>
+			<if test="itemCreated != null">
+				item_created,
+			</if>
+			<if test="mendDate != null">
+				mend_date,
+			</if>
+			<if test="productNo != null">
+				product_no,
+			</if>
+			<if test="lifeTag != null">
+				life_tag,
+			</if>
+			<if test="budanTag != null">
+				budan_tag,
+			</if>
+			<if test="platformCostRate != null">
+				platform_cost_rate,
+			</if>
+			<if test="mendSleepTime != null">
+				mend_sleep_time,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="expressCost != null">
+				express_cost,
+			</if>
+			<if test="giftCost != null">
+				gift_cost,
+			</if>
+			<if test="isCheck != null">
+				is_check,
+			</if>
+			<if test="checkMan != null">
+				check_man,
+			</if>
+			<if test="checkTime != null">
+				check_time,
+			</if>
+			<if test="haveJi != null">
+				have_ji,
+			</if>
+			<if test="personInCharge != null">
+				person_in_charge,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="itemOuterId != null">
+				#{itemOuterId,jdbcType=VARCHAR},
+			</if>
+			<if test="storeId != null">
+				#{storeId,jdbcType=INTEGER},
+			</if>
+			<if test="title != null">
+				#{title,jdbcType=VARCHAR},
+			</if>
+			<if test="picUrl != null">
+				#{picUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="cuxiaoPrice != null">
+				#{cuxiaoPrice,jdbcType=REAL},
+			</if>
+			<if test="jinhuoPrice != null">
+				#{jinhuoPrice,jdbcType=REAL},
+			</if>
+			<if test="youhuiPrice != null">
+				#{youhuiPrice,jdbcType=REAL},
+			</if>
+			<if test="itemCreated != null">
+				#{itemCreated,jdbcType=TIMESTAMP},
+			</if>
+			<if test="mendDate != null">
+				#{mendDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="productNo != null">
+				#{productNo,jdbcType=VARCHAR},
+			</if>
+			<if test="lifeTag != null">
+				#{lifeTag,jdbcType=INTEGER},
+			</if>
+			<if test="budanTag != null">
+				#{budanTag,jdbcType=INTEGER},
+			</if>
+			<if test="platformCostRate != null">
+				#{platformCostRate,jdbcType=REAL},
+			</if>
+			<if test="mendSleepTime != null">
+				#{mendSleepTime,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=TINYINT},
+			</if>
+			<if test="expressCost != null">
+				#{expressCost,jdbcType=REAL},
+			</if>
+			<if test="giftCost != null">
+				#{giftCost,jdbcType=REAL},
+			</if>
+			<if test="isCheck != null">
+				#{isCheck,jdbcType=TINYINT},
+			</if>
+			<if test="checkMan != null">
+				#{checkMan,jdbcType=VARCHAR},
+			</if>
+			<if test="checkTime != null">
+				#{checkTime,jdbcType=VARCHAR},
+			</if>
+			<if test="haveJi != null">
+				#{haveJi,jdbcType=TINYINT},
+			</if>
+			<if test="personInCharge != null">
+				#{personInCharge,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.chy.pojo.out.Budan">
+		update t_budan
+		<set>
+			<if test="itemOuterId != null">
+				item_outer_id = #{itemOuterId,jdbcType=VARCHAR},
+			</if>
+			<if test="storeId != null">
+				store_id = #{storeId,jdbcType=INTEGER},
+			</if>
+			<if test="title != null">
+				title = #{title,jdbcType=VARCHAR},
+			</if>
+			<if test="picUrl != null">
+				pic_url = #{picUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="cuxiaoPrice != null">
+				cuxiao_price = #{cuxiaoPrice,jdbcType=REAL},
+			</if>
+			<if test="jinhuoPrice != null">
+				jinhuo_price = #{jinhuoPrice,jdbcType=REAL},
+			</if>
+			<if test="youhuiPrice != null">
+				youhui_price = #{youhuiPrice,jdbcType=REAL},
+			</if>
+			<if test="itemCreated != null">
+				item_created = #{itemCreated,jdbcType=TIMESTAMP},
+			</if>
+			<if test="mendDate != null">
+				mend_date = #{mendDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="productNo != null">
+				product_no = #{productNo,jdbcType=VARCHAR},
+			</if>
+			<if test="lifeTag != null">
+				life_tag = #{lifeTag,jdbcType=INTEGER},
+			</if>
+			<if test="budanTag != null">
+				budan_tag = #{budanTag,jdbcType=INTEGER},
+			</if>
+			<if test="platformCostRate != null">
+				platform_cost_rate = #{platformCostRate,jdbcType=REAL},
+			</if>
+			<if test="mendSleepTime != null">
+				mend_sleep_time = #{mendSleepTime,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=TINYINT},
+			</if>
+			<if test="expressCost != null">
+				express_cost = #{expressCost,jdbcType=REAL},
+			</if>
+			<if test="giftCost != null">
+				gift_cost = #{giftCost,jdbcType=REAL},
+			</if>
+			<if test="isCheck != null">
+				is_check = #{isCheck,jdbcType=TINYINT},
+			</if>
+			<if test="checkMan != null">
+				check_man = #{checkMan,jdbcType=VARCHAR},
+			</if>
+			<if test="checkTime != null">
+				check_time = #{checkTime,jdbcType=VARCHAR},
+			</if>
+			<if test="haveJi != null">
+				have_ji = #{haveJi,jdbcType=TINYINT},
+			</if>
+			<if test="personInCharge != null">
+				person_in_charge = #{personInCharge,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.chy.pojo.out.Budan">
+		update t_budan
+		set item_outer_id = #{itemOuterId,jdbcType=VARCHAR},
+		store_id = #{storeId,jdbcType=INTEGER},
+		title = #{title,jdbcType=VARCHAR},
+		pic_url = #{picUrl,jdbcType=VARCHAR},
+		cuxiao_price = #{cuxiaoPrice,jdbcType=REAL},
+		jinhuo_price = #{jinhuoPrice,jdbcType=REAL},
+		youhui_price = #{youhuiPrice,jdbcType=REAL},
+		item_created = #{itemCreated,jdbcType=TIMESTAMP},
+		mend_date = #{mendDate,jdbcType=TIMESTAMP},
+		product_no = #{productNo,jdbcType=VARCHAR},
+		life_tag = #{lifeTag,jdbcType=INTEGER},
+		budan_tag = #{budanTag,jdbcType=INTEGER},
+		platform_cost_rate = #{platformCostRate,jdbcType=REAL},
+		mend_sleep_time = #{mendSleepTime,jdbcType=VARCHAR},
+		status = #{status,jdbcType=TINYINT},
+		express_cost = #{expressCost,jdbcType=REAL},
+		gift_cost = #{giftCost,jdbcType=REAL},
+		is_check = #{isCheck,jdbcType=TINYINT},
+		check_man = #{checkMan,jdbcType=VARCHAR},
+		check_time = #{checkTime,jdbcType=VARCHAR},
+		have_ji = #{haveJi,jdbcType=TINYINT},
+		person_in_charge = #{personInCharge,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
 </mapper>

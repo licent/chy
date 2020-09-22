@@ -32,4 +32,6 @@ public interface UserService {
 	List<User> selectUserFansListByUserId(Map<String, Object> params);
 	
 	UserEx selectUserRolesStatus(Map<String, Object> params);
+	
+	User selectUserPayPwd(Map<String, Object> params);
 }

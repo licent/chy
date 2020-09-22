@@ -3,27 +3,32 @@
  * Copyright 2014 Wang Shenwei.
  * Licensed under MIT (https://github.com/weareoutman/clockpicker/blob/gh-pages/LICENSE)
  */
-
 .clockpicker .input-group-addon {
 	cursor: pointer;
 }
+
 .clockpicker-moving {
 	cursor: move;
 }
-.clockpicker-align-left.popover > .arrow {
+
+.clockpicker-align-left.popover>.arrow {
 	left: 25px;
 }
-.clockpicker-align-top.popover > .arrow {
+
+.clockpicker-align-top.popover>.arrow {
 	top: 17px;
 }
-.clockpicker-align-right.popover > .arrow {
+
+.clockpicker-align-right.popover>.arrow {
 	left: auto;
 	right: 25px;
 }
-.clockpicker-align-bottom.popover > .arrow {
+
+.clockpicker-align-bottom.popover>.arrow {
 	top: auto;
 	bottom: 6px;
 }
+
 .clockpicker-popover .popover-title {
 	background-color: #fff;
 	color: #999;
@@ -32,17 +37,21 @@
 	line-height: 30px;
 	text-align: center;
 }
+
 .clockpicker-popover .popover-title span {
 	cursor: pointer;
 }
+
 .clockpicker-popover .popover-content {
 	background-color: #f8f8f8;
 	padding: 12px;
 }
+
 .popover-content:last-child {
 	border-bottom-left-radius: 5px;
 	border-bottom-right-radius: 5px;
 }
+
 .clockpicker-plate {
 	background-color: #fff;
 	border: 1px solid #ccc;
@@ -59,17 +68,19 @@
 	-ms-user-select: none;
 	user-select: none;
 }
-.clockpicker-canvas,
-.clockpicker-dial {
+
+.clockpicker-canvas, .clockpicker-dial {
 	width: 200px;
 	height: 200px;
 	position: absolute;
 	left: -1px;
 	top: -1px;
 }
+
 .clockpicker-minutes {
 	visibility: hidden;
 }
+
 .clockpicker-tick {
 	border-radius: 50%;
 	color: #666;
@@ -80,11 +91,12 @@
 	position: absolute;
 	cursor: pointer;
 }
-.clockpicker-tick.active,
-.clockpicker-tick:hover {
+
+.clockpicker-tick.active, .clockpicker-tick:hover {
 	background-color: rgb(192, 229, 247);
 	background-color: rgba(0, 149, 221, .25);
 }
+
 .clockpicker-button {
 	background-image: none;
 	background-color: #fff;
@@ -94,13 +106,16 @@
 	margin: 0;
 	padding: 10px 0;
 }
+
 .clockpicker-button:hover {
 	background-image: none;
 	background-color: #ebebeb;
 }
+
 .clockpicker-button:focus {
-	outline: none!important;
+	outline: none !important;
 }
+
 .clockpicker-dial {
 	-webkit-transition: -webkit-transform 350ms, opacity 350ms;
 	-moz-transition: -moz-transform 350ms, opacity 350ms;
@@ -108,9 +123,11 @@
 	-o-transition: -o-transform 350ms, opacity 350ms;
 	transition: transform 350ms, opacity 350ms;
 }
+
 .clockpicker-dial-out {
 	opacity: 0;
 }
+
 .clockpicker-hours.clockpicker-dial-out {
 	-webkit-transform: scale(1.2, 1.2);
 	-moz-transform: scale(1.2, 1.2);
@@ -118,6 +135,7 @@
 	-o-transform: scale(1.2, 1.2);
 	transform: scale(1.2, 1.2);
 }
+
 .clockpicker-minutes.clockpicker-dial-out {
 	-webkit-transform: scale(.8, .8);
 	-moz-transform: scale(.8, .8);
@@ -125,6 +143,7 @@
 	-o-transform: scale(.8, .8);
 	transform: scale(.8, .8);
 }
+
 .clockpicker-canvas {
 	-webkit-transition: opacity 175ms;
 	-moz-transition: opacity 175ms;
@@ -132,34 +151,39 @@
 	-o-transition: opacity 175ms;
 	transition: opacity 175ms;
 }
+
 .clockpicker-canvas-out {
 	opacity: 0.25;
 }
-.clockpicker-canvas-bearing,
-.clockpicker-canvas-fg {
+
+.clockpicker-canvas-bearing, .clockpicker-canvas-fg {
 	stroke: none;
 	fill: rgb(0, 149, 221);
 }
+
 .clockpicker-canvas-bg {
 	stroke: none;
 	fill: rgb(192, 229, 247);
 }
+
 .clockpicker-canvas-bg-trans {
 	fill: rgba(0, 149, 221, .25);
 }
+
 .clockpicker-canvas line {
 	stroke: rgb(0, 149, 221);
 	stroke-width: 1;
 	stroke-linecap: round;
 	/*shape-rendering: crispEdges;*/
 }
+
 .clockpicker-button.am-button {
 	margin: 1px;
 	padding: 5px;
 	border: 1px solid rgba(0, 0, 0, .2);
 	border-radius: 4px;
-	
 }
+
 .clockpicker-button.pm-button {
 	margin: 1px 1px 1px 136px;
 	padding: 5px;

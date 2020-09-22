@@ -1,141 +1,152 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chy.mapper.OrdersMapper">
-  <resultMap id="BaseResultMap" type="com.chy.pojo.out.Orders">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="order_code" jdbcType="VARCHAR" property="orderCode" />
-    <result column="status" jdbcType="TINYINT" property="status" />
-    <result column="total_money" jdbcType="REAL" property="totalMoney" />
-    <result column="create_time" jdbcType="VARCHAR" property="createTime" />
-    <result column="thd" jdbcType="VARCHAR" property="thd" />
-    <result column="th_time" jdbcType="VARCHAR" property="thTime" />
-    <result column="thr" jdbcType="VARCHAR" property="thr" />
-    <result column="th_phone" jdbcType="VARCHAR" property="thPhone" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, order_code, status, total_money, create_time, thd, th_time, thr, th_phone
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from t_orders
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from t_orders
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.chy.pojo.out.Orders">
-    insert into t_orders (id, order_code, status, 
-      total_money, create_time, thd, 
-      th_time, thr, th_phone
-      )
-    values (#{id,jdbcType=INTEGER}, #{orderCode,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, 
-      #{totalMoney,jdbcType=REAL}, #{createTime,jdbcType=VARCHAR}, #{thd,jdbcType=VARCHAR}, 
-      #{thTime,jdbcType=VARCHAR}, #{thr,jdbcType=VARCHAR}, #{thPhone,jdbcType=VARCHAR}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.chy.pojo.out.Orders">
-    insert into t_orders
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="orderCode != null">
-        order_code,
-      </if>
-      <if test="status != null">
-        status,
-      </if>
-      <if test="totalMoney != null">
-        total_money,
-      </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-      <if test="thd != null">
-        thd,
-      </if>
-      <if test="thTime != null">
-        th_time,
-      </if>
-      <if test="thr != null">
-        thr,
-      </if>
-      <if test="thPhone != null">
-        th_phone,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="orderCode != null">
-        #{orderCode,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null">
-        #{status,jdbcType=TINYINT},
-      </if>
-      <if test="totalMoney != null">
-        #{totalMoney,jdbcType=REAL},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=VARCHAR},
-      </if>
-      <if test="thd != null">
-        #{thd,jdbcType=VARCHAR},
-      </if>
-      <if test="thTime != null">
-        #{thTime,jdbcType=VARCHAR},
-      </if>
-      <if test="thr != null">
-        #{thr,jdbcType=VARCHAR},
-      </if>
-      <if test="thPhone != null">
-        #{thPhone,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.chy.pojo.out.Orders">
-    update t_orders
-    <set>
-      <if test="orderCode != null">
-        order_code = #{orderCode,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null">
-        status = #{status,jdbcType=TINYINT},
-      </if>
-      <if test="totalMoney != null">
-        total_money = #{totalMoney,jdbcType=REAL},
-      </if>
-      <if test="createTime != null">
-        create_time = #{createTime,jdbcType=VARCHAR},
-      </if>
-      <if test="thd != null">
-        thd = #{thd,jdbcType=VARCHAR},
-      </if>
-      <if test="thTime != null">
-        th_time = #{thTime,jdbcType=VARCHAR},
-      </if>
-      <if test="thr != null">
-        thr = #{thr,jdbcType=VARCHAR},
-      </if>
-      <if test="thPhone != null">
-        th_phone = #{thPhone,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.chy.pojo.out.Orders">
-    update t_orders
-    set order_code = #{orderCode,jdbcType=VARCHAR},
-      status = #{status,jdbcType=TINYINT},
-      total_money = #{totalMoney,jdbcType=REAL},
-      create_time = #{createTime,jdbcType=VARCHAR},
-      thd = #{thd,jdbcType=VARCHAR},
-      th_time = #{thTime,jdbcType=VARCHAR},
-      thr = #{thr,jdbcType=VARCHAR},
-      th_phone = #{thPhone,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+	<resultMap id="BaseResultMap" type="com.chy.pojo.out.Orders">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="order_code" jdbcType="VARCHAR"
+			property="orderCode" />
+		<result column="status" jdbcType="TINYINT" property="status" />
+		<result column="total_money" jdbcType="REAL"
+			property="totalMoney" />
+		<result column="create_time" jdbcType="VARCHAR"
+			property="createTime" />
+		<result column="thd" jdbcType="VARCHAR" property="thd" />
+		<result column="th_time" jdbcType="VARCHAR" property="thTime" />
+		<result column="thr" jdbcType="VARCHAR" property="thr" />
+		<result column="th_phone" jdbcType="VARCHAR" property="thPhone" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, order_code, status, total_money, create_time, thd, th_time, thr,
+		th_phone
+	</sql>
+	<select id="selectByPrimaryKey"
+		parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_orders
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey"
+		parameterType="java.lang.Integer">
+		delete from t_orders
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.chy.pojo.out.Orders">
+		insert into t_orders (id, order_code, status,
+		total_money, create_time, thd,
+		th_time, thr, th_phone
+		)
+		values (#{id,jdbcType=INTEGER}, #{orderCode,jdbcType=VARCHAR},
+		#{status,jdbcType=TINYINT},
+		#{totalMoney,jdbcType=REAL}, #{createTime,jdbcType=VARCHAR}, #{thd,jdbcType=VARCHAR},
+		#{thTime,jdbcType=VARCHAR}, #{thr,jdbcType=VARCHAR},
+		#{thPhone,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.chy.pojo.out.Orders">
+		insert into t_orders
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="orderCode != null">
+				order_code,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="totalMoney != null">
+				total_money,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="thd != null">
+				thd,
+			</if>
+			<if test="thTime != null">
+				th_time,
+			</if>
+			<if test="thr != null">
+				thr,
+			</if>
+			<if test="thPhone != null">
+				th_phone,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="orderCode != null">
+				#{orderCode,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=TINYINT},
+			</if>
+			<if test="totalMoney != null">
+				#{totalMoney,jdbcType=REAL},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=VARCHAR},
+			</if>
+			<if test="thd != null">
+				#{thd,jdbcType=VARCHAR},
+			</if>
+			<if test="thTime != null">
+				#{thTime,jdbcType=VARCHAR},
+			</if>
+			<if test="thr != null">
+				#{thr,jdbcType=VARCHAR},
+			</if>
+			<if test="thPhone != null">
+				#{thPhone,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.chy.pojo.out.Orders">
+		update t_orders
+		<set>
+			<if test="orderCode != null">
+				order_code = #{orderCode,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=TINYINT},
+			</if>
+			<if test="totalMoney != null">
+				total_money = #{totalMoney,jdbcType=REAL},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=VARCHAR},
+			</if>
+			<if test="thd != null">
+				thd = #{thd,jdbcType=VARCHAR},
+			</if>
+			<if test="thTime != null">
+				th_time = #{thTime,jdbcType=VARCHAR},
+			</if>
+			<if test="thr != null">
+				thr = #{thr,jdbcType=VARCHAR},
+			</if>
+			<if test="thPhone != null">
+				th_phone = #{thPhone,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.chy.pojo.out.Orders">
+		update t_orders
+		set order_code = #{orderCode,jdbcType=VARCHAR},
+		status = #{status,jdbcType=TINYINT},
+		total_money = #{totalMoney,jdbcType=REAL},
+		create_time = #{createTime,jdbcType=VARCHAR},
+		thd = #{thd,jdbcType=VARCHAR},
+		th_time = #{thTime,jdbcType=VARCHAR},
+		thr = #{thr,jdbcType=VARCHAR},
+		th_phone = #{thPhone,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
 </mapper>

@@ -1,42 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chy.mapper.OrderMapper">
-  <resultMap id="BaseResultMap" type="com.chy.pojo.out.Order">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="order_code" jdbcType="VARCHAR" property="orderCode" />
-    <result column="status" jdbcType="TINYINT" property="status" />
-    <result column="total_money" jdbcType="REAL" property="totalMoney" />
-    <result column="create_time" jdbcType="VARCHAR" property="createTime" />
-    <result column="thd" jdbcType="VARCHAR" property="thd" />
-    <result column="thr" jdbcType="VARCHAR" property="thr" />
-    <result column="th_time" jdbcType="VARCHAR" property="thTime" />
-    <result column="th_phone" jdbcType="VARCHAR" property="thPhone" />
-    <result column="user_id" jdbcType="VARCHAR" property="userId" />
-    <result column="ztd_id" jdbcType="INTEGER" property="ztdId" />
-    <result column="end_time" jdbcType="VARCHAR" property="endTime" />
-    <result column="is_bouns" jdbcType="BIT" property="isBouns" />
-    <result column="is_sign_for" jdbcType="BIT" property="isSignFor" />
-  </resultMap>
-  <resultMap id="BaseResultMapEx" type="com.chy.pojo.out.Order">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="order_code" jdbcType="VARCHAR" property="orderCode" />
-    <result column="status" jdbcType="TINYINT" property="status" />
-    <result column="total_money" jdbcType="REAL" property="totalMoney" />
-    <result column="create_time" jdbcType="VARCHAR" property="createTime" />
-    <result column="thd" jdbcType="VARCHAR" property="thd" />
-    <result column="thr" jdbcType="VARCHAR" property="thr" />
-    <result column="th_time" jdbcType="VARCHAR" property="thTime" />
-    <result column="th_phone" jdbcType="VARCHAR" property="thPhone" />
-    <result column="user_id" jdbcType="VARCHAR" property="userId" />
-    <result column="ztd_id" jdbcType="INTEGER" property="ztdId" />
-    <result column="end_time" jdbcType="VARCHAR" property="endTime" />
-    <result column="is_bouns" jdbcType="BIT" property="isBouns" />
-    <result column="is_sign_for" jdbcType="BIT" property="isSignFor" />
-    <collection property="itemList" select="selectListByParamsEx"
-			column="id">
+	<resultMap id="BaseResultMap" type="com.chy.pojo.out.Order">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="order_code" jdbcType="VARCHAR"
+			property="orderCode" />
+		<result column="status" jdbcType="TINYINT" property="status" />
+		<result column="total_money" jdbcType="REAL"
+			property="totalMoney" />
+		<result column="create_time" jdbcType="VARCHAR"
+			property="createTime" />
+		<result column="thd" jdbcType="VARCHAR" property="thd" />
+		<result column="thr" jdbcType="VARCHAR" property="thr" />
+		<result column="th_time" jdbcType="VARCHAR" property="thTime" />
+		<result column="th_phone" jdbcType="VARCHAR" property="thPhone" />
+		<result column="user_id" jdbcType="VARCHAR" property="userId" />
+		<result column="ztd_id" jdbcType="INTEGER" property="ztdId" />
+		<result column="end_time" jdbcType="VARCHAR" property="endTime" />
+		<result column="is_bouns" jdbcType="BIT" property="isBouns" />
+		<result column="is_sign_for" jdbcType="BIT"
+			property="isSignFor" />
+	</resultMap>
+	<resultMap id="BaseResultMapEx" type="com.chy.pojo.out.Order">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="order_code" jdbcType="VARCHAR"
+			property="orderCode" />
+		<result column="status" jdbcType="TINYINT" property="status" />
+		<result column="total_money" jdbcType="REAL"
+			property="totalMoney" />
+		<result column="create_time" jdbcType="VARCHAR"
+			property="createTime" />
+		<result column="thd" jdbcType="VARCHAR" property="thd" />
+		<result column="thr" jdbcType="VARCHAR" property="thr" />
+		<result column="th_time" jdbcType="VARCHAR" property="thTime" />
+		<result column="th_phone" jdbcType="VARCHAR" property="thPhone" />
+		<result column="user_id" jdbcType="VARCHAR" property="userId" />
+		<result column="ztd_id" jdbcType="INTEGER" property="ztdId" />
+		<result column="end_time" jdbcType="VARCHAR" property="endTime" />
+		<result column="is_bouns" jdbcType="BIT" property="isBouns" />
+		<result column="is_sign_for" jdbcType="BIT"
+			property="isSignFor" />
+		<collection property="itemList"
+			select="selectListByParamsEx" column="id">
 		</collection>
-  </resultMap>
-  <resultMap id="ItemBaseResultMap" type="com.chy.pojo.out.Item">
+	</resultMap>
+	<resultMap id="ItemBaseResultMap"
+		type="com.chy.pojo.out.Item">
 		<id column="id" jdbcType="INTEGER" property="id" />
 		<result column="created" jdbcType="VARCHAR" property="created" />
 		<result column="modified" jdbcType="VARCHAR"
@@ -104,280 +113,296 @@
 		<result column="ishot" jdbcType="INTEGER" property="ishot" />
 		<result column="num" jdbcType="INTEGER" property="num" />
 	</resultMap>
-  <sql id="Base_Column_List">
-    id, order_code, status, total_money, create_time, thd, thr, th_time, th_phone, user_id, 
-    ztd_id, end_time, is_bouns, is_sign_for
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMapEx">
-    select 
-    <include refid="Base_Column_List" />
-    from t_order
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  
-  <select id="selectListByParams" parameterType="java.util.Map" resultMap="BaseResultMapEx">
-  	SELECT
-			o.*
+	<sql id="Base_Column_List">
+		id, order_code, status, total_money, create_time, thd, thr, th_time,
+		th_phone, user_id,
+		ztd_id, end_time, is_bouns, is_sign_for
+	</sql>
+	<select id="selectByPrimaryKey"
+		parameterType="java.lang.Integer" resultMap="BaseResultMapEx">
+		select
+		<include refid="Base_Column_List" />
+		from t_order
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+
+	<select id="selectListByParams" parameterType="java.util.Map"
+		resultMap="BaseResultMapEx">
+		SELECT
+		o.*
 		FROM
-			t_order AS o
+		t_order AS o
 		<where>
 			<if test="userId != null">
-	       		and o.user_id=#{userId}
-	        </if>
-	        <if test="status != null">
-	       		and o.status = #{status}
-	        </if>
+				and o.user_id=#{userId}
+			</if>
+			<if test="status != null">
+				and o.status = #{status}
+			</if>
 			<if test="orderId != null">
-	       		and o.id = #{orderId}
-	        </if>
-	        <if test="orderCode!=null">
-	        	and o.order_code = #{orderCode}
-	        </if>
-        </where>
-        order by o.create_time DESC
-  </select>
-  <select id="selectListByParamsPageing" parameterType="java.util.Map" resultMap="BaseResultMapEx">
-  	SELECT
-			o.*
+				and o.id = #{orderId}
+			</if>
+			<if test="orderCode!=null">
+				and o.order_code = #{orderCode}
+			</if>
+		</where>
+		order by o.create_time DESC
+	</select>
+	<select id="selectListByParamsPageing"
+		parameterType="java.util.Map" resultMap="BaseResultMapEx">
+		SELECT
+		o.*
 		FROM
-			t_order AS o
+		t_order AS o
 		<where>
 			<if test="userId != null and userId !=''">
-	       		and o.user_id=#{userId}
-	        </if>
-	        <if test="status != null and status !=''">
-	       		and o.status = #{status}
-	        </if>
+				and o.user_id=#{userId}
+			</if>
+			<if test="status != null and status !=''">
+				and o.status = #{status}
+			</if>
 			<if test="orderCode!=null and orderCode!=''">
-	        	and o.order_code = #{orderCode}
-	        </if>
-        </where>
-        LIMIT ${pageNum},${pageSize}
-  </select>
-  <select id="selectListOrderPageCount" parameterType="java.util.Map" resultType="java.lang.Long">
-  	SELECT
-			count(*)
+				and o.order_code = #{orderCode}
+			</if>
+		</where>
+		LIMIT ${pageNum},${pageSize}
+	</select>
+	<select id="selectListOrderPageCount"
+		parameterType="java.util.Map" resultType="java.lang.Long">
+		SELECT
+		count(*)
 		FROM
-			t_order AS o
+		t_order AS o
 		<where>
 			<if test="userId != null and userId !=''">
-	       		and o.user_id=#{userId}
-	        </if>
-	        <if test="status != null and status!=''">
-	       		and o.status = #{status}
-	        </if>
+				and o.user_id=#{userId}
+			</if>
+			<if test="status != null and status!=''">
+				and o.status = #{status}
+			</if>
 			<if test="orderCode != null and orderCode !=''">
-	       		and o.order_code = #{orderCode}
-	        </if>
-        </where>
-  </select>
-  
-  <select id="selectListByParamsEx" parameterType="java.util.Map" resultMap="ItemBaseResultMap">
-  	SELECT
-		i.*,oi.num
-	FROM
-		t_item AS i
-	INNER JOIN t_order_item AS oi ON i.id = oi.item_id
-	WHERE
-		oi.order_id = #{id}
-  </select>
-  <select id="selectListByAutoPint" parameterType="java.util.Map" resultMap="BaseResultMapEx">
-  	select * from t_order
-  	<where>
-  		<if test="status!=null">
-  			and status = #{status}
-  		</if>
-  		<if test="ztdId!=null">
-  			and ztd_id = #{ztdId}
-  		</if>
-  		<if test="beginTime != null">
-       		AND DATE_FORMAT(create_time, '%Y%m%d') <![CDATA[ >=  ]]>  DATE_FORMAT(#{beginTime}, '%Y%m%d')
-        </if>
-        <if test="endTime != null">
-       		AND DATE_FORMAT(create_time, '%Y%m%d') <![CDATA[ <=  ]]>  DATE_FORMAT(#{endTime}, '%Y%m%d')
-        </if>
+				and o.order_code = #{orderCode}
+			</if>
+		</where>
+	</select>
 
-        <if test="isSignFor !=null">
-        	and is_sign_for = #{isSign}
-        </if>
-  	</where>
-  	order by create_time desc
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from t_order
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.chy.pojo.out.Order">
-    insert into t_order (id, order_code, status, 
-      total_money, create_time, thd, 
-      thr, th_time, th_phone, 
-      user_id, ztd_id, end_time, 
-      is_bouns, is_sign_for)
-    values (#{id,jdbcType=INTEGER}, #{orderCode,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, 
-      #{totalMoney,jdbcType=REAL}, sysdate(), #{thd,jdbcType=VARCHAR}, 
-      #{thr,jdbcType=VARCHAR}, #{thTime,jdbcType=VARCHAR}, #{thPhone,jdbcType=VARCHAR}, 
-      #{userId,jdbcType=VARCHAR}, #{ztdId,jdbcType=INTEGER}, #{endTime,jdbcType=VARCHAR}, 
-      #{isBouns,jdbcType=BIT}, #{isSignFor,jdbcType=BIT})
-  </insert>
-  <insert id="insertSelective" parameterType="com.chy.pojo.out.Order">
-    insert into t_order
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="orderCode != null">
-        order_code,
-      </if>
-      <if test="status != null">
-        status,
-      </if>
-      <if test="totalMoney != null">
-        total_money,
-      </if>
-      <if test="true">
-        create_time,
-      </if>
-      <if test="thd != null">
-        thd,
-      </if>
-      <if test="thr != null">
-        thr,
-      </if>
-      <if test="thTime != null">
-        th_time,
-      </if>
-      <if test="thPhone != null">
-        th_phone,
-      </if>
-      <if test="userId != null">
-        user_id,
-      </if>
-      <if test="ztdId != null">
-        ztd_id,
-      </if>
-      <if test="endTime != null">
-        end_time,
-      </if>
-      <if test="isBouns != null">
-        is_bouns,
-      </if>
-      <if test="isSignFor != null">
-        is_sign_for,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="orderCode != null">
-        #{orderCode,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null">
-        #{status,jdbcType=TINYINT},
-      </if>
-      <if test="totalMoney != null">
-        #{totalMoney,jdbcType=REAL},
-      </if>
-      <if test="true">
-        sysdate(),
-      </if>
-      <if test="thd != null">
-        #{thd,jdbcType=VARCHAR},
-      </if>
-      <if test="thr != null">
-        #{thr,jdbcType=VARCHAR},
-      </if>
-      <if test="thTime != null">
-        #{thTime,jdbcType=VARCHAR},
-      </if>
-      <if test="thPhone != null">
-        #{thPhone,jdbcType=VARCHAR},
-      </if>
-      <if test="userId != null">
-        #{userId,jdbcType=VARCHAR},
-      </if>
-      <if test="ztdId != null">
-        #{ztdId,jdbcType=INTEGER},
-      </if>
-      <if test="endTime != null">
-        #{endTime,jdbcType=VARCHAR},
-      </if>
-      <if test="isBouns != null">
-        #{isBouns,jdbcType=BIT},
-      </if>
-      <if test="isSignFor != null">
-        #{isSignFor,jdbcType=BIT},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.chy.pojo.out.Order">
-    update t_order
-    <set>
-      <if test="orderCode != null">
-        order_code = #{orderCode,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null">
-        status = #{status,jdbcType=TINYINT},
-      </if>
-      <if test="totalMoney != null">
-        total_money = #{totalMoney,jdbcType=REAL},
-      </if>
-      <if test="createTime != null">
-        create_time = #{createTime,jdbcType=VARCHAR},
-      </if>
-      <if test="thd != null">
-        thd = #{thd,jdbcType=VARCHAR},
-      </if>
-      <if test="thr != null">
-        thr = #{thr,jdbcType=VARCHAR},
-      </if>
-      <if test="thTime != null">
-        th_time = #{thTime,jdbcType=VARCHAR},
-      </if>
-      <if test="thPhone != null">
-        th_phone = #{thPhone,jdbcType=VARCHAR},
-      </if>
-      <if test="userId != null">
-        user_id = #{userId,jdbcType=VARCHAR},
-      </if>
-      <if test="ztdId != null">
-        ztd_id = #{ztdId,jdbcType=INTEGER},
-      </if>
-      <if test="true">
-        end_time = sysdate(),
-      </if>
-      <if test="isBouns != null">
-        is_bouns = #{isBouns,jdbcType=BIT},
-      </if>
-      <if test="isSignFor != null">
-        is_sign_for = #{isSignFor,jdbcType=BIT},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  
-  
-  <update id="updateStatusByOrderCode" parameterType="com.chy.pojo.out.Order">
-    update t_order
-    set status = #{status,jdbcType=TINYINT}
-    where order_code = #{orderCode}
-  </update>
-  
-  <update id="updateByPrimaryKey" parameterType="com.chy.pojo.out.Order">
-    update t_order
-    set order_code = #{orderCode,jdbcType=VARCHAR},
-      status = #{status,jdbcType=TINYINT},
-      total_money = #{totalMoney,jdbcType=REAL},
-      create_time = #{createTime,jdbcType=VARCHAR},
-      thd = #{thd,jdbcType=VARCHAR},
-      thr = #{thr,jdbcType=VARCHAR},
-      th_time = #{thTime,jdbcType=VARCHAR},
-      th_phone = #{thPhone,jdbcType=VARCHAR},
-      user_id = #{userId,jdbcType=VARCHAR},
-      ztd_id = #{ztdId,jdbcType=INTEGER},
-      end_time = sysdate(),
-      is_bouns = #{isBouns,jdbcType=BIT},
-      is_sign_for = #{isSignFor,jdbcType=BIT}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+	<select id="selectListByParamsEx" parameterType="java.util.Map"
+		resultMap="ItemBaseResultMap">
+		SELECT
+		i.*,oi.num
+		FROM
+		t_item AS i
+		INNER JOIN t_order_item AS oi ON i.id = oi.item_id
+		WHERE
+		oi.order_id = #{id}
+	</select>
+	<select id="selectListByAutoPint" parameterType="java.util.Map"
+		resultMap="BaseResultMapEx">
+		select * from t_order
+		<where>
+			<if test="status!=null">
+				and status = #{status}
+			</if>
+			<if test="ztdId!=null">
+				and ztd_id = #{ztdId}
+			</if>
+			<if test="beginTime != null">
+				AND DATE_FORMAT(create_time, '%Y%m%d') <![CDATA[ >=  ]]>
+				DATE_FORMAT(#{beginTime}, '%Y%m%d')
+			</if>
+			<if test="endTime != null">
+				AND DATE_FORMAT(create_time, '%Y%m%d') <![CDATA[ <=  ]]>
+				DATE_FORMAT(#{endTime}, '%Y%m%d')
+			</if>
+
+			<if test="isSignFor !=null">
+				and is_sign_for = #{isSignFor}
+			</if>
+		</where>
+		order by create_time desc
+	</select>
+	<delete id="deleteByPrimaryKey"
+		parameterType="java.lang.Integer">
+		delete from t_order
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.chy.pojo.out.Order">
+		insert into t_order (id, order_code, status,
+		total_money, create_time, thd,
+		thr, th_time, th_phone,
+		user_id, ztd_id, end_time,
+		is_bouns, is_sign_for)
+		values (#{id,jdbcType=INTEGER}, #{orderCode,jdbcType=VARCHAR},
+		#{status,jdbcType=TINYINT},
+		#{totalMoney,jdbcType=REAL}, sysdate(), #{thd,jdbcType=VARCHAR},
+		#{thr,jdbcType=VARCHAR}, #{thTime,jdbcType=VARCHAR}, #{thPhone,jdbcType=VARCHAR},
+		#{userId,jdbcType=VARCHAR}, #{ztdId,jdbcType=INTEGER},
+		#{endTime,jdbcType=VARCHAR},
+		#{isBouns,jdbcType=BIT}, #{isSignFor,jdbcType=BIT})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.chy.pojo.out.Order">
+		insert into t_order
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="orderCode != null">
+				order_code,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="totalMoney != null">
+				total_money,
+			</if>
+			<if test="true">
+				create_time,
+			</if>
+			<if test="thd != null">
+				thd,
+			</if>
+			<if test="thr != null">
+				thr,
+			</if>
+			<if test="thTime != null">
+				th_time,
+			</if>
+			<if test="thPhone != null">
+				th_phone,
+			</if>
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="ztdId != null">
+				ztd_id,
+			</if>
+			<if test="endTime != null">
+				end_time,
+			</if>
+			<if test="isBouns != null">
+				is_bouns,
+			</if>
+			<if test="isSignFor != null">
+				is_sign_for,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="orderCode != null">
+				#{orderCode,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=TINYINT},
+			</if>
+			<if test="totalMoney != null">
+				#{totalMoney,jdbcType=REAL},
+			</if>
+			<if test="true">
+				sysdate(),
+			</if>
+			<if test="thd != null">
+				#{thd,jdbcType=VARCHAR},
+			</if>
+			<if test="thr != null">
+				#{thr,jdbcType=VARCHAR},
+			</if>
+			<if test="thTime != null">
+				#{thTime,jdbcType=VARCHAR},
+			</if>
+			<if test="thPhone != null">
+				#{thPhone,jdbcType=VARCHAR},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="ztdId != null">
+				#{ztdId,jdbcType=INTEGER},
+			</if>
+			<if test="endTime != null">
+				#{endTime,jdbcType=VARCHAR},
+			</if>
+			<if test="isBouns != null">
+				#{isBouns,jdbcType=BIT},
+			</if>
+			<if test="isSignFor != null">
+				#{isSignFor,jdbcType=BIT},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.chy.pojo.out.Order">
+		update t_order
+		<set>
+			<if test="orderCode != null">
+				order_code = #{orderCode,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=TINYINT},
+			</if>
+			<if test="totalMoney != null">
+				total_money = #{totalMoney,jdbcType=REAL},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=VARCHAR},
+			</if>
+			<if test="thd != null">
+				thd = #{thd,jdbcType=VARCHAR},
+			</if>
+			<if test="thr != null">
+				thr = #{thr,jdbcType=VARCHAR},
+			</if>
+			<if test="thTime != null">
+				th_time = #{thTime,jdbcType=VARCHAR},
+			</if>
+			<if test="thPhone != null">
+				th_phone = #{thPhone,jdbcType=VARCHAR},
+			</if>
+			<if test="userId != null">
+				user_id = #{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="ztdId != null">
+				ztd_id = #{ztdId,jdbcType=INTEGER},
+			</if>
+			<if test="true">
+				end_time = sysdate(),
+			</if>
+			<if test="isBouns != null">
+				is_bouns = #{isBouns,jdbcType=BIT},
+			</if>
+			<if test="isSignFor != null">
+				is_sign_for = #{isSignFor,jdbcType=BIT},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+
+	<update id="updateStatusByOrderCode"
+		parameterType="com.chy.pojo.out.Order">
+		update t_order
+		set status = #{status,jdbcType=TINYINT}
+		where order_code = #{orderCode}
+	</update>
+
+	<update id="updateByPrimaryKey"
+		parameterType="com.chy.pojo.out.Order">
+		update t_order
+		set order_code = #{orderCode,jdbcType=VARCHAR},
+		status = #{status,jdbcType=TINYINT},
+		total_money = #{totalMoney,jdbcType=REAL},
+		create_time = #{createTime,jdbcType=VARCHAR},
+		thd = #{thd,jdbcType=VARCHAR},
+		thr = #{thr,jdbcType=VARCHAR},
+		th_time = #{thTime,jdbcType=VARCHAR},
+		th_phone = #{thPhone,jdbcType=VARCHAR},
+		user_id = #{userId,jdbcType=VARCHAR},
+		ztd_id = #{ztdId,jdbcType=INTEGER},
+		end_time = sysdate(),
+		is_bouns = #{isBouns,jdbcType=BIT},
+		is_sign_for = #{isSignFor,jdbcType=BIT}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
 </mapper>

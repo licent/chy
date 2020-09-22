@@ -1,177 +1,191 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chy.mapper.ShopownerMapper">
-  <resultMap id="BaseResultMap" type="com.chy.pojo.out.Shopowner">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="user_id" jdbcType="VARCHAR" property="userId" />
-    <result column="create_time" jdbcType="VARCHAR" property="createTime" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="phone" jdbcType="VARCHAR" property="phone" />
-    <result column="auto_point_id" jdbcType="VARCHAR" property="autoPointId" />
-    <result column="id_num" jdbcType="VARCHAR" property="idNum" />
-    <result column="is_check" jdbcType="TINYINT" property="isCheck" />
-    <result column="certificates_img" jdbcType="VARCHAR" property="certificatesImg" />
-    <result column="check_time" jdbcType="VARCHAR" property="checkTime" />
-    <result column="check_er" jdbcType="VARCHAR" property="checkEr" />
-    <result column="parent_user_id" jdbcType="VARCHAR" property="parentUserId" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, user_id, create_time, name, phone, auto_point_id, id_num, is_check, certificates_img, 
-    check_time, check_er, parent_user_id
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from t_shopowner
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from t_shopowner
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.chy.pojo.out.Shopowner">
-    insert into t_shopowner (id, user_id, create_time, 
-      name, phone, auto_point_id, 
-      id_num, is_check, certificates_img, 
-      check_time, check_er, parent_user_id
-      )
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, 
-      #{name,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{autoPointId,jdbcType=VARCHAR}, 
-      #{idNum,jdbcType=VARCHAR}, #{isCheck,jdbcType=TINYINT}, #{certificatesImg,jdbcType=VARCHAR}, 
-      #{checkTime,jdbcType=VARCHAR}, #{checkEr,jdbcType=VARCHAR}, #{parentUserId,jdbcType=VARCHAR}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.chy.pojo.out.Shopowner">
-    insert into t_shopowner
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="userId != null">
-        user_id,
-      </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-      <if test="name != null">
-        name,
-      </if>
-      <if test="phone != null">
-        phone,
-      </if>
-      <if test="autoPointId != null">
-        auto_point_id,
-      </if>
-      <if test="idNum != null">
-        id_num,
-      </if>
-      <if test="isCheck != null">
-        is_check,
-      </if>
-      <if test="certificatesImg != null">
-        certificates_img,
-      </if>
-      <if test="checkTime != null">
-        check_time,
-      </if>
-      <if test="checkEr != null">
-        check_er,
-      </if>
-      <if test="parentUserId != null">
-        parent_user_id,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="userId != null">
-        #{userId,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=VARCHAR},
-      </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="phone != null">
-        #{phone,jdbcType=VARCHAR},
-      </if>
-      <if test="autoPointId != null">
-        #{autoPointId,jdbcType=VARCHAR},
-      </if>
-      <if test="idNum != null">
-        #{idNum,jdbcType=VARCHAR},
-      </if>
-      <if test="isCheck != null">
-        #{isCheck,jdbcType=TINYINT},
-      </if>
-      <if test="certificatesImg != null">
-        #{certificatesImg,jdbcType=VARCHAR},
-      </if>
-      <if test="checkTime != null">
-        #{checkTime,jdbcType=VARCHAR},
-      </if>
-      <if test="checkEr != null">
-        #{checkEr,jdbcType=VARCHAR},
-      </if>
-      <if test="parentUserId != null">
-        #{parentUserId,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.chy.pojo.out.Shopowner">
-    update t_shopowner
-    <set>
-      <if test="userId != null">
-        user_id = #{userId,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
-        create_time = #{createTime,jdbcType=VARCHAR},
-      </if>
-      <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="phone != null">
-        phone = #{phone,jdbcType=VARCHAR},
-      </if>
-      <if test="autoPointId != null">
-        auto_point_id = #{autoPointId,jdbcType=VARCHAR},
-      </if>
-      <if test="idNum != null">
-        id_num = #{idNum,jdbcType=VARCHAR},
-      </if>
-      <if test="isCheck != null">
-        is_check = #{isCheck,jdbcType=TINYINT},
-      </if>
-      <if test="certificatesImg != null">
-        certificates_img = #{certificatesImg,jdbcType=VARCHAR},
-      </if>
-      <if test="checkTime != null">
-        check_time = #{checkTime,jdbcType=VARCHAR},
-      </if>
-      <if test="checkEr != null">
-        check_er = #{checkEr,jdbcType=VARCHAR},
-      </if>
-      <if test="parentUserId != null">
-        parent_user_id = #{parentUserId,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.chy.pojo.out.Shopowner">
-    update t_shopowner
-    set user_id = #{userId,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=VARCHAR},
-      name = #{name,jdbcType=VARCHAR},
-      phone = #{phone,jdbcType=VARCHAR},
-      auto_point_id = #{autoPointId,jdbcType=VARCHAR},
-      id_num = #{idNum,jdbcType=VARCHAR},
-      is_check = #{isCheck,jdbcType=TINYINT},
-      certificates_img = #{certificatesImg,jdbcType=VARCHAR},
-      check_time = #{checkTime,jdbcType=VARCHAR},
-      check_er = #{checkEr,jdbcType=VARCHAR},
-      parent_user_id = #{parentUserId,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+	<resultMap id="BaseResultMap"
+		type="com.chy.pojo.out.Shopowner">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="user_id" jdbcType="VARCHAR" property="userId" />
+		<result column="create_time" jdbcType="VARCHAR"
+			property="createTime" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="phone" jdbcType="VARCHAR" property="phone" />
+		<result column="auto_point_id" jdbcType="VARCHAR"
+			property="autoPointId" />
+		<result column="id_num" jdbcType="VARCHAR" property="idNum" />
+		<result column="is_check" jdbcType="TINYINT" property="isCheck" />
+		<result column="certificates_img" jdbcType="VARCHAR"
+			property="certificatesImg" />
+		<result column="check_time" jdbcType="VARCHAR"
+			property="checkTime" />
+		<result column="check_er" jdbcType="VARCHAR" property="checkEr" />
+		<result column="parent_user_id" jdbcType="VARCHAR"
+			property="parentUserId" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, user_id, create_time, name, phone, auto_point_id, id_num, is_check,
+		certificates_img,
+		check_time, check_er, parent_user_id
+	</sql>
+	<select id="selectByPrimaryKey"
+		parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_shopowner
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey"
+		parameterType="java.lang.Integer">
+		delete from t_shopowner
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.chy.pojo.out.Shopowner">
+		insert into t_shopowner (id, user_id, create_time,
+		name, phone, auto_point_id,
+		id_num, is_check, certificates_img,
+		check_time, check_er, parent_user_id
+		)
+		values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR},
+		#{createTime,jdbcType=VARCHAR},
+		#{name,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{autoPointId,jdbcType=VARCHAR},
+		#{idNum,jdbcType=VARCHAR}, #{isCheck,jdbcType=TINYINT},
+		#{certificatesImg,jdbcType=VARCHAR},
+		#{checkTime,jdbcType=VARCHAR}, #{checkEr,jdbcType=VARCHAR}, #{parentUserId,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.chy.pojo.out.Shopowner">
+		insert into t_shopowner
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="phone != null">
+				phone,
+			</if>
+			<if test="autoPointId != null">
+				auto_point_id,
+			</if>
+			<if test="idNum != null">
+				id_num,
+			</if>
+			<if test="isCheck != null">
+				is_check,
+			</if>
+			<if test="certificatesImg != null">
+				certificates_img,
+			</if>
+			<if test="checkTime != null">
+				check_time,
+			</if>
+			<if test="checkEr != null">
+				check_er,
+			</if>
+			<if test="parentUserId != null">
+				parent_user_id,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null">
+				#{phone,jdbcType=VARCHAR},
+			</if>
+			<if test="autoPointId != null">
+				#{autoPointId,jdbcType=VARCHAR},
+			</if>
+			<if test="idNum != null">
+				#{idNum,jdbcType=VARCHAR},
+			</if>
+			<if test="isCheck != null">
+				#{isCheck,jdbcType=TINYINT},
+			</if>
+			<if test="certificatesImg != null">
+				#{certificatesImg,jdbcType=VARCHAR},
+			</if>
+			<if test="checkTime != null">
+				#{checkTime,jdbcType=VARCHAR},
+			</if>
+			<if test="checkEr != null">
+				#{checkEr,jdbcType=VARCHAR},
+			</if>
+			<if test="parentUserId != null">
+				#{parentUserId,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.chy.pojo.out.Shopowner">
+		update t_shopowner
+		<set>
+			<if test="userId != null">
+				user_id = #{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null">
+				phone = #{phone,jdbcType=VARCHAR},
+			</if>
+			<if test="autoPointId != null">
+				auto_point_id = #{autoPointId,jdbcType=VARCHAR},
+			</if>
+			<if test="idNum != null">
+				id_num = #{idNum,jdbcType=VARCHAR},
+			</if>
+			<if test="isCheck != null">
+				is_check = #{isCheck,jdbcType=TINYINT},
+			</if>
+			<if test="certificatesImg != null">
+				certificates_img = #{certificatesImg,jdbcType=VARCHAR},
+			</if>
+			<if test="checkTime != null">
+				check_time = #{checkTime,jdbcType=VARCHAR},
+			</if>
+			<if test="checkEr != null">
+				check_er = #{checkEr,jdbcType=VARCHAR},
+			</if>
+			<if test="parentUserId != null">
+				parent_user_id = #{parentUserId,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.chy.pojo.out.Shopowner">
+		update t_shopowner
+		set user_id = #{userId,jdbcType=VARCHAR},
+		create_time = #{createTime,jdbcType=VARCHAR},
+		name = #{name,jdbcType=VARCHAR},
+		phone = #{phone,jdbcType=VARCHAR},
+		auto_point_id = #{autoPointId,jdbcType=VARCHAR},
+		id_num = #{idNum,jdbcType=VARCHAR},
+		is_check = #{isCheck,jdbcType=TINYINT},
+		certificates_img = #{certificatesImg,jdbcType=VARCHAR},
+		check_time = #{checkTime,jdbcType=VARCHAR},
+		check_er = #{checkEr,jdbcType=VARCHAR},
+		parent_user_id = #{parentUserId,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
 </mapper>
